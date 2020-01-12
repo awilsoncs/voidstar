@@ -1,0 +1,88 @@
+import numpy as np
+import tcod
+import tcod.map
+
+import settings
+from components import Attributes
+from components.coordinates import Coordinates
+from engine import GameScene, colors
+from engine.constants import PLAYER_ID
+from engine.infos import ColoredMessage
+from gui.bars import Bar
+from gui.fps_counter import FPSCounter
+from gui.message_box import MessageBox
+from gui.play_window import PlayWindow
+from systems import ai, control_player, death, \
+    debug_system, interact, update_senses, \
+    move, control_turns, quit, melee_attack, control_cursor
+
+
+class SimulationScene(GameScene):
+    def __init__(self, zone: int, debug=False):
+        super().__init__(debug)
+        self.player = PLAYER_ID
+        self.message_box = []
+        self.zone = zone
+        self.map = tcod.map.Map(settings.MAP_WIDTH, settings.MAP_HEIGHT, order='F')
+        # track tiles the player has seen
+        self.memory_map = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
+
+        # build out the gui
+        self.play_window = PlayWindow(
+            25, 0, settings.MAP_WIDTH, settings.MAP_HEIGHT,
+            self.cm, self.map.fov, self.memory_map
+        )
+        self.add_gui_element(self.play_window)
+        self.add_gui_element(FPSCounter(1, 49))
+        self.add_gui_element(MessageBox(30, 0, 30, 5, self.message_box))
+
+        self.hp_bar = None
+
+    def on_load(self):
+        # load up the transparency map
+        self.play_window.cm = self.cm
+        if not self.hp_bar:
+            self.hp_bar = self.get_hp_bar()
+            self.add_gui_element(self.hp_bar)
+
+        coordinates = self.cm.get(Coordinates)
+        coordinates = [c for c in coordinates if c.terrain]
+
+        for coord in coordinates:
+            self.map.transparent[coord.x, coord.y] = not coord.blocks_sight
+            self.map.walkable[coord.x, coord.y] = not coord.blocks
+
+    def get_hp_bar(self):
+        health = self.cm.get_one(Attributes, self.player)
+        return Bar(
+            x=1, y=1, total_width=23,
+            name='health',
+            value=lambda: health.hp,
+            maximum=lambda: health.max_hp,
+            bar_color=colors.light_red,
+            back_color=colors.dark_red
+        )
+
+    def update(self):
+        try:
+            ai.run(self)
+            control_player.run(self)
+            control_cursor.run(self)
+            death.run(self)
+            debug_system.run(self)
+            interact.run(self)
+            melee_attack.run(self)
+            move.run(self)
+            control_turns.run(self)
+            update_senses.run(self)
+            quit.run(self)
+        except Exception as e:
+            if self.debug:
+                raise e
+            self.message(str(e), color=colors.red)
+
+    def message(self, message, color=colors.white):
+        self.message_box.append(ColoredMessage(
+            color=color,
+            message=message
+        ))

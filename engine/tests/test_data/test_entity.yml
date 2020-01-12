@@ -1,0 +1,18 @@
+monster:
+  type: bad monster
+  entity:
+    name: monster
+  appearance: $m_grey_appearance
+---
+bad monster:
+  attributes:
+    strength: 16
+    dexterity: 15
+    constitution: 12
+    intelligence: 6
+    wisdom: 8
+    charisma: 4
+---
+m_grey_appearance:
+  symbol: m
+  color: grey

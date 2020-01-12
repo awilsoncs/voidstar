@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[requires]
+python_version = '3.8'
+
+[packages]
+numpy = "*"
+matplotlib = "*"
+pyyaml = ">=4.2b1"
+dice = "*"
+"num2words" = "*"
+tracery = "*"
+sqlalchemy = "*"
+cprofilev = "*"
+pyaml = "*"
+tcod = ">=10.0.0"
+nose = "*"
+sqlalchemy-utils = "*"
+
+[dev-packages]
+pylint = "*"
