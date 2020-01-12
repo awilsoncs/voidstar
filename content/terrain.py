@@ -16,7 +16,7 @@ def make_ground(zone_id):
 
 
 def _get_ground_symbol():
-    return random.choice(["`", "'", ",", ".", "\""])
+    return random.choice(["`", "'", ",", ".", "\"", " "])
 
 
 def make_tree(zone_id):

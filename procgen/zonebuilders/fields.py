@@ -2,10 +2,11 @@ import random
 
 import settings
 from components import Appearance, Coordinates
+from content.allies import make_peasant
 from content.enemies import make_hordeling
 from content.player import make_player
 from content.terrain import make_ground, make_tree
-from engine import core
+from engine import core, palettes
 from engine.component_manager import ComponentManager
 from engine.constants import PRIORITY_LOWEST, PRIORITY_MEDIUM
 from engine.palettes import Palette
@@ -26,6 +27,8 @@ class FieldBuilder:
         self.zone_id = core.get_id()
         self.palette = Palette()
         self.noise_generator = core.get_noise_generator()
+        self.mob_color = palettes.white
+
 
     def make_world(self, cm, zone_id):
         """Create a component manager containing the initial map."""
@@ -62,8 +65,8 @@ class FieldBuilder:
         )
         self.cm.add(*ground[1])
         wall_appearance = self.cm.get_one(Appearance, ground[0])
-        wall_appearance.color = random.choice(self.palette.primary)
-        wall_appearance.bg_color = self.palette.primary[6]
+        wall_appearance.color = self.palette.primary[3]
+        wall_appearance.bg_color = self.palette.black
         self.tile_map[x, y] = ground[0]
 
     def add_tree(self, x: int, y: int) -> None:
@@ -81,8 +84,8 @@ class FieldBuilder:
         )
         self.cm.add(*tree[1])
         tree_appearance = self.cm.get_one(Appearance, tree[0])
-        tree_appearance.color = random.choice(self.palette.secondary)
-        tree_appearance.bg_color = self.palette.primary[6]
+        tree_appearance.color = self.palette.secondary[0]
+        tree_appearance.bg_color = self.palette.black
         self.object_map[x, y] = tree[0]
 
     def add_hordeling(self, x, y):
@@ -100,13 +103,34 @@ class FieldBuilder:
         )
         self.cm.add(*hordeling[1])
         hordeling_appearance = self.cm.get_one(Appearance, hordeling[0])
-        hordeling_appearance.bg_color = self.palette.primary[6]
+        hordeling_appearance.color = self.mob_color
+        hordeling_appearance.bg_color = self.palette.black
         self.object_map[x, y] = hordeling[0]
+
+    def add_peasant(self, x, y):
+        peasant = make_peasant(self.zone_id)
+        peasant[1].append(
+            Coordinates(
+                entity=peasant[0],
+                x=x,
+                y=y,
+                blocks=True,
+                blocks_sight=False,
+                priority=PRIORITY_MEDIUM,
+                terrain=False,
+            )
+        )
+        self.cm.add(*peasant[1])
+        peasant_appearance = self.cm.get_one(Appearance, peasant[0])
+        peasant_appearance.color = self.mob_color
+        peasant_appearance.bg_color = self.palette.black
+        self.object_map[x, y] = peasant[0]
 
     def place_objects(self):
         for x in range(0, settings.MAP_WIDTH - 1):
             self.add_tree(x, 0)
             self.add_tree(x, settings.MAP_HEIGHT - 1)
+
         for y in range(1, settings.MAP_HEIGHT - 1):
             self.add_tree(0, y)
             self.add_tree(settings.MAP_WIDTH - 1, y)
@@ -116,8 +140,15 @@ class FieldBuilder:
             y = random.randint(0, settings.MAP_HEIGHT - 1)
             if (x, y) not in self.object_map:
                 self.add_tree(x, y)
+
         for _ in range(4):
             x = random.randint(0, settings.MAP_WIDTH - 1)
             y = random.randint(0, settings.MAP_HEIGHT - 1)
             if (x, y) not in self.object_map:
                 self.add_hordeling(x, y)
+
+        for _ in range(2):
+            x = random.randint(0, settings.MAP_WIDTH - 1)
+            y = random.randint(0, settings.MAP_HEIGHT - 1)
+            if (x, y) not in self.object_map:
+                self.add_peasant(x, y)

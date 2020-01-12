@@ -334,6 +334,7 @@ class Palette:
         self.primary = get_colors(self.colors[0])
         self.secondary = get_colors(self.colors[1])
         self.tertiary = get_colors(self.colors[2])
+        self.black = black
 
     def as_list(self):
         return self.primary + self.secondary + self.tertiary
