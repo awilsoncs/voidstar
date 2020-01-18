@@ -90,7 +90,6 @@ def _report_target(scene, x, y):
                 scene.message(object_name)
 
 
-
 def _kill_cursor(scene):
     for brain in get_brains_with_intention(scene, Intention.KILL_CURSOR):
         owner = scene.cm.get_one(Owner, entity=brain.entity).owner

@@ -12,8 +12,8 @@ def run(scene):
         if can_step(scene, entity, STEP_VECTORS[brain.intention]):
             move(scene, entity, STEP_VECTORS[brain.intention])
             dirty_senses(scene, entity)
-            retract_intention(scene, entity)
-            retract_turn(scene, entity)
+        retract_turn(scene, entity)
+        retract_intention(scene, entity)
 
 
 def get_brains_with_step_intention(scene):
