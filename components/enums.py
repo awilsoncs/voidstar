@@ -29,3 +29,4 @@ class ControlMode(Enum):
     PLAYER = 'player'
     CURSOR = 'cursor'
     WANDER = 'wander'
+    DEAD_PLAYER = 'dead_player'

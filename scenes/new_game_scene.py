@@ -1,6 +1,6 @@
 from components import Entity
 from engine import GameScene, core
-from procgen.galaxy_names import get_file_name
+from procgen.town_names import get_file_name
 from procgen.zonebuilders import fields
 from scenes.simulation_scene import SimulationScene
 

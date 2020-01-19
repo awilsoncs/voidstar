@@ -12,19 +12,25 @@ def run(scene) -> None:
 
 
 def do_take_turn(scene, brain: Brain) -> None:
-    if brain and brain.control_mode == ControlMode.PLAYER:
-        control_player(scene, brain.entity)
+    if brain and brain.control_mode is ControlMode.PLAYER:
+        handle_key_event(scene, brain.entity, KEY_ACTION_MAP)
+    if brain and brain.control_mode is ControlMode.DEAD_PLAYER:
+        handle_key_event(scene, brain.entity, DEAD_KEY_ACTION_MAP)
 
 
-def control_player(scene, entity_id) -> None:
-    """Get the player's input (if any) and dispatch the relevant action."""
+def handle_key_event(scene, entity_id, action_map):
     key_event = core.get_key_event()
     if key_event:
         key_event = key_event.sym
-        if key_event in KEY_ACTION_MAP:
-            intention = KEY_ACTION_MAP[key_event]
-            set_intention(scene, entity_id, None, intention)
+        intention = action_map.get(key_event, None)
+        set_intention(scene, entity_id, None, intention)
 
+
+DEAD_KEY_ACTION_MAP = {
+    tcod.event.K_l: Intention.ACTIVATE_CURSOR,
+    tcod.event.K_x: Intention.SHOW_DEBUG_SCREEN,
+    tcod.event.K_ESCAPE: Intention.QUIT_GAME
+}
 
 KEY_ACTION_MAP = {
     tcod.event.K_UP: Intention.STEP_NORTH,

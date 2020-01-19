@@ -12,7 +12,7 @@ def make_peasant(zone_id):
             Entity(id=entity_id, entity=entity_id, name='peasant', zone=zone_id),
             Brain(entity=entity_id, control_mode=ControlMode.WANDER),
             Appearance(entity=entity_id, symbol='p', color=colors.white),
-            Attributes(entity=entity_id, hp=10, max_hp=10),
+            Attributes(entity=entity_id, hp=100, max_hp=100),
             TargetValue(entity=entity_id, value=PEASANT)
         ]
     )
