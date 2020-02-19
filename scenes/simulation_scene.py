@@ -5,6 +5,7 @@ import tcod.map
 import settings
 from components import Attributes
 from components.coordinates import Coordinates
+from components.material import Material
 from engine import GameScene, colors
 from engine.constants import PLAYER_ID
 from engine.infos import ColoredMessage
@@ -49,8 +50,9 @@ class SimulationScene(GameScene):
         coordinates = [c for c in coordinates if c.terrain]
 
         for coord in coordinates:
-            self.map.transparent[coord.x, coord.y] = not coord.blocks_sight
-            self.map.walkable[coord.x, coord.y] = not coord.blocks
+            material = self.cm.get_one(Material, coord.entity)
+            self.map.transparent[coord.x, coord.y] = not material.blocks_sight if material else True
+            self.map.walkable[coord.x, coord.y] = not material.blocks if material else True
 
     def get_hp_bar(self):
         health = self.cm.get_one(Attributes, self.player)

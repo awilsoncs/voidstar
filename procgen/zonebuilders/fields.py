@@ -5,7 +5,7 @@ from components import Appearance, Coordinates
 from content.allies import make_peasant
 from content.enemies import make_hordeling
 from content.player import make_player
-from content.terrain import make_ground, make_tree
+from content.terrain import make_ground, make_tree, make_water
 from engine import core, palettes
 from engine.component_manager import ComponentManager
 from engine.constants import PRIORITY_LOWEST, PRIORITY_MEDIUM
@@ -29,7 +29,6 @@ class FieldBuilder:
         self.noise_generator = core.get_noise_generator()
         self.mob_color = palettes.white
 
-
     def make_world(self, cm, zone_id):
         """Create a component manager containing the initial map."""
         self.cm = cm
@@ -46,7 +45,7 @@ class FieldBuilder:
     def create_player(self, x, y):
         player = make_player(self.zone_id)
         player[1].append(
-            Coordinates(entity=player[0], x=x, y=y, blocks=True, blocks_sight=True),
+            Coordinates(entity=player[0], x=x, y=y),
         )
         self.cm.add(*player[1])
 
@@ -57,8 +56,6 @@ class FieldBuilder:
                 entity=ground[0],
                 x=x,
                 y=y,
-                blocks=False,
-                blocks_sight=False,
                 priority=PRIORITY_LOWEST,
                 terrain=True,
             )
@@ -76,9 +73,24 @@ class FieldBuilder:
                 entity=tree[0],
                 x=x,
                 y=y,
-                blocks=True,
-                blocks_sight=True,
                 priority=PRIORITY_MEDIUM,
+                terrain=True,
+            )
+        )
+        self.cm.add(*tree[1])
+        tree_appearance = self.cm.get_one(Appearance, tree[0])
+        tree_appearance.color = self.palette.secondary[0]
+        tree_appearance.bg_color = self.palette.black
+        self.object_map[x, y] = tree[0]
+
+    def add_water(self, x: int, y: int) -> None:
+        tree = make_water(self.zone_id)
+        tree[1].append(
+            Coordinates(
+                entity=tree[0],
+                x=x,
+                y=y,
+                priority=PRIORITY_LOWEST,
                 terrain=True,
             )
         )
@@ -95,8 +107,6 @@ class FieldBuilder:
                 entity=hordeling[0],
                 x=x,
                 y=y,
-                blocks=True,
-                blocks_sight=False,
                 priority=PRIORITY_MEDIUM,
                 terrain=False,
             )
@@ -114,8 +124,6 @@ class FieldBuilder:
                 entity=peasant[0],
                 x=x,
                 y=y,
-                blocks=True,
-                blocks_sight=False,
                 priority=PRIORITY_MEDIUM,
                 terrain=False,
             )
@@ -140,6 +148,12 @@ class FieldBuilder:
             y = random.randint(0, settings.MAP_HEIGHT - 1)
             if (x, y) not in self.object_map:
                 self.add_tree(x, y)
+
+        for _ in range(20):
+            x = random.randint(0, settings.MAP_WIDTH - 1)
+            y = random.randint(0, settings.MAP_HEIGHT - 1)
+            if (x, y) not in self.object_map:
+                self.add_water(x, y)
 
         for _ in range(4):
             x = random.randint(0, settings.MAP_WIDTH - 1)

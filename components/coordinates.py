@@ -15,8 +15,6 @@ class Coordinates(Component):
     entity = Column(Integer, index=True, nullable=False)
     x = Column(Integer, index=True)
     y = Column(Integer, index=True)
-    blocks = Column(Boolean, default=False)
-    blocks_sight = Column(Boolean, default=False)
     priority = Column(Integer, default=PRIORITY_MEDIUM)
     terrain = Column(Boolean, default=False, nullable=False)
 

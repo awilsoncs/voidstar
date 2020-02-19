@@ -3,6 +3,7 @@ from components.appearance import Appearance
 from components.brain import Brain
 from components.coordinates import Coordinates
 from components.enums import ControlMode
+from components.material import Material
 from components.target_value import TargetValue
 from engine import colors
 from engine.constants import PRIORITY_LOW
@@ -25,8 +26,10 @@ def run(scene):
 
         coords = scene.cm.get_one(Coordinates, entity=entity)
         coords.priority = PRIORITY_LOW
-        coords.blocks = False
-        coords.blocks_sight = False
+
+        material = scene.cm.get_one(Material, entity=entity)
+        material.blocks = False
+        material.blocks_sight = False
 
         target_value = scene.cm.get_one(TargetValue, entity=entity)
         if target_value:

@@ -3,6 +3,7 @@ from typing import Tuple
 from components import Brain, Senses
 from components.coordinates import Coordinates
 from components.enums import Intention
+from components.material import Material
 from systems.utilities import get_blocking_object, retract_turn, retract_intention
 
 
@@ -43,9 +44,11 @@ def can_step(scene, entity, step_action) -> bool:
     target_x = entity_coords.x + step_action[0]
     target_y = entity_coords.y + step_action[1]
     blocking_object = get_blocking_object(scene.cm, target_x, target_y)
+
+    entity_material = scene.cm.get_one(Material, entity)
     return not (
-        entity_coords.blocks and
-        blocking_object
+        entity_material
+        and blocking_object
     )
 
 
