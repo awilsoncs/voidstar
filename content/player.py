@@ -15,7 +15,7 @@ def make_player(zone_id):
             Appearance(entity=entity_id, symbol='@', color=colors.white),
             Senses(entity=entity_id, sight_radius=10),
             Brain(entity=entity_id, control_mode=ControlMode.PLAYER, take_turn=True),
-            Attributes(entity=entity_id, hp=300, max_hp=300),
+            Attributes(entity=entity_id, hp=60, max_hp=60),
             Attack(entity=entity_id, damage='1d10'),
             TargetValue(entity=entity_id, value=PLAYER)
         ]

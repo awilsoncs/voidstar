@@ -3,7 +3,7 @@ import os
 
 from components import Coordinates
 from engine import GameScene
-from gui.menus import Menu
+from gui.easy_menu import EasyMenu
 from scenes.simulation_scene import SimulationScene
 
 
@@ -21,24 +21,17 @@ class LoadGameScene(GameScene):
 
         # show options and wait for the player's choice
         self.add_gui_element(
-            Menu(
+            EasyMenu(
                 'Load which world? (ESC to go back)',
-                world_files,
+                {world_file: self._start_menu_callback(world_file) for world_file in world_files},
                 48,
-                self._start_menu_callback(world_files)
             )
         )
 
-    def _start_menu_callback(self, world_files):
-        def callback(option):
-            if option is None:
-                self.controller.pop_scene()
-                return
-            else:
-                file_name = world_files[option]
-                file_name = file_name.replace(' ', '-').lower()
-                self.cm.connect(file_name)
-                current_zone = self.cm.get_one(Coordinates, entity=0).zone
-                self.controller.pop_scene()
-                self.controller.push_scene(SimulationScene(current_zone))
-        return callback
+    def _start_menu_callback(self, world_file):
+        def out_fn():
+            self.cm.connect(world_file)
+            current_zone = self.cm.get_one(Coordinates, entity=0).zone
+            self.controller.pop_scene()
+            self.controller.push_scene(SimulationScene(current_zone))
+        return out_fn

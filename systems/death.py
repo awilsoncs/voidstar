@@ -21,7 +21,6 @@ def run(scene):
             scene.cm.delete_component(brain)
 
         renderable = scene.cm.get_one(Appearance, entity=entity)
-        renderable.symbol = '%'
         renderable.color = colors.dark_red
 
         coords = scene.cm.get_one(Coordinates, entity=entity)
@@ -30,4 +29,5 @@ def run(scene):
         coords.blocks_sight = False
 
         target_value = scene.cm.get_one(TargetValue, entity=entity)
-        scene.cm.delete_component(target_value)
+        if target_value:
+            scene.cm.delete_component(target_value)

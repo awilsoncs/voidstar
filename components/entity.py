@@ -12,5 +12,8 @@ class Entity(Component):
     static = Column(Boolean, default=False, nullable=False)  # if true, hide from 'interact' functionality
     zone = Column(Integer, index=True)
 
+    def get_readable_key(self):
+        return f'{self.name}@{self.id}'
+
     def __repr__(self):
         return component_repr(self)

@@ -43,3 +43,4 @@ class GameSceneController:
             if self._scene_stack:
                 self._scene_stack[-1].render()
                 tcod.console_flush()
+

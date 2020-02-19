@@ -3,8 +3,8 @@ from collections import OrderedDict
 import settings
 from engine import GameScene
 from engine import colors
+from gui.easy_menu import EasyMenu
 from gui.labels import Label
-from gui.menus import Menu
 
 
 class NavigationMenuScene(GameScene):
@@ -16,8 +16,7 @@ class NavigationMenuScene(GameScene):
             option_scene_map: OrderedDict
     ):
         super().__init__()
-        self.option_scene_map = option_scene_map
-        self.options = list(self.option_scene_map.keys())
+        self.options = option_scene_map
         center_x = (settings.SCREEN_WIDTH - len(title)) // 2
         center_y = settings.SCREEN_HEIGHT // 2 - 4
         title_label = Label(center_x, center_y, title, fg=colors.light_orange)
@@ -31,10 +30,15 @@ class NavigationMenuScene(GameScene):
 
     def update(self):
         """Show the menu and wait for player selection."""
-        self.add_gui_element(Menu('', self.options, 24, self._menu_callback))
+        self.add_gui_element(
+            EasyMenu(
+                '',
+                {link[0]: self.get_push_scene(link[1]) for link in self.options.items()},
+                24
+            )
+        )
 
-    def _menu_callback(self, option):
-        if option is not None:
-            option_key = self.options[option]
-            scene_to_push = self.option_scene_map[option_key]
-            self.controller.push_scene(scene_to_push)
+    def get_push_scene(self, scene):
+        def out_fn():
+            self.controller.push_scene(scene)
+        return out_fn
