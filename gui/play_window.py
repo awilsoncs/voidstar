@@ -5,6 +5,7 @@ from tcod import console
 from components import Coordinates, Appearance
 from engine import colors
 from engine.component_manager import ComponentManager
+from engine.core import time_ms, timed
 from gui.gui_element import GuiElement
 
 
@@ -52,9 +53,11 @@ class PlayWindow(GuiElement):
                 (*colors.darken(appearance.bg_color, factor=.3), 255)
             )
 
+    @timed(25)
     def render(self, panel: console.Console) -> None:
         self.console.clear()
         self.terrain_console.blit(self.console)
+
         coordinates = self.cm.get(Coordinates)
         coordinates = [c for c in coordinates if not c.terrain]
         coordinates = sorted(coordinates, key=lambda c: c.priority)

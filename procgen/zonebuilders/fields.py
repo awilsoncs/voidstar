@@ -13,14 +13,14 @@ from engine.palettes import Palette
 from settings import MAP_HEIGHT, MAP_WIDTH
 
 
-def build(cm: ComponentManager, zone_id: int):
-    return FieldBuilder().make_world(cm, zone_id)
+def build(cm: ComponentManager, zone_id: int, peasants, monsters):
+    return FieldBuilder(peasants, monsters).make_world(cm, zone_id)
 
 
 class FieldBuilder:
     """Generate a generic dungeon."""
 
-    def __init__(self):
+    def __init__(self, peasants, monsters):
         self.object_map = {}
         self.tile_map = {}
         self.cm = None
@@ -28,6 +28,8 @@ class FieldBuilder:
         self.palette = Palette()
         self.noise_generator = core.get_noise_generator()
         self.mob_color = palettes.white
+        self.peasants = peasants
+        self.monsters = monsters
 
     def make_world(self, cm, zone_id):
         """Create a component manager containing the initial map."""
@@ -116,6 +118,7 @@ class FieldBuilder:
         hordeling_appearance.color = self.mob_color
         hordeling_appearance.bg_color = self.palette.black
         self.object_map[x, y] = hordeling[0]
+        self.monsters -= 1
 
     def add_peasant(self, x, y):
         peasant = make_peasant(self.zone_id)
@@ -133,6 +136,7 @@ class FieldBuilder:
         peasant_appearance.color = self.mob_color
         peasant_appearance.bg_color = self.palette.black
         self.object_map[x, y] = peasant[0]
+        self.peasants -= 1
 
     def place_objects(self):
         for x in range(0, settings.MAP_WIDTH - 1):
@@ -155,13 +159,13 @@ class FieldBuilder:
             if (x, y) not in self.object_map:
                 self.add_water(x, y)
 
-        for _ in range(4):
+        while self.monsters > 0:
             x = random.randint(0, settings.MAP_WIDTH - 1)
             y = random.randint(0, settings.MAP_HEIGHT - 1)
             if (x, y) not in self.object_map:
                 self.add_hordeling(x, y)
 
-        for _ in range(2):
+        while self.peasants > 0:
             x = random.randint(0, settings.MAP_WIDTH - 1)
             y = random.randint(0, settings.MAP_HEIGHT - 1)
             if (x, y) not in self.object_map:

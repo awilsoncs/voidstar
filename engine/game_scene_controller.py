@@ -1,8 +1,11 @@
+import logging
+
 import tcod
 
 import settings
 from engine import GameScene
 from engine.component_manager import ComponentManager
+from engine.core import time_ms, timed
 from gui.gui import Gui
 from scenes.defend_scene import DefendScene
 
@@ -15,13 +18,18 @@ class GameSceneController:
         self.gui: Gui = None
         self.cm = ComponentManager()
         self._scene_stack: list = []
+        logging.debug('GameSceneController instantiated')
 
     def push_scene(self, scene: GameScene):
         scene.prepare(self, self.cm, self.gui)
-        scene.on_load()
+        self.on_load(scene)
         for gui_element in scene.gui_elements:
             gui_element.on_load()
         self._scene_stack.append(scene)
+
+    @timed(1000)
+    def on_load(self, scene):
+        scene.on_load()
 
     def pop_scene(self):
         scene = self._scene_stack.pop()
@@ -29,6 +37,7 @@ class GameSceneController:
         return scene
 
     def reload(self):
+        logging.debug('reloading scene')
         scene = self.pop_scene()
         self.push_scene(scene)
 
@@ -45,6 +54,8 @@ class GameSceneController:
                 self._scene_stack[-1].render()
                 tcod.console_flush()
 
-    def next_level(self):
+    def next_level(self, peasants, monsters):
         self.pop_scene()
-        self.push_scene(DefendScene())
+
+        # TODO the game scene controller shouldn't be responsible for choosing the next scene
+        self.push_scene(DefendScene(peasants, monsters))

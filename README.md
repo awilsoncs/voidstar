@@ -10,9 +10,18 @@ Horde RL is a roguelike version of the classic game The Horde.
 
 # Roadmap
 
-## Monsters
-* Monster pathfinding
-* Monster attacks
+## Defend Scene
 
-## Peasants
-* Peasant AI 
+* Smarter pathfinding for hordelings
+* Escape AI for peasants
+* Bump attack
+* Knight allies
+* Houses
+
+## Bugs
+
+* Loading a new level creates a new save file.
+
+## Possibilities
+
+* Save files don't actually need to contain old level data.

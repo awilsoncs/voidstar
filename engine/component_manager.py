@@ -1,4 +1,6 @@
+import logging
 from collections import defaultdict
+from time import perf_counter, perf_counter_ns
 from typing import Set, Dict, List, Type
 
 from sqlalchemy import create_engine
@@ -8,6 +10,7 @@ from sqlalchemy_utils import force_instant_defaults
 import settings
 from components import Entity
 from components.component import Component
+from engine.core import time_ms, timed
 from engine.types import EntityDict, EntityDictIndex, ComponentType
 
 # Sets default values during instantiation, so that we don't need to commit the db when creating new entities.
@@ -33,12 +36,16 @@ class ComponentManager(object):
     def thaw(self, zone: int) -> None:
         """Unpack components for this zone into their managed lists."""
         self.freeze()
-        print(f'Thawing zone: {zone}')
+        logging.debug(f'Thawing zone: {zone}')
+        t0 = time_ms()
+
         for component_type in self.component_types:
             self._thaw_components_by_type(component_type, zone)
         self.current_zone = zone
         entity_count = len(self.components[Entity])
-        print(f'Successfully thawed zone: {zone}, entities loaded: {entity_count}')
+
+        t1 = time_ms()
+        logging.debug(f'Successfully thawed zone: {zone}, entities loaded: {entity_count} in {t1-t0}ms')
 
     def _thaw_components_by_type(self, component_type: ComponentType, zone: int) -> None:
         """Thaw all components of a given type in a given zone."""

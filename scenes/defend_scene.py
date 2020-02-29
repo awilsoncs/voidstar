@@ -3,7 +3,7 @@ import tcod
 import tcod.map
 
 import settings
-from components import Attributes, Entity
+from components import Attributes
 from components.coordinates import Coordinates
 from components.material import Material
 from engine import GameScene, colors, core
@@ -21,7 +21,7 @@ from systems import ai, control_player, death, \
 
 
 class DefendScene(GameScene):
-    def __init__(self, debug=False):
+    def __init__(self, peasants, monsters, debug=False):
         super().__init__(debug)
         self.player = PLAYER_ID
         self.message_box = []
@@ -40,6 +40,8 @@ class DefendScene(GameScene):
 
         self.hp_bar = None
         self.zone_id = core.get_id()
+        self.monsters = monsters
+        self.peasants = peasants
 
     def on_load(self):
         self.cm.connect(get_file_name())
@@ -86,7 +88,7 @@ class DefendScene(GameScene):
         ))
 
     def setup_level(self):
-        fields.build(self.cm, self.zone_id)
+        fields.build(self.cm, self.zone_id, peasants=self.peasants, monsters=self.monsters)
         self.cm.thaw(self.zone_id)
 
         # load up the transparency map
@@ -104,4 +106,4 @@ class DefendScene(GameScene):
             self.map.walkable[coord.x, coord.y] = not material.blocks if material else True
 
     def next_level(self):
-        self.controller.next_level()
+        self.controller.next_level(self.monsters, self.monsters + self.peasants)

@@ -1,3 +1,4 @@
+import logging
 import random
 
 from components import Brain, Coordinates
@@ -17,6 +18,7 @@ def do_take_turn(scene, brain) -> None:
         and brain.control_mode is ControlMode.WANDER
         and brain.take_turn
     ):
+        logging.debug(f'ai.do_take_turn {brain.entity}')
         set_intention(scene, brain.entity, 0, random.choice(STEPS))
     elif (
         brain
