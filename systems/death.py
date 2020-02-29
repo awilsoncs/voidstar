@@ -3,6 +3,7 @@ from components.appearance import Appearance
 from components.brain import Brain
 from components.coordinates import Coordinates
 from components.enums import ControlMode
+from components.faction import Faction
 from components.material import Material
 from components.target_value import TargetValue
 from engine import colors
@@ -26,6 +27,10 @@ def run(scene):
 
         coords = scene.cm.get_one(Coordinates, entity=entity)
         coords.priority = PRIORITY_LOW
+
+        faction = scene.cm.get_one(Faction, entity=entity)
+        if faction:
+            scene.cm.delete_component(faction)
 
         material = scene.cm.get_one(Material, entity=entity)
         material.blocks = False

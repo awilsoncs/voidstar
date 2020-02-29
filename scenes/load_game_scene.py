@@ -4,7 +4,7 @@ import os
 from components import Coordinates
 from engine import GameScene
 from gui.easy_menu import EasyMenu
-from scenes.simulation_scene import SimulationScene
+from scenes.defend_scene import DefendScene
 
 
 class LoadGameScene(GameScene):
@@ -33,5 +33,5 @@ class LoadGameScene(GameScene):
             self.cm.connect(world_file)
             current_zone = self.cm.get_one(Coordinates, entity=0).zone
             self.controller.pop_scene()
-            self.controller.push_scene(SimulationScene(current_zone))
+            self.controller.push_scene(DefendScene(current_zone))
         return out_fn

@@ -4,6 +4,7 @@ import settings
 from engine import GameScene
 from engine.component_manager import ComponentManager
 from gui.gui import Gui
+from scenes.defend_scene import DefendScene
 
 
 class GameSceneController:
@@ -44,3 +45,6 @@ class GameSceneController:
                 self._scene_stack[-1].render()
                 tcod.console_flush()
 
+    def next_level(self):
+        self.pop_scene()
+        self.push_scene(DefendScene())

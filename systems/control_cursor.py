@@ -25,7 +25,7 @@ def _create_cursor(scene):
         scene.cm.add(cursor_result)
 
         coords = scene.cm.get_one(Coordinates, entity=brain.entity)
-        cursor = make_cursor(scene.zone, coords.x, coords.y, brain.entity)
+        cursor = make_cursor(scene.zone_id, coords.x, coords.y, brain.entity)
         scene.cm.add(*cursor[1])
         retract_intention(scene, brain.entity)
 

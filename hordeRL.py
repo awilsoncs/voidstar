@@ -3,16 +3,14 @@ import cProfile
 from collections import OrderedDict
 
 from engine.game_scene_controller import GameSceneController
-from scenes.load_game_scene import LoadGameScene
 from scenes.navigation_menu_scene import NavigationMenuScene
-from scenes.new_game_scene import NewGameScene
 from scenes.quit_scene import QuitScene
+from scenes.defend_scene import DefendScene
 
 
 def main(args):
     option_map = OrderedDict()
-    option_map['New Game'] = NewGameScene(debug=args.debug)
-    option_map['Load Game'] = LoadGameScene()
+    option_map['New Game'] = DefendScene()
     option_map['Quit'] = QuitScene()
     start_menu_scene = NavigationMenuScene(
         title='Horde RL',

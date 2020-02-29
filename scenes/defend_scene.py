@@ -3,27 +3,28 @@ import tcod
 import tcod.map
 
 import settings
-from components import Attributes
+from components import Attributes, Entity
 from components.coordinates import Coordinates
 from components.material import Material
-from engine import GameScene, colors
+from engine import GameScene, colors, core
 from engine.constants import PLAYER_ID
 from engine.infos import ColoredMessage
 from gui.bars import Bar
 from gui.fps_counter import FPSCounter
 from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
+from procgen.town_names import get_file_name
+from procgen.zonebuilders import fields
 from systems import ai, control_player, death, \
     debug_system, interact, update_senses, \
-    move, control_turns, quit, melee_attack, control_cursor
+    move, control_turns, quit, melee_attack, control_cursor, dungeon_master
 
 
-class SimulationScene(GameScene):
-    def __init__(self, zone: int, debug=False):
+class DefendScene(GameScene):
+    def __init__(self, debug=False):
         super().__init__(debug)
         self.player = PLAYER_ID
         self.message_box = []
-        self.zone = zone
         self.map = tcod.map.Map(settings.MAP_WIDTH, settings.MAP_HEIGHT, order='F')
         # track tiles the player has seen
         self.memory_map = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
@@ -38,21 +39,11 @@ class SimulationScene(GameScene):
         self.add_gui_element(MessageBox(30, 0, 30, 5, self.message_box))
 
         self.hp_bar = None
+        self.zone_id = core.get_id()
 
     def on_load(self):
-        # load up the transparency map
-        self.play_window.cm = self.cm
-        if not self.hp_bar:
-            self.hp_bar = self.get_hp_bar()
-            self.add_gui_element(self.hp_bar)
-
-        coordinates = self.cm.get(Coordinates)
-        coordinates = [c for c in coordinates if c.terrain]
-
-        for coord in coordinates:
-            material = self.cm.get_one(Material, coord.entity)
-            self.map.transparent[coord.x, coord.y] = not material.blocks_sight if material else True
-            self.map.walkable[coord.x, coord.y] = not material.blocks if material else True
+        self.cm.connect(get_file_name())
+        self.setup_level()
 
     def get_hp_bar(self):
         health = self.cm.get_one(Attributes, self.player)
@@ -77,14 +68,40 @@ class SimulationScene(GameScene):
             move.run(self)
             control_turns.run(self)
             update_senses.run(self)
+            dungeon_master.run(self)
             quit.run(self)
         except Exception as e:
             if self.debug:
                 raise e
             self.message(str(e), color=colors.red)
 
+    def on_unload(self):
+        self.cm.delete(PLAYER_ID)
+        self.cm.freeze()
+
     def message(self, message, color=colors.white):
         self.message_box.append(ColoredMessage(
             color=color,
             message=message
         ))
+
+    def setup_level(self):
+        fields.build(self.cm, self.zone_id)
+        self.cm.thaw(self.zone_id)
+
+        # load up the transparency map
+        self.play_window.cm = self.cm
+        if not self.hp_bar:
+            self.hp_bar = self.get_hp_bar()
+            self.add_gui_element(self.hp_bar)
+
+        coordinates = self.cm.get(Coordinates)
+        coordinates = [c for c in coordinates if c.terrain]
+
+        for coord in coordinates:
+            material = self.cm.get_one(Material, coord.entity)
+            self.map.transparent[coord.x, coord.y] = not material.blocks_sight if material else True
+            self.map.walkable[coord.x, coord.y] = not material.blocks if material else True
+
+    def next_level(self):
+        self.controller.next_level()

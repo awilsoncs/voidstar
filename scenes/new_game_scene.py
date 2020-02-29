@@ -2,7 +2,7 @@ from components import Entity
 from engine import GameScene, core
 from procgen.town_names import get_file_name
 from procgen.zonebuilders import fields
-from scenes.simulation_scene import SimulationScene
+from scenes.defend_scene import DefendScene
 
 
 class NewGameScene(GameScene):
@@ -19,4 +19,4 @@ class NewGameScene(GameScene):
         zone = self.cm.get_one(Entity, entity=0).zone
         self.cm.thaw(zone)
         self.controller.pop_scene()
-        self.controller.push_scene(SimulationScene(zone_id, debug=self.debug))
+        self.controller.push_scene(DefendScene(zone_id, debug=self.debug))

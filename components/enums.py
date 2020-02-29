@@ -30,3 +30,9 @@ class ControlMode(Enum):
     CURSOR = 'cursor'
     WANDER = 'wander'
     DEAD_PLAYER = 'dead_player'
+
+
+class FactionType(Enum):
+    NONE = 'none'
+    MONSTER = 'monster'
+    PEASANT = 'peasant'

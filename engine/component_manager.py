@@ -66,7 +66,7 @@ class ComponentManager(object):
         self.components = defaultdict(list)
         self.components_by_entity = defaultdict(lambda: defaultdict(list))
         self.components_by_id = {}
-        del self.current_zone
+        self.current_zone = None
 
     # data manipulation methods
     def add(self, component: Component, *components: Component) -> None:

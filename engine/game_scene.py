@@ -57,3 +57,6 @@ class GameScene:
         self.controller = controller
         self.cm = cm
         self.gui = gui
+
+    def pop(self):
+        self.controller.pop_scene()
