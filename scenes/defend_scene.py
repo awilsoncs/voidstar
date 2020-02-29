@@ -8,12 +8,12 @@ from components.coordinates import Coordinates
 from components.material import Material
 from engine import GameScene, colors, core
 from engine.constants import PLAYER_ID
+from engine.core import timed
 from engine.infos import ColoredMessage
 from gui.bars import Bar
 from gui.fps_counter import FPSCounter
 from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
-from procgen.town_names import get_file_name
 from procgen.zonebuilders import fields
 from systems import ai, control_player, death, \
     debug_system, interact, update_senses, \
@@ -44,7 +44,7 @@ class DefendScene(GameScene):
         self.peasants = peasants
 
     def on_load(self):
-        self.cm.connect(get_file_name())
+        self.cm.clear()
         self.setup_level()
 
     def get_hp_bar(self):
@@ -58,6 +58,7 @@ class DefendScene(GameScene):
             back_color=colors.dark_red
         )
 
+    @timed(100)
     def update(self):
         try:
             ai.run(self)
@@ -79,7 +80,7 @@ class DefendScene(GameScene):
 
     def on_unload(self):
         self.cm.delete(PLAYER_ID)
-        self.cm.freeze()
+        self.cm.clear()
 
     def message(self, message, color=colors.white):
         self.message_box.append(ColoredMessage(
@@ -89,7 +90,6 @@ class DefendScene(GameScene):
 
     def setup_level(self):
         fields.build(self.cm, self.zone_id, peasants=self.peasants, monsters=self.monsters)
-        self.cm.thaw(self.zone_id)
 
         # load up the transparency map
         self.play_window.cm = self.cm
@@ -99,6 +99,8 @@ class DefendScene(GameScene):
 
         coordinates = self.cm.get(Coordinates)
         coordinates = [c for c in coordinates if c.terrain]
+
+        self.map.transparent.fill(True)
 
         for coord in coordinates:
             material = self.cm.get_one(Material, coord.entity)

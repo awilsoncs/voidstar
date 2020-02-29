@@ -40,7 +40,5 @@ def timed(ms):
             t1 = time_ms()
             if t1-t0 > ms:
                 logging.warning(f'call to {func} took {t1-t0}ms (>{ms}ms)')
-            else:
-                logging.debug(f'call to {func} took {t1-t0}ms (>{ms}ms)')
         return inner
     return outer

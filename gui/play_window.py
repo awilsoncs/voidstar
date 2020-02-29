@@ -1,3 +1,5 @@
+import random
+
 import numpy as np
 import tcod
 from tcod import console
@@ -7,6 +9,7 @@ from engine import colors
 from engine.component_manager import ComponentManager
 from engine.core import time_ms, timed
 from gui.gui_element import GuiElement
+from settings import MAP_HEIGHT, MAP_WIDTH
 
 
 class PlayWindow(GuiElement):
@@ -41,6 +44,21 @@ class PlayWindow(GuiElement):
         self.console = tcod.console.Console(width, height, order='F')  # buffer console
 
     def on_load(self) -> None:
+        grass_color = colors.desaturated_green
+        memory_grass_color = colors.darken(colors.desaturated_green, factor=.3)
+        for y in range(MAP_HEIGHT):
+            for x in range(MAP_WIDTH):
+                self.terrain_console.tiles[x, y] = (
+                    ord(random.choice(['.', ',', '"', '\'', ' '])),
+                    (*grass_color, 255),
+                    (*colors.black, 255)
+                )
+                self.memory_console.tiles[x, y] = (
+                    ord('.'),
+                    (*memory_grass_color, 255),
+                    (*colors.black, 255)
+                )
+
         coordinates = self.cm.get(Coordinates)
         coordinates = [c for c in coordinates if c.terrain]
         coordinates = sorted(coordinates, key=lambda c: c.priority)

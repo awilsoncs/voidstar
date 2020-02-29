@@ -27,7 +27,7 @@ class GameSceneController:
             gui_element.on_load()
         self._scene_stack.append(scene)
 
-    @timed(1000)
+    @timed(250)
     def on_load(self, scene):
         scene.on_load()
 
@@ -55,7 +55,5 @@ class GameSceneController:
                 tcod.console_flush()
 
     def next_level(self, peasants, monsters):
-        self.pop_scene()
-
         # TODO the game scene controller shouldn't be responsible for choosing the next scene
         self.push_scene(DefendScene(peasants, monsters))

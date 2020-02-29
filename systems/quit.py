@@ -1,5 +1,6 @@
 from components import Brain
 from components.enums import Intention
+from scenes.start_menu import get_start_menu
 from systems.utilities import retract_intention
 
 
@@ -8,6 +9,5 @@ def run(scene):
     if quitters:
         for brain in quitters:
             retract_intention(scene, brain.entity)
-        scene.cm.commit()
-        scene.cm.close()
-        scene.controller.pop_scene()
+        scene.controller.push_scene(get_start_menu())
+

@@ -1,24 +1,14 @@
 import argparse
 import cProfile
 import logging
-from collections import OrderedDict
 
 from engine.game_scene_controller import GameSceneController
-from scenes.navigation_menu_scene import NavigationMenuScene
-from scenes.quit_scene import QuitScene
-from scenes.defend_scene import DefendScene
+from scenes.start_menu import get_start_menu
 
 
 def main(args):
-    option_map = OrderedDict()
-    option_map['New Game'] = DefendScene(peasants=1, monsters=1)
-    option_map['Quit'] = QuitScene()
-    start_menu_scene = NavigationMenuScene(
-        title='Horde RL',
-        option_scene_map=option_map,
-    )
     game = GameSceneController("Horde RL")
-    game.push_scene(start_menu_scene)
+    game.push_scene(get_start_menu())
     game.start()
 
 

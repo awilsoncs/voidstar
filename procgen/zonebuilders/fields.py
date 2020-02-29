@@ -35,13 +35,9 @@ class FieldBuilder:
         """Create a component manager containing the initial map."""
         self.cm = cm
         self.zone_id = zone_id
-        for y in range(MAP_HEIGHT):
-            for x in range(MAP_WIDTH):
-                self.add_tile(x, y)
 
         self.create_player(settings.MAP_HEIGHT // 2, settings.MAP_WIDTH // 2)
         self.place_objects()
-        self.cm.commit()
         return self.cm
 
     def create_player(self, x, y):
@@ -50,23 +46,6 @@ class FieldBuilder:
             Coordinates(entity=player[0], x=x, y=y),
         )
         self.cm.add(*player[1])
-
-    def add_tile(self, x: int, y: int) -> None:
-        ground = make_ground(self.zone_id)
-        ground[1].append(
-            Coordinates(
-                entity=ground[0],
-                x=x,
-                y=y,
-                priority=PRIORITY_LOWEST,
-                terrain=True,
-            )
-        )
-        self.cm.add(*ground[1])
-        wall_appearance = self.cm.get_one(Appearance, ground[0])
-        wall_appearance.color = self.palette.primary[3]
-        wall_appearance.bg_color = self.palette.black
-        self.tile_map[x, y] = ground[0]
 
     def add_tree(self, x: int, y: int) -> None:
         tree = make_tree(self.zone_id)
