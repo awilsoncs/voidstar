@@ -10,7 +10,10 @@ from systems.utilities import get_blocking_object, retract_turn, retract_intenti
 def run(scene):
     for brain in get_brains_with_step_intention(scene):
         entity = brain.entity
-        if can_step(scene, entity, STEP_VECTORS[brain.intention]):
+        if (
+                brain.intention is not Intention.DALLY
+                and can_step(scene, entity, STEP_VECTORS[brain.intention])
+        ):
             move(scene, entity, STEP_VECTORS[brain.intention])
             dirty_senses(scene, entity)
         retract_turn(scene, entity)
@@ -21,12 +24,7 @@ def get_brains_with_step_intention(scene):
     return [
         brain
         for brain in scene.cm.get(Brain)
-        if brain.intention in {
-            Intention.STEP_NORTH,
-            Intention.STEP_SOUTH,
-            Intention.STEP_EAST,
-            Intention.STEP_WEST
-        }
+        if brain.intention in STEP_INTENTIONS
     ]
 
 
@@ -34,7 +32,16 @@ STEP_VECTORS = {
     Intention.STEP_NORTH: (0, -1),
     Intention.STEP_SOUTH: (0, 1),
     Intention.STEP_EAST: (1, 0),
-    Intention.STEP_WEST: (-1, 0)
+    Intention.STEP_WEST: (-1, 0),
+    Intention.STEP_NORTH_EAST: (1, -1),
+    Intention.STEP_NORTH_WEST: (-1, -1),
+    Intention.STEP_SOUTH_EAST: (1, 1),
+    Intention.STEP_SOUTH_WEST: (-1, 1)
+}
+
+STEP_INTENTIONS = {
+    Intention.DALLY,
+    *STEP_VECTORS.keys()
 }
 
 

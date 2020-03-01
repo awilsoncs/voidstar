@@ -40,7 +40,9 @@ def take_monster_turn(scene, brain):
         ]
         sorted_coords = sorted(related_coords, key=lambda c: c.distance_from(owner_coord))
         closest_target = sorted_coords[0]
-        if owner_coord.distance_from(closest_target) == 1:
+
+        # < 2 allows diagonal attacks
+        if owner_coord.distance_from(closest_target) < 2:
             set_intention(scene, brain.entity, closest_target.entity, Intention.MELEE_ATTACK)
         else:
             # get the direction to step towards it
@@ -52,6 +54,7 @@ def take_monster_turn(scene, brain):
         set_intention(scene, brain.entity, 0, random.choice(STEPS))
 
 
+# TODO info duplicated between here and move
 VECTOR_STEP_MAP = {
     (0, -1): Intention.STEP_NORTH,
     (-1, -1): Intention.STEP_NORTH,
@@ -61,7 +64,10 @@ VECTOR_STEP_MAP = {
     (1, 1): Intention.STEP_SOUTH,
     (-1, 1): Intention.STEP_SOUTH,
     (1, 0): Intention.STEP_EAST,
-    (-1, 0): Intention.STEP_WEST
+    (-1, 1): Intention.STEP_NORTH_EAST,
+    (-1, -1): Intention.STEP_SOUTH_WEST,
+    (1, 1): Intention.STEP_SOUTH_EAST,
+    (1, -1): Intention.STEP_SOUTH_WEST
 }
 
 

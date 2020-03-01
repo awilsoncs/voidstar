@@ -14,6 +14,11 @@ class Intention(Enum):
     STEP_EAST = auto()
     STEP_WEST = auto()
     STEP_SOUTH = auto()
+    STEP_SOUTH_EAST = auto()
+    STEP_SOUTH_WEST = auto()
+    STEP_NORTH_EAST = auto()
+    STEP_NORTH_WEST = auto()
+    DALLY = auto()
 
     ACTIVATE_CURSOR = auto()
     REPORT_CURSOR = auto()

@@ -33,11 +33,21 @@ DEAD_KEY_ACTION_MAP = {
 }
 
 KEY_ACTION_MAP = {
+    tcod.event.K_KP_1: Intention.STEP_SOUTH_WEST,
+    tcod.event.K_KP_2: Intention.STEP_SOUTH,
+    tcod.event.K_KP_3: Intention.STEP_SOUTH_EAST,
+    tcod.event.K_KP_4: Intention.STEP_WEST,
+    tcod.event.K_KP_5: Intention.DALLY,
+    tcod.event.K_KP_6: Intention.STEP_EAST,
+    tcod.event.K_KP_7: Intention.STEP_NORTH_WEST,
+    tcod.event.K_KP_8: Intention.STEP_NORTH,
+    tcod.event.K_KP_9: Intention.STEP_NORTH_EAST,
+
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,
     tcod.event.K_LEFT: Intention.STEP_WEST,
-    tcod.event.K_f: Intention.SHOOT_NEARBY,
+
     tcod.event.K_l: Intention.ACTIVATE_CURSOR,
     tcod.event.K_x: Intention.SHOW_DEBUG_SCREEN,
     tcod.event.K_SPACE: Intention.INTERACT_NEARBY,
