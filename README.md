@@ -18,15 +18,9 @@ Horde RL is a roguelike version of the classic game The Horde.
 * Knight allies
 * Houses
 * Faction-pass through
-* Dying after beating levels requires exitting through each beat level
+* Dying after beating levels requires exiting through each beat level
 * Peasants saved high score
 
 ## Bugs
 
-* Loading a new level creates a new save file.
 * SPACE to interact doesn't interact when there are multiple options.
-* 
-
-## Possibilities
-
-* Save files don't actually need to contain old level data.
