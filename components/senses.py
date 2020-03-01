@@ -8,7 +8,7 @@ class Senses(Component):
     __tablename__ = 'senses'
     id = Column(Integer, primary_key=True)
     entity = Column(Integer, unique=True, index=True, nullable=False)
-    sight_radius = Column(Integer, default=settings.TORCH_RADIUS)
+    sight_radius = Column(Integer, default=-1)
     dirty = Column(Boolean, default=True)
 
     def __init__(self, entity, sight_radius=settings.TORCH_RADIUS):

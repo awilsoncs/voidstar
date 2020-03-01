@@ -18,6 +18,8 @@ Horde RL is a roguelike version of the classic game The Horde.
 * Knight allies
 * Houses
 * Faction-pass through
+* Dying after beating levels requires exitting through each beat level
+* Peasants saved high score
 
 ## Bugs
 

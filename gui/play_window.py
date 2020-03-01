@@ -5,7 +5,7 @@ import tcod
 from tcod import console
 
 from components import Coordinates, Appearance
-from engine import colors
+from engine import colors, palettes
 from engine.component_manager import ComponentManager
 from engine.core import time_ms, timed
 from gui.gui_element import GuiElement
@@ -44,19 +44,26 @@ class PlayWindow(GuiElement):
         self.console = tcod.console.Console(width, height, order='F')  # buffer console
 
     def on_load(self) -> None:
-        grass_color = colors.desaturated_green
-        memory_grass_color = colors.darken(colors.desaturated_green, factor=.3)
+        memory_color = palettes.GABRIEL_2_2
         for y in range(MAP_HEIGHT):
             for x in range(MAP_WIDTH):
+                grass_color = random.choice(
+                    [
+                        palettes.FOILAGE_A,
+                        palettes.FOILAGE_B
+                    ]
+                )
+
+                symbol = ord(random.choice(['.', ',', '"', '\'', ' ']))
                 self.terrain_console.tiles[x, y] = (
-                    ord(random.choice(['.', ',', '"', '\'', ' '])),
+                    symbol,
                     (*grass_color, 255),
-                    (*colors.black, 255)
+                    (*palettes.BACKGROUND, 255)
                 )
                 self.memory_console.tiles[x, y] = (
-                    ord('.'),
-                    (*memory_grass_color, 255),
-                    (*colors.black, 255)
+                    symbol,
+                    (*memory_color, 255),
+                    (*palettes.BACKGROUND, 255)
                 )
 
         coordinates = self.cm.get(Coordinates)
@@ -67,8 +74,8 @@ class PlayWindow(GuiElement):
             self.terrain_console.tiles[coord.x, coord.y] = appearance.to_tile()
             self.memory_console.tiles[coord.x, coord.y] = (
                 ord(appearance.symbol),
-                (*colors.darken(appearance.color, factor=.3), 255),
-                (*colors.darken(appearance.bg_color, factor=.3), 255)
+                (*memory_color, 255),
+                (*appearance.bg_color, 255)
             )
 
     @timed(25)

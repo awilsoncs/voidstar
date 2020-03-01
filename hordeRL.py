@@ -12,14 +12,6 @@ def main(args):
     game.start()
 
 
-LOG_LEVEL_MAP = {
-    'INFO': logging.INFO,
-    'WARNING': logging.WARNING,
-    'CRITICAL': logging.CRITICAL,
-    'ERROR': logging.ERROR,
-    'DEBUG': logging.DEBUG
-}
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Horde RL')
     parser.add_argument('--prof', action='store_true', help='profile the game')

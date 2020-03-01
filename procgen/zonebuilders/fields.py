@@ -5,7 +5,7 @@ from components import Appearance, Coordinates
 from content.allies import make_peasant
 from content.enemies import make_hordeling
 from content.player import make_player
-from content.terrain import make_ground, make_tree, make_water
+from content.terrain import make_tree, make_water
 from engine import core, palettes
 from engine.component_manager import ComponentManager
 from engine.constants import PRIORITY_LOWEST, PRIORITY_MEDIUM
@@ -59,9 +59,6 @@ class FieldBuilder:
             )
         )
         self.cm.add(*tree[1])
-        tree_appearance = self.cm.get_one(Appearance, tree[0])
-        tree_appearance.color = self.palette.secondary[0]
-        tree_appearance.bg_color = self.palette.black
         self.object_map[x, y] = tree[0]
 
     def add_water(self, x: int, y: int) -> None:
@@ -76,9 +73,6 @@ class FieldBuilder:
             )
         )
         self.cm.add(*tree[1])
-        tree_appearance = self.cm.get_one(Appearance, tree[0])
-        tree_appearance.color = self.palette.secondary[0]
-        tree_appearance.bg_color = self.palette.black
         self.object_map[x, y] = tree[0]
 
     def add_hordeling(self, x, y):
@@ -93,9 +87,6 @@ class FieldBuilder:
             )
         )
         self.cm.add(*hordeling[1])
-        hordeling_appearance = self.cm.get_one(Appearance, hordeling[0])
-        hordeling_appearance.color = self.mob_color
-        hordeling_appearance.bg_color = self.palette.black
         self.object_map[x, y] = hordeling[0]
         self.monsters -= 1
 
@@ -111,9 +102,6 @@ class FieldBuilder:
             )
         )
         self.cm.add(*peasant[1])
-        peasant_appearance = self.cm.get_one(Appearance, peasant[0])
-        peasant_appearance.color = self.mob_color
-        peasant_appearance.bg_color = self.palette.black
         self.object_map[x, y] = peasant[0]
         self.peasants -= 1
 

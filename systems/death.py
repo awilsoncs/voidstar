@@ -6,7 +6,7 @@ from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
 from components.target_value import TargetValue
-from engine import colors
+from engine import colors, palettes
 from engine.constants import PRIORITY_LOW
 
 
@@ -23,7 +23,8 @@ def run(scene):
             scene.cm.delete_component(brain)
 
         renderable = scene.cm.get_one(Appearance, entity=entity)
-        renderable.color = colors.dark_red
+        renderable.symbol = '%'
+        renderable.color = palettes.BLOOD
 
         coords = scene.cm.get_one(Coordinates, entity=entity)
         coords.priority = PRIORITY_LOW
