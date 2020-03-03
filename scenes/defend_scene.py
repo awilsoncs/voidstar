@@ -17,7 +17,7 @@ from gui.play_window import PlayWindow
 from procgen.zonebuilders import fields
 from systems import ai, control_player, death, \
     debug_system, interact, update_senses, \
-    move, control_turns, quit, melee_attack, control_cursor, dungeon_master
+    move, control_turns, quit, melee_attack, control_cursor, dungeon_master, dally
 
 
 class DefendScene(GameScene):
@@ -72,6 +72,7 @@ class DefendScene(GameScene):
             control_turns.run(self)
             update_senses.run(self)
             dungeon_master.run(self)
+            dally.run(self)
             quit.run(self)
         except Exception as e:
             if self.debug:
