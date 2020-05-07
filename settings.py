@@ -3,9 +3,7 @@ import os
 # If the game won't load or looks strange after changing the font,
 # try changing FONT_GREYSCALE and FONT_ALTLAYOUT
 
-# FONT = 'data\\fonts\\arial10x10.png'
-DATA_DIR = 'data'
-FONT = os.path.join('data', 'fonts', 'terminal16x16_gs_ro.png')
+FONT = 'tiles.png'
 
 # actual size of the window
 SCREEN_WIDTH = 90
