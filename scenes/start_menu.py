@@ -10,6 +10,6 @@ def get_start_menu():
     option_map['New Game'] = DefendScene(peasants=1, monsters=1)
     option_map['Quit'] = QuitScene()
     return NavigationMenuScene(
-        title='Horde RL',
+        title="Oh No! It's THE HORDE!",
         option_scene_map=option_map,
     )

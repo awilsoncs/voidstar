@@ -8,13 +8,13 @@ from scenes.start_menu import get_start_menu
 
 
 def main(args):
-    game = GameSceneController("Horde RL")
+    game = GameSceneController('Oh No! It\'s THE HORDE!')
     game.push_scene(get_start_menu())
     game.start()
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Horde RL')
+    parser = argparse.ArgumentParser(description='Oh No! It\'s THE HORDE!')
     parser.add_argument('--prof', action='store_true', help='profile the game')
     parser.add_argument('--debug', action='store_true', help='allow a crash when an exception is thrown')
     parser.add_argument('-l', '--log', choices=['INFO', 'WARNING', 'CRITICAL', 'ERROR', 'DEBUG'], default='INFO')

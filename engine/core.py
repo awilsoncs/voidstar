@@ -5,6 +5,7 @@ from uuid import uuid4
 import tcod.event
 import tcod.noise
 
+ID_SEQ = 1000
 
 def get_key_event():
     """Handle tcod key events."""
@@ -25,7 +26,9 @@ def get_noise_generator(dimensions=3):
 
 
 def get_id():
-    return uuid4().int >> 65
+    global ID_SEQ
+    ID_SEQ += 1
+    return ID_SEQ
 
 
 def time_ms():
