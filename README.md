@@ -1,26 +1,33 @@
-# Horde RL
+# Oh No! It's THE HORDE!
 
-Horde RL is a roguelike version of the classic game The Horde.
+Oh No! It's THE HORDE is a classic fantasy roguelike with tower defense elements.
 
-
-# Running the Source Code
-
-> pipenv install
-> pipenv run python ./hordeRL.py
+Protect your village by killing all of the hordelings.
 
 # Roadmap
 
-## Defend Scene
+## 0.2 MVP
 
-* Bump attack
-* Smarter pathfinding for hordelings
-* Escape AI for peasants
-* Knight allies
-* Houses
-* Faction-pass through
-* Dying after beating levels requires exiting through each beat level
-* Peasants saved high score
+* Object placement
 
-## Bugs
+# Controls
 
-* SPACE to interact doesn't interact when there are multiple options.
+* esc - main menu
+* enter - accept
+
+Movement
+
+* arrow keys
+* num pad
+
+Pass turn
+
+* numpad 5
+
+Attack
+
+* Bump into hordeling
+
+Debug
+
+* x
