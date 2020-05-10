@@ -1,6 +1,7 @@
 import argparse
 import cProfile
 import logging
+import sys, os
 
 from engine.game_scene_controller import GameSceneController
 from scenes.start_menu import get_start_menu

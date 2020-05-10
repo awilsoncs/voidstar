@@ -3,7 +3,10 @@ import os
 # If the game won't load or looks strange after changing the font,
 # try changing FONT_GREYSCALE and FONT_ALTLAYOUT
 
-FONT = 'tiles.png'
+FONT = os.path.join(
+    os.path.dirname(__file__),
+    'tiles.png'
+)
 
 # actual size of the window
 SCREEN_WIDTH = 90
