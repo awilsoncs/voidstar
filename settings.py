@@ -1,12 +1,18 @@
 import os
+import sys
 # Font information
 # If the game won't load or looks strange after changing the font,
 # try changing FONT_GREYSCALE and FONT_ALTLAYOUT
 
-FONT = os.path.join(
-    os.path.dirname(__file__),
-    'tiles.png'
-)
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.dirname(__file__)
+    print(base_path)
+    return os.path.join(base_path, relative_path)
+
+FONT = resource_path('tiles.png')
 
 # actual size of the window
 SCREEN_WIDTH = 90
