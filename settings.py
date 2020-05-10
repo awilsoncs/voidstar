@@ -1,8 +1,5 @@
 import os
 import sys
-# Font information
-# If the game won't load or looks strange after changing the font,
-# try changing FONT_GREYSCALE and FONT_ALTLAYOUT
 
 def resource_path(relative_path):
     try:
