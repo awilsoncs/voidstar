@@ -36,7 +36,7 @@ def get_examine_game_objects(scene):
         scene.gui.add_element(
             EasyMenu(
                 "Examine which?",
-                {entity.get_readable_key(): get_examine_object(scene, entity.id) for entity in entities},
+                {entity.get_readable_key(): get_examine_object(scene, entity.entity) for entity in entities},
                 settings.INVENTORY_WIDTH,
             )
         )

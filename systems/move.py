@@ -27,7 +27,7 @@ def run(scene):
             logging.debug(f'bump attack {entity} => {blocking_entity}')
             brain.intention = Intention.MELEE_ATTACK
             brain.intention_target = blocking_entity
-        elif blocking_entity is None:
+        elif can_step(scene, entity, STEP_VECTORS[brain.intention]):
             # do move
             move(scene, entity, STEP_VECTORS[brain.intention])
             dirty_senses(scene, entity)

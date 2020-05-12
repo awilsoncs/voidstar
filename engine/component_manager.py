@@ -10,7 +10,7 @@ from sqlalchemy_utils import force_instant_defaults
 import settings
 from components import Entity
 from components.component import Component
-from engine.core import time_ms, timed
+from engine.core import time_ms, timed, get_id
 from engine.types import EntityDict, EntityDictIndex, ComponentType
 
 # Sets default values during instantiation, so that we don't need to commit the db when creating new entities.
@@ -83,10 +83,10 @@ class ComponentManager(object):
 
         Does not delete any references to the entity or its components.
         """
-        for component_type in self.component_types:
-            components = self.get_all(component_type, entity)
-            for component in components:
-                self.delete_component(component)
+        components = self.get_entity(entity)
+
+        for component in components:
+            self.delete_component(component)
         if entity in self.entities:
             self._delete_entity_from_indexes(entity)
 
@@ -119,6 +119,7 @@ class ComponentManager(object):
     # private methods
     def _add(self, component: Component) -> None:
         """Add a component to the db."""
+        component.id = get_id()
         entity = component.entity
         component_class = component.__class__
         self.components_by_entity[entity][component_class].append(component)
