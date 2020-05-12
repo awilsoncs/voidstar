@@ -1,14 +1,15 @@
-from sqlalchemy import Integer, Column, ForeignKey
+from dataclasses import dataclass, field
 
-from components.component import Component, component_repr
+from components.component import component_repr
+from engine.core import get_id
 
 
-class CursorResult(Component):
-    __tablename__ = 'cursor_result'
-    id = Column(Integer, primary_key=True)
-    entity = Column(Integer, ForeignKey('entity.id', ondelete='CASCADE'), unique=True, index=True, nullable=False)
-    x = Column(Integer, default=None)
-    y = Column(Integer, default=None)
+@dataclass
+class CursorResult:
+    id: int = field(default_factory=get_id)
+    entity: int = None
+    x: int = None
+    y: int = None
 
     def __repr__(self):
         return component_repr(self)

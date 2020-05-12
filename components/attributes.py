@@ -1,14 +1,15 @@
-from sqlalchemy import Column, Integer
+from dataclasses import field, dataclass
 
-from components.component import Component, component_repr
+from components.component import component_repr
+from engine.core import get_id
 
 
-class Attributes(Component):
-    __tablename__ = 'attributes'
-    id = Column(Integer, primary_key=True)
-    entity = Column(Integer, unique=True, index=True, nullable=False)
-    hp = Column(Integer, default=10, nullable=False)
-    max_hp = Column(Integer, default=10, nullable=False)
+@dataclass
+class Attributes:
+    entity: int
+    hp: int = 10
+    max_hp: int = 10
+    id: int = field(default_factory=get_id)
 
     def __repr__(self):
         return component_repr(self)

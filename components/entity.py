@@ -1,16 +1,17 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from dataclasses import dataclass, field
 
-from components.component import Component, component_repr
+from components.component import component_repr
+from engine.core import get_id
 
 
-class Entity(Component):
-    __tablename__ = 'entity'
-    id = Column(Integer, primary_key=True)
-    entity = Column(Integer, unique=True, nullable=False)
-    name = Column(String(50), index=True, nullable=False)
-    abstract = Column(Boolean, default=False, nullable=False)
-    static = Column(Boolean, default=False, nullable=False)  # if true, hide from 'interact' functionality
-    zone = Column(Integer, index=True)
+@dataclass
+class Entity:
+    entity: int
+    name: str
+    zone: int
+    abstract: bool = False
+    static: bool = False  # if true, hide from 'interact' functionality
+    id: int = field(default_factory=get_id)
 
     def get_readable_key(self):
         return f'{self.name}@{self.id}'

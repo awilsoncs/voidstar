@@ -1,21 +1,14 @@
-from sqlalchemy import Column, Integer, String
+from dataclasses import field, dataclass
 
-from components.component import Component, component_repr
+from components.component import component_repr
+from engine.core import get_id
 
 
-class Attack(Component):
-    __tablename__ = 'attack'
-    id = Column(Integer, primary_key=True)
-    entity = Column(Integer, unique=True, index=True, nullable=False)
-    damage = Column(String, nullable=False)
-
-    def to_tile(self):
-        """Return the Appearance in the tcod Tile format."""
-        return (
-            ord(self.symbol),
-            (*self.color, 255),
-            (*self.bg_color, 255)
-        )
+@dataclass
+class Attack:
+    entity: int = None
+    damage: str = '1d6'
+    id: int = field(default_factory=get_id)
 
     def __repr__(self):
         return component_repr(self)

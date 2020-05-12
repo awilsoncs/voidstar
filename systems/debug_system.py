@@ -17,9 +17,7 @@ def run(scene):
                 {
                     "examine game objects": get_examine_game_objects(scene),
                     "heal": get_heal(scene),
-                    "refresh palette": get_refresh_palette(scene),
                     "suicide": get_suicide(scene),
-                    "commit db": get_commit_db(scene),
                     "teleport to": get_teleport_to(scene)
                 },
                 settings.INVENTORY_WIDTH,

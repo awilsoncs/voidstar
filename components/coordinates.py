@@ -1,22 +1,21 @@
 import math
+from dataclasses import dataclass, field
 from typing import Tuple
 
-from sqlalchemy import Column, Integer, Boolean
-
-from components.component import Component, component_repr
+from components.component import component_repr
 from engine.constants import PRIORITY_MEDIUM
+from engine.core import get_id
 
 
-class Coordinates(Component):
+@dataclass
+class Coordinates:
     """Provide location information."""
-    # TODO 'blocks' and 'blocks_sight' should be part of a material component, not the coordinate
-    __tablename__ = 'coordinates'
-    id = Column(Integer, primary_key=True)
-    entity = Column(Integer, index=True, nullable=False)
-    x = Column(Integer, index=True)
-    y = Column(Integer, index=True)
-    priority = Column(Integer, default=PRIORITY_MEDIUM)
-    terrain = Column(Boolean, default=False, nullable=False)
+    entity: int = None
+    x: int = None
+    y: int = None
+    priority: int = PRIORITY_MEDIUM
+    terrain: bool = False
+    id: int = field(default_factory=get_id)
 
     @property
     def position(self) -> Tuple[int, int]:

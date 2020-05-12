@@ -1,18 +1,18 @@
-from sqlalchemy import Column, Integer, String
+from dataclasses import field, dataclass
 
 from components.component import Component, component_repr
 from engine import colors
-from engine.types import Color
+from engine.core import get_id
 
 
-class Appearance(Component):
+@dataclass
+class Appearance:
     """Define an entity's base appearance."""
-    __tablename__ = 'appearance'
-    id = Column(Integer, primary_key=True)
-    entity = Column(Integer, unique=True, index=True, nullable=False)
-    symbol = Column(String(1))
-    color = Column(Color(7), default=colors.white)
-    bg_color = Column(Color(7), default=colors.black)
+    entity: int
+    symbol: str
+    color: tuple = colors.white
+    bg_color: tuple = colors.black
+    id: int = field(default_factory=get_id)
 
     def to_tile(self):
         """Return the Appearance in the tcod Tile format."""

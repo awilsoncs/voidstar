@@ -85,8 +85,9 @@ class ComponentManager(object):
         """
         components = self.get_entity(entity)
 
-        for component in components:
-            self.delete_component(component)
+        for _, components in components.items():
+            for component in components:
+                self.delete_component(component)
         if entity in self.entities:
             self._delete_entity_from_indexes(entity)
 

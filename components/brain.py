@@ -1,23 +1,24 @@
-from sqlalchemy import Column, Integer, Enum, Boolean
+from dataclasses import field, dataclass
 
-import components.enums
-from components.component import Component, component_repr
-from components.enums import Intention
+from components.component import component_repr
+from components.enums import Intention, ControlMode
 from engine.constants import PRIORITY_MEDIUM
+from engine.core import get_id
 
 
-class Brain(Component):
+@dataclass
+class Brain:
     """Provides control and other 'mind' information."""
-    __tablename__ = 'brain'
-    id = Column(Integer, primary_key=True)
-    entity = Column(Integer, unique=True, index=True, nullable=False)
-    control_mode = Column(Enum(components.enums.ControlMode))  # which system controls this entity
-    priority = Column(Integer, default=PRIORITY_MEDIUM)
-    take_turn = Column(Boolean, default=False)  # if True, take a turn on update
+    entity: int = None
+    control_mode: ControlMode = None  # which system controls this entity
+    priority: int = PRIORITY_MEDIUM
+    take_turn: bool = False  # if True, take a turn on update
 
     # action management
-    intention = Column(Enum(Intention), default=Intention.NONE)
-    intention_target = Column(Integer)
+    intention: Intention = Intention.NONE
+    intention_target: int = None
+
+    id: int = field(default_factory=get_id)
 
     def __repr__(self):
         return component_repr(self)
