@@ -16,6 +16,8 @@ class FPSCounter(GuiElement):
     def render(self, panel):
         # fps tracking
         t = time.time()
+        if t == self.last_update:
+            return
         self.fps = int(round(1.0 / (t - self.last_update)))
         self.last_update = t
         self.label.render(panel)

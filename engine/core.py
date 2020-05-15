@@ -1,11 +1,11 @@
 import logging
 from time import perf_counter_ns
-from uuid import uuid4
 
 import tcod.event
 import tcod.noise
 
 ID_SEQ = 1000
+
 
 def get_key_event():
     """Handle tcod key events."""

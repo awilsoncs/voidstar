@@ -1,15 +1,9 @@
-from dataclasses import field, dataclass
+from dataclasses import dataclass
 
-from components.component import component_repr
-from engine.core import get_id
+from components.component import Component
 
 
 @dataclass
-class Attributes:
-    entity: int
+class Attributes(Component):
     hp: int = 10
     max_hp: int = 10
-    id: int = field(default_factory=get_id)
-
-    def __repr__(self):
-        return component_repr(self)

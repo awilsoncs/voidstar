@@ -2,20 +2,17 @@ import math
 from dataclasses import dataclass, field
 from typing import Tuple
 
-from components.component import component_repr
+from components.component import Component
 from engine.constants import PRIORITY_MEDIUM
-from engine.core import get_id
 
 
 @dataclass
-class Coordinates:
+class Coordinates(Component):
     """Provide location information."""
-    entity: int = None
     x: int = None
     y: int = None
     priority: int = PRIORITY_MEDIUM
     terrain: bool = False
-    id: int = field(default_factory=get_id)
 
     @property
     def position(self) -> Tuple[int, int]:
@@ -43,6 +40,3 @@ class Coordinates:
 
     def distance_from(self, other):
         return math.sqrt((self.x - other.x) ** 2 + (self.y - other.y) ** 2)
-
-    def __repr__(self):
-        return component_repr(self)

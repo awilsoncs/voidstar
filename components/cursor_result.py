@@ -1,15 +1,9 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
-from components.component import component_repr
-from engine.core import get_id
+from components.component import Component
 
 
 @dataclass
-class CursorResult:
-    id: int = field(default_factory=get_id)
-    entity: int = None
+class CursorResult(Component):
     x: int = None
     y: int = None
-
-    def __repr__(self):
-        return component_repr(self)

@@ -1,9 +1,10 @@
 import enum
-from sqlalchemy import Column, Integer, Enum
+from dataclasses import dataclass
 
-from components.component import Component, component_repr
+from components.component import Component
 
 
+@dataclass
 class Faction(Component):
 
     class Options(enum.Enum):
@@ -11,10 +12,4 @@ class Faction(Component):
         MONSTER = 'monster'
         PEASANT = 'peasant'
 
-    __tablename__ = 'faction'
-    id = Column(Integer, primary_key=True)
-    entity = Column(Integer, unique=True, nullable=False)
-    faction = Column(Enum(Options))
-
-    def __repr__(self):
-        return component_repr(self)
+    faction: Options = Options.NONE

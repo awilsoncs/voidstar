@@ -1,20 +1,14 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
-from components.component import component_repr
-from engine.core import get_id
+from components.component import Component
 
 
 @dataclass
-class Entity:
-    entity: int
-    name: str
-    zone: int
+class Entity(Component):
+    name: str = ''
+    zone: int = None
     abstract: bool = False
     static: bool = False  # if true, hide from 'interact' functionality
-    id: int = field(default_factory=get_id)
 
     def get_readable_key(self):
         return f'{self.name}@{self.id}'
-
-    def __repr__(self):
-        return component_repr(self)

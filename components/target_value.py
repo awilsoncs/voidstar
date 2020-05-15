@@ -1,16 +1,12 @@
-from sqlalchemy import Column, Integer
+from dataclasses import dataclass
 
-from components.component import Component, component_repr
+from components.component import Component
 
 PEASANT = 100
 PLAYER = 50
+DEFAULT = 0
 
 
+@dataclass
 class TargetValue(Component):
-    __tablename__ = 'target_value'
-    id = Column(Integer, primary_key=True)
-    entity = Column(Integer, unique=True, index=True, nullable=False)
-    value = Column(Integer)
-
-    def __repr__(self):
-        return component_repr(self)
+    value: int = DEFAULT

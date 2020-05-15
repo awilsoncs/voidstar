@@ -3,18 +3,11 @@ from collections import defaultdict
 from time import perf_counter, perf_counter_ns
 from typing import Set, Dict, List, Type
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy_utils import force_instant_defaults
-
 import settings
 from components import Entity
 from components.component import Component
 from engine.core import time_ms, timed, get_id
 from engine.types import EntityDict, EntityDictIndex, ComponentType
-
-# Sets default values during instantiation, so that we don't need to commit the db when creating new entities.
-force_instant_defaults()
 
 
 class ComponentManager(object):
