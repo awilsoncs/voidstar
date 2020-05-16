@@ -43,13 +43,23 @@ KEY_ACTION_MAP = {
     tcod.event.K_KP_8: Intention.STEP_NORTH,
     tcod.event.K_KP_9: Intention.STEP_NORTH_EAST,
 
+    tcod.event.K_z: Intention.STEP_SOUTH_WEST,
+    tcod.event.K_x: Intention.STEP_SOUTH,
+    tcod.event.K_c: Intention.STEP_SOUTH_EAST,
+    tcod.event.K_a: Intention.STEP_WEST,
+    tcod.event.K_s: Intention.DALLY,
+    tcod.event.K_d: Intention.STEP_EAST,
+    tcod.event.K_q: Intention.STEP_NORTH_WEST,
+    tcod.event.K_w: Intention.STEP_NORTH,
+    tcod.event.K_e: Intention.STEP_NORTH_EAST,
+
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,
     tcod.event.K_LEFT: Intention.STEP_WEST,
 
     tcod.event.K_l: Intention.ACTIVATE_CURSOR,
-    tcod.event.K_x: Intention.SHOW_DEBUG_SCREEN,
-    tcod.event.K_SPACE: Intention.INTERACT_NEARBY,
+    tcod.event.K_BACKQUOTE: Intention.SHOW_DEBUG_SCREEN,
+    tcod.event.K_SPACE: Intention.THWACK,
     tcod.event.K_ESCAPE: Intention.QUIT_GAME
 }

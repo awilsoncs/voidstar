@@ -18,26 +18,21 @@ class Gui:
             order="F",
             renderer=tcod.RENDERER_SDL2
         )
-        self.con = tcod.console.Console(width, height, order="F")
         self.gui_elements = set()
 
     def add_element(self, element):
         if element.single_shot:
             # if it's a single shot (menu or popup message), we need to render it directly to the existing window
             self.root.clear()
-            element.render_to_screen(self.root)
+            element.render(self.root)
         else:
             self.gui_elements.add(element)
-
-    def erase(self):
-        self.con.clear()
 
     def tear_down(self):
         self.gui_elements.clear()
 
     def close(self):
         self.root.__exit__()
-        self.con.__exit__()
 
     def __enter__(self):
         return self

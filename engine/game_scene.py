@@ -17,7 +17,7 @@ class GameScene:
     def add_gui_element(self, element: GuiElement):
         if element.single_shot:
             # if it's a single shot (menu or popup message), we need to render it directly to the existing window
-            element.render_to_screen(self.gui.root)
+            element.render(self.gui.root)
         else:
             self.gui_elements.append(element)
 
@@ -41,9 +41,11 @@ class GameScene:
         pass
 
     def render(self):
-        self.gui.erase()
+        self.gui.root.clear()
         for element in self.gui_elements:
-            element.render_to_screen(self.gui.root)
+            element.update(self)
+        for element in self.gui_elements:
+            element.render(self.gui.root)
 
     def on_unload(self):
         pass

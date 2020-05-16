@@ -3,15 +3,15 @@ import tcod
 import tcod.map
 
 import settings
-from components import Attributes
 from components.coordinates import Coordinates
 from components.material import Material
-from engine import GameScene, colors, core
+from engine import GameScene, colors, core, palettes
 from engine.constants import PLAYER_ID
 from engine.core import timed
 from engine.infos import ColoredMessage
-from gui.bars import Bar
+from gui.bars import HealthBar, PeasantBar, HordelingBar
 from gui.fps_counter import FPSCounter
+from gui.labels import Label
 from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
 from procgen.zonebuilders import fields
@@ -21,7 +21,7 @@ from systems import ai, control_player, death, \
 
 
 class DefendScene(GameScene):
-    def __init__(self, peasants, monsters, debug=False):
+    def __init__(self, peasants, hordelings, debug=True):
         super().__init__(debug)
         self.player = PLAYER_ID
         self.message_box = []
@@ -34,29 +34,27 @@ class DefendScene(GameScene):
             25, 0, settings.MAP_WIDTH, settings.MAP_HEIGHT,
             self.cm, self.map.fov, self.memory_map
         )
+
+        self.add_gui_element(Label(1, 1, "Chauncey"))
+        self.add_gui_element(HealthBar(1, 2))
+
+        self.add_gui_element(Label(1, 4, "Peasants"))
+        self.add_gui_element(PeasantBar(1, 5))
+
+        self.add_gui_element(Label(1, 7, "Hordelings", fg=palettes.HORDELING))
+        self.add_gui_element(HordelingBar(1, 8))
+
         self.add_gui_element(self.play_window)
         self.add_gui_element(FPSCounter(1, 49))
         self.add_gui_element(MessageBox(30, 0, 30, 5, self.message_box))
 
-        self.hp_bar = None
         self.zone_id = core.get_id()
-        self.monsters = monsters
+        self.hordelings = hordelings
         self.peasants = peasants
 
     def on_load(self):
         self.cm.clear()
         self.setup_level()
-
-    def get_hp_bar(self):
-        health = self.cm.get_one(Attributes, self.player)
-        return Bar(
-            x=1, y=1, total_width=23,
-            name='health',
-            value=lambda: health.hp,
-            maximum=lambda: health.max_hp,
-            bar_color=colors.light_red,
-            back_color=colors.dark_red
-        )
 
     @timed(100)
     def update(self):
@@ -66,7 +64,6 @@ class DefendScene(GameScene):
             control_cursor.run(self)
             death.run(self)
             debug_system.run(self)
-            interact.run(self)
             melee_attack.run(self)
             move.run(self)
             control_turns.run(self)
@@ -74,6 +71,7 @@ class DefendScene(GameScene):
             dungeon_master.run(self)
             dally.run(self)
             quit.run(self)
+
         except Exception as e:
             if self.debug:
                 raise e
@@ -90,13 +88,10 @@ class DefendScene(GameScene):
         ))
 
     def setup_level(self):
-        fields.build(self.cm, self.zone_id, peasants=self.peasants, monsters=self.monsters)
+        fields.build(self.cm, self.zone_id, peasants=self.peasants, monsters=self.hordelings)
 
         # load up the transparency map
         self.play_window.cm = self.cm
-        if not self.hp_bar:
-            self.hp_bar = self.get_hp_bar()
-            self.add_gui_element(self.hp_bar)
 
         coordinates = self.cm.get(Coordinates)
         coordinates = [c for c in coordinates if c.terrain]
@@ -109,4 +104,4 @@ class DefendScene(GameScene):
             self.map.walkable[coord.x, coord.y] = not material.blocks if material else True
 
     def next_level(self):
-        self.controller.next_level(self.monsters, self.monsters + self.peasants)
+        self.controller.next_level(self.hordelings, self.hordelings + self.peasants)

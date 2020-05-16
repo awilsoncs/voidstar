@@ -5,6 +5,7 @@ from components.coordinates import Coordinates
 from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
+from components.tags import Tag
 from components.target_value import TargetValue
 from engine import colors, palettes
 from engine.constants import PRIORITY_LOW
@@ -21,6 +22,10 @@ def run(scene):
             brain.control_mode = ControlMode.DEAD_PLAYER
         else:
             scene.cm.delete_component(brain)
+
+        tags = scene.cm.get_all(Tag, entity=entity)
+        for tag in tags:
+            scene.cm.delete_component(tag)
 
         renderable = scene.cm.get_one(Appearance, entity=entity)
         renderable.symbol = '%'

@@ -84,7 +84,7 @@ class PlayWindow(GuiElement):
         self.terrain_console.blit(self.console)
 
         coordinates = self.cm.get(Coordinates)
-        coordinates = [c for c in coordinates if not c.terrain]
+        coordinates = [c for c in coordinates]
         coordinates = sorted(coordinates, key=lambda c: c.priority)
         for coord in coordinates:
             appearance = self.cm.get_one(Appearance, entity=coord.entity)

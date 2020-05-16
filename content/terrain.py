@@ -2,7 +2,7 @@ import random
 
 from components import Entity, Appearance
 from components.material import Material
-from engine import core, colors, palettes
+from engine import core, palettes
 
 
 def make_tree(zone_id):

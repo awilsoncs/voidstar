@@ -1,25 +1,18 @@
-from typing import List
-from uuid import uuid4
+from dataclasses import dataclass, field
 
 import tcod
 
+from engine.core import get_id
 
+
+@dataclass
 class GuiElement:
     """Form the base behavior of a GuiElement."""
-    def __init__(self, x, y, name=None, single_shot=False):
-        self.__x = x
-        self.__y = y
-        self.name = name if name else uuid4()
-        self.children = []
-        self.single_shot = single_shot  # if true, the GUI won't store this element, but will render it immediately
-
-    @property
-    def x(self) -> int:
-        return self._resolve(self.__x)
-
-    @property
-    def y(self) -> int:
-        return self._resolve(self.__y)
+    x: int
+    y: int
+    name: str = ''
+    id: int = field(default_factory=get_id)
+    single_shot: bool = False    # if true, the GUI won't store this element, but will render it immediately
 
     def on_load(self) -> None:
         """
@@ -29,19 +22,8 @@ class GuiElement:
         """
         pass
 
-    def render_to_screen(self, panel: tcod.console.Console) -> None:
-        """Render this element, then each child."""
-        self.render(panel)
-        for child in self.children:
-            child.render_to_screen(panel)
+    def update(self, scene) -> None:
+        pass
 
     def render(self, panel: tcod.console.Console) -> None:
         raise NotImplementedError("GuiElement must define render()")
-
-    def add(self, *children: List['GuiElement']) -> None:
-        for child in children:
-            self.children.append(child)
-
-    @staticmethod
-    def _resolve(value):
-        return value() if callable(value) else value

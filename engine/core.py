@@ -4,8 +4,6 @@ from time import perf_counter_ns
 import tcod.event
 import tcod.noise
 
-ID_SEQ = 1000
-
 
 def get_key_event():
     """Handle tcod key events."""
@@ -25,10 +23,23 @@ def get_noise_generator(dimensions=3):
     return tcod.noise.Noise(dimensions=dimensions, octaves=32)
 
 
-def get_id():
+def get_id(name=None):
     global ID_SEQ
-    ID_SEQ += 1
-    return ID_SEQ
+    global NAME_ID_MAP
+
+    if not name:
+        ID_SEQ += 1
+        return ID_SEQ
+
+    if name in NAME_ID_MAP:
+        return NAME_ID_MAP[name]
+    else:
+        NAME_ID_MAP[name] = get_id()
+        return get_id(name)
+
+
+ID_SEQ = 100
+NAME_ID_MAP = {}
 
 
 def time_ms():

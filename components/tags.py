@@ -4,5 +4,5 @@ from components.component import Component
 
 
 @dataclass
-class Attack(Component):
-    damage: str = '1d1'
+class Tag(Component):
+    value: str = ''
