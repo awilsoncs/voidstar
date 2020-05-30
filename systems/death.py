@@ -19,4 +19,5 @@ def die(scene, entity):
         scene.cm.add(*player.make_corpse(coords.x, coords.y)[1])
     else:
         scene.cm.add(*corpses.make_corpse(name=entity_obj.name, x=coords.x, y=coords.y)[1])
+    scene.cm.add(*corpses.make_blood_splatter(5, coords.x, coords.y))
     scene.cm.delete(entity)

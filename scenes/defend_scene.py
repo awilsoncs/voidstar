@@ -19,7 +19,7 @@ from procgen.zonebuilders import fields
 from systems import ai, control_player, death, \
     debug_system, update_senses, \
     move, control_turns, quit, melee_attack, control_cursor, dungeon_master, dally, thwack, clear_components
-from systems.animators import animate_on_path, animate_float
+from systems.animators import animate_on_path, animate_float, animation_controller
 
 
 class DefendScene(GameScene):
@@ -64,8 +64,7 @@ class DefendScene(GameScene):
         try:
             ai.run(self)
 
-            animate_on_path.run(self)
-            animate_float.run(self)
+            animation_controller.run(self)
 
             control_player.run(self)
             control_cursor.run(self)
@@ -114,4 +113,7 @@ class DefendScene(GameScene):
             self.map.walkable[coord.x, coord.y] = not material.blocks if material else True
 
     def next_level(self):
-        self.controller.next_level(self.hordelings, self.hordelings + self.peasants)
+        self.controller.next_level(
+            self.peasants + 1,
+            self.hordelings + 2
+        )

@@ -1,7 +1,7 @@
 import random
 
 from components import Coordinates
-from components.animation_effects.animation_float import AnimationFloat
+from components.animation_effects.float import AnimationFloat
 from engine import core
 
 
