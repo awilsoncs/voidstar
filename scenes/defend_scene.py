@@ -17,7 +17,7 @@ from gui.play_window import PlayWindow
 from procgen.zonebuilders import fields
 from systems import ai, control_player, death, \
     debug_system, interact, update_senses, \
-    move, control_turns, quit, melee_attack, control_cursor, dungeon_master, dally, thwack
+    move, control_turns, quit, melee_attack, control_cursor, dungeon_master, dally, thwack, animate_on_path
 
 
 class DefendScene(GameScene):
@@ -60,6 +60,7 @@ class DefendScene(GameScene):
     def update(self):
         try:
             ai.run(self)
+            animate_on_path.run(self)
             control_player.run(self)
             control_cursor.run(self)
             death.run(self)

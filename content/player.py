@@ -24,3 +24,4 @@ def make_player(zone_id):
             Material(entity=entity_id, blocks=True, blocks_sight=False)
         ]
     )
+

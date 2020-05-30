@@ -35,6 +35,7 @@ class ControlMode(Enum):
     CURSOR = 'cursor'
     WANDER = 'wander'
     DEAD_PLAYER = 'dead_player'
+    FOLLOW_PATH = 'follow_path'
 
 
 class FactionType(Enum):
