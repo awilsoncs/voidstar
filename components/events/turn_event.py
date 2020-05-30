@@ -4,5 +4,5 @@ from components.component import Component
 
 
 @dataclass
-class Attack(Component):
-    damage: int = 1
+class TurnEvent(Component):
+    pass

@@ -10,7 +10,6 @@ class Brain(Component):
     """Provides control and other 'mind' information."""
     control_mode: ControlMode = None  # which system controls this entity
     priority: int = PRIORITY_MEDIUM
-    take_turn: bool = False  # if True, take a turn on update
 
     # action management
     intention: Intention = Intention.NONE

@@ -16,9 +16,9 @@ def make_player(zone_id):
             Entity(id=entity_id, entity=entity_id, name='player', zone=zone_id),
             Appearance(entity=entity_id, symbol='@', color=palettes.WHITE, bg_color=palettes.BACKGROUND),
             Senses(entity=entity_id, sight_radius=-1),
-            Brain(entity=entity_id, control_mode=ControlMode.PLAYER, take_turn=True),
+            Brain(entity=entity_id, control_mode=ControlMode.PLAYER),
             Attributes(entity=entity_id, hp=5, max_hp=5),
-            Attack(entity=entity_id, damage='1d1'),
+            Attack(entity=entity_id, damage=1),
             TargetValue(entity=entity_id, value=PLAYER),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False)

@@ -1,13 +1,14 @@
 from components import Brain
+from components.events.turn_event import TurnEvent
 
 
 def run(scene):
-    brains = scene.cm.get(Brain)
+    turns = scene.cm.get(TurnEvent)
     # if we don't have any brains that need to take turns,
-    if all(not b.take_turn for b in brains):
-        reset_turns(brains)
+    if not turns:
+        brains = scene.cm.get(Brain)
+        scene.cm.add(*get_turns(brains))
 
 
-def reset_turns(brains):
-    for brain in brains:
-        brain.take_turn = True
+def get_turns(brains):
+    return [TurnEvent(entity=b.entity) for b in brains]

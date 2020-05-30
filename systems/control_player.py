@@ -1,13 +1,17 @@
 import tcod.event
 
+from components.actions.thwack_action import ThwackAction
 from components.brain import Brain
 from components.enums import Intention, ControlMode
-from engine import core
+from components.events.turn_event import TurnEvent
+from engine import core, PLAYER_ID
 from systems.utilities import set_intention
 
 
 def run(scene) -> None:
-    for brain in [b for b in scene.cm.get(Brain) if b.take_turn]:
+    turn = scene.cm.get_one(TurnEvent, entity=PLAYER_ID)
+    if turn:
+        brain = scene.cm.get_one(Brain, entity=PLAYER_ID)
         do_take_turn(scene, brain)
 
 
@@ -23,14 +27,20 @@ def handle_key_event(scene, entity_id, action_map):
     if key_event:
         key_event = key_event.sym
         intention = action_map.get(key_event, None)
-        set_intention(scene, entity_id, None, intention)
+        if intention is not None:
+            set_intention(scene, entity_id, None, intention)
+        else:
+            # new event-based actions
+            if key_event is tcod.event.K_SPACE:
+                scene.cm.add(ThwackAction(entity=entity_id))
 
 
 DEAD_KEY_ACTION_MAP = {
     tcod.event.K_l: Intention.ACTIVATE_CURSOR,
-    tcod.event.K_x: Intention.SHOW_DEBUG_SCREEN,
+    tcod.event.K_BACKQUOTE: Intention.SHOW_DEBUG_SCREEN,
     tcod.event.K_ESCAPE: Intention.QUIT_GAME
 }
+
 
 KEY_ACTION_MAP = {
     tcod.event.K_KP_1: Intention.STEP_SOUTH_WEST,
@@ -60,6 +70,5 @@ KEY_ACTION_MAP = {
 
     tcod.event.K_l: Intention.ACTIVATE_CURSOR,
     tcod.event.K_BACKQUOTE: Intention.SHOW_DEBUG_SCREEN,
-    tcod.event.K_SPACE: Intention.THWACK,
     tcod.event.K_ESCAPE: Intention.QUIT_GAME
 }

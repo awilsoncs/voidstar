@@ -1,5 +1,3 @@
-import random
-
 from components import Entity, Appearance
 from components.material import Material
 from engine import core, palettes
@@ -7,10 +5,7 @@ from engine import core, palettes
 
 def make_tree(zone_id):
     entity_id = core.get_id()
-    tree_color = random.choice([
-        palettes.FOILAGE_B,
-        palettes.FOILAGE_C
-    ])
+    tree_color = palettes.FOILAGE_B
     return (
         entity_id,
         [

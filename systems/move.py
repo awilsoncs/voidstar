@@ -1,10 +1,8 @@
-import logging
 from typing import Tuple
 
 from components import Brain, Senses
 from components.coordinates import Coordinates
 from components.enums import Intention
-from components.faction import Faction
 from components.material import Material
 from systems.utilities import get_blocking_object, retract_turn, retract_intention
 
@@ -17,17 +15,7 @@ def run(scene):
         # is there a non-hostile blocking entity in that direction? if so, too bad
         # otherwise, move them
 
-        x, y = get_step_target(scene, entity, brain.intention)
-        blocking_entity = get_blocking_object(scene.cm, x, y)
-
-        if (
-            blocking_entity is not None
-            and is_hostile(scene, entity, blocking_entity)
-        ):
-            logging.debug(f'bump attack {entity} => {blocking_entity}')
-            brain.intention = Intention.MELEE_ATTACK
-            brain.intention_target = blocking_entity
-        elif can_step(scene, entity, STEP_VECTORS[brain.intention]):
+        if can_step(scene, entity, STEP_VECTORS[brain.intention]):
             # do move
             move(scene, entity, STEP_VECTORS[brain.intention])
             dirty_senses(scene, entity)
@@ -79,16 +67,6 @@ def can_step(scene, entity, step_action) -> bool:
     return not (
         entity_material
         and blocking_object
-    )
-
-
-def is_hostile(scene, entity, blocking_entity) -> bool:
-    entity_faction = scene.cm.get_one(Faction, entity)
-    blocking_faction = scene.cm.get_one(Faction, blocking_entity)
-    return (
-        entity_faction
-        and blocking_faction
-        and entity_faction.faction is not blocking_faction.faction
     )
 
 

@@ -110,6 +110,11 @@ class ComponentManager(object):
             if component.id in self.components_by_id:
                 del self.components_by_id[component.id]
 
+    def delete_components(self, component_type: ComponentType)-> None:
+        components_to_delete = [c for c in self.components[component_type]]
+        for component in components_to_delete:
+            self.delete_component(component)
+
     # private methods
     def _add(self, component: Component) -> None:
         """Add a component to the db."""
