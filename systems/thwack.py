@@ -15,7 +15,7 @@ def run(scene):
         thwacker = thwack.entity
 
         # convert the thwack action to an attack action each adjacent enemy
-        thwackables = get_enemies_in_range(scene, thwack.entity, max=1)
+        thwackables = get_enemies_in_range(scene, thwack.entity, max=sqrt(2))
         attacks = [
             AttackAction(entity=thwack.entity, recipient=t, damage=1)
             for t in thwackables

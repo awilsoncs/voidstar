@@ -12,7 +12,7 @@ def swing_sword(owner, path):
         entity_id,
         [
             Entity(id=entity_id, entity=entity_id, name='sword_attack'),
-            Appearance(entity=entity_id, symbol='/', color=palettes.GABRIEL_2_1, bg_color=palettes.BACKGROUND),
+            Appearance(entity=entity_id, symbol='/', color=palettes.GREY, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=path[0][0], y=path[0][1], priority=PRIORITY_HIGH),
             Owner(entity=entity_id, owner=owner),
             AnimationPath(entity=entity_id, delay_ms=25),

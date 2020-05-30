@@ -4,6 +4,7 @@ from components.events.turn_event import TurnEvent
 from components.faction import Faction
 from components.material import Material
 from engine.component_manager import ComponentManager
+from engine.core import log_debug
 
 
 def get_blocking_object(cm: ComponentManager, x: int, y: int) -> int:
@@ -19,6 +20,7 @@ def get_blocking_object(cm: ComponentManager, x: int, y: int) -> int:
     return blocking_material.entity if blocking_material else None
 
 
+@log_debug(__name__)
 def set_intention(scene, entity, target, intention):
     brain = scene.cm.get_one(Brain, entity=entity)
     if brain:
@@ -30,6 +32,7 @@ def retract_intention(scene, entity):
     set_intention(scene, entity, None, Intention.NONE)
 
 
+@log_debug(__name__)
 def retract_turn(scene, entity: int):
     turn = scene.cm.get_one(TurnEvent, entity=entity)
     if turn:

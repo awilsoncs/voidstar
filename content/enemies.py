@@ -1,4 +1,4 @@
-from components import Entity, Appearance, Brain, Attributes
+from components import Entity, Appearance, Brain, Attributes, Coordinates
 from components.attack import Attack
 from components.enums import ControlMode
 from components.faction import Faction

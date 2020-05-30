@@ -1,10 +1,11 @@
-from components import Entity, Appearance, Senses, Brain, Attributes
+from components import Entity, Appearance, Senses, Brain, Attributes, Coordinates
 from components.attack import Attack
 from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
 from components.target_value import PLAYER, TargetValue
 from engine import colors, PLAYER_ID, palettes
+from engine.constants import PRIORITY_LOW
 
 
 def make_player(zone_id):
@@ -25,3 +26,16 @@ def make_player(zone_id):
         ]
     )
 
+
+def make_corpse(x, y):
+    entity_id = PLAYER_ID
+
+    return (
+        entity_id,
+        [
+            Entity(id=entity_id, entity=entity_id, name='player corpse'),
+            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOW),
+            Appearance(entity=entity_id, symbol='%', color=palettes.BLOOD, bg_color=palettes.BACKGROUND),
+            Brain(entity=entity_id, control_mode=ControlMode.DEAD_PLAYER),
+        ]
+    )

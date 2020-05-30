@@ -6,6 +6,7 @@ from components.enums import Intention, ControlMode
 from components.actions.attack_action import AttackAction
 from components.events.turn_event import TurnEvent
 from components.target_value import TargetValue
+from engine.core import log_debug
 from systems.utilities import set_intention
 
 
@@ -25,11 +26,12 @@ def get_brains(scene, control_mode):
     ]
 
 
+@log_debug(__name__)
 def handle_wander(scene, brain):
-    logging.debug(f'ai.do_take_turn {brain.entity}')
     set_intention(scene, brain.entity, 0, random.choice(STEPS))
 
 
+@log_debug(__name__)
 def handle_monster(scene, brain):
     # find all possible targets
     targets = [t.entity for t in scene.cm.get(TargetValue)]
