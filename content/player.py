@@ -1,4 +1,5 @@
 from components import Entity, Appearance, Senses, Brain, Attributes, Coordinates
+from components.abilities.thwack_ability import ThwackAbility
 from components.attack import Attack
 from components.enums import ControlMode
 from components.faction import Faction
@@ -22,7 +23,8 @@ def make_player(zone_id):
             Attack(entity=entity_id, damage=1),
             TargetValue(entity=entity_id, value=PLAYER),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
-            Material(entity=entity_id, blocks=True, blocks_sight=False)
+            Material(entity=entity_id, blocks=True, blocks_sight=False),
+            ThwackAbility(entity=entity_id, count=3, max=3)
         ]
     )
 

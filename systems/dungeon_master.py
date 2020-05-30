@@ -6,7 +6,9 @@ def run(scene):
     if not any(f for f in faction_members if f.value == 'peasant'):
         scene.popup_message("All of the peasants were killed! You lose.")
         scene.pop()
+        return
 
     if not any(f for f in faction_members if f.value == 'hordeling'):
         scene.popup_message("You stopped the hordeling invasion! But more come...")
         scene.next_level()
+        return

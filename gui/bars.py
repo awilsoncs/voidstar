@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 
 from components import Attributes, target_value
+from components.abilities.thwack_ability import ThwackAbility
+from components.states.dizzy_state import DizzyState
 from components.tags import Tag
 from components.target_value import TargetValue
 from engine import palettes, PLAYER_ID
@@ -71,3 +73,40 @@ class HordelingBar(Bar):
         hordelings = len([p for p in hordelings if p.value == 'hordeling'])
         self.value = hordelings
         self.max_value = scene.hordelings
+
+
+@dataclass
+class Thwackometer(Bar):
+    symbol: str = '/'
+
+    fg_color: tuple = palettes.GREY
+    mg_color: tuple = palettes.GABRIEL_3_5
+
+    thwack_fg: tuple = palettes.GREY
+    thwack_mg: tuple = palettes.GABRIEL_3_5
+
+    dizzy_fg: tuple = palettes.LIGHT_WATER
+    dizzy_mg: tuple = palettes.GABRIEL_2_2
+
+    max: int = 0  # we'll need this when the player dies
+
+    def update(self, scene):
+        thwack_ability = scene.cm.get_one(ThwackAbility, entity=PLAYER_ID)
+        dizzy = scene.cm.get_one(DizzyState, entity=PLAYER_ID)
+
+        if not dizzy:
+            self.symbol = '/'
+            self.fg_color = self.thwack_fg
+            self.mg_color = self.thwack_mg
+
+            self.value = thwack_ability.count if thwack_ability else 0
+            self.max = thwack_ability.max if thwack_ability else self.max
+            self.max_value = thwack_ability.max if thwack_ability else self.max
+        else:
+            self.symbol = '?'
+            self.fg_color = self.dizzy_fg
+            self.mg_color = self.dizzy_mg
+
+            self.value = dizzy.duration
+            self.max_value = 3
+

@@ -1,5 +1,5 @@
 from components import Coordinates
-from components.animation_path import AnimationPath
+from components.animation_effects.animation_path import AnimationPath
 from components.path_node import PathNode
 from engine import core
 
