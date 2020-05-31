@@ -47,12 +47,7 @@ class PlayWindow(GuiElement):
         memory_color = palettes.GABRIEL_2_2
         for y in range(MAP_HEIGHT):
             for x in range(MAP_WIDTH):
-                grass_color = random.choice(
-                    [
-                        palettes.FOILAGE_A,
-                        palettes.FOILAGE_B
-                    ]
-                )
+                grass_color = palettes.FOILAGE_A
 
                 symbol = ord(random.choice(['.', ',', '"', '\'', ' ']))
                 self.terrain_console.tiles[x, y] = (

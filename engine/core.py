@@ -1,4 +1,6 @@
+import functools
 import logging
+import sys
 from time import perf_counter_ns
 
 import tcod.event
@@ -55,4 +57,21 @@ def timed(ms):
             if t1-t0 > ms:
                 logging.warning(f'call to {func} took {t1-t0}ms (>{ms}ms)')
         return inner
+    return outer
+
+
+def log_debug(module):
+    def outer(fn):
+        def decorated(*args, **kwargs):
+            logger = logging.getLogger(module)
+
+            try:
+                logger.debug(f' {fn.__name__} => {args} - {kwargs}')
+                result = fn(*args, **kwargs)
+                logger.debug(f' {fn.__name__} <= {result}')
+                return result
+            except Exception as ex:
+                logger.debug("Exception {0}".format(ex))
+                raise ex
+        return decorated
     return outer

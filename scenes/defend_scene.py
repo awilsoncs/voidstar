@@ -3,21 +3,23 @@ import tcod
 import tcod.map
 
 import settings
+from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.coordinates import Coordinates
 from components.material import Material
 from engine import GameScene, colors, core, palettes
 from engine.constants import PLAYER_ID
 from engine.core import timed
 from engine.infos import ColoredMessage
-from gui.bars import HealthBar, PeasantBar, HordelingBar
+from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
 from gui.fps_counter import FPSCounter
 from gui.labels import Label
 from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
 from procgen.zonebuilders import fields
 from systems import ai, control_player, death, \
-    debug_system, interact, update_senses, \
-    move, control_turns, quit, melee_attack, control_cursor, dungeon_master, dally
+    debug_system, update_senses, \
+    move, control_turns, quit, melee_attack, control_cursor, dungeon_master, dally, thwack, clear_components
+from systems.animators import animate_on_path, animate_float, animation_controller
 
 
 class DefendScene(GameScene):
@@ -37,12 +39,13 @@ class DefendScene(GameScene):
 
         self.add_gui_element(Label(1, 1, "Chauncey"))
         self.add_gui_element(HealthBar(1, 2))
+        self.add_gui_element(Thwackometer(1, 3))
 
-        self.add_gui_element(Label(1, 4, "Peasants"))
-        self.add_gui_element(PeasantBar(1, 5))
+        self.add_gui_element(Label(1, 5, "Peasants"))
+        self.add_gui_element(PeasantBar(1, 6))
 
-        self.add_gui_element(Label(1, 7, "Hordelings", fg=palettes.HORDELING))
-        self.add_gui_element(HordelingBar(1, 8))
+        self.add_gui_element(Label(1, 8, "Hordelings", fg=palettes.HORDELING))
+        self.add_gui_element(HordelingBar(1, 9))
 
         self.add_gui_element(self.play_window)
         self.add_gui_element(FPSCounter(1, 49))
@@ -60,16 +63,22 @@ class DefendScene(GameScene):
     def update(self):
         try:
             ai.run(self)
+
+            animation_controller.run(self)
+
             control_player.run(self)
             control_cursor.run(self)
             death.run(self)
             debug_system.run(self)
+            thwack.run(self)
             melee_attack.run(self)
             move.run(self)
             control_turns.run(self)
             update_senses.run(self)
             dungeon_master.run(self)
             dally.run(self)
+
+            clear_components.of_type(ChargeAbilityEvent, self)
             quit.run(self)
 
         except Exception as e:
@@ -104,4 +113,7 @@ class DefendScene(GameScene):
             self.map.walkable[coord.x, coord.y] = not material.blocks if material else True
 
     def next_level(self):
-        self.controller.next_level(self.hordelings, self.hordelings + self.peasants)
+        self.controller.next_level(
+            self.peasants + 1,
+            self.hordelings + 2
+        )

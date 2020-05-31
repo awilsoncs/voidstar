@@ -7,7 +7,7 @@ def get_start_menu():
     from scenes.quit_scene import QuitScene
 
     option_map = OrderedDict()
-    option_map['New Game'] = DefendScene(peasants=1, hordelings=1)
+    option_map['New Game'] = DefendScene(peasants=3, hordelings=1)
     option_map['Quit'] = QuitScene()
     return NavigationMenuScene(
         title="Oh No! It's THE HORDE!",

@@ -1,47 +1,23 @@
-from components import Attributes
-from components.appearance import Appearance
-from components.brain import Brain
+from components import Attributes, Entity
 from components.coordinates import Coordinates
-from components.enums import ControlMode
-from components.faction import Faction
-from components.material import Material
-from components.tags import Tag
-from components.target_value import TargetValue
-from engine import colors, palettes
-from engine.constants import PRIORITY_LOW
+from content import player, corpses
+from engine.constants import PLAYER_ID
+from engine.core import log_debug
 
 
 def run(scene):
     healths = [f for f in scene.cm.get(Attributes) if (f.hp <= 0)]
     for health in healths:
-        entity = health.entity
-        scene.cm.delete_component(health)
+        die(scene, health.entity)
 
-        brain = scene.cm.get_one(Brain, entity)
-        if brain.control_mode is ControlMode.PLAYER:
-            brain.control_mode = ControlMode.DEAD_PLAYER
-        else:
-            scene.cm.delete_component(brain)
 
-        tags = scene.cm.get_all(Tag, entity=entity)
-        for tag in tags:
-            scene.cm.delete_component(tag)
-
-        renderable = scene.cm.get_one(Appearance, entity=entity)
-        renderable.symbol = '%'
-        renderable.color = palettes.BLOOD
-
-        coords = scene.cm.get_one(Coordinates, entity=entity)
-        coords.priority = PRIORITY_LOW
-
-        faction = scene.cm.get_one(Faction, entity=entity)
-        if faction:
-            scene.cm.delete_component(faction)
-
-        material = scene.cm.get_one(Material, entity=entity)
-        material.blocks = False
-        material.blocks_sight = False
-
-        target_value = scene.cm.get_one(TargetValue, entity=entity)
-        if target_value:
-            scene.cm.delete_component(target_value)
+@log_debug(__name__)
+def die(scene, entity):
+    entity_obj = scene.cm.get_one(Entity, entity=entity)
+    coords = scene.cm.get_one(Coordinates, entity=entity)
+    if entity == PLAYER_ID:
+        scene.cm.add(*player.make_corpse(coords.x, coords.y)[1])
+    else:
+        scene.cm.add(*corpses.make_corpse(name=entity_obj.name, x=coords.x, y=coords.y)[1])
+    scene.cm.add(*corpses.make_blood_splatter(5, coords.x, coords.y))
+    scene.cm.delete(entity)

@@ -1,12 +1,29 @@
-import logging
 from typing import Tuple
 
 from components import Brain, Senses
+from components.actions.attack_action import AttackAction
+from components.attack import Attack
 from components.coordinates import Coordinates
 from components.enums import Intention
 from components.faction import Faction
 from components.material import Material
+from content.attacks import stab
 from systems.utilities import get_blocking_object, retract_turn, retract_intention
+
+
+def get_hostile(scene, entity, step_direction):
+    entity_faction = scene.cm.get_one(Faction, entity)
+    if not entity_faction:
+        return None
+    coords = scene.cm.get_one(Coordinates, entity=entity)
+    x = coords.x + step_direction[0]
+    y = coords.y + step_direction[1]
+    obj = get_blocking_object(scene.cm, x, y)
+    if obj:
+        obj_faction = scene.cm.get_one(Faction, obj)
+        if obj_faction and obj_faction is not entity_faction:
+            return obj
+    return None
 
 
 def run(scene):
@@ -16,22 +33,29 @@ def run(scene):
         # is there a hostile in that direction? if so, bump attack
         # is there a non-hostile blocking entity in that direction? if so, too bad
         # otherwise, move them
-
-        x, y = get_step_target(scene, entity, brain.intention)
-        blocking_entity = get_blocking_object(scene.cm, x, y)
-
-        if (
-            blocking_entity is not None
-            and is_hostile(scene, entity, blocking_entity)
-        ):
-            logging.debug(f'bump attack {entity} => {blocking_entity}')
-            brain.intention = Intention.MELEE_ATTACK
-            brain.intention_target = blocking_entity
-        elif can_step(scene, entity, STEP_VECTORS[brain.intention]):
+        step_direction = STEP_VECTORS[brain.intention]
+        if can_step(scene, entity, step_direction):
             # do move
-            move(scene, entity, STEP_VECTORS[brain.intention])
+            move(scene, entity, step_direction)
             dirty_senses(scene, entity)
             retract_turn(scene, entity)
+            retract_intention(scene, entity)
+        elif get_hostile(scene, entity, step_direction):
+
+            entity_attack = scene.cm.get_one(Attack, entity=entity)
+            if entity_attack:
+                hostile = get_hostile(scene, entity, step_direction)
+                scene.cm.add(AttackAction(entity=entity, recipient=hostile, damage=1))
+                coords = scene.cm.get_one(Coordinates, entity)
+                scene.cm.add(
+                    *stab(
+                        entity,
+                        coords.x + step_direction[0],
+                        coords.y + step_direction[1]
+                    )[1]
+                )
+            else:
+                retract_turn(scene, entity)
             retract_intention(scene, entity)
         else:
             retract_turn(scene, entity)
@@ -79,16 +103,6 @@ def can_step(scene, entity, step_action) -> bool:
     return not (
         entity_material
         and blocking_object
-    )
-
-
-def is_hostile(scene, entity, blocking_entity) -> bool:
-    entity_faction = scene.cm.get_one(Faction, entity)
-    blocking_faction = scene.cm.get_one(Faction, blocking_entity)
-    return (
-        entity_faction
-        and blocking_faction
-        and entity_faction.faction is not blocking_faction.faction
     )
 
 

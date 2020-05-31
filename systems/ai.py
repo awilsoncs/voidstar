@@ -3,32 +3,36 @@ import random
 
 from components import Brain, Coordinates
 from components.enums import Intention, ControlMode
+from components.actions.attack_action import AttackAction
+from components.events.turn_event import TurnEvent
 from components.target_value import TargetValue
+from engine.core import log_debug
 from systems.utilities import set_intention
 
 
 def run(scene) -> None:
-    for brain in scene.cm.get(Brain):
-        do_take_turn(scene, brain)
+    for brain in get_brains(scene, ControlMode.MONSTER):
+        handle_monster(scene, brain)
+    for brain in get_brains(scene, ControlMode.WANDER):
+        handle_wander(scene, brain)
 
 
-def do_take_turn(scene, brain) -> None:
-    if (
+def get_brains(scene, control_mode):
+    return [
         brain
-        and brain.control_mode is ControlMode.WANDER
-        and brain.take_turn
-    ):
-        logging.debug(f'ai.do_take_turn {brain.entity}')
-        set_intention(scene, brain.entity, 0, random.choice(STEPS))
-    elif (
-        brain
-        and brain.control_mode is ControlMode.MONSTER
-        and brain.take_turn
-    ):
-        take_monster_turn(scene, brain)
+        for brain in scene.cm.get(Brain)
+        for turn in [scene.cm.get_one(TurnEvent, entity=brain.entity)]
+        if turn and brain.control_mode is control_mode
+    ]
 
 
-def take_monster_turn(scene, brain):
+@log_debug(__name__)
+def handle_wander(scene, brain):
+    set_intention(scene, brain.entity, 0, random.choice(STEPS))
+
+
+@log_debug(__name__)
+def handle_monster(scene, brain):
     # find all possible targets
     targets = [t.entity for t in scene.cm.get(TargetValue)]
     if targets:
@@ -43,7 +47,13 @@ def take_monster_turn(scene, brain):
 
         # < 2 allows diagonal attacks
         if owner_coord.distance_from(closest_target) < 2:
-            set_intention(scene, brain.entity, closest_target.entity, Intention.MELEE_ATTACK)
+            scene.cm.add(
+                AttackAction(
+                    entity=brain.entity,
+                    recipient=closest_target.entity,
+                    damage=1
+                )
+            )
         else:
             # get the direction to step towards it
             direction = owner_coord.direction_towards(closest_target)

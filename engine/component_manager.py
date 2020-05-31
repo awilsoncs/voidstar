@@ -6,7 +6,7 @@ from typing import Set, Dict, List, Type
 import settings
 from components import Entity
 from components.component import Component
-from engine.core import time_ms, timed, get_id
+from engine.core import time_ms, timed, get_id, log_debug
 from engine.types import EntityDict, EntityDictIndex, ComponentType
 
 
@@ -31,9 +31,9 @@ class ComponentManager(object):
         components.append(component)
         self.components_by_id[component.id] = component
 
+    @log_debug(__name__)
     def clear(self) -> None:
         """Clears the active zone. Note that this doesn't have any impact on persistence."""
-        logging.debug(f'clearing zone')
         self.components = defaultdict(list)
         self.components_by_entity = defaultdict(lambda: defaultdict(list))
         self.components_by_id = {}
@@ -109,6 +109,11 @@ class ComponentManager(object):
                 self.components_by_entity[component.entity][component_type].remove(component)
             if component.id in self.components_by_id:
                 del self.components_by_id[component.id]
+
+    def delete_components(self, component_type: ComponentType)-> None:
+        components_to_delete = [c for c in self.components[component_type]]
+        for component in components_to_delete:
+            self.delete_component(component)
 
     # private methods
     def _add(self, component: Component) -> None:

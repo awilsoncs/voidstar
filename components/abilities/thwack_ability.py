@@ -4,5 +4,6 @@ from components.component import Component
 
 
 @dataclass
-class Attack(Component):
-    damage: int = 1
+class ThwackAbility(Component):
+    count: int = 0
+    max: int = 3
