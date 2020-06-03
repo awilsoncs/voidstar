@@ -12,9 +12,11 @@ from engine.core import timed
 from engine.infos import ColoredMessage
 from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
 from gui.fps_counter import FPSCounter
-from gui.labels import Label
+from gui.help_tab import HelpTab
+from gui.labels import Label, GoldLabel
 from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
+from gui.vertical_anchor import VerticalAnchor
 from procgen.zonebuilders import fields
 from systems import ai, control_player, death, \
     debug_system, update_senses, \
@@ -23,7 +25,7 @@ from systems.animators import animate_on_path, animate_float, animation_controll
 
 
 class DefendScene(GameScene):
-    def __init__(self, peasants, hordelings, debug=True):
+    def __init__(self, peasants, hordelings, gold=0, debug=True):
         super().__init__(debug)
         self.player = PLAYER_ID
         self.message_box = []
@@ -37,23 +39,34 @@ class DefendScene(GameScene):
             self.cm, self.map.fov, self.memory_map
         )
 
-        self.add_gui_element(Label(1, 1, "Chauncey"))
-        self.add_gui_element(HealthBar(1, 2))
-        self.add_gui_element(Thwackometer(1, 3))
+        anchor = VerticalAnchor(1, 1)
+        anchor.add_space(1)
 
-        self.add_gui_element(Label(1, 5, "Peasants"))
-        self.add_gui_element(PeasantBar(1, 6))
+        anchor.add_element(Label(1, 1, "Chauncey"))
+        anchor.add_element(HealthBar(1, 2))
+        anchor.add_element(Thwackometer(1, 3))
 
-        self.add_gui_element(Label(1, 8, "Hordelings", fg=palettes.HORDELING))
-        self.add_gui_element(HordelingBar(1, 9))
+        anchor.add_element(GoldLabel(1, 0))
+        anchor.add_space(1)
 
+        anchor.add_element(Label(1, 5, "Peasants"))
+        anchor.add_element(PeasantBar(1, 6))
+        anchor.add_space(1)
+
+        anchor.add_element(Label(1, 8, "Hordelings", fg=palettes.HORDELING))
+        anchor.add_element(HordelingBar(1, 9))
+        anchor.add_space(21)
+
+        anchor.add_element(HelpTab(1, 30))
+
+        self.add_gui_element(anchor)
         self.add_gui_element(self.play_window)
         self.add_gui_element(FPSCounter(1, 49))
-        self.add_gui_element(MessageBox(30, 0, 30, 5, self.message_box))
 
         self.zone_id = core.get_id()
         self.hordelings = hordelings
         self.peasants = peasants
+        self.gold = gold
 
     def on_load(self):
         self.cm.clear()
@@ -97,7 +110,12 @@ class DefendScene(GameScene):
         ))
 
     def setup_level(self):
-        fields.build(self.cm, self.zone_id, peasants=self.peasants, monsters=self.hordelings)
+        fields.build(
+            self.cm,
+            self.zone_id,
+            peasants=self.peasants,
+            monsters=self.hordelings
+        )
 
         # load up the transparency map
         self.play_window.cm = self.cm
@@ -113,7 +131,10 @@ class DefendScene(GameScene):
             self.map.walkable[coord.x, coord.y] = not material.blocks if material else True
 
     def next_level(self):
-        self.controller.next_level(
-            self.peasants + 1,
-            self.hordelings + 2
+        self.controller.push_scene(
+            DefendScene(
+                self.peasants + 1,
+                self.hordelings + 2,
+                self.gold + 5
+            )
         )
