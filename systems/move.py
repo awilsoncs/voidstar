@@ -21,7 +21,7 @@ def get_hostile(scene, entity, step_direction):
     obj = get_blocking_object(scene.cm, x, y)
     if obj:
         obj_faction = scene.cm.get_one(Faction, obj)
-        if obj_faction and obj_faction is not entity_faction:
+        if obj_faction and obj_faction.faction is not entity_faction.faction:
             return obj
     return None
 
