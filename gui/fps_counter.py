@@ -11,16 +11,17 @@ class FPSCounter(GuiElement):
         super().__init__(x, y)
         self.last_update = time.time()
         self.fps = 0
-        self.label = Label(x, y, 'fps: 0', fg=colors.yellow)
+        self.label = Label(x, y, '', fg=colors.yellow)
 
     def update(self, scene):
         # fps tracking
         t = time.time()
         if t == self.last_update:
             return
-        self.fps = int(round(1.0 / (t - self.last_update)))
+        fps = int(round(1.0 / (t - self.last_update)))
         self.last_update = t
-        self.label.value = f'fps: {self.fps}'
+
+        self.label.value = f'fps {fps}'
 
     def render(self, panel):
         self.label.render(panel)

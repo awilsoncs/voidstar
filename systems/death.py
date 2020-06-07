@@ -1,6 +1,8 @@
 from components import Attributes, Entity
 from components.coordinates import Coordinates
+from components.drop_gold import DropGold
 from content import player, corpses
+from content.gold import make_gold_nugget
 from engine.constants import PLAYER_ID
 from engine.core import log_debug
 
@@ -20,4 +22,9 @@ def die(scene, entity):
     else:
         scene.cm.add(*corpses.make_corpse(name=entity_obj.name, x=coords.x, y=coords.y)[1])
     scene.cm.add(*corpses.make_blood_splatter(5, coords.x, coords.y))
+
+    gold = scene.cm.get_one(DropGold, entity=entity)
+    if gold:
+        scene.cm.add(*make_gold_nugget(coords.x, coords.y)[1])
+
     scene.cm.delete(entity)

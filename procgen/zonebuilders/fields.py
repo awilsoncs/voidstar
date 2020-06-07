@@ -4,6 +4,7 @@ import settings
 from components import Appearance, Coordinates
 from content.allies import make_peasant
 from content.enemies import make_hordeling
+from content.gold import make_gold_nugget
 from content.player import make_player
 from content.terrain import make_tree, make_water
 from engine import core, palettes
@@ -125,6 +126,14 @@ class FieldBuilder:
             y = random.randint(0, settings.MAP_HEIGHT - 1)
             if (x, y) not in self.object_map:
                 self.add_water(x, y)
+
+        if random.randint(1, 3) == 3:
+            x = random.randint(0, settings.MAP_WIDTH - 1)
+            y = random.randint(0, settings.MAP_HEIGHT - 1)
+            if (x, y) not in self.object_map:
+                gold_nugget = make_gold_nugget(x, y)
+                self.object_map[x, y] = gold_nugget[0]
+                self.cm.add(*gold_nugget[1])
 
         while self.monsters > 0:
             x = random.randint(0, settings.MAP_WIDTH - 1)

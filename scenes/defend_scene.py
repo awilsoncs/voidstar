@@ -14,14 +14,13 @@ from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
 from gui.fps_counter import FPSCounter
 from gui.help_tab import HelpTab
 from gui.labels import Label, GoldLabel
-from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
 from procgen.zonebuilders import fields
 from systems import ai, control_player, death, \
-    debug_system, update_senses, \
+    debug_system, update_senses, pickup_gold, \
     move, control_turns, quit, melee_attack, control_cursor, dungeon_master, dally, thwack, clear_components
-from systems.animators import animate_on_path, animate_float, animation_controller
+from systems.animators import animation_controller
 
 
 class DefendScene(GameScene):
@@ -88,6 +87,7 @@ class DefendScene(GameScene):
             move.run(self)
             control_turns.run(self)
             update_senses.run(self)
+            pickup_gold.run(self)
             dungeon_master.run(self)
             dally.run(self)
 
