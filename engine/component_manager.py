@@ -1,12 +1,8 @@
-import logging
 from collections import defaultdict
-from time import perf_counter, perf_counter_ns
 from typing import Set, Dict, List, Type
 
-import settings
-from components import Entity
-from components.component import Component
-from engine.core import time_ms, timed, get_id, log_debug
+from engine.component import Component
+from engine.core import get_id, log_debug
 from engine.types import EntityDict, EntityDictIndex, ComponentType
 
 
@@ -89,7 +85,6 @@ class ComponentManager(object):
         for component_type, components in components.items():
             for component in components:
                 self.components[component_type].remove(component)
-                del self.components_by_id[component.id]
         del self.components_by_entity[entity]
 
     def delete_component(self, component: Component) -> None:
@@ -102,11 +97,12 @@ class ComponentManager(object):
             raise ValueError("Cannot delete None.")
         entity = component.entity
         if entity in self.entities:
-            component_type = type(component)
-            if component in self.components[component_type]:
-                self.components[component_type].remove(component)
-            if component in self.components_by_entity[component.entity][component_type]:
-                self.components_by_entity[component.entity][component_type].remove(component)
+            component_types = type(component).mro()
+            for component_type in component_types:
+                if component in self.components[component_type]:
+                    self.components[component_type].remove(component)
+                if component in self.components_by_entity[component.entity][component_type]:
+                    self.components_by_entity[component.entity][component_type].remove(component)
             if component.id in self.components_by_id:
                 del self.components_by_id[component.id]
 
@@ -120,9 +116,10 @@ class ComponentManager(object):
         """Add a component to the db."""
         component.id = get_id()
         entity = component.entity
-        component_class = component.__class__
-        self.components_by_entity[entity][component_class].append(component)
-        self.components[component_class].append(component)
+        component_classes = type(component).mro()
+        for component_class in component_classes:
+            self.components_by_entity[entity][component_class].append(component)
+            self.components[component_class].append(component)
         self.components_by_id[component.id] = component
 
 

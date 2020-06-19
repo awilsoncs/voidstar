@@ -36,6 +36,7 @@ class ControlMode(Enum):
     WANDER = 'wander'
     DEAD_PLAYER = 'dead_player'
     FOLLOW_PATH = 'follow_path'
+    CALENDER = 'calendar'
 
 
 class FactionType(Enum):

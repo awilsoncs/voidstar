@@ -1,6 +1,7 @@
 import os
 import sys
 
+
 def resource_path(relative_path):
     try:
         base_path = sys._MEIPASS
@@ -8,6 +9,7 @@ def resource_path(relative_path):
         base_path = os.path.dirname(__file__)
     print(base_path)
     return os.path.join(base_path, relative_path)
+
 
 FONT = resource_path('tiles.png')
 

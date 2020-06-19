@@ -3,6 +3,7 @@ import tcod
 import tcod.map
 
 import settings
+from components.calendar import Calendar
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.coordinates import Coordinates
 from components.material import Material
@@ -13,11 +14,11 @@ from engine.infos import ColoredMessage
 from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
 from gui.fps_counter import FPSCounter
 from gui.help_tab import HelpTab
-from gui.labels import Label, GoldLabel
+from gui.labels import Label, GoldLabel, CalendarLabel
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
 from procgen.zonebuilders import fields
-from systems import ai, control_player, death, \
+from systems import act, death, \
     debug_system, update_senses, pickup_gold, \
     move, control_turns, quit, melee_attack, control_cursor, dungeon_master, dally, thwack, clear_components
 from systems.animators import animation_controller
@@ -45,6 +46,7 @@ class DefendScene(GameScene):
         anchor.add_element(HealthBar(1, 2))
         anchor.add_element(Thwackometer(1, 3))
 
+        anchor.add_element(CalendarLabel(1, 0))
         anchor.add_element(GoldLabel(1, 0))
         anchor.add_space(1)
 
@@ -54,7 +56,7 @@ class DefendScene(GameScene):
 
         anchor.add_element(Label(1, 8, "Hordelings", fg=palettes.HORDELING))
         anchor.add_element(HordelingBar(1, 9))
-        anchor.add_space(21)
+        anchor.add_space(20)
 
         anchor.add_element(HelpTab(1, 30))
 
@@ -74,11 +76,10 @@ class DefendScene(GameScene):
     @timed(100)
     def update(self):
         try:
-            ai.run(self)
+            act.run(self)
 
             animation_controller.run(self)
 
-            control_player.run(self)
             control_cursor.run(self)
             death.run(self)
             debug_system.run(self)
@@ -129,6 +130,7 @@ class DefendScene(GameScene):
             material = self.cm.get_one(Material, coord.entity)
             self.map.transparent[coord.x, coord.y] = not material.blocks_sight if material else True
             self.map.walkable[coord.x, coord.y] = not material.blocks if material else True
+
 
     def next_level(self):
         self.controller.push_scene(

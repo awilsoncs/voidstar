@@ -46,6 +46,7 @@ def get_examine_object(scene, entity):
         entity_blob = scene.cm.get_entity(entity)
         entity_component = entity_blob[Entity][0]
         print(f'Debug Show Item: {entity_component.name}')
+        
         for _, values in entity_blob.items():
             for component in values:
                 print(f'\t{component}')

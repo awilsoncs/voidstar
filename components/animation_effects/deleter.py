@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from components.component import Component
+from engine.component import Component
 from engine import core
 
 

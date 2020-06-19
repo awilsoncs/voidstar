@@ -1,6 +1,8 @@
 from components import Entity, Appearance, Senses, Brain, Attributes, Coordinates
 from components.abilities.thwack_ability import ThwackAbility
 from components.attack import Attack
+from components.brains.player_brain import PlayerBrain
+from components.calendar import Calendar
 from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
@@ -18,13 +20,13 @@ def make_player(zone_id):
             Entity(id=entity_id, entity=entity_id, name='player', zone=zone_id),
             Appearance(entity=entity_id, symbol='@', color=palettes.WHITE, bg_color=palettes.BACKGROUND),
             Senses(entity=entity_id, sight_radius=-1),
-            Brain(entity=entity_id, control_mode=ControlMode.PLAYER),
+            PlayerBrain(entity=entity_id, control_mode=ControlMode.PLAYER),
             Attributes(entity=entity_id, hp=5, max_hp=5),
             Attack(entity=entity_id, damage=1),
             TargetValue(entity=entity_id, value=PLAYER),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
-            ThwackAbility(entity=entity_id, count=3, max=3)
+            ThwackAbility(entity=entity_id, count=3, max=3),
         ]
     )
 

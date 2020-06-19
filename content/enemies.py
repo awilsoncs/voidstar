@@ -1,6 +1,7 @@
 import random
 from components import Entity, Appearance, Brain, Attributes, Coordinates
 from components.attack import Attack
+from components.brains.monster_brain import MonsterBrain
 from components.drop_gold import DropGold
 from components.enums import ControlMode
 from components.faction import Faction
@@ -15,7 +16,7 @@ def make_hordeling(zone_id):
     components = [
         Entity(id=entity_id, entity=entity_id, name='hordeling', zone=zone_id),
         Faction(entity=entity_id, faction=Faction.Options.MONSTER),
-        Brain(entity=entity_id, control_mode=ControlMode.MONSTER),
+        MonsterBrain(entity=entity_id, control_mode=ControlMode.MONSTER),
         Appearance(entity=entity_id, symbol='h', color=palettes.HORDELING, bg_color=palettes.BACKGROUND),
         Attributes(entity=entity_id, hp=1, max_hp=1),
         Attack(entity=entity_id, damage='1d1'),

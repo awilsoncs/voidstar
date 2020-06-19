@@ -1,8 +1,8 @@
 import math
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Tuple
 
-from components.component import Component
+from engine.component import Component
 from engine.constants import PRIORITY_MEDIUM
 
 

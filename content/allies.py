@@ -1,4 +1,5 @@
 from components import Entity, Brain, Appearance, Attributes
+from components.brains.peasant_brain import PeasantBrain
 from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
@@ -14,7 +15,7 @@ def make_peasant(zone_id):
         [
             Entity(id=entity_id, entity=entity_id, name='peasant', zone=zone_id),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
-            Brain(entity=entity_id, control_mode=ControlMode.WANDER),
+            PeasantBrain(entity=entity_id, control_mode=ControlMode.WANDER),
             Appearance(entity=entity_id, symbol='p', color=palettes.WHITE, bg_color=palettes.BACKGROUND),
             Attributes(entity=entity_id, hp=10, max_hp=10),
             Tag(entity=entity_id, value='peasant'),
