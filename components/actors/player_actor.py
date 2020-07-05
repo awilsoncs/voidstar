@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 import tcod
 
-from components import Brain, Coordinates
+from components import TimedActor, Coordinates
 from components.abilities.thwack_ability import ThwackAbility
 from components.actions.thwack_action import ThwackAction
 from components.enums import Intention, ControlMode
@@ -14,7 +14,8 @@ from systems.utilities import set_intention
 
 
 @dataclass
-class PlayerBrain(Brain):
+class PlayerTimedActor(TimedActor):
+    timer_delay: int = TimedActor.REAL_TIME
 
     def act(self, scene):
         if self.control_mode is ControlMode.PLAYER:
@@ -62,32 +63,16 @@ DEAD_KEY_ACTION_MAP = {
 
 
 KEY_ACTION_MAP = {
-    tcod.event.K_KP_1: Intention.STEP_SOUTH_WEST,
-    tcod.event.K_KP_2: Intention.STEP_SOUTH,
-    tcod.event.K_KP_3: Intention.STEP_SOUTH_EAST,
-    tcod.event.K_KP_4: Intention.STEP_WEST,
-    tcod.event.K_KP_5: Intention.DALLY,
-    tcod.event.K_KP_6: Intention.STEP_EAST,
-    tcod.event.K_KP_7: Intention.STEP_NORTH_WEST,
-    tcod.event.K_KP_8: Intention.STEP_NORTH,
-    tcod.event.K_KP_9: Intention.STEP_NORTH_EAST,
-
-    tcod.event.K_z: Intention.STEP_SOUTH_WEST,
-    tcod.event.K_x: Intention.STEP_SOUTH,
-    tcod.event.K_c: Intention.STEP_SOUTH_EAST,
+    tcod.event.K_s: Intention.STEP_SOUTH,
     tcod.event.K_a: Intention.STEP_WEST,
-    tcod.event.K_s: Intention.DALLY,
     tcod.event.K_d: Intention.STEP_EAST,
-    tcod.event.K_q: Intention.STEP_NORTH_WEST,
     tcod.event.K_w: Intention.STEP_NORTH,
-    tcod.event.K_e: Intention.STEP_NORTH_EAST,
 
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,
     tcod.event.K_LEFT: Intention.STEP_WEST,
 
-    tcod.event.K_l: Intention.ACTIVATE_CURSOR,
     tcod.event.K_BACKQUOTE: Intention.SHOW_DEBUG_SCREEN,
     tcod.event.K_ESCAPE: Intention.QUIT_GAME
 }

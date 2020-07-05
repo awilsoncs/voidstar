@@ -6,6 +6,7 @@ from content.allies import make_peasant
 from content.enemies import make_hordeling
 from content.gold import make_gold_nugget
 from content.player import make_player
+from content.spawners.hordeling_spawner import hordeling_spawner
 from content.terrain import make_tree, make_water
 from engine import core, palettes
 from engine.component_manager import ComponentManager
@@ -77,16 +78,7 @@ class FieldBuilder:
         self.object_map[x, y] = tree[0]
 
     def add_hordeling(self, x, y):
-        hordeling = make_hordeling(self.zone_id)
-        hordeling[1].append(
-            Coordinates(
-                entity=hordeling[0],
-                x=x,
-                y=y,
-                priority=PRIORITY_MEDIUM,
-                terrain=False,
-            )
-        )
+        hordeling = hordeling_spawner(x, y)
         self.cm.add(*hordeling[1])
         self.object_map[x, y] = hordeling[0]
         self.monsters -= 1

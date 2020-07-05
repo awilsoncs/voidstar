@@ -1,16 +1,16 @@
-from components import Brain
-from components.events.turn_event import TurnEvent
+from components import TimedActor
+from engine import core
 
 
 def run(scene) -> None:
-    for brain in get_brains(scene):
-        brain.act(scene)
+    for actor in get_actors(scene):
+        actor.act(scene)
+        actor.next_update = core.time_ms() + actor.timer_delay
 
 
-def get_brains(scene):
+def get_actors(scene):
     return [
-        brain
-        for brain in scene.cm.get(Brain)
-        for turn in [scene.cm.get_one(TurnEvent, entity=brain.entity)]
-        if turn
+        actor
+        for actor in scene.cm.get(TimedActor)
+        if actor.next_update <= core.time_ms()
     ]

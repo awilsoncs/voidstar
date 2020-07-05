@@ -83,6 +83,5 @@ class TestComponentManager(unittest.TestCase):
         self.assertIsNone(fs_b, "component manager contains components that should be orphaned")
 
 
-
 if __name__ == '__main__':
     unittest.main()

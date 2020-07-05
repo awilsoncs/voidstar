@@ -1,14 +1,14 @@
 import random
 from dataclasses import dataclass
 
-from components import Brain
-from components.brains import STEPS
+from components import TimedActor
+from components.actors import STEPS
 from engine.core import log_debug
 from systems.utilities import set_intention
 
 
 @dataclass
-class PeasantBrain(Brain):
+class PeasantTimedActor(TimedActor):
 
     @log_debug(__name__)
     def act(self, scene):

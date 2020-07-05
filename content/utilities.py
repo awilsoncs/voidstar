@@ -1,4 +1,5 @@
-from components import Entity, Brain
+from components import Entity, TimedActor
+from components.actors.calendar_actor import CalendarTimedActor
 from components.calendar import Calendar
 from components.enums import ControlMode
 from engine import core
@@ -11,6 +12,6 @@ def make_calendar():
         [
             Entity(id=entity_id, entity=entity_id, name='calendar'),
             Calendar(entity=entity_id),
-            Brain(entity=entity_id, control_mode=ControlMode.MONSTE),
+            CalendarTimedActor(entity=entity_id)
         ]
     ]

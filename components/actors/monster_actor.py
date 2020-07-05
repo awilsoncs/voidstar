@@ -1,16 +1,16 @@
 import random
 from dataclasses import dataclass
 
-from components import Brain, Coordinates
+from components import TimedActor, Coordinates
 from components.actions.attack_action import AttackAction
 from components.target_value import TargetValue
 from engine.core import log_debug
-from components.brains import VECTOR_STEP_MAP, STEPS
+from components.actors import VECTOR_STEP_MAP, STEPS
 from systems.utilities import set_intention
 
 
 @dataclass
-class MonsterBrain(Brain):
+class MonsterTimedActor(TimedActor):
 
     @log_debug(__name__)
     def act(self, scene):

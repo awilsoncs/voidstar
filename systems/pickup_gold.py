@@ -15,6 +15,10 @@ def pickup_gold(scene, event):
     coords = scene.cm.get_one(Coordinates, entity=event.entity)
     player_coords = scene.cm.get_one(Coordinates, entity=PLAYER_ID)
 
+    if not player_coords:
+        # player might be dead
+        return
+
     if (
         coords.x == player_coords.x
         and coords.y == player_coords.y

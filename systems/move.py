@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from components import Brain, Senses
+from components import TimedActor, Senses
 from components.actions.attack_action import AttackAction
 from components.attack import Attack
 from components.coordinates import Coordinates
@@ -27,13 +27,13 @@ def get_hostile(scene, entity, step_direction):
 
 
 def run(scene):
-    for brain in get_brains_with_step_intention(scene):
-        entity = brain.entity
+    for actor in get_actors_with_step_intention(scene):
+        entity = actor.entity
 
         # is there a hostile in that direction? if so, bump attack
         # is there a non-hostile blocking entity in that direction? if so, too bad
         # otherwise, move them
-        step_direction = STEP_VECTORS[brain.intention]
+        step_direction = STEP_VECTORS[actor.intention]
         if can_step(scene, entity, step_direction):
             # do move
             move(scene, entity, step_direction)
@@ -62,11 +62,11 @@ def run(scene):
             retract_intention(scene, entity)
 
 
-def get_brains_with_step_intention(scene):
+def get_actors_with_step_intention(scene):
     return [
-        brain
-        for brain in scene.cm.get(Brain)
-        if brain.intention in STEP_INTENTIONS
+        actor
+        for actor in scene.cm.get(TimedActor)
+        if actor.intention in STEP_INTENTIONS
     ]
 
 

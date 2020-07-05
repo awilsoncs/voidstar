@@ -2,7 +2,7 @@ import random
 
 import engine
 import settings
-from components import Entity, Appearance, Coordinates, Attributes, Brain, Senses
+from components import Entity, Appearance, Coordinates, Attributes, TimedActor, Senses
 from components.enums import Intention
 from engine.palettes import Palette
 from gui.easy_menu import EasyMenu
@@ -10,7 +10,7 @@ from systems.utilities import retract_intention
 
 
 def run(scene):
-    for brain in [b for b in scene.cm.get(Brain) if b.intention is Intention.SHOW_DEBUG_SCREEN]:
+    for actor in [b for b in scene.cm.get(TimedActor) if b.intention is Intention.SHOW_DEBUG_SCREEN]:
         scene.gui.add_element(
             EasyMenu(
                 "Debug Options",
@@ -23,7 +23,7 @@ def run(scene):
                 settings.INVENTORY_WIDTH,
             )
         )
-        retract_intention(scene, brain.entity)
+        retract_intention(scene, actor.entity)
 
 
 def get_examine_game_objects(scene):

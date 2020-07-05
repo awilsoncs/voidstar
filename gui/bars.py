@@ -1,10 +1,9 @@
 from dataclasses import dataclass
 
-from components import Attributes, target_value
+from components import Attributes
 from components.abilities.thwack_ability import ThwackAbility
 from components.states.dizzy_state import DizzyState
 from components.tags import Tag
-from components.target_value import TargetValue
 from engine import palettes, PLAYER_ID
 from gui.gui_element import GuiElement
 
@@ -59,7 +58,7 @@ class PeasantBar(Bar):
         peasants = scene.cm.get(Tag)
         peasants = len([p for p in peasants if p.value == 'peasant'])
         self.value = peasants
-        self.max_value = scene.peasants
+        self.max_value = peasants
 
 
 @dataclass
@@ -72,7 +71,7 @@ class HordelingBar(Bar):
         hordelings = scene.cm.get(Tag)
         hordelings = len([p for p in hordelings if p.value == 'hordeling'])
         self.value = hordelings
-        self.max_value = scene.hordelings
+        self.max_value = hordelings
 
 
 @dataclass

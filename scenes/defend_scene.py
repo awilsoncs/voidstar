@@ -3,10 +3,10 @@ import tcod
 import tcod.map
 
 import settings
-from components.calendar import Calendar
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.coordinates import Coordinates
 from components.material import Material
+from content.utilities import make_calendar
 from engine import GameScene, colors, core, palettes
 from engine.constants import PLAYER_ID
 from engine.core import timed
@@ -20,7 +20,8 @@ from gui.vertical_anchor import VerticalAnchor
 from procgen.zonebuilders import fields
 from systems import act, death, \
     debug_system, update_senses, pickup_gold, \
-    move, control_turns, quit, melee_attack, control_cursor, dungeon_master, dally, thwack, clear_components
+    move, control_turns, quit, melee_attack, control_cursor, dungeon_master, thwack
+from components import clear_components
 from systems.animators import animation_controller
 
 
@@ -89,8 +90,7 @@ class DefendScene(GameScene):
             control_turns.run(self)
             update_senses.run(self)
             pickup_gold.run(self)
-            dungeon_master.run(self)
-            dally.run(self)
+            # dungeon_master.run(self)
 
             clear_components.of_type(ChargeAbilityEvent, self)
             quit.run(self)
@@ -125,6 +125,8 @@ class DefendScene(GameScene):
         coordinates = [c for c in coordinates if c.terrain]
 
         self.map.transparent.fill(True)
+
+        self.cm.add(*make_calendar()[1])
 
         for coord in coordinates:
             material = self.cm.get_one(Material, coord.entity)
