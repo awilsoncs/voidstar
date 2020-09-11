@@ -7,6 +7,7 @@ from components.abilities.thwack_ability import ThwackAbility
 from components.actions.thwack_action import ThwackAction
 from components.enums import Intention, ControlMode
 from components.events.chargeabilityevent import ChargeAbilityEvent
+from components.events.fast_forward import FastForward
 from components.states.dizzy_state import DizzyState
 from content.states import dizzy_animation
 from engine import core
@@ -45,7 +46,12 @@ def handle_key_event(scene, entity_id, action_map):
         key_event = key_event.sym
         intention = action_map.get(key_event, None)
         if intention is not None:
-            set_intention(scene, entity_id, None, intention)
+            if intention is Intention.FAST_FORWARD:
+                # fast forwards are migrated to a new actor system
+                scene.cm.add(FastForward())
+                print("fast forwarding!")
+            else:
+                set_intention(scene, entity_id, None, intention)
         else:
             # new event-based actions
             if key_event is tcod.event.K_SPACE:
@@ -63,11 +69,7 @@ DEAD_KEY_ACTION_MAP = {
 
 
 KEY_ACTION_MAP = {
-    tcod.event.K_s: Intention.STEP_SOUTH,
-    tcod.event.K_a: Intention.STEP_WEST,
-    tcod.event.K_d: Intention.STEP_EAST,
-    tcod.event.K_w: Intention.STEP_NORTH,
-
+    tcod.event.K_a: Intention.FAST_FORWARD,
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,

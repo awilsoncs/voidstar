@@ -11,13 +11,17 @@ from systems.utilities import retract_turn
 @dataclass
 class HordelingSpawnerSpawner(TimedActor):
     """Hordelings will spawn at this object's location."""
-    timer_delay: int = TimedActor.DAILY
-    level: int = 1
+    timer_delay: int = TimedActor.SIX_SECONDS
+    waves: int = 1
 
     def act(self, scene):
-        for _ in range(self.level):
-            spawn_hordeling_spawner(scene)
+        spawn_hordeling_spawner(scene)
         retract_turn(scene, self.entity)
+
+        self.waves -= 1
+
+        if self.waves <= 0:
+            scene.cm.delete(self.entity)
 
 
 def spawn_hordeling_spawner(scene):

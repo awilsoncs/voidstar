@@ -3,12 +3,11 @@ from components import Entity, Appearance, Senses, Attributes, Coordinates
 from components.abilities.thwack_ability import ThwackAbility
 from components.attack import Attack
 from components.actors.player_actor import PlayerTimedActor
-from components.calendar import Calendar
 from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
 from components.target_value import PLAYER, TargetValue
-from engine import colors, PLAYER_ID, palettes
+from engine import PLAYER_ID, palettes
 from engine.constants import PRIORITY_LOW
 
 

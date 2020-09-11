@@ -14,7 +14,7 @@ from engine.infos import ColoredMessage
 from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
 from gui.fps_counter import FPSCounter
 from gui.help_tab import HelpTab
-from gui.labels import Label, GoldLabel, CalendarLabel
+from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
 from procgen.zonebuilders import fields
@@ -55,7 +55,7 @@ class DefendScene(GameScene):
         anchor.add_element(PeasantBar(1, 6))
         anchor.add_space(1)
 
-        anchor.add_element(Label(1, 8, "Hordelings", fg=palettes.HORDELING))
+        anchor.add_element(HordeStatusLabel(1, 8))
         anchor.add_element(HordelingBar(1, 9))
         anchor.add_space(20)
 

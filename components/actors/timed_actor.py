@@ -12,6 +12,8 @@ class TimedActor(Component):
     HALF_HOUR = 500
     HOURLY = 1000
     DAILY = 10000
+    ONE_SECOND = 1000
+    SIX_SECONDS = 6000
 
     REAL_TIME = 0
 

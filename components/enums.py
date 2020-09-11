@@ -19,6 +19,7 @@ class Intention(Enum):
     STEP_NORTH_EAST = auto()
     STEP_NORTH_WEST = auto()
     DALLY = auto()
+    FAST_FORWARD = auto()
 
     ACTIVATE_CURSOR = auto()
     REPORT_CURSOR = auto()

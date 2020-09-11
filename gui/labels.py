@@ -1,4 +1,4 @@
-from components.calendar import Calendar
+from components.actors.calendar_actor import CalendarTimedActor
 from engine import palettes, core, PLAYER_ID
 from gui.gui_element import GuiElement
 
@@ -37,7 +37,7 @@ class CalendarLabel(GuiElement):
         self.value = '#problem#'
 
     def update(self, scene):
-        calendar = scene.cm.get_one(Calendar, entity=core.get_id('calendar'))
+        calendar = scene.cm.get_one(CalendarTimedActor, entity=core.get_id('calendar'))
         if calendar:
             self.value = calendar.get_timecode()
 
@@ -45,3 +45,17 @@ class CalendarLabel(GuiElement):
         """Draw the bar onto the panel"""
         panel.print(self.x, self.y, f'{self.value}', fg=palettes.GOLD, bg=palettes.BACKGROUND)
 
+
+class HordeStatusLabel(GuiElement):
+    def __init__(self, x, y):
+        super().__init__(x, y, name='calendar-label')
+        self.value = '#problem#'
+
+    def update(self, scene):
+        calendar = scene.cm.get_one(CalendarTimedActor, entity=core.get_id('calendar'))
+        if calendar:
+            self.value = calendar.status
+
+    def render(self, panel):
+        """Draw the bar onto the panel"""
+        panel.print(self.x, self.y, f'{self.value}', fg=palettes.HORDELING, bg=palettes.BACKGROUND)

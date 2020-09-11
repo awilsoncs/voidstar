@@ -31,4 +31,3 @@ def die(scene, entity):
         scene.cm.add(*player.make_corpse(x, y)[1])
     else:
         scene.cm.add(*corpses.make_corpse(name=entity_obj.name, x=x, y=y)[1])
-

@@ -16,5 +16,6 @@ class HelpTab(GuiElement):
         panel.print(self.x, self.y + 3, "← ↓ →  : Move / Attack", fg=self.fg, bg=self.bg)
 
         panel.print(self.x, self.y+10, "SPACE  : Thwack", fg=self.fg, bg=self.bg)
+        panel.print(self.x, self.y+11, "a      : Fast Forward", fg=self.fg, bg=self.bg)
         panel.print(self.x, self.y+12, "`      : Debug", fg=self.fg, bg=self.bg)
         panel.print(self.x, self.y+13, "ESC    : Back to Menu", fg=self.fg, bg=self.bg)

@@ -79,8 +79,7 @@ class FieldBuilder:
         self.object_map[x, y] = tree[0]
 
     def add_hordeling(self):
-        hordeling = hordeling_spawner_spawner()
-        self.cm.add(*hordeling[1])
+        pass
 
     def add_peasant(self, x, y):
         peasant = make_peasant(self.zone_id)

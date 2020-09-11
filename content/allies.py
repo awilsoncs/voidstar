@@ -5,6 +5,7 @@ from components.faction import Faction
 from components.material import Material
 from components.tags import Tag
 from components.target_value import PEASANT, TargetValue
+from components.tax_value import TaxValue
 from engine import core, palettes
 
 
@@ -20,6 +21,7 @@ def make_peasant(zone_id):
             Attributes(entity=entity_id, hp=10, max_hp=10),
             Tag(entity=entity_id, value='peasant'),
             TargetValue(entity=entity_id, value=PEASANT),
-            Material(entity=entity_id, blocks=True, blocks_sight=False)
+            Material(entity=entity_id, blocks=True, blocks_sight=False),
+            TaxValue(entity=entity_id, value=TaxValue.PEASANT)
         ]
     )
