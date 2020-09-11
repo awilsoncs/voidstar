@@ -29,4 +29,22 @@ class Calendar(Component):
             self.season = 0
 
     def get_timecode(self):
-        return f'{self.hour}h {self.day}d {self.season}s {self.year}y'
+        return f'{get_day_section(self.hour)}, {self.day}d {self.season}s {self.year}y'
+
+
+def get_day_section(hour):
+    if hour < 4:
+        return 'night'
+    if hour < 8:
+        return 'dawn'
+    if hour < 11:
+        return 'morning'
+    if hour < 14:
+        return 'noon'
+    if hour < 17:
+        return 'afternoon'
+    if hour < 20:
+        return 'evening'
+    if hour <= 23:
+        return 'night'
+

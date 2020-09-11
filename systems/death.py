@@ -17,14 +17,18 @@ def run(scene):
 def die(scene, entity):
     entity_obj = scene.cm.get_one(Entity, entity=entity)
     coords = scene.cm.get_one(Coordinates, entity=entity)
-    if entity == PLAYER_ID:
-        scene.cm.add(*player.make_corpse(coords.x, coords.y)[1])
-    else:
-        scene.cm.add(*corpses.make_corpse(name=entity_obj.name, x=coords.x, y=coords.y)[1])
-    scene.cm.add(*corpses.make_blood_splatter(5, coords.x, coords.y))
+    x = coords.x
+    y = coords.y
+    scene.cm.add(*corpses.make_blood_splatter(5, x, y))
 
     gold = scene.cm.get_one(DropGold, entity=entity)
     if gold:
-        scene.cm.add(*make_gold_nugget(coords.x, coords.y)[1])
+        scene.cm.add(*make_gold_nugget(x, y)[1])
 
     scene.cm.delete(entity)
+
+    if entity == PLAYER_ID:
+        scene.cm.add(*player.make_corpse(x, y)[1])
+    else:
+        scene.cm.add(*corpses.make_corpse(name=entity_obj.name, x=x, y=y)[1])
+

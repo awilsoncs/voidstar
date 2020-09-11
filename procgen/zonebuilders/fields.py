@@ -7,6 +7,7 @@ from content.enemies import make_hordeling
 from content.gold import make_gold_nugget
 from content.player import make_player
 from content.spawners.hordeling_spawner import hordeling_spawner
+from content.spawners.hordeling_spawner_spawner import hordeling_spawner_spawner
 from content.terrain import make_tree, make_water
 from engine import core, palettes
 from engine.component_manager import ComponentManager
@@ -77,11 +78,9 @@ class FieldBuilder:
         self.cm.add(*tree[1])
         self.object_map[x, y] = tree[0]
 
-    def add_hordeling(self, x, y):
-        hordeling = hordeling_spawner(x, y)
+    def add_hordeling(self):
+        hordeling = hordeling_spawner_spawner()
         self.cm.add(*hordeling[1])
-        self.object_map[x, y] = hordeling[0]
-        self.monsters -= 1
 
     def add_peasant(self, x, y):
         peasant = make_peasant(self.zone_id)
@@ -127,11 +126,7 @@ class FieldBuilder:
                 self.object_map[x, y] = gold_nugget[0]
                 self.cm.add(*gold_nugget[1])
 
-        while self.monsters > 0:
-            x = random.randint(0, settings.MAP_WIDTH - 1)
-            y = random.randint(0, settings.MAP_HEIGHT - 1)
-            if (x, y) not in self.object_map:
-                self.add_hordeling(x, y)
+        self.add_hordeling()
 
         while self.peasants > 0:
             x = random.randint(0, settings.MAP_WIDTH - 1)

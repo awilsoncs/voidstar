@@ -41,6 +41,6 @@ def make_corpse(x, y):
             Entity(id=entity_id, entity=entity_id, name='player corpse'),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOW),
             Appearance(entity=entity_id, symbol='%', color=palettes.BLOOD, bg_color=palettes.BACKGROUND),
-            Actor(entity=entity_id, control_mode=ControlMode.DEAD_PLAYER),
+            PlayerTimedActor(entity=entity_id, control_mode=ControlMode.DEAD_PLAYER),
         ]
     )

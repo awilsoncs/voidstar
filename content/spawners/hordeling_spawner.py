@@ -9,6 +9,7 @@ def hordeling_spawner(x, y):
         entity_id,
         [
             Entity(id=entity_id, entity=entity_id, name='hordeling spawner'),
+            Coordinates(entity=entity_id, x=x, y=y),
             HordelingSpawner(entity=entity_id)
         ]
     )
