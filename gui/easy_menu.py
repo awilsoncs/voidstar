@@ -2,22 +2,27 @@ import textwrap
 
 import tcod
 import tcod.event
+from tcod.event_constants import K_RETURN
 
+import engine
 import settings
 from engine import core, colors
+from engine.palettes import WHITE
 from gui.gui_element import GuiElement
 
 
 class EasyMenu(GuiElement):
     """Defines a multiple choice menu within the game."""
 
-    def __init__(self, header, options, width):
+    def __init__(self, header, options, width, hide_background=True, return_only=False):
         super().__init__(0, 0, single_shot=True)
         self.header = header
         self.option_map = options
         self.options = [o for o in options.keys()]
         self.width = width
         self.pages = [self.options[i:i + 10] for i in range(0, len(self.options), 10)]
+        self.hide_background = hide_background
+        self.return_only = return_only
         if len(self.pages) == 0:
             self.pages.append([])
 
@@ -51,11 +56,7 @@ class EasyMenu(GuiElement):
                     callback()
 
     def show_and_get_input(self, root, options, has_next=False, has_previous=False):
-        lines = [
-            '\n'.join(
-                textwrap.wrap(line, self.width, break_long_words=False, replace_whitespace=False)
-            ) for line in self.header.splitlines() if line.strip() != ''
-        ]
+        lines = textwrap.wrap(self.header, self.width, break_long_words=False, replace_whitespace=False)
         header_height = len(lines)
 
         if self.header == '':
@@ -66,7 +67,7 @@ class EasyMenu(GuiElement):
         if has_previous:
             height += 1
         window = tcod.console.Console(self.width, height, order='F')
-        window.draw_rect(0, 0, self.width, height, 0, fg=colors.white, bg=None)
+        window.draw_rect(0, 0, self.width, height, 0, fg=WHITE, bg=None)
         for i, _ in enumerate(lines):
             window.print(1, 0 + i, lines[i])
 
@@ -86,10 +87,21 @@ class EasyMenu(GuiElement):
         elif has_next and has_previous:
             window.print(0, y, ' <- (p) previous (n) next ->', bg=None)
 
+        if self.hide_background:
+            # Draw a blank screen
+            background = tcod.console.Console(settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT, order='F')
+            background.draw_rect(0, 0, settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT, 0, bg=engine.palettes.BACKGROUND)
+            background.blit(root)
+
         x = settings.SCREEN_WIDTH // 2 - self.width // 2
         y = settings.SCREEN_HEIGHT // 2 - height // 2
         window.blit(root, x, y, width=self.width, height=height)
+
         tcod.console_flush()
 
         key_event = core.wait_for_char()
+        if self.return_only:
+            while key_event is None or key_event.sym is not K_RETURN:
+                key_event = core.wait_for_char()
+
         return key_event

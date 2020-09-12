@@ -1,4 +1,5 @@
 import random
+from itertools import permutations, product
 
 import settings
 from components import Appearance, Coordinates
@@ -32,7 +33,6 @@ class FieldBuilder:
         self.noise_generator = core.get_noise_generator()
         self.mob_color = palettes.white
         self.peasants = peasants
-        self.monsters = monsters
 
     def make_world(self, cm, zone_id):
         """Create a component manager containing the initial map."""
@@ -50,6 +50,28 @@ class FieldBuilder:
         )
         self.cm.add(*player[1])
 
+    def spawn_copse(self, x: int, y: int) -> None:
+        working_set = [(x, y)]
+        maximum = 10
+        while working_set and maximum > 0:
+            working_x, working_y = working_set.pop()
+            self.add_tree(working_x, working_y)
+            maximum -= 1
+            for dx, dy in [
+                p
+                for p in product([-1, 0, 1], [-1, 0, 1])
+                if p != (0, 0) and random.random() <= 0.10
+            ]:
+                next_x = working_x + dx
+                next_y = working_y + dy
+                if (
+                    1 < next_x < settings.MAP_WIDTH - 1
+                    and 1 < next_y < settings.MAP_HEIGHT - 1
+                ):
+                    working_set.append(
+                        (next_x, next_y)
+                    )
+
     def add_tree(self, x: int, y: int) -> None:
         tree = make_tree(self.zone_id)
         tree[1].append(
@@ -64,22 +86,32 @@ class FieldBuilder:
         self.cm.add(*tree[1])
         self.object_map[x, y] = tree[0]
 
-    def add_water(self, x: int, y: int) -> None:
-        tree = make_water(self.zone_id)
-        tree[1].append(
-            Coordinates(
-                entity=tree[0],
-                x=x,
-                y=y,
-                priority=PRIORITY_LOWEST,
-                terrain=True,
-            )
-        )
-        self.cm.add(*tree[1])
-        self.object_map[x, y] = tree[0]
+    def spawn_body_water(self, x: int, y: int) -> None:
+        working_set = [(x, y)]
+        maximum = 50
+        while working_set and maximum > 0:
+            working_x, working_y = working_set.pop()
+            self.add_water(working_x, working_y)
+            maximum -= 1
+            for dx, dy in [
+                p
+                for p in product([-1, 0, 1], [-1, 0, 1])
+                if p != (0, 0) and random.random() <= 0.20
+            ]:
+                next_x = working_x + dx
+                next_y = working_y + dy
+                if (
+                    1 < next_x < settings.MAP_WIDTH - 1
+                    and 1 < next_y < settings.MAP_HEIGHT - 1
+                ):
+                    working_set.append(
+                        (next_x, next_y)
+                    )
 
-    def add_hordeling(self):
-        pass
+    def add_water(self, x: int, y: int) -> None:
+        water = make_water(x, y)
+        self.cm.add(*water[1])
+        self.object_map[x, y] = water[0]
 
     def add_peasant(self, x, y):
         peasant = make_peasant(self.zone_id)
@@ -105,27 +137,17 @@ class FieldBuilder:
             self.add_tree(0, y)
             self.add_tree(settings.MAP_WIDTH - 1, y)
 
-        for _ in range(50):
-            x = random.randint(0, settings.MAP_WIDTH - 1)
-            y = random.randint(0, settings.MAP_HEIGHT - 1)
-            if (x, y) not in self.object_map:
-                self.add_tree(x, y)
-
         for _ in range(20):
             x = random.randint(0, settings.MAP_WIDTH - 1)
             y = random.randint(0, settings.MAP_HEIGHT - 1)
             if (x, y) not in self.object_map:
-                self.add_water(x, y)
+                self.spawn_copse(x, y)
 
-        if random.randint(1, 3) == 3:
+        for _ in range(4):
             x = random.randint(0, settings.MAP_WIDTH - 1)
             y = random.randint(0, settings.MAP_HEIGHT - 1)
             if (x, y) not in self.object_map:
-                gold_nugget = make_gold_nugget(x, y)
-                self.object_map[x, y] = gold_nugget[0]
-                self.cm.add(*gold_nugget[1])
-
-        self.add_hordeling()
+                self.spawn_body_water(x, y)
 
         while self.peasants > 0:
             x = random.randint(0, settings.MAP_WIDTH - 1)

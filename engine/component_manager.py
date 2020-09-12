@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import Set, Dict, List, Type
+from typing import Set, Dict, List, Type, Iterable
 
 from engine.component import Component
 from engine.core import get_id, log_debug
@@ -74,11 +74,15 @@ class ComponentManager(object):
         """
         components = self.get_entity(entity)
 
-        for _, components in components.items():
-            for component in components:
+        for _, component_list in components.items():
+            for component in component_list:
                 self.delete_component(component)
         if entity in self.entities:
             self._delete_entity_from_indexes(entity)
+
+    def delete_all(self, entities: Iterable[int]) -> None:
+        for entity in entities:
+            self.delete(entity)
 
     def _delete_entity_from_indexes(self, entity: int) -> None:
         components = self.components_by_entity[entity]

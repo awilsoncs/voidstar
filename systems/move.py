@@ -7,6 +7,7 @@ from components.coordinates import Coordinates
 from components.enums import Intention
 from components.faction import Faction
 from components.material import Material
+from components.states.swamped_state import Swamped, Swamper
 from content.attacks import stab
 from systems.utilities import get_blocking_object, retract_turn, retract_intention
 
@@ -120,9 +121,27 @@ def move(scene, entity: int, vector: Tuple[int, int]):
     This function is intended to be the final call before performing the actual move,
     and no validation occurs herein (except possibly to avoid crashes).
     """
+    swamped = scene.cm.get_one(Swamped, entity=entity)
+
+    if swamped:
+        scene.cm.delete_component(swamped)
+        return
+
     coords = scene.cm.get_one(Coordinates, entity=entity)
     if coords:
         move_coords(coords, vector)
+
+        swampers = any(
+            scene.cm.get_one(Swamper, coord.entity) is not None
+            for coord in scene.cm.get(Coordinates)
+            if (
+                coord.x == coords.x
+                and coord.y == coords.y
+            )
+        )
+
+        if swampers:
+            scene.cm.add(Swamped(entity=entity))
 
 
 def move_coords(coords: Coordinates, vector: Tuple[int, int]):

@@ -5,6 +5,7 @@ import tcod.map
 import settings
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.coordinates import Coordinates
+from components.events.popup_message import PopupMessage
 from components.material import Material
 from content.utilities import make_calendar
 from engine import GameScene, colors, core, palettes
@@ -14,7 +15,7 @@ from engine.infos import ColoredMessage
 from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
 from gui.fps_counter import FPSCounter
 from gui.help_tab import HelpTab
-from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel
+from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SwampedLabel
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
 from procgen.zonebuilders import fields
@@ -46,7 +47,7 @@ class DefendScene(GameScene):
         anchor.add_element(Label(1, 1, "Chauncey"))
         anchor.add_element(HealthBar(1, 2))
         anchor.add_element(Thwackometer(1, 3))
-
+        anchor.add_element(SwampedLabel(1, 4))
         anchor.add_element(CalendarLabel(1, 0))
         anchor.add_element(GoldLabel(1, 0))
         anchor.add_space(1)
@@ -63,7 +64,7 @@ class DefendScene(GameScene):
 
         self.add_gui_element(anchor)
         self.add_gui_element(self.play_window)
-        self.add_gui_element(FPSCounter(1, 49))
+        #self.add_gui_element(FPSCounter(1, 49))
 
         self.zone_id = core.get_id()
         self.hordelings = hordelings
@@ -132,6 +133,9 @@ class DefendScene(GameScene):
             material = self.cm.get_one(Material, coord.entity)
             self.map.transparent[coord.x, coord.y] = not material.blocks_sight if material else True
             self.map.walkable[coord.x, coord.y] = not material.blocks if material else True
+
+        self.popup_message("You have been tasked with protecting the peasants of the Toshim Plains.")
+        self.popup_message("At the end of each season, the horde will come, ravenous in hunger.")
 
 
     def next_level(self):

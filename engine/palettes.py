@@ -3,8 +3,8 @@ from engine.colors import from_hex
 
 # Shamelessly stolen: https://lospec.com/palette-list/fantasy-24
 BACKGROUND = (0, 0, 0)
-FOILAGE_A = (31, 36, 10)
-FOILAGE_B = (57, 87, 28)
+FOILAGE_A = (57, 87, 28)
+FOILAGE_B = (31, 36, 10)
 FOILAGE_C = (165, 140, 39)
 GOLD = (239, 172, 40)
 WHITE = (239, 216, 161)

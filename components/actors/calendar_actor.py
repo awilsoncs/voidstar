@@ -15,7 +15,7 @@ MAX_SEASON = 4
 
 
 @dataclass
-class CalendarTimedActor(TimedActor):
+class Calendar(TimedActor):
     hour: int = 0
     day: int = 1
     season: int = 1
@@ -51,6 +51,7 @@ class CalendarTimedActor(TimedActor):
             self.increment()
         else:
             if self.status != "Under attack!":
+                scene.popup_message("The Horde has arrived. Prepare to defend the village!")
                 scene.cm.add(*hordeling_spawner_spawner(waves=self.round)[1])
             self.status = "Under attack!"
             if not (

@@ -49,7 +49,6 @@ def handle_key_event(scene, entity_id, action_map):
             if intention is Intention.FAST_FORWARD:
                 # fast forwards are migrated to a new actor system
                 scene.cm.add(FastForward())
-                print("fast forwarding!")
             else:
                 set_intention(scene, entity_id, None, intention)
         else:
