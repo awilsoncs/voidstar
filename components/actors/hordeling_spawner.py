@@ -8,7 +8,7 @@ from systems.utilities import retract_turn
 
 
 def get_hordeling_count():
-    return random.randint(0, 6)
+    return random.randint(settings.SPAWN_MIN, settings.SPAWN_MAX)
 
 
 @dataclass

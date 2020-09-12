@@ -4,7 +4,6 @@ import engine
 import settings
 from components import Entity, Appearance, Coordinates, Attributes, TimedActor, Senses
 from components.enums import Intention
-from engine.palettes import Palette
 from gui.easy_menu import EasyMenu
 from systems.utilities import retract_intention
 

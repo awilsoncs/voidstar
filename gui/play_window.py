@@ -4,6 +4,7 @@ import numpy as np
 import tcod
 from tcod import console
 
+import settings
 from components import Coordinates, Appearance
 from engine import colors, palettes
 from engine.component_manager import ComponentManager
@@ -47,9 +48,11 @@ class PlayWindow(GuiElement):
         memory_color = palettes.GABRIEL_2_2
         for y in range(MAP_HEIGHT):
             for x in range(MAP_WIDTH):
-                grass_color = palettes.FOILAGE_A
+                grass_color = palettes.GRASS
 
-                symbol = ord(random.choice(['.', ',', '"', '\'', ' ']))
+                symbol = ord(random.choice(
+                    (['.', ',', '"', '\''] * settings.GRASS_DENSITY) + ([' '] * 20)
+                ))
                 self.terrain_console.tiles[x, y] = (
                     symbol,
                     (*grass_color, 255),
@@ -73,7 +76,7 @@ class PlayWindow(GuiElement):
                 (*appearance.bg_color, 255)
             )
 
-    @timed(25)
+    @timed(25, __name__)
     def render(self, panel: console.Console) -> None:
         self.console.clear()
         self.terrain_console.blit(self.console)

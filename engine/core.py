@@ -48,14 +48,16 @@ def time_ms():
     return int(perf_counter_ns() / 1000000)
 
 
-def timed(ms):
+def timed(ms, module):
     def outer(func):
         def inner(*args, **kwargs):
+            logger = logging.getLogger(module)
+
             t0 = time_ms()
             func(*args, **kwargs)
             t1 = time_ms()
             if t1-t0 > ms:
-                logging.warning(f'call to {func} took {t1-t0}ms (>{ms}ms)')
+                logger.warning(f'call to {func} took {t1-t0}ms (>{ms}ms)')
         return inner
     return outer
 

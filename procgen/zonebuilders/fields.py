@@ -2,19 +2,13 @@ import random
 from itertools import permutations, product
 
 import settings
-from components import Appearance, Coordinates
+from components import Coordinates
 from content.allies import make_peasant
-from content.enemies import make_hordeling
-from content.gold import make_gold_nugget
 from content.player import make_player
-from content.spawners.hordeling_spawner import hordeling_spawner
-from content.spawners.hordeling_spawner_spawner import hordeling_spawner_spawner
 from content.terrain import make_tree, make_water
 from engine import core, palettes
 from engine.component_manager import ComponentManager
-from engine.constants import PRIORITY_LOWEST, PRIORITY_MEDIUM
-from engine.palettes import Palette
-from settings import MAP_HEIGHT, MAP_WIDTH
+from engine.constants import PRIORITY_MEDIUM
 
 
 def build(cm: ComponentManager, zone_id: int, peasants, monsters):
@@ -29,9 +23,7 @@ class FieldBuilder:
         self.tile_map = {}
         self.cm = None
         self.zone_id = core.get_id()
-        self.palette = Palette()
         self.noise_generator = core.get_noise_generator()
-        self.mob_color = palettes.white
         self.peasants = peasants
 
     def make_world(self, cm, zone_id):
@@ -60,7 +52,7 @@ class FieldBuilder:
             for dx, dy in [
                 p
                 for p in product([-1, 0, 1], [-1, 0, 1])
-                if p != (0, 0) and random.random() <= 0.10
+                if p != (0, 0) and random.random() <= settings.COPSE_PROLIFERATION
             ]:
                 next_x = working_x + dx
                 next_y = working_y + dy
@@ -96,7 +88,7 @@ class FieldBuilder:
             for dx, dy in [
                 p
                 for p in product([-1, 0, 1], [-1, 0, 1])
-                if p != (0, 0) and random.random() <= 0.20
+                if p != (0, 0) and random.random() <= settings.LAKE_PROLIFERATION
             ]:
                 next_x = working_x + dx
                 next_y = working_y + dy
@@ -137,13 +129,13 @@ class FieldBuilder:
             self.add_tree(0, y)
             self.add_tree(settings.MAP_WIDTH - 1, y)
 
-        for _ in range(20):
+        for _ in range(random.randint(settings.COPSE_MIN, settings.COPSE_MAX)):
             x = random.randint(0, settings.MAP_WIDTH - 1)
             y = random.randint(0, settings.MAP_HEIGHT - 1)
             if (x, y) not in self.object_map:
                 self.spawn_copse(x, y)
 
-        for _ in range(4):
+        for _ in range(random.randint(settings.LAKES_MIN, settings.LAKES_MAX)):
             x = random.randint(0, settings.MAP_WIDTH - 1)
             y = random.randint(0, settings.MAP_HEIGHT - 1)
             if (x, y) not in self.object_map:

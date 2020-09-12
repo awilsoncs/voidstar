@@ -29,7 +29,7 @@ class GameSceneController:
             gui_element.on_load()
         self._scene_stack.append(scene)
 
-    @timed(250)
+    @timed(250, __name__)
     def on_load(self, scene):
         scene.on_load()
 

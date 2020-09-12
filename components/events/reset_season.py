@@ -19,6 +19,7 @@ class ResetSeason(TimedActor):
 
 
 def reset_healths(scene):
+    scene.popup_message("You rest and your wounds heal.")
     healths: List[Attributes] = scene.cm.get(Attributes)
     for health in healths:
         health.hp = health.max_hp
@@ -26,5 +27,6 @@ def reset_healths(scene):
 
 def collect_taxes(scene):
     taxes: List[TaxValue] = scene.cm.get(TaxValue)
-    for tax in taxes:
-        scene.gold += tax.value
+    collected_taxes = sum(tax.value for tax in taxes)
+    scene.popup_message(f'You collect {collected_taxes} gold from the village.')
+    scene.gold += collected_taxes

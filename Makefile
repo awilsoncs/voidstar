@@ -1,17 +1,17 @@
 all:
 	make clean
-	make build
+	make dist
 
 clean:
-	rm -rf ./build ./dist
-
-clean-wd:
-	rd /s /q .\build
-	rd /s /q .\dist
+	powershell "Remove-Item -r -fo -ErrorAction Ignore .\dist; $$null"
+	powershell "Remove-Item -r -fo -ErrorAction Ignore .\build; $$null"
 
 build:
 	pyinstaller ./hordeRL.py --add-data="./tiles.png:."
 
 dist:
-	pyinstaller ./hordeRL.py --add-data="./tiles.png:." -F
+	pyinstaller ./hordeRL.py --add-data="./tiles.png;." -F
+	powershell "Rename-Item -Path .\dist\hordeRL.exe -NewName oh-no-its-the-horde.exe"
 
+push:
+	butler push .\dist\oh-no-its-the-horde.exe jazzbox/oh-no-its-the-horde:windows-x64

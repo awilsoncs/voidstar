@@ -9,3 +9,4 @@ pyparsing==2.4.7
 six==1.14.0
 tcod==11.12.1
 setuptools==44.0.0
+PyYAML~=5.3.1

@@ -44,7 +44,7 @@ class DefendScene(GameScene):
         anchor = VerticalAnchor(1, 1)
         anchor.add_space(1)
 
-        anchor.add_element(Label(1, 1, "Chauncey"))
+        anchor.add_element(Label(1, 1, settings.CHARACTER_NAME))
         anchor.add_element(HealthBar(1, 2))
         anchor.add_element(Thwackometer(1, 3))
         anchor.add_element(SwampedLabel(1, 4))
@@ -75,7 +75,7 @@ class DefendScene(GameScene):
         self.cm.clear()
         self.setup_level()
 
-    @timed(100)
+    @timed(100, __name__)
     def update(self):
         try:
             act.run(self)

@@ -1,21 +1,67 @@
 import os
 import sys
 
+import yaml
+
 
 def resource_path(relative_path):
     try:
         base_path = sys._MEIPASS
     except Exception:
         base_path = os.path.dirname(__file__)
-    print(base_path)
     return os.path.join(base_path, relative_path)
 
 
-FONT = resource_path('tiles.png')
+def get_relative_path(relative_path):
+    base_path = os.path.dirname(__file__)
+    return os.path.join(base_path, relative_path)
+
+
+def create_options_file():
+    option_data = {
+        'screen-width': 90,
+        'screen-height': 50,
+        'grass-density': 2,
+        'lakes-min': 1,
+        'lakes-max': 4,
+        'lake-proliferation': .2,
+        'copse-min': 10,
+        'copse-max': 20,
+        'copse-proliferation': .05,
+        'character-name': 'Sir Chauncey',
+        'spawn-min': 1,
+        'spawn-max': 6,
+        'torch-radius': -1
+    }
+    with open(get_relative_path('options.yaml'), mode='w+') as file:
+        yaml.dump(option_data, file)
+    return option_data
+
+
+try:
+    with open('options.yaml') as options:
+        option_data = yaml.load(options, Loader=yaml.FullLoader)
+except FileNotFoundError:
+    option_data = create_options_file()
+
 
 # actual size of the window
-SCREEN_WIDTH = 90
-SCREEN_HEIGHT = 50
+SCREEN_WIDTH = option_data['screen-width']
+SCREEN_HEIGHT = option_data['screen-height']
+GRASS_DENSITY = option_data['grass-density']
+LAKES_MIN = option_data['lakes-min']
+LAKES_MAX = option_data['lakes-max']
+LAKE_PROLIFERATION = option_data['lake-proliferation']
+COPSE_MIN = option_data['copse-min']
+COPSE_MAX = option_data['copse-max']
+COPSE_PROLIFERATION = option_data['copse-proliferation']
+CHARACTER_NAME = option_data['character-name']
+SPAWN_MIN = option_data['spawn-min']
+SPAWN_MAX = option_data['spawn-max']
+TORCH_RADIUS = option_data['torch-radius']
+
+# Nonconfigurable options
+FONT = resource_path('tiles.png')
 
 # size of the map
 MAP_WIDTH = SCREEN_WIDTH - 25
@@ -32,9 +78,4 @@ INVENTORY_WIDTH = 50
 
 FOV_ALGO = 'BASIC'
 FOV_LIGHT_WALLS = True
-TORCH_RADIUS = -1
-SPAWN_FREQUENCY = 25
-ENABLE_FOV = True
-
-# Persistence
-MEMORY_ECHO = False
+SPAWN_FREQUENCY = 15
