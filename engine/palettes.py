@@ -1,4 +1,3 @@
-import random
 from engine.colors import from_hex
 
 # Shamelessly stolen: https://lospec.com/palette-list/fantasy-24
@@ -20,13 +19,13 @@ GABRIEL_3_4 = (57, 42, 28)
 GABRIEL_3_5 = (104, 76, 60)
 GREY = (146, 126, 106)
 WATER = (39, 100, 104)
-    # (239, 58, 12),
-    # (69, 35, 13),
+# (239, 58, 12),
+# (69, 35, 13),
 LIGHT_WATER = (60, 159, 156)
 HORDELING = (155, 26, 10)
-    # (54, 23, 12),
+# (54, 23, 12),
 BLOOD = (85, 15, 10)
-    # (48, 15, 10)
+# (48, 15, 10)
 
 
 if __name__ == '__main__':

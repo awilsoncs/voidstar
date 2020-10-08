@@ -1,7 +1,9 @@
-from typing import NewType, Dict, Type, List
+from typing import NewType, Dict, Type, List, TypeVar
 
 from engine.component import Component
 
-EntityDict = NewType('EntityDict', Dict[Type[Component], List[Component]])
+T = TypeVar('T')
+ComponentType = NewType('ComponentType', Type[T])
+ComponentList = NewType('ComponentList', List[ComponentType])
+EntityDict = NewType('EntityDict', Dict[ComponentType, List[Component]])
 EntityDictIndex = NewType('EntityIndex', Dict[int, EntityDict])
-ComponentType = NewType('ComponentType', Type[Component])

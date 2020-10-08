@@ -1,6 +1,4 @@
-import functools
 import logging
-import sys
 from time import perf_counter_ns
 
 import tcod.event

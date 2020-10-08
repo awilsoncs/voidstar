@@ -7,7 +7,7 @@ from engine.component_manager import ComponentManager
 
 class TestComponentManager(unittest.TestCase):
     def test_instantiation(self):
-        cm = ComponentManager()
+        ComponentManager()
 
     def test_add_retrieve_component(self):
         @dataclass
@@ -46,7 +46,7 @@ class TestComponentManager(unittest.TestCase):
         cm.add(fc)
         cs = cm.get_one(Component, entity=2)
 
-        self.assertEqual(fc, fc)
+        self.assertEqual(fc, cs)
 
     def test_delete_component(self):
         @dataclass

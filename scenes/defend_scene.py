@@ -3,12 +3,12 @@ import tcod
 import tcod.map
 
 import settings
-from components.events.chargeabilityevent import ChargeAbilityEvent
+from components import clear_components
 from components.coordinates import Coordinates
-from components.events.popup_message import PopupMessage
+from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.material import Material
 from content.utilities import make_calendar
-from engine import GameScene, colors, core, palettes
+from engine import GameScene, colors, core
 from engine.constants import PLAYER_ID
 from engine.core import timed
 from engine.infos import ColoredMessage
@@ -21,8 +21,7 @@ from gui.vertical_anchor import VerticalAnchor
 from procgen.zonebuilders import fields
 from systems import act, death, \
     debug_system, update_senses, pickup_gold, \
-    move, control_turns, quit, melee_attack, control_cursor, dungeon_master, thwack
-from components import clear_components
+    move, control_turns, quit, melee_attack, control_cursor, thwack
 from systems.animators import animation_controller
 
 
@@ -64,7 +63,7 @@ class DefendScene(GameScene):
 
         self.add_gui_element(anchor)
         self.add_gui_element(self.play_window)
-        #self.add_gui_element(FPSCounter(1, 49))
+        self.add_gui_element(FPSCounter(1, 49))
 
         self.zone_id = core.get_id()
         self.hordelings = hordelings
@@ -115,8 +114,7 @@ class DefendScene(GameScene):
         fields.build(
             self.cm,
             self.zone_id,
-            peasants=self.peasants,
-            monsters=self.hordelings
+            peasants=self.peasants
         )
 
         # load up the transparency map
@@ -137,12 +135,3 @@ class DefendScene(GameScene):
         self.popup_message("You have been tasked with protecting the peasants of the Toshim Plains.")
         self.popup_message("At the end of each season, the horde will come, ravenous in hunger.")
 
-
-    def next_level(self):
-        self.controller.push_scene(
-            DefendScene(
-                self.peasants + 1,
-                self.hordelings + 2,
-                self.gold + 5
-            )
-        )

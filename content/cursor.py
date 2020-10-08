@@ -1,7 +1,7 @@
 from components import Entity, TimedActor, Appearance, Coordinates
 from components.enums import ControlMode
 from components.owner import Owner
-from engine import core, colors, palettes
+from engine import core, palettes
 from engine.constants import PRIORITY_HIGH
 
 

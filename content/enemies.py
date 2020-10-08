@@ -27,7 +27,7 @@ def make_hordeling(x, y):
         MonsterTimedActor(entity=entity_id, control_mode=ControlMode.MONSTER),
         Appearance(entity=entity_id, symbol='h', color=palettes.HORDELING, bg_color=palettes.BACKGROUND),
         Attributes(entity=entity_id, hp=1, max_hp=1),
-        Attack(entity=entity_id, damage='1d1'),
+        Attack(entity=entity_id, damage=1),
         Material(entity=entity_id, blocks=True, blocks_sight=False),
         Tag(entity=entity_id, value='hordeling')
     ]

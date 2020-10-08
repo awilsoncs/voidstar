@@ -53,7 +53,7 @@ def get_enemies(scene, entity):
     return [f.entity for f in scene.cm.get(Faction) if f.faction is not entity_faction.faction]
 
 
-def get_enemies_in_range(scene, entity, min=0, max=1000):
+def get_enemies_in_range(scene, entity, min_range=0, max_range=1000):
     coords = scene.cm.get_one(Coordinates, entity)
 
     # get coordinates for each enemy
@@ -64,5 +64,5 @@ def get_enemies_in_range(scene, entity, min=0, max=1000):
     return [
         enemy_coord.entity
         for enemy_coord in enemy_coords
-        if min <= enemy_coord.distance_from(coords) <= max
+        if min_range <= enemy_coord.distance_from(coords) <= max_range
     ]

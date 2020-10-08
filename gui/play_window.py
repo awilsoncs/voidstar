@@ -6,9 +6,9 @@ from tcod import console
 
 import settings
 from components import Coordinates, Appearance
-from engine import colors, palettes
+from engine import palettes
 from engine.component_manager import ComponentManager
-from engine.core import time_ms, timed
+from engine.core import timed
 from gui.gui_element import GuiElement
 from settings import MAP_HEIGHT, MAP_WIDTH
 

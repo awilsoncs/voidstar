@@ -1,8 +1,6 @@
-import random
-
 import engine
 import settings
-from components import Entity, Appearance, Coordinates, Attributes, TimedActor, Senses
+from components import Entity, Coordinates, Attributes, TimedActor, Senses
 from components.enums import Intention
 from gui.easy_menu import EasyMenu
 from systems.utilities import retract_intention
@@ -60,35 +58,11 @@ def get_heal(scene):
     return out_fn()
 
 
-def get_refresh_palette(scene):
-    def out_fn():
-        new_palette = Palette()
-        coordinates = scene.cm.get(Coordinates)
-        coordinates = [c for c in coordinates if c.id != scene.player]
-        for coord in coordinates:
-            appearance = scene.cm.get_one(Appearance, coord.entity)
-            if not appearance:
-                continue
-            if coord.terrain and coord.blocks:
-                appearance.bg_color = random.choice(new_palette.secondary)
-            else:
-                appearance.color = random.choice(new_palette.primary)
-        scene.controller.reload()
-    return out_fn
-
-
 def get_suicide(scene):
     def out_fn():
         health = scene.cm.get_one(Attributes, entity=engine.constants.PLAYER_ID)
         if health:
             health.hp = 0
-    return out_fn
-
-
-def get_commit_db(scene):
-    def out_fn():
-        scene.cm.commit()
-        scene.message("(dbg) db committed.")
     return out_fn
 
 

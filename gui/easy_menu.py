@@ -6,7 +6,7 @@ from tcod.event_constants import K_RETURN
 
 import engine
 import settings
-from engine import core, colors
+from engine import core
 from engine.palettes import WHITE
 from gui.gui_element import GuiElement
 

@@ -6,8 +6,11 @@ import yaml
 
 def resource_path(relative_path):
     try:
+        # required for accessing resources within pyinstaller executable
+        # noinspection PyProtectedMember,PyUnresolvedReferences
         base_path = sys._MEIPASS
-    except Exception:
+    except AttributeError:
+        # sys._MEIPASS only exists within python compiled for pyinstaller executables
         base_path = os.path.dirname(__file__)
     return os.path.join(base_path, relative_path)
 
@@ -18,7 +21,7 @@ def get_relative_path(relative_path):
 
 
 def create_options_file():
-    option_data = {
+    option_data_base = {
         'screen-width': 90,
         'screen-height': 50,
         'grass-density': 2,
@@ -34,8 +37,8 @@ def create_options_file():
         'torch-radius': -1
     }
     with open(get_relative_path('options.yaml'), mode='w+') as file:
-        yaml.dump(option_data, file)
-    return option_data
+        yaml.dump(option_data_base, file)
+    return option_data_base
 
 
 try:

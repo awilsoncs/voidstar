@@ -73,21 +73,19 @@ def _process_result(scene, fn):
 
 
 def _report_look(scene, x, y):
-    objects = scene.cm.get(Coordinates)
-    for object in objects:
-        if object.x == x and object.y == y:
-            object_name = scene.cm.get_one(Entity, entity=object.entity).name
+    coords = scene.cm.get(Coordinates)
+    for coord in coords:
+        if coord.x == x and coord.y == y:
+            object_name = scene.cm.get_one(Entity, entity=coord.entity).name
             if object_name != 'cursor':
                 scene.message(object_name)
 
 
 def _report_target(scene, x, y):
-    objects = scene.cm.get(Coordinates)
-    for object in objects:
-        if object.x == x and object.y == y:
-            object_id = object_id
-            if object_name != 'cursor':
-                scene.message(object_name)
+    coords = scene.cm.get(Coordinates)
+    for coord in coords:
+        if coord.x == x and coord.y == y:
+            pass
 
 
 def _kill_cursor(scene):

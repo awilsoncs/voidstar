@@ -15,6 +15,7 @@ VECTOR_STEP_MAP = {
     (1, 1): Intention.STEP_SOUTH_EAST,
     (-1, 1): Intention.STEP_SOUTH_WEST
 }
+
 STEPS = [
     Intention.NONE,
     Intention.STEP_NORTH,

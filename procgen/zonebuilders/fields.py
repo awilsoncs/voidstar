@@ -1,24 +1,24 @@
 import random
-from itertools import permutations, product
+from itertools import product
 
 import settings
 from components import Coordinates
 from content.allies import make_peasant
 from content.player import make_player
 from content.terrain import make_tree, make_water
-from engine import core, palettes
+from engine import core
 from engine.component_manager import ComponentManager
 from engine.constants import PRIORITY_MEDIUM
 
 
-def build(cm: ComponentManager, zone_id: int, peasants, monsters):
-    return FieldBuilder(peasants, monsters).make_world(cm, zone_id)
+def build(cm: ComponentManager, zone_id: int, peasants):
+    return FieldBuilder(peasants).make_world(cm, zone_id)
 
 
 class FieldBuilder:
     """Generate a generic dungeon."""
 
-    def __init__(self, peasants, monsters):
+    def __init__(self, peasants):
         self.object_map = {}
         self.tile_map = {}
         self.cm = None

@@ -6,7 +6,7 @@ from engine.game_scene_controller import GameSceneController
 from scenes.start_menu import get_start_menu
 
 
-def main(args):
+def main():
     game = GameSceneController('Oh No! It\'s THE HORDE!')
     game.push_scene(get_start_menu())
     game.start()
@@ -25,8 +25,8 @@ if __name__ == '__main__':
     if args.prof:
         pr = cProfile.Profile()
         pr.enable()
-        main(args)
+        main()
         pr.disable()
         pr.dump_stats('prof.txt')
     else:
-        main(args)
+        main()

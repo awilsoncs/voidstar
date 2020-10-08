@@ -2,8 +2,7 @@ import random
 from dataclasses import dataclass
 
 import settings
-from components import TimedActor, Coordinates
-from content.enemies import make_hordeling
+from components import TimedActor
 from content.spawners.hordeling_spawner import hordeling_spawner
 from systems.utilities import retract_turn
 

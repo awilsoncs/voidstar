@@ -1,26 +1,25 @@
 from collections import defaultdict
-from typing import Set, Dict, List, Type, Iterable
+from typing import Set, Dict, List, Iterable, Generic, Type
 
 from engine.component import Component
 from engine.core import get_id, log_debug
-from engine.types import EntityDict, EntityDictIndex, ComponentType
+from engine.types import EntityDictIndex, EntityDict, T, ComponentType, ComponentList
 
 
 class ComponentManager(object):
     """Provide an interface between the disk and game logic."""
     def __init__(self):
-        self.components: EntityDict = defaultdict(list)
+        self.components: Dict[ComponentType, ComponentList] = defaultdict(list)
         self.components_by_entity: EntityDictIndex = defaultdict(lambda: defaultdict(list))
         self.components_by_id: Dict[int, Component] = {}
         self.component_types: List[ComponentType] = []
-        self.current_zone: int = None
 
     # properties
     @property
     def entities(self) -> Set[int]:
         return set(k for k in self.components_by_entity.keys())
 
-    def _add_component_to_indexes(self, component: Component, component_type: ComponentType) -> None:
+    def _add_component_to_indexes(self, component: T, component_type: Type[T]) -> None:
         """Add a component to ComponentManager's indexes."""
         entity_component_dict = self.components_by_entity[component.entity]
         components = entity_component_dict[component_type]
@@ -33,7 +32,6 @@ class ComponentManager(object):
         self.components = defaultdict(list)
         self.components_by_entity = defaultdict(lambda: defaultdict(list))
         self.components_by_id = {}
-        self.current_zone = None
 
     # data manipulation methods
     def add(self, component: Component, *components: Component) -> None:
@@ -42,7 +40,7 @@ class ComponentManager(object):
         for component in components:
             self._add(component)
 
-    def get(self, component_type: ComponentType) -> List[Component]:
+    def get(self, component_type: T) -> List[T]:
         """Get all components of a given type."""
         return self.components[component_type]
 
@@ -50,19 +48,19 @@ class ComponentManager(object):
         """Get a dictionary representing an Entity."""
         return self.components_by_entity[entity]
 
-    def get_all(self, component_type: Type[Component], entity: int) -> List[Component]:
+    def get_all(self, component_type: Type[T], entity: int) -> List[T]:
         """Get all components of a given type for a given entity."""
         return self.components_by_entity[entity][component_type]
 
     # TODO consider whether we really want to support this.
-    def get_one(self, component_type: Type[Component], entity) -> Component:
+    def get_one(self, component_type: Type[T], entity) -> Generic[T]:
         """Get a single component of a given type for a given entity."""
         output = self.components_by_entity[entity][component_type]
         if output:
             return output[0]
         return None
 
-    def get_component_by_id(self, cid) -> List[Component]:
+    def get_component_by_id(self, cid) -> Component:
         """Get a specific component by component ID."""
         return self.components_by_id[cid]
 
@@ -125,10 +123,3 @@ class ComponentManager(object):
             self.components_by_entity[entity][component_class].append(component)
             self.components[component_class].append(component)
         self.components_by_id[component.id] = component
-
-
-def _get_is_persistent(component: Component) -> bool:
-    return (
-        '__persistent__' not in component.__dict__
-        or component.__persistent__
-    )

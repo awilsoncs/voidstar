@@ -1,9 +1,7 @@
-import logging
-
 from components import Attributes
 from components.actions.attack_action import AttackAction
 from engine.core import log_debug
-from systems.utilities import retract_intention, retract_turn
+from systems.utilities import retract_turn
 
 
 def run(scene):

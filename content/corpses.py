@@ -2,7 +2,6 @@ import random
 
 from components import Entity, Appearance, Coordinates
 from components.events.deleter import Deleter
-from components.states.swamped_state import Swamper
 from components.tags import Tag
 from engine import palettes, core
 from engine.constants import PRIORITY_LOW

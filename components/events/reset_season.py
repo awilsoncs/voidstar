@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from typing import List
 
 from components import TimedActor, Attributes
-from components.tags import Tag
 from components.tax_value import TaxValue
 from engine.core import log_debug
 
