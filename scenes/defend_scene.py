@@ -78,9 +78,7 @@ class DefendScene(GameScene):
     def update(self):
         try:
             act.run(self)
-
             animation_controller.run(self)
-
             control_cursor.run(self)
             death.run(self)
             debug_system.run(self)
