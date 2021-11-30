@@ -1,7 +1,7 @@
 from components import Attributes
 from components.actions.attack_action import AttackAction
+from components.actors.actor import Actor
 from engine.core import log_debug
-from systems.utilities import retract_turn
 
 
 def run(scene):
@@ -19,5 +19,6 @@ def handle_attack_action(scene, event):
     if target_attributes:
         target_attributes.hp -= event.damage
         target_attributes.hp = max(0, target_attributes.hp)
-    retract_turn(scene, entity)
+    actor = scene.cm.get_one(Actor, entity=entity)
+    actor.pass_turn()
 

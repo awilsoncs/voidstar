@@ -1,12 +1,13 @@
 from dataclasses import dataclass
 
-from engine.component import Component
+from components.actors.actor import Actor
 from components.enums import Intention, ControlMode
+from engine import core
 from engine.constants import PRIORITY_MEDIUM
 
 
 @dataclass
-class TimedActor(Component):
+class TimedActor(Actor):
     SLOWEST = 100000
     QUARTER_HOUR = 250
     HALF_HOUR = 500
@@ -26,3 +27,11 @@ class TimedActor(Component):
     # action management
     intention: Intention = Intention.NONE
     intention_target: int = None
+
+    def can_act(self) -> bool:
+        return self.next_update <= core.time_ms()
+
+    def pass_turn(self, time=None) -> None:
+        if time is None:
+            time = self.timer_delay
+        self.next_update = core.time_ms() + time

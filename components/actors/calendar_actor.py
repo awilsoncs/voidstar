@@ -6,7 +6,7 @@ from components.actors.hordeling_spawner_spawner import HordelingSpawnerSpawner
 from components.events.reset_season import ResetSeason
 from components.tags import Tag
 from content.spawners.hordeling_spawner_spawner import hordeling_spawner_spawner
-from systems.utilities import retract_turn
+from engine import core
 
 
 MAX_HOUR = 23
@@ -37,6 +37,7 @@ class Calendar(TimedActor):
         if self.season > MAX_SEASON:
             self.year += 1
             self.season = 0
+        self.pass_turn()
 
     def get_timecode(self):
         return f'{self.day}d {self.season}s {self.year}y'
@@ -63,5 +64,3 @@ class Calendar(TimedActor):
                 scene.cm.add(ResetSeason())
                 self.round += 1
                 self.increment()
-
-        retract_turn(scene, self.entity)

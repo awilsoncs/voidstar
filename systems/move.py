@@ -2,6 +2,7 @@ from typing import Tuple
 
 from components import TimedActor, Senses
 from components.actions.attack_action import AttackAction
+from components.actors.actor import Actor
 from components.attack import Attack
 from components.coordinates import Coordinates
 from components.enums import Intention
@@ -30,6 +31,7 @@ def get_hostile(scene, entity, step_direction):
 def run(scene):
     for actor in get_actors_with_step_intention(scene):
         entity = actor.entity
+        actor = scene.cm.get_one(Actor, entity=entity)
 
         # is there a hostile in that direction? if so, bump attack
         # is there a non-hostile blocking entity in that direction? if so, too bad
@@ -39,7 +41,7 @@ def run(scene):
             # do move
             move(scene, entity, step_direction)
             dirty_senses(scene, entity)
-            retract_turn(scene, entity)
+            actor.pass_turn()
             retract_intention(scene, entity)
         elif get_hostile(scene, entity, step_direction):
 
@@ -56,10 +58,10 @@ def run(scene):
                     )[1]
                 )
             else:
-                retract_turn(scene, entity)
+                actor.pass_turn()
             retract_intention(scene, entity)
         else:
-            retract_turn(scene, entity)
+            actor.pass_turn()
             retract_intention(scene, entity)
 
 

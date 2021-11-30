@@ -15,7 +15,7 @@ class HordelingSpawnerSpawner(TimedActor):
 
     def act(self, scene):
         spawn_hordeling_spawner(scene)
-        retract_turn(scene, self.entity)
+        self.pass_turn()
 
         self.waves -= 1
 

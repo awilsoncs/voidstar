@@ -25,7 +25,7 @@ class HordelingSpawner(TimedActor):
 
             scene.cm.add(*make_hordeling(coords.x, coords.y)[1])
             self.remaining -= 1
-        retract_turn(scene, self.entity)
+        self.pass_turn()
 
         if self.remaining <= 0:
             scene.cm.delete(self.entity)

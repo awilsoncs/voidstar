@@ -85,10 +85,8 @@ class DefendScene(GameScene):
             thwack.run(self)
             melee_attack.run(self)
             move.run(self)
-            control_turns.run(self)
             update_senses.run(self)
             pickup_gold.run(self)
-            # dungeon_master.run(self)
 
             clear_components.of_type(ChargeAbilityEvent, self)
             quit.run(self)
