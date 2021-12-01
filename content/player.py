@@ -3,6 +3,7 @@ from components import Entity, Appearance, Senses, Attributes, Coordinates
 from components.abilities.thwack_ability import ThwackAbility
 from components.attack import Attack
 from components.actors.player_actor import PlayerTimedActor
+from components.corpse import Corpse
 from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
@@ -19,6 +20,7 @@ def make_player(zone_id):
         [
             Entity(id=entity_id, entity=entity_id, name='player', zone=zone_id),
             Appearance(entity=entity_id, symbol='@', color=palettes.WHITE, bg_color=palettes.BACKGROUND),
+            Corpse(entity=entity_id),
             Senses(entity=entity_id, sight_radius=settings.TORCH_RADIUS),
             PlayerTimedActor(entity=entity_id, control_mode=ControlMode.PLAYER),
             Attributes(entity=entity_id, hp=5, max_hp=5),

@@ -1,4 +1,5 @@
 from components import Entity, Appearance, Attributes, Coordinates
+from components.corpse import Corpse
 from components.faction import Faction
 from components.material import Material
 from engine import core, palettes
@@ -12,6 +13,7 @@ def make_wall(zone_id, x, y):
         [
             Entity(id=entity_id, entity=entity_id, name='wall', zone=zone_id),
             Appearance(entity=entity_id, symbol='#', color=palettes.STRAW, bg_color=palettes.BACKGROUND),
+            Corpse(entity=entity_id, symbol='%', color=palettes.STRAW, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
             Attributes(entity=entity_id, hp=10, max_hp=10),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
