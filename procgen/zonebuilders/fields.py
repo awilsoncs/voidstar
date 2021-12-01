@@ -4,11 +4,13 @@ from itertools import product
 import settings
 from components import Coordinates
 from content.allies import make_peasant
+from content.houses import make_house
 from content.player import make_player
 from content.terrain import make_tree, make_water
 from engine import core
 from engine.component_manager import ComponentManager
 from engine.constants import PRIORITY_MEDIUM
+from engine.utilities import get_3_by_3_square
 
 
 def build(cm: ComponentManager, zone_id: int, peasants):
@@ -120,6 +122,12 @@ class FieldBuilder:
         self.object_map[x, y] = peasant[0]
         self.peasants -= 1
 
+    def add_house(self, x, y):
+        house = make_house(self.zone_id, x, y)
+        for wall in house:
+            self.cm.add(*wall[1])
+            self.object_map[x, y] = wall[0]
+
     def place_objects(self):
         for x in range(0, settings.MAP_WIDTH - 1):
             self.add_tree(x, 0)
@@ -128,6 +136,15 @@ class FieldBuilder:
         for y in range(1, settings.MAP_HEIGHT - 1):
             self.add_tree(0, y)
             self.add_tree(settings.MAP_WIDTH - 1, y)
+
+        while self.peasants > 0:
+            x = random.randint(5, settings.MAP_WIDTH - 5)
+            y = random.randint(5, settings.MAP_HEIGHT - 5)
+            footprint = get_3_by_3_square(x, y)
+            footprint_coverage = [(x2, y2) in self.object_map for x2, y2 in footprint]
+            if not any(footprint_coverage):
+                self.add_peasant(x, y)
+                self.add_house(x, y)
 
         for _ in range(random.randint(settings.COPSE_MIN, settings.COPSE_MAX)):
             x = random.randint(0, settings.MAP_WIDTH - 1)
@@ -141,8 +158,3 @@ class FieldBuilder:
             if (x, y) not in self.object_map:
                 self.spawn_body_water(x, y)
 
-        while self.peasants > 0:
-            x = random.randint(0, settings.MAP_WIDTH - 1)
-            y = random.randint(0, settings.MAP_HEIGHT - 1)
-            if (x, y) not in self.object_map:
-                self.add_peasant(x, y)

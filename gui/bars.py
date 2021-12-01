@@ -78,10 +78,10 @@ class HordelingBar(Bar):
 class Thwackometer(Bar):
     symbol: str = '/'
 
-    fg_color: tuple = palettes.GREY
+    fg_color: tuple = palettes.STONE
     mg_color: tuple = palettes.GABRIEL_3_5
 
-    thwack_fg: tuple = palettes.GREY
+    thwack_fg: tuple = palettes.STONE
     thwack_mg: tuple = palettes.GABRIEL_3_5
 
     dizzy_fg: tuple = palettes.LIGHT_WATER
