@@ -16,6 +16,8 @@ def wait_for_char():
     while True:
         for e in tcod.event.wait():
             if e.type == 'KEYDOWN':
+                if e.sym == tcod.event.K_RETURN:
+                    return e
                 return e
 
 
