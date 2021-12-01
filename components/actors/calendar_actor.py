@@ -14,8 +14,7 @@ MAX_SEASON = 4
 
 @dataclass
 class Calendar(EnergyActor):
-    hour: int = 0
-    day: int = 1
+    day: int = 0
     season: int = 1
     year: int = 1217
     status: str = "Peacetime"
@@ -23,18 +22,14 @@ class Calendar(EnergyActor):
     round = 1
 
     def increment(self):
-        self.hour += 24
-        if self.hour > MAX_HOUR:
-            self.day += 1
-            self.hour = 0
-
+        self.day += 1
         if self.day > MAX_DAY:
             self.season += 1
-            self.day = 0
+            self.day = 1
 
         if self.season > MAX_SEASON:
             self.year += 1
-            self.season = 0
+            self.season = 1
         self.pass_turn()
 
     def get_timecode(self):
@@ -48,7 +43,6 @@ class Calendar(EnergyActor):
         return f'{season} {self.day}d {self.year}y'
 
     def act(self, scene):
-
         if self.day < 25:
             self.status = "Peacetime"
             self.increment()
@@ -57,17 +51,27 @@ class Calendar(EnergyActor):
             self.increment()
         else:
             if self.status != "Under attack!":
-                scene.popup_message("The Horde has arrived. Prepare to defend the village!")
-                scene.cm.add(*hordeling_spawner_spawner(waves=self.round)[1])
-                self.is_recharging = False
-            self.status = "Under attack!"
-            if not (
-                scene.cm.get(HordelingSpawnerSpawner)
-                or scene.cm.get(HordelingSpawner)
-                or [t for t in scene.cm.get(Tag) if t.value == 'hordeling']
-            ):
-                self.status = "Peacetime"
-                scene.cm.add(ResetSeason())
-                self.round += 1
-                self.is_recharging = True
-                self.increment()
+                self._start_attack(scene)
+            if not still_under_attack(scene):
+                self._end_attack(scene)
+
+    def _start_attack(self, scene):
+        scene.popup_message("The Horde has arrived. Prepare to defend the village!")
+        scene.cm.add(*hordeling_spawner_spawner(waves=self.round)[1])
+        self.is_recharging = False
+        self.status = "Under attack!"
+
+    def _end_attack(self, scene):
+        self.status = "Peacetime"
+        scene.cm.add(ResetSeason())
+        self.round += 1
+        self.is_recharging = True
+        self.increment()
+
+
+def still_under_attack(scene):
+    return (
+        scene.cm.get(HordelingSpawnerSpawner)
+        or scene.cm.get(HordelingSpawner)
+        or [t for t in scene.cm.get(Tag) if t.value == 'hordeling']
+    )

@@ -17,4 +17,5 @@ class FastForward(EnergyActor):
         calendar = scene.cm.get_one(Calendar, entity=core.get_id('calendar'))
         if calendar:
             calendar.day = 30
+            calendar.energy = 0
         scene.cm.delete_component(self)
