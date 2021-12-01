@@ -7,7 +7,7 @@ pycparser==2.21
 PyInstaller==4.7
 pyparsing==3.0.6
 six==1.16.0
-tcod==12.5.0
+tcod==13.1.0
 setuptools==59.4.0
 PyYAML==6.0
 tracery==0.1.1
