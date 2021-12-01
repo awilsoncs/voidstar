@@ -3,7 +3,8 @@ from dataclasses import dataclass
 from components import Attributes
 from components.abilities.thwack_ability import ThwackAbility
 from components.states.dizzy_state import DizzyState
-from components.tags import Tag
+from components.tags.hordeling_tag import HordelingTag
+from components.tags.peasant_tag import PeasantTag
 from engine import palettes, PLAYER_ID
 from gui.gui_element import GuiElement
 
@@ -55,8 +56,7 @@ class PeasantBar(Bar):
     mg_color: tuple = palettes.GABRIEL_2_1
 
     def update(self, scene):
-        peasants = scene.cm.get(Tag)
-        peasants = len([p for p in peasants if p.value == 'peasant'])
+        peasants = len(scene.cm.get(PeasantTag))
         self.value = peasants
         self.max_value = peasants
 
@@ -68,8 +68,7 @@ class HordelingBar(Bar):
     mg_color: tuple = palettes.BLOOD
 
     def update(self, scene):
-        hordelings = scene.cm.get(Tag)
-        hordelings = len([p for p in hordelings if p.value == 'hordeling'])
+        hordelings = len(scene.cm.get(HordelingTag))
         self.value = hordelings
         self.max_value = hordelings
 

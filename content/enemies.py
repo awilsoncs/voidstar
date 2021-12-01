@@ -7,7 +7,7 @@ from components.drop_gold import DropGold
 from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
-from components.tags import Tag
+from components.tags.hordeling_tag import HordelingTag
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
@@ -31,7 +31,7 @@ def make_hordeling(x, y):
         Attributes(entity=entity_id, hp=1, max_hp=1),
         Attack(entity=entity_id, damage=1),
         Material(entity=entity_id, blocks=True, blocks_sight=False),
-        Tag(entity=entity_id, value='hordeling')
+        HordelingTag(entity=entity_id)
     ]
 
     if random.randint(1, 10) == 10:

@@ -4,7 +4,7 @@ from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_spawner import HordelingSpawner
 from components.actors.hordeling_spawner_spawner import HordelingSpawnerSpawner
 from components.events.reset_season import ResetSeason
-from components.tags import Tag
+from components.tags.hordeling_tag import HordelingTag
 from content.spawners.hordeling_spawner_spawner import hordeling_spawner_spawner
 
 MAX_HOUR = 23
@@ -73,5 +73,5 @@ def still_under_attack(scene):
     return (
         scene.cm.get(HordelingSpawnerSpawner)
         or scene.cm.get(HordelingSpawner)
-        or [t for t in scene.cm.get(Tag) if t.value == 'hordeling']
+        or [t for t in scene.cm.get(HordelingTag)]
     )
