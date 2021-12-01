@@ -1,5 +1,6 @@
 from components import Entity, Appearance, Attributes
 from components.actors.peasant_actor import PeasantTimedActor
+from components.cry_for_help import CryForHelp
 from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
@@ -22,6 +23,7 @@ def make_peasant(zone_id):
             Tag(entity=entity_id, value='peasant'),
             TargetValue(entity=entity_id, value=PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
-            TaxValue(entity=entity_id, value=TaxValue.PEASANT)
+            TaxValue(entity=entity_id, value=TaxValue.PEASANT),
+            CryForHelp(entity=entity_id)
         ]
     )
