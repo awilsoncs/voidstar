@@ -108,16 +108,7 @@ class FieldBuilder:
         self.object_map[x, y] = water[0]
 
     def add_peasant(self, x, y):
-        peasant = make_peasant(self.zone_id)
-        peasant[1].append(
-            Coordinates(
-                entity=peasant[0],
-                x=x,
-                y=y,
-                priority=PRIORITY_MEDIUM,
-                terrain=False,
-            )
-        )
+        peasant = make_peasant(self.zone_id, x, y)
         self.cm.add(*peasant[1])
         self.object_map[x, y] = peasant[0]
         self.peasants -= 1
@@ -143,8 +134,8 @@ class FieldBuilder:
             footprint = get_3_by_3_square(x, y)
             footprint_coverage = [(x2, y2) in self.object_map for x2, y2 in footprint]
             if not any(footprint_coverage):
-                self.add_peasant(x, y)
                 self.add_house(x, y)
+                self.add_peasant(x, y)
 
         for _ in range(random.randint(settings.COPSE_MIN, settings.COPSE_MAX)):
             x = random.randint(0, settings.MAP_WIDTH - 1)

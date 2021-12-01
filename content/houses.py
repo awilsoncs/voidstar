@@ -2,6 +2,8 @@ from components import Entity, Appearance, Attributes, Coordinates
 from components.corpse import Corpse
 from components.faction import Faction
 from components.material import Material
+from components.tags.house_tag import HouseTag
+from content.allies import make_peasant
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
@@ -22,6 +24,19 @@ def make_wall(zone_id, x, y):
     )
 
 
+def make_floorboard(zone_id, x, y):
+    entity_id = core.get_id()
+    return (
+        entity_id,
+        [
+            Entity(id=entity_id, entity=entity_id, name='wall', zone=zone_id),
+            Appearance(entity=entity_id, symbol='=', color=palettes.STRAW, bg_color=palettes.BACKGROUND),
+            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
+            HouseTag(entity=entity_id)
+        ]
+    )
+
+
 def make_house(zone_id, x, y):
     return [
         make_wall(zone_id, x+dx, y+dy) for dx, dy in [
@@ -29,4 +44,4 @@ def make_house(zone_id, x, y):
             (-1, 0), (1, 0),
             (-1, 1), (0, 1), (1, 1)
         ]
-    ]
+    ] + [make_floorboard(zone_id, x, y)]
