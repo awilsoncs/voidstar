@@ -1,10 +1,15 @@
 from dataclasses import dataclass
+import random
 from typing import List
 
-from components import Attributes
+import settings
+from components import Attributes, Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.tax_value import TaxValue
+from content.allies import make_peasant
+from content.houses import make_house
 from engine.core import log_debug
+from engine.utilities import get_3_by_3_square
 
 
 @dataclass
@@ -33,5 +38,17 @@ def collect_taxes(scene):
     scene.gold += collected_taxes
 
 
-def migrate_villagers(scene):
-    pass
+def migrate_villagers(scene) -> None:
+    # find a suitable place
+    suitable_location = False
+    taken_coords = {c.position for c in scene.cm.get(Coordinates)}
+
+    while not suitable_location:
+        x = random.randint(5, settings.MAP_WIDTH - 5)
+        y = random.randint(5, settings.MAP_HEIGHT - 5)
+        home_footprint = get_3_by_3_square(x, y)
+        if home_footprint.isdisjoint(taken_coords):
+            migrant = make_house(0, x, y) + [make_peasant(0, x, y)]
+            for entity in migrant:
+                scene.cm.add(*entity[1])
+        suitable_location = True

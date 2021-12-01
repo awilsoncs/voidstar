@@ -132,8 +132,9 @@ class FieldBuilder:
             x = random.randint(5, settings.MAP_WIDTH - 5)
             y = random.randint(5, settings.MAP_HEIGHT - 5)
             footprint = get_3_by_3_square(x, y)
-            footprint_coverage = [(x2, y2) in self.object_map for x2, y2 in footprint]
-            if not any(footprint_coverage):
+
+            disjoint = self.object_map.keys().isdisjoint(footprint)
+            if disjoint:
                 self.add_house(x, y)
                 self.add_peasant(x, y)
 
