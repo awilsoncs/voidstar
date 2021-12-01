@@ -3,14 +3,15 @@ from dataclasses import dataclass
 
 import settings
 from components import TimedActor
+from components.actors.energy_actor import EnergyActor
 from content.spawners.hordeling_spawner import hordeling_spawner
-from systems.utilities import retract_turn
 
 
 @dataclass
-class HordelingSpawnerSpawner(TimedActor):
+class HordelingSpawnerSpawner(EnergyActor):
     """Hordelings will spawn at this object's location."""
     timer_delay: int = TimedActor.SIX_SECONDS
+    energy_cost: int = EnergyActor.HOURLY
     waves: int = 1
 
     def act(self, scene):

@@ -1,13 +1,12 @@
 from dataclasses import dataclass
 
 from components import TimedActor
+from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_spawner import HordelingSpawner
 from components.actors.hordeling_spawner_spawner import HordelingSpawnerSpawner
 from components.events.reset_season import ResetSeason
 from components.tags import Tag
 from content.spawners.hordeling_spawner_spawner import hordeling_spawner_spawner
-from engine import core
-
 
 MAX_HOUR = 23
 MAX_DAY = 30
@@ -15,13 +14,13 @@ MAX_SEASON = 4
 
 
 @dataclass
-class Calendar(TimedActor):
+class Calendar(EnergyActor):
     hour: int = 0
     day: int = 1
     season: int = 1
     year: int = 1217
     status: str = "Peacetime"
-    timer_delay: int = TimedActor.HOURLY
+    energy_cost: int = EnergyActor.DAILY
     round = 1
 
     def increment(self):

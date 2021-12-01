@@ -1,6 +1,6 @@
 from typing import Tuple
 
-from components import TimedActor, Senses
+from components import Senses
 from components.actions.attack_action import AttackAction
 from components.actors.actor import Actor
 from components.attack import Attack
@@ -68,7 +68,7 @@ def run(scene):
 def get_actors_with_step_intention(scene):
     return [
         actor
-        for actor in scene.cm.get(TimedActor)
+        for actor in scene.cm.get(Actor)
         if actor.intention in STEP_INTENTIONS
     ]
 
@@ -81,7 +81,8 @@ STEP_VECTORS = {
     Intention.STEP_NORTH_EAST: (1, -1),
     Intention.STEP_NORTH_WEST: (-1, -1),
     Intention.STEP_SOUTH_EAST: (1, 1),
-    Intention.STEP_SOUTH_WEST: (-1, 1)
+    Intention.STEP_SOUTH_WEST: (-1, 1),
+    Intention.DALLY: (0, 0)
 }
 
 STEP_INTENTIONS = list(STEP_VECTORS.keys())

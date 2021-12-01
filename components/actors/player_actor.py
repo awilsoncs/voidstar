@@ -5,6 +5,7 @@ import tcod
 from components import TimedActor, Coordinates
 from components.abilities.thwack_ability import ThwackAbility
 from components.actions.thwack_action import ThwackAction
+from components.actors.energy_actor import EnergyActor
 from components.enums import Intention, ControlMode
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.events.fast_forward import FastForward
@@ -15,8 +16,7 @@ from systems.utilities import set_intention
 
 
 @dataclass
-class PlayerTimedActor(TimedActor):
-    timer_delay: int = TimedActor.REAL_TIME
+class PlayerTimedActor(EnergyActor):
 
     def act(self, scene):
         if self.control_mode is ControlMode.PLAYER:
@@ -73,6 +73,7 @@ KEY_ACTION_MAP = {
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,
     tcod.event.K_LEFT: Intention.STEP_WEST,
+    tcod.event.K_PERIOD: Intention.DALLY,
 
     tcod.event.K_BACKQUOTE: Intention.SHOW_DEBUG_SCREEN,
     tcod.event.K_ESCAPE: Intention.QUIT_GAME

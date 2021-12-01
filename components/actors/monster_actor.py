@@ -3,6 +3,7 @@ from dataclasses import dataclass
 
 from components import TimedActor, Coordinates
 from components.actions.attack_action import AttackAction
+from components.actors.energy_actor import EnergyActor
 from components.target_value import TargetValue
 from engine.core import log_debug
 from components.actors import VECTOR_STEP_MAP, STEPS
@@ -10,7 +11,7 @@ from systems.utilities import set_intention
 
 
 @dataclass
-class MonsterTimedActor(TimedActor):
+class MonsterTimedActor(EnergyActor):
 
     @log_debug(__name__)
     def act(self, scene):

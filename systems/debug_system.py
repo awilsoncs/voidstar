@@ -1,13 +1,14 @@
 import engine
 import settings
 from components import Entity, Coordinates, Attributes, TimedActor, Senses
+from components.actors.actor import Actor
 from components.enums import Intention
 from gui.easy_menu import EasyMenu
 from systems.utilities import retract_intention
 
 
 def run(scene):
-    for actor in [b for b in scene.cm.get(TimedActor) if b.intention is Intention.SHOW_DEBUG_SCREEN]:
+    for actor in [b for b in scene.cm.get(Actor) if b.intention is Intention.SHOW_DEBUG_SCREEN]:
         scene.gui.add_element(
             EasyMenu(
                 "Debug Options",

@@ -3,13 +3,14 @@ from dataclasses import dataclass
 
 from components import TimedActor
 from components.actors.calendar_actor import Calendar
+from components.actors.energy_actor import EnergyActor
 from engine import core
 from engine.core import log_debug
 
 
 @dataclass
-class FastForward(TimedActor):
-    timer_delay: int = TimedActor.REAL_TIME
+class FastForward(EnergyActor):
+    energy_cost: int = EnergyActor.INSTANT
 
     @log_debug(__name__)
     def act(self, scene):

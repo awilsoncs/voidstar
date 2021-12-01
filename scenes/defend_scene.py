@@ -89,6 +89,7 @@ class DefendScene(GameScene):
             pickup_gold.run(self)
 
             clear_components.of_type(ChargeAbilityEvent, self)
+            control_turns.run(self)
             quit.run(self)
 
         except Exception as e:

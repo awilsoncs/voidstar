@@ -1,4 +1,5 @@
 from components import Coordinates, TimedActor
+from components.actors.actor import Actor
 from components.enums import Intention
 from components.events.turn_event import TurnEvent
 from components.faction import Faction
@@ -22,7 +23,7 @@ def get_blocking_object(cm: ComponentManager, x: int, y: int) -> int:
 
 @log_debug(__name__)
 def set_intention(scene, entity, target, intention):
-    actor = scene.cm.get_one(TimedActor, entity=entity)
+    actor = scene.cm.get_one(Actor, entity=entity)
     if actor:
         actor.intention = intention
         actor.intention_target = target
@@ -40,7 +41,7 @@ def retract_turn(scene, entity: int):
 
 
 def get_actors_with_intention(scene, intention):
-    for actor in scene.cm.get(TimedActor):
+    for actor in scene.cm.get(Actor):
         if actor.intention is intention:
             yield actor
 
