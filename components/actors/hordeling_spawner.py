@@ -2,10 +2,9 @@ import random
 from dataclasses import dataclass, field
 
 import settings
-from components import TimedActor, Coordinates
+from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from content.enemies import make_hordeling
-from systems.utilities import retract_turn
 
 
 def get_hordeling_count():

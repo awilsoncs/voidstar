@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 
-from components import TimedActor
 from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_spawner import HordelingSpawner
 from components.actors.hordeling_spawner_spawner import HordelingSpawnerSpawner
@@ -39,7 +38,14 @@ class Calendar(EnergyActor):
         self.pass_turn()
 
     def get_timecode(self):
-        return f'{self.day}d {self.season}s {self.year}y'
+        season = {
+            1: "Spring",
+            2: "Summer",
+            3: "Autumn",
+            4: "Winter"
+        }[self.season]
+
+        return f'{season} {self.day}d {self.year}y'
 
     def act(self, scene):
 
@@ -53,6 +59,7 @@ class Calendar(EnergyActor):
             if self.status != "Under attack!":
                 scene.popup_message("The Horde has arrived. Prepare to defend the village!")
                 scene.cm.add(*hordeling_spawner_spawner(waves=self.round)[1])
+                self.is_recharging = False
             self.status = "Under attack!"
             if not (
                 scene.cm.get(HordelingSpawnerSpawner)
@@ -62,4 +69,5 @@ class Calendar(EnergyActor):
                 self.status = "Peacetime"
                 scene.cm.add(ResetSeason())
                 self.round += 1
+                self.is_recharging = True
                 self.increment()

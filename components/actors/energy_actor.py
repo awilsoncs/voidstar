@@ -20,6 +20,7 @@ class EnergyActor(Actor, ABC):
     priority: int = PRIORITY_MEDIUM
     energy: int = 0
     energy_cost: int = HOURLY
+    is_recharging: bool = True  # True if the entity should accept energy
 
     # action management
     intention: Intention = Intention.NONE

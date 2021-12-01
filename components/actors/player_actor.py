@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 import tcod
 
-from components import TimedActor, Coordinates
+from components import Coordinates
 from components.abilities.thwack_ability import ThwackAbility
 from components.actions.thwack_action import ThwackAction
 from components.actors.energy_actor import EnergyActor

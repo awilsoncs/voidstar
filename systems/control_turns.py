@@ -8,4 +8,5 @@ def run(scene):
     else:
         actors = scene.cm.get(EnergyActor)
         for actor in actors:
-            actor.energy += 1
+            if actor.is_recharging:
+                actor.energy += 1

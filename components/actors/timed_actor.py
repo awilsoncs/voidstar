@@ -1,3 +1,4 @@
+from abc import ABC
 from dataclasses import dataclass
 
 from components.actors.actor import Actor
@@ -7,7 +8,7 @@ from engine.constants import PRIORITY_MEDIUM
 
 
 @dataclass
-class TimedActor(Actor):
+class TimedActor(Actor, ABC):
     SLOWEST = 100000
     QUARTER_HOUR = 250
     HALF_HOUR = 500

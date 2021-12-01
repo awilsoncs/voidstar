@@ -1,7 +1,7 @@
 import random
 from dataclasses import dataclass
 
-from components import TimedActor, Coordinates
+from components import Coordinates
 from components.actions.attack_action import AttackAction
 from components.actors.energy_actor import EnergyActor
 from components.target_value import TargetValue
