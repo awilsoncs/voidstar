@@ -1,9 +1,15 @@
 from abc import ABC, abstractmethod
 
+from components.enums import Intention
 from engine.component import Component
 
 
 class Actor(Component, ABC):
+    """Provides control and other 'mind' information."""
+    # action management
+    intention: Intention = Intention.NONE
+    intention_target: int = None
+
     def can_act(self) -> bool:
         """Return whether the actor is currently able to act."""
         return False

@@ -3,8 +3,7 @@ from itertools import product
 
 import settings
 from components import Coordinates
-from content.allies import make_peasant
-from content.houses import make_house
+from content.houses import make_peasant_home
 from content.player import make_player
 from content.terrain import make_tree, make_water
 from engine import core
@@ -107,17 +106,11 @@ class FieldBuilder:
         self.cm.add(*water[1])
         self.object_map[x, y] = water[0]
 
-    def add_peasant(self, x, y):
-        peasant = make_peasant(self.zone_id, x, y)
-        self.cm.add(*peasant[1])
-        self.object_map[x, y] = peasant[0]
-        self.peasants -= 1
-
     def add_house(self, x, y):
-        house = make_house(self.zone_id, x, y)
-        for wall in house:
-            self.cm.add(*wall[1])
-            self.object_map[x, y] = wall[0]
+        house = make_peasant_home(x, y)
+        for entity in house:
+            self.cm.add(*entity[1])
+            self.object_map[x, y] = entity[0]
 
     def place_objects(self):
         for x in range(0, settings.MAP_WIDTH - 1):
@@ -136,7 +129,7 @@ class FieldBuilder:
             disjoint = self.object_map.keys().isdisjoint(footprint)
             if disjoint:
                 self.add_house(x, y)
-                self.add_peasant(x, y)
+                self.peasants -= 1
 
         for _ in range(random.randint(settings.COPSE_MIN, settings.COPSE_MAX)):
             x = random.randint(0, settings.MAP_WIDTH - 1)

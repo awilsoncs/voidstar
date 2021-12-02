@@ -5,6 +5,7 @@ from components.cry_for_help import CryForHelp
 from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
+from components.residence import Residence
 from components.tags.peasant_tag import PeasantTag
 from components.target_value import PEASANT, TargetValue
 from components.tax_value import TaxValue
@@ -12,12 +13,12 @@ from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
 
-def make_peasant(zone_id, x, y):
+def make_peasant(house_id, x, y):
     entity_id = core.get_id()
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='peasant', zone=zone_id),
+            Entity(id=entity_id, entity=entity_id, name='peasant'),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=False),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             PeasantTag(entity=entity_id),
@@ -28,6 +29,6 @@ def make_peasant(zone_id, x, y):
             TargetValue(entity=entity_id, value=PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             TaxValue(entity=entity_id, value=TaxValue.PEASANT),
-            CryForHelp(entity=entity_id)
+            CryForHelp(entity=entity_id),
         ]
     )
