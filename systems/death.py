@@ -1,4 +1,5 @@
 from components import Attributes, Entity
+from components.actors.rebuilder import Rebuilder
 from components.coordinates import Coordinates
 from components.corpse import Corpse
 from components.drop_gold import DropGold
@@ -26,10 +27,12 @@ def handle_owned_entity(scene, entity):
     # certainly a house for now...
     house_structures = [hs for hs in scene.cm.get(HouseStructure) if hs.house_id == entity]
     if house_structures:
+        assert len(house_structures) == 1, "a house a may only have one structure"
         for house_structure in house_structures:
             for entity in house_structure.get_all():
                 if scene.cm.get_one(Attributes, entity=entity):
                     die(scene, entity)
+            scene.cm.add(Rebuilder(entity=house_structure.entity))
 
 
 @log_debug(__name__)

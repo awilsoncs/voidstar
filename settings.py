@@ -22,8 +22,8 @@ def get_relative_path(relative_path):
 
 def create_options_file():
     option_data_base = {
-        'screen-width': 90,
-        'screen-height': 50,
+        'screen-width': 80,
+        'screen-height': 60,
         'grass-density': 2,
         'lakes-min': 1,
         'lakes-max': 4,

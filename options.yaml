@@ -7,7 +7,7 @@ lake-proliferation: 0.12
 lakes-max: 1
 lakes-min: 1
 screen-height: 60
-screen-width: 110
+screen-width: 80
 spawn-max: 6
 spawn-min: 1
 torch-radius: -1
