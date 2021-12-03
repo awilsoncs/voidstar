@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 from engine.component import Component
 
 
-class SeasonalActor(Component, ABC):
+class SeasonResetListener(Component, ABC):
 
     @abstractmethod
-    def act(self, scene):
+    def on_season_reset(self, scene):
         raise NotImplementedError()

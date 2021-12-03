@@ -1,15 +1,15 @@
 from dataclasses import dataclass
 
 from components import Coordinates
-from components.seasonal_actors.seasonal_actor import SeasonalActor
+from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.house_structure import HouseStructure
 from components.owner import Owner
 from content.houses import make_wall
 
 @dataclass
-class Rebuilder(SeasonalActor):
+class Rebuilder(SeasonResetListener):
     """Rebuilds broken down house walls."""
-    def act(self, scene):
+    def on_season_reset(self, scene):
         house_link = scene.cm.get_one(Owner, entity=self.entity)
         if not house_link:
             raise NotImplementedError("cannot yet handle rebuilder without parent entity")

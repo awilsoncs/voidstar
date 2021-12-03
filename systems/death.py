@@ -1,5 +1,5 @@
 from components import Attributes, Entity
-from components.seasonal_actors.rebuilder import Rebuilder
+from components.season_reset_listeners.rebuilder import Rebuilder
 from components.coordinates import Coordinates
 from components.corpse import Corpse
 from components.drop_gold import DropGold

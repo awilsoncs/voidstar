@@ -1,9 +1,10 @@
 from components import Entity
-from components.seasonal_actors.add_villager import AddVillager
+from components.attack_start_listeners.move_peasants_in import MovePeasantsIn
+from components.season_reset_listeners.add_villager import AddVillager
 from components.actors.calendar_actor import Calendar
-from components.seasonal_actors.collect_taxes import CollectTaxes
-from components.seasonal_actors.move_peasants_out import MovePeasantsOut
-from components.seasonal_actors.reset_health import ResetHealth
+from components.season_reset_listeners.collect_taxes import CollectTaxes
+from components.season_reset_listeners.move_peasants_out import MovePeasantsOut
+from components.season_reset_listeners.reset_health import ResetHealth
 from engine import core
 
 
@@ -17,6 +18,7 @@ def make_calendar():
             ResetHealth(entity=entity_id),
             CollectTaxes(entity=entity_id),
             AddVillager(entity=entity_id),
-            MovePeasantsOut(entity=entity_id)
+            MovePeasantsOut(entity=entity_id),
+            MovePeasantsIn(entity=entity_id)
         ]
     ]

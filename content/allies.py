@@ -30,5 +30,6 @@ def make_peasant(house_id, x, y):
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             TaxValue(entity=entity_id, value=TaxValue.PEASANT),
             CryForHelp(entity=entity_id),
+            Residence(entity=entity_id, house_id=house_id)
         ]
     )

@@ -3,7 +3,8 @@ from dataclasses import dataclass
 from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_spawner import HordelingSpawner
 from components.actors.hordeling_spawner_spawner import HordelingSpawnerSpawner
-from components.events.reset_season import ResetSeason
+from components.attack_start_listeners.start_attack import StartAttack
+from components.season_reset_listeners.reset_season import ResetSeason
 from components.tags.hordeling_tag import HordelingTag
 from content.spawners.hordeling_spawner_spawner import hordeling_spawner_spawner
 
@@ -58,6 +59,7 @@ class Calendar(EnergyActor):
     def _start_attack(self, scene):
         scene.popup_message("The Horde has arrived. Prepare to defend the village!")
         scene.cm.add(*hordeling_spawner_spawner(waves=self.round)[1])
+        scene.cm.add(StartAttack())
         self.is_recharging = False
         self.status = "Under attack!"
 
