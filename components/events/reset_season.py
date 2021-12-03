@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from components.actors.energy_actor import EnergyActor
-from components.actors.seasonal_actor import SeasonalActor
+from components.seasonal_actors.seasonal_actor import SeasonalActor
 from engine.core import log_debug
 
 

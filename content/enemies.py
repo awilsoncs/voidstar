@@ -17,13 +17,7 @@ def make_hordeling(x, y):
 
     components = [
         Entity(id=entity_id, entity=entity_id, name='hordeling'),
-        Coordinates(
-            entity=entity_id,
-            x=x,
-            y=y,
-            priority=PRIORITY_MEDIUM,
-            terrain=False,
-        ),
+        Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=False),
         Faction(entity=entity_id, faction=Faction.Options.MONSTER),
         Corpse(entity=entity_id),
         MonsterTimedActor(entity=entity_id, control_mode=ControlMode.MONSTER),

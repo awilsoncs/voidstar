@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 import settings
 from components import Coordinates
-from components.actors.seasonal_actor import SeasonalActor
+from components.seasonal_actors.seasonal_actor import SeasonalActor
 from content.houses import make_peasant_home
 from engine.utilities import get_3_by_3_square
 

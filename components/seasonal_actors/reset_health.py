@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import List
 
 from components import Attributes
-from components.actors.seasonal_actor import SeasonalActor
+from components.seasonal_actors.seasonal_actor import SeasonalActor
 
 
 @dataclass

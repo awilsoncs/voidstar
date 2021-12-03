@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from components import Coordinates
-from components.actors.seasonal_actor import SeasonalActor
+from components.seasonal_actors.seasonal_actor import SeasonalActor
 from components.house_structure import HouseStructure
 from components.owner import Owner
 from content.houses import make_wall
