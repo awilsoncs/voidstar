@@ -1,6 +1,6 @@
 import engine
 import settings
-from components import Entity, Coordinates, Attributes, TimedActor, Senses
+from components import Entity, Coordinates, Attributes, Senses
 from components.actors.actor import Actor
 from components.enums import Intention
 from gui.easy_menu import EasyMenu
