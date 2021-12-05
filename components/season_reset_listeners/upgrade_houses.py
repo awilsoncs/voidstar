@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from random import choice
 
 from components import Attributes, Appearance
+from components.corpse import Corpse
 from components.house_structure import HouseStructure
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from engine import palettes
@@ -26,6 +27,9 @@ class UpgradeHouse(SeasonResetListener):
 
             appearance = scene.cm.get_one(Appearance, entity=wall)
             appearance.color = upgrade
+
+            corpse_def = scene.cm.get_one(Corpse, entity=wall)
+            corpse_def.color = upgrade
 
         house_structure.upgrade_level += 1
 
