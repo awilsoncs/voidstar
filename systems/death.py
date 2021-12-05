@@ -27,6 +27,7 @@ def _handle_rebuilder(scene, entity):
     house_structure = house_structures[0] if house_structures else None
     if house_structure:
         scene.cm.add(Rebuilder(entity=house_structure.entity))
+        house_structure.is_destroyed = True
 
 
 @log_debug(__name__)

@@ -11,7 +11,7 @@ from systems.utilities import set_intention
 
 
 @dataclass
-class MonsterTimedActor(EnergyActor):
+class MonsterActor(EnergyActor):
 
     @log_debug(__name__)
     def act(self, scene):

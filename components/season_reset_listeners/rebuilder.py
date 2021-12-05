@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Union, Optional
+from typing import Optional
 
 from components import Coordinates
 from components.residence import Residence
@@ -55,6 +55,8 @@ class Rebuilder(SeasonResetListener):
             bottom_left, bottom_middle, bottom_right
         ]:
             scene.cm.add(*wall[1])
+
+        house_structure.is_destroyed = False
 
     def _get_house_structure(self, scene) -> Optional[HouseStructure]:
         house_link = scene.cm.get_one(Owner, entity=self.entity)

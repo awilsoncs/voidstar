@@ -8,7 +8,7 @@ from systems.utilities import set_intention
 
 
 @dataclass
-class PeasantTimedActor(EnergyActor):
+class PeasantActor(EnergyActor):
 
     @log_debug(__name__)
     def act(self, scene):

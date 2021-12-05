@@ -5,6 +5,7 @@ from components.actors.calendar_actor import Calendar
 from components.season_reset_listeners.collect_taxes import CollectTaxes
 from components.season_reset_listeners.move_peasants_out import MovePeasantsOut
 from components.season_reset_listeners.reset_health import ResetHealth
+from components.season_reset_listeners.upgrade_houses import UpgradeHouse
 from engine import core
 
 
@@ -17,6 +18,7 @@ def make_calendar():
             Calendar(entity=entity_id),
             ResetHealth(entity=entity_id),
             CollectTaxes(entity=entity_id),
+            UpgradeHouse(entity=entity_id),
             AddVillager(entity=entity_id),
             MovePeasantsOut(entity=entity_id),
             MovePeasantsIn(entity=entity_id)

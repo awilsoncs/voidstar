@@ -8,6 +8,8 @@ from engine.types import EntityId
 @dataclass
 class HouseStructure(Component):
     house_id: EntityId = 0
+    upgrade_level: int = 0
+    is_destroyed: bool = False
     upper_left: EntityId = 0
     upper_middle: EntityId = 0
     upper_right: EntityId = 0

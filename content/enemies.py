@@ -1,7 +1,7 @@
 import random
 from components import Entity, Appearance, Attributes, Coordinates
 from components.attack import Attack
-from components.actors.monster_actor import MonsterTimedActor
+from components.actors.monster_actor import MonsterActor
 from components.corpse import Corpse
 from components.drop_gold import DropGold
 from components.enums import ControlMode
@@ -20,7 +20,7 @@ def make_hordeling(x, y):
         Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=False),
         Faction(entity=entity_id, faction=Faction.Options.MONSTER),
         Corpse(entity=entity_id),
-        MonsterTimedActor(entity=entity_id, control_mode=ControlMode.MONSTER),
+        MonsterActor(entity=entity_id),
         Appearance(entity=entity_id, symbol='h', color=palettes.HORDELING, bg_color=palettes.BACKGROUND),
         Attributes(entity=entity_id, hp=1, max_hp=1),
         Attack(entity=entity_id, damage=1),

@@ -1,5 +1,5 @@
 from components import Entity, Appearance, Attributes, Coordinates
-from components.actors.peasant_actor import PeasantTimedActor
+from components.actors.peasant_actor import PeasantActor
 from components.corpse import Corpse
 from components.cry_for_help import CryForHelp
 from components.enums import ControlMode
@@ -22,7 +22,7 @@ def make_peasant(house_id, x, y):
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=False),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             PeasantTag(entity=entity_id),
-            PeasantTimedActor(entity=entity_id, control_mode=ControlMode.WANDER),
+            PeasantActor(entity=entity_id),
             Appearance(entity=entity_id, symbol='p', color=palettes.WHITE, bg_color=palettes.BACKGROUND),
             Corpse(entity=entity_id),
             Attributes(entity=entity_id, hp=10, max_hp=10),
