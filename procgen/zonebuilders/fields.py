@@ -47,7 +47,7 @@ class FieldBuilder:
         working_set = [(x, y)]
         maximum = 10
         while working_set and maximum > 0:
-            working_x, working_y = working_set.pop()
+            working_x, working_y = working_set.pop(0)
             self.add_tree(working_x, working_y)
             maximum -= 1
             for dx, dy in [
@@ -83,7 +83,7 @@ class FieldBuilder:
         working_set = [(x, y)]
         maximum = 50
         while working_set and maximum > 0:
-            working_x, working_y = working_set.pop()
+            working_x, working_y = working_set.pop(0)
             self.add_water(working_x, working_y)
             maximum -= 1
             for dx, dy in [
