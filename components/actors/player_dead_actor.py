@@ -2,18 +2,16 @@ from dataclasses import dataclass
 
 import tcod
 
-from components.abilities.thwack_ability import ThwackAbility
-from components.actions.thwack_action import ThwackAction
+from components import TimedActor
 from components.actors.energy_actor import EnergyActor
 from components.enums import Intention
-from components.events.chargeabilityevent import ChargeAbilityEvent
-from components.events.fast_forward import FastForward
 from engine import core
 from systems.utilities import set_intention
 
 
 @dataclass
-class PlayerDeadActor(EnergyActor):
+class PlayerDeadActor(TimedActor):
+    timer_delay = TimedActor.REAL_TIME
 
     def act(self, scene):
         handle_key_event(scene, self.entity, DEAD_KEY_ACTION_MAP)

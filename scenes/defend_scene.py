@@ -21,7 +21,7 @@ from gui.vertical_anchor import VerticalAnchor
 from procgen.zonebuilders import fields
 from systems import act, death, \
     debug_system, update_senses, pickup_gold, \
-    move, control_turns, quit, melee_attack, control_cursor, thwack
+    move, control_turns, quit, melee_attack, control_cursor, thwack, peasant_dead_check
 from systems.animators import animation_controller
 
 
@@ -87,6 +87,7 @@ class DefendScene(GameScene):
             move.run(self)
             update_senses.run(self)
             pickup_gold.run(self)
+            peasant_dead_check.run(self)
 
             clear_components.of_type(ChargeAbilityEvent, self)
             control_turns.run(self)
