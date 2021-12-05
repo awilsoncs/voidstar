@@ -66,18 +66,19 @@ class FieldBuilder:
                     )
 
     def add_tree(self, x: int, y: int) -> None:
-        tree = make_tree(self.zone_id)
-        tree[1].append(
-            Coordinates(
-                entity=tree[0],
-                x=x,
-                y=y,
-                priority=PRIORITY_MEDIUM,
-                terrain=True,
+        if (x, y) not in self.object_map:
+            tree = make_tree(self.zone_id)
+            tree[1].append(
+                Coordinates(
+                    entity=tree[0],
+                    x=x,
+                    y=y,
+                    priority=PRIORITY_MEDIUM,
+                    terrain=True,
+                )
             )
-        )
-        self.cm.add(*tree[1])
-        self.object_map[x, y] = tree[0]
+            self.cm.add(*tree[1])
+            self.object_map[x, y] = tree[0]
 
     def spawn_body_water(self, x: int, y: int) -> None:
         working_set = [(x, y)]
@@ -110,7 +111,8 @@ class FieldBuilder:
         house = make_peasant_home(x, y)
         for entity in house:
             self.cm.add(*entity[1])
-            self.object_map[x, y] = entity[0]
+            for dx, dy in product([-1, 0, 1], [-1, 0, 1]):
+                self.object_map[x+dx, y+dy] = entity[0]
 
     def place_objects(self):
         for x in range(0, settings.MAP_WIDTH - 1):

@@ -1,4 +1,5 @@
 import math
+from itertools import product
 
 
 def distance(x1, y1, x2, y2):
@@ -12,7 +13,5 @@ def distance_squared(x1, y1, x2, y2):
 
 def get_3_by_3_square(x, y):
     return {
-        (x-1, y-1), (x, y-1), (x+1, y-1),
-        (x-1, y), (x, y), (x+1, y),
-        (x-1, y+1), (x, y+1), (x+1, y+1)
+        (x+dx, y+dy) for dx, dy in product([-1, 0, 1], [-1, 0, 1])
     }
