@@ -18,21 +18,15 @@ def run(scene):
 
         owner = scene.cm.get_one(Owner, entity=health.entity)
         if owner:
-            handle_owned_entity(scene, owner.owner)
-        else:
-            die(scene, health.entity)
+            _handle_rebuilder(scene, owner.owner)
+        die(scene, health.entity)
 
 
-def handle_owned_entity(scene, entity):
-    # certainly a house for now...
-    house_structures = [hs for hs in scene.cm.get(HouseStructure) if hs.house_id == entity]
-    if house_structures:
-        assert len(house_structures) == 1, "a house a may only have one structure"
-        for house_structure in house_structures:
-            for entity in house_structure.get_all():
-                if scene.cm.get_one(Attributes, entity=entity):
-                    die(scene, entity)
-            scene.cm.add(Rebuilder(entity=house_structure.entity))
+def _handle_rebuilder(scene, entity):
+    house_structures = scene.cm.get(HouseStructure, query=lambda hs: hs.house_id == entity)
+    house_structure = house_structures[0] if house_structures else None
+    if house_structure:
+        scene.cm.add(Rebuilder(entity=house_structure.entity))
 
 
 @log_debug(__name__)

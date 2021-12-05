@@ -23,7 +23,7 @@ def make_wall(house_id, x, y):
             Appearance(entity=entity_id, symbol='#', color=palettes.STRAW, bg_color=palettes.BACKGROUND),
             Corpse(entity=entity_id, symbol='%', color=palettes.STRAW, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
-            Attributes(entity=entity_id, hp=10, max_hp=10),
+            Attributes(entity=entity_id, hp=80, max_hp=80),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
         ]

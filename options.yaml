@@ -1,7 +1,7 @@
 character-name: Sir Chauncey
 copse-max: 40
 copse-min: 20
-copse-proliferation: 0.20
+copse-proliferation: 0.0
 grass-density: 2
 lake-proliferation: 0.12
 lakes-max: 1
