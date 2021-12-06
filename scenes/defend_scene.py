@@ -13,7 +13,6 @@ from engine.constants import PLAYER_ID
 from engine.core import timed
 from engine.infos import ColoredMessage
 from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
-from gui.fps_counter import FPSCounter
 from gui.help_tab import HelpTab
 from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SwampedLabel
 from gui.play_window import PlayWindow
@@ -21,7 +20,7 @@ from gui.vertical_anchor import VerticalAnchor
 from procgen.zonebuilders import fields
 from systems import act, death, \
     debug_system, update_senses, pickup_gold, \
-    move, control_turns, quit, melee_attack, control_cursor, thwack
+    move, control_turns, quit, melee_attack, control_cursor, thwack, peasant_dead_check
 from systems.animators import animation_controller
 
 
@@ -63,7 +62,7 @@ class DefendScene(GameScene):
 
         self.add_gui_element(anchor)
         self.add_gui_element(self.play_window)
-        self.add_gui_element(FPSCounter(1, 49))
+        # self.add_gui_element(FPSCounter(1, 49))
 
         self.zone_id = core.get_id()
         self.hordelings = hordelings
@@ -87,6 +86,7 @@ class DefendScene(GameScene):
             move.run(self)
             update_senses.run(self)
             pickup_gold.run(self)
+            peasant_dead_check.run(self)
 
             clear_components.of_type(ChargeAbilityEvent, self)
             control_turns.run(self)

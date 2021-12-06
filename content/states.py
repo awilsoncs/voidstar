@@ -17,3 +17,16 @@ def dizzy_animation(owner, x, y):
             AnimationFloat(entity=entity_id, delay_ms=125, duration=10),
         ]
     )
+
+
+def help_animation(x, y):
+    entity_id = core.get_id()
+    return (
+        entity_id,
+        [
+            Entity(id=entity_id, entity=entity_id, name='help'),
+            Appearance(entity=entity_id, symbol='!', color=palettes.HORDELING, bg_color=palettes.BACKGROUND),
+            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH),
+            AnimationFloat(entity=entity_id, delay_ms=125, duration=10),
+        ]
+    )

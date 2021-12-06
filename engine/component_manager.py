@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import Set, Dict, List, Iterable, Generic, Type
+from typing import Set, Dict, List, Iterable, Generic, Type, Callable
 
 from engine.component import Component
 from engine.core import get_id, log_debug
@@ -40,9 +40,9 @@ class ComponentManager(object):
         for component in components:
             self._add(component)
 
-    def get(self, component_type: T) -> List[T]:
+    def get(self, component_type: T, query: Callable[[T], bool] = lambda x: True) -> List[T]:
         """Get all components of a given type."""
-        return self.components[component_type]
+        return [x for x in self.components[component_type] if query(x)]
 
     def get_entity(self, entity: int) -> EntityDict:
         """Get a dictionary representing an Entity."""

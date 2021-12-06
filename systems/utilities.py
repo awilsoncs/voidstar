@@ -1,4 +1,4 @@
-from components import Coordinates, TimedActor
+from components import Coordinates
 from components.actors.actor import Actor
 from components.enums import Intention
 from components.events.turn_event import TurnEvent

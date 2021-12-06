@@ -35,7 +35,7 @@ def roundabout(owner, x, y):
 
 def thwack_animation(owner, x, y):
     base = roundabout(owner, x, y)
-    base[1].append(Appearance(entity=base[0], symbol='/', color=palettes.GREY, bg_color=palettes.BACKGROUND))
+    base[1].append(Appearance(entity=base[0], symbol='/', color=palettes.STONE, bg_color=palettes.BACKGROUND))
     return base
 
 
@@ -51,7 +51,7 @@ def stab(owner, x, y):
         entity_id,
         [
             Entity(id=entity_id, entity=entity_id, name='sword_attack'),
-            Appearance(entity=entity_id, symbol='/', color=palettes.GREY, bg_color=palettes.BACKGROUND),
+            Appearance(entity=entity_id, symbol='/', color=palettes.STONE, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH),
             Owner(entity=entity_id, owner=owner),
             AnimationDeleter(entity=entity_id, duration=100)

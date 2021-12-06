@@ -16,11 +16,11 @@ class EnergyActor(Actor, ABC):
     HOURLY = 12
     DAILY = 288
 
-    control_mode: ControlMode = None  # which system controls this entity
     priority: int = PRIORITY_MEDIUM
     energy: int = 0
     energy_cost: int = HOURLY
     is_recharging: bool = True  # True if the entity should accept energy
+
 
     # action management
     intention: Intention = Intention.NONE

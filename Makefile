@@ -10,8 +10,7 @@ build:
 	pyinstaller ./hordeRL.py --add-data="./tiles.png:."
 
 dist:
-	pyinstaller ./hordeRL.py --add-data="./tiles.png;." -F
-	powershell "Rename-Item -Path .\dist\hordeRL.exe -NewName oh-no-its-the-horde.exe"
+	pyinstaller ./dist.spec
 
 push:
 	butler push .\dist\oh-no-its-the-horde.exe jazzbox/oh-no-its-the-horde:windows-x64

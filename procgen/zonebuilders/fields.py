@@ -3,12 +3,13 @@ from itertools import product
 
 import settings
 from components import Coordinates
-from content.allies import make_peasant
+from content.houses import make_peasant_home
 from content.player import make_player
 from content.terrain import make_tree, make_water
 from engine import core
 from engine.component_manager import ComponentManager
 from engine.constants import PRIORITY_MEDIUM
+from engine.utilities import get_3_by_3_square
 
 
 def build(cm: ComponentManager, zone_id: int, peasants):
@@ -46,7 +47,7 @@ class FieldBuilder:
         working_set = [(x, y)]
         maximum = 10
         while working_set and maximum > 0:
-            working_x, working_y = working_set.pop()
+            working_x, working_y = working_set.pop(0)
             self.add_tree(working_x, working_y)
             maximum -= 1
             for dx, dy in [
@@ -65,24 +66,25 @@ class FieldBuilder:
                     )
 
     def add_tree(self, x: int, y: int) -> None:
-        tree = make_tree(self.zone_id)
-        tree[1].append(
-            Coordinates(
-                entity=tree[0],
-                x=x,
-                y=y,
-                priority=PRIORITY_MEDIUM,
-                terrain=True,
+        if (x, y) not in self.object_map:
+            tree = make_tree(self.zone_id)
+            tree[1].append(
+                Coordinates(
+                    entity=tree[0],
+                    x=x,
+                    y=y,
+                    priority=PRIORITY_MEDIUM,
+                    terrain=True,
+                )
             )
-        )
-        self.cm.add(*tree[1])
-        self.object_map[x, y] = tree[0]
+            self.cm.add(*tree[1])
+            self.object_map[x, y] = tree[0]
 
     def spawn_body_water(self, x: int, y: int) -> None:
         working_set = [(x, y)]
         maximum = 50
         while working_set and maximum > 0:
-            working_x, working_y = working_set.pop()
+            working_x, working_y = working_set.pop(0)
             self.add_water(working_x, working_y)
             maximum -= 1
             for dx, dy in [
@@ -105,20 +107,12 @@ class FieldBuilder:
         self.cm.add(*water[1])
         self.object_map[x, y] = water[0]
 
-    def add_peasant(self, x, y):
-        peasant = make_peasant(self.zone_id)
-        peasant[1].append(
-            Coordinates(
-                entity=peasant[0],
-                x=x,
-                y=y,
-                priority=PRIORITY_MEDIUM,
-                terrain=False,
-            )
-        )
-        self.cm.add(*peasant[1])
-        self.object_map[x, y] = peasant[0]
-        self.peasants -= 1
+    def add_house(self, x, y):
+        house = make_peasant_home(x, y)
+        for entity in house:
+            self.cm.add(*entity[1])
+            for dx, dy in product([-1, 0, 1], [-1, 0, 1]):
+                self.object_map[x+dx, y+dy] = entity[0]
 
     def place_objects(self):
         for x in range(0, settings.MAP_WIDTH - 1):
@@ -128,6 +122,16 @@ class FieldBuilder:
         for y in range(1, settings.MAP_HEIGHT - 1):
             self.add_tree(0, y)
             self.add_tree(settings.MAP_WIDTH - 1, y)
+
+        while self.peasants > 0:
+            x = random.randint(5, settings.MAP_WIDTH - 5)
+            y = random.randint(5, settings.MAP_HEIGHT - 5)
+            footprint = get_3_by_3_square(x, y)
+
+            disjoint = self.object_map.keys().isdisjoint(footprint)
+            if disjoint:
+                self.add_house(x, y)
+                self.peasants -= 1
 
         for _ in range(random.randint(settings.COPSE_MIN, settings.COPSE_MAX)):
             x = random.randint(0, settings.MAP_WIDTH - 1)
@@ -141,8 +145,3 @@ class FieldBuilder:
             if (x, y) not in self.object_map:
                 self.spawn_body_water(x, y)
 
-        while self.peasants > 0:
-            x = random.randint(0, settings.MAP_WIDTH - 1)
-            y = random.randint(0, settings.MAP_HEIGHT - 1)
-            if (x, y) not in self.object_map:
-                self.add_peasant(x, y)

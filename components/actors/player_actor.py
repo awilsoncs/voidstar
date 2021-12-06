@@ -6,7 +6,7 @@ from components import Coordinates
 from components.abilities.thwack_ability import ThwackAbility
 from components.actions.thwack_action import ThwackAction
 from components.actors.energy_actor import EnergyActor
-from components.enums import Intention, ControlMode
+from components.enums import Intention
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.events.fast_forward import FastForward
 from components.states.dizzy_state import DizzyState
@@ -19,25 +19,22 @@ from systems.utilities import set_intention
 class PlayerTimedActor(EnergyActor):
 
     def act(self, scene):
-        if self.control_mode is ControlMode.PLAYER:
-            dizzy = scene.cm.get_one(DizzyState, entity=self.entity)
-            if dizzy:
-                core.get_key_event()
-                if core.time_ms() > dizzy.next_turn:
-                    set_intention(scene, self.entity, None, Intention.DALLY)
-                    scene.cm.add(ChargeAbilityEvent(entity=self.entity))
-                    dizzy.next_turn = core.time_ms() + 500
-                    dizzy.duration -= 1
+        dizzy = scene.cm.get_one(DizzyState, entity=self.entity)
+        if dizzy:
+            core.get_key_event()
+            if core.time_ms() > dizzy.next_turn:
+                set_intention(scene, self.entity, None, Intention.DALLY)
+                scene.cm.add(ChargeAbilityEvent(entity=self.entity))
+                dizzy.next_turn = core.time_ms() + 500
+                dizzy.duration -= 1
 
-                    coords = scene.cm.get_one(Coordinates, entity=self.entity)
-                    scene.cm.add(*dizzy_animation(self.entity, coords.x, coords.y)[1])
+                coords = scene.cm.get_one(Coordinates, entity=self.entity)
+                scene.cm.add(*dizzy_animation(self.entity, coords.x, coords.y)[1])
 
-                    if dizzy.duration <= 0:
-                        scene.cm.delete_component(dizzy)
-            else:
-                handle_key_event(scene, self.entity, KEY_ACTION_MAP)
-        elif self.control_mode is ControlMode.DEAD_PLAYER:
-            handle_key_event(scene, self.entity, DEAD_KEY_ACTION_MAP)
+                if dizzy.duration <= 0:
+                    scene.cm.delete_component(dizzy)
+        else:
+            handle_key_event(scene, self.entity, KEY_ACTION_MAP)
 
 
 def handle_key_event(scene, entity_id, action_map):
@@ -58,13 +55,6 @@ def handle_key_event(scene, entity_id, action_map):
                 if ability:
                     scene.cm.add(ThwackAction(entity=entity_id))
         scene.cm.add(ChargeAbilityEvent(entity=entity_id))
-
-
-DEAD_KEY_ACTION_MAP = {
-    tcod.event.K_l: Intention.ACTIVATE_CURSOR,
-    tcod.event.K_BACKQUOTE: Intention.SHOW_DEBUG_SCREEN,
-    tcod.event.K_ESCAPE: Intention.QUIT_GAME
-}
 
 
 KEY_ACTION_MAP = {
