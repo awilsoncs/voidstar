@@ -56,7 +56,7 @@ def get_heal(scene):
         health = scene.cm.get_one(Attributes, entity=engine.constants.PLAYER_ID)
         if health:
             health.hp = health.max_hp
-    return out_fn()
+    return out_fn
 
 
 def get_suicide(scene):
