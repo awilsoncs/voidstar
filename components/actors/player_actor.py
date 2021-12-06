@@ -16,7 +16,7 @@ from systems.utilities import set_intention
 
 
 @dataclass
-class PlayerTimedActor(EnergyActor):
+class PlayerActor(EnergyActor):
 
     def act(self, scene):
         dizzy = scene.cm.get_one(DizzyState, entity=self.entity)
