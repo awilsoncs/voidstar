@@ -34,12 +34,12 @@ class EasyMenu(GuiElement):
             has_next = page + 1 < len(self.pages)
             has_previous = page > 0
             key_event = self.show_and_get_input(panel, self.pages[page], has_next=has_next, has_previous=has_previous)
-            key_sym = key_event.sym
-            if (key_sym is tcod.event.K_RIGHT or key_sym is tcod.event.K_n) and has_next:
+            key_sym = int(key_event.sym)
+            if (key_sym == tcod.event.K_RIGHT or key_sym == tcod.event.K_n) and has_next:
                 page += 1
-            elif (key_sym is tcod.event.K_LEFT or key_sym is tcod.event.K_p) and has_previous:
+            elif (key_sym == tcod.event.K_LEFT or key_sym == tcod.event.K_p) and has_previous:
                 page -= 1
-            elif key_sym is tcod.event.K_RETURN:
+            elif key_sym == tcod.event.K_RETURN:
                 return
             else:
                 index = key_sym - ord('a')
