@@ -13,7 +13,6 @@ from engine.constants import PLAYER_ID
 from engine.core import timed
 from engine.infos import ColoredMessage
 from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
-from gui.fps_counter import FPSCounter
 from gui.help_tab import HelpTab
 from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SwampedLabel
 from gui.play_window import PlayWindow
@@ -63,7 +62,7 @@ class DefendScene(GameScene):
 
         self.add_gui_element(anchor)
         self.add_gui_element(self.play_window)
-        self.add_gui_element(FPSCounter(1, 49))
+        # self.add_gui_element(FPSCounter(1, 49))
 
         self.zone_id = core.get_id()
         self.hordelings = hordelings

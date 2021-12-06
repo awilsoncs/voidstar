@@ -8,6 +8,6 @@ lakes-max: 1
 lakes-min: 1
 screen-height: 60
 screen-width: 80
-spawn-max: 6
+spawn-max: 3
 spawn-min: 1
 torch-radius: -1
