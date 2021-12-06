@@ -15,7 +15,6 @@ from engine.core import log_debug
 def run(scene):
     healths = [f for f in scene.cm.get(Attributes) if (f.hp <= 0)]
     for health in healths:
-
         owner = scene.cm.get_one(Owner, entity=health.entity)
         if owner:
             _handle_rebuilder(scene, owner.owner)
@@ -25,7 +24,7 @@ def run(scene):
 def _handle_rebuilder(scene, entity):
     house_structures = scene.cm.get(HouseStructure, query=lambda hs: hs.house_id == entity)
     house_structure = house_structures[0] if house_structures else None
-    if house_structure:
+    if house_structure and not house_structure.is_destroyed:
         scene.cm.add(Rebuilder(entity=house_structure.entity))
         house_structure.is_destroyed = True
 
