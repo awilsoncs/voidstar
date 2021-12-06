@@ -75,7 +75,7 @@ def get_teleport_to(scene):
         scene.gui.add_element(
             EasyMenu(
                 "Examine which?",
-                {entity.get_readable_key(): get_teleport_to_entity(scene, entity.id) for entity in entities},
+                {entity.get_readable_key(): get_teleport_to_entity(scene, entity.entity) for entity in entities},
                 settings.INVENTORY_WIDTH,
             )
         )
