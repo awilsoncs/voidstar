@@ -17,7 +17,7 @@ GABRIEL_3_4 = (57, 42, 28)
 GABRIEL_3_5 = (104, 76, 60)
 STONE = (146, 126, 106)
 WATER = (39, 100, 104)
-CHILI = (239, 58, 12)  # not a final name I hope
+FRESH_BLOOD = (239, 58, 12)
 # (69, 35, 13),
 LIGHT_WATER = (60, 159, 156)
 HORDELING = (155, 26, 10)

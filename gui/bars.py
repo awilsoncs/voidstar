@@ -37,7 +37,7 @@ class Bar(GuiElement):
 @dataclass
 class HealthBar(Bar):
     symbol: str = '♥'
-    fg_color: tuple = palettes.CHILI
+    fg_color: tuple = palettes.FRESH_BLOOD
     mg_color: tuple = palettes.BLOOD
 
     def update(self, scene):
