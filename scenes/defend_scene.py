@@ -8,7 +8,7 @@ from components.coordinates import Coordinates
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.material import Material
 from content.utilities import make_calendar
-from engine import GameScene, colors, core
+from engine import GameScene, core, palettes
 from engine.constants import PLAYER_ID
 from engine.core import timed
 from engine.infos import ColoredMessage
@@ -95,13 +95,13 @@ class DefendScene(GameScene):
         except Exception as e:
             if self.debug:
                 raise e
-            self.message(str(e), color=colors.red)
+            self.message(str(e), color=palettes.BLOOD)
 
     def on_unload(self):
         self.cm.delete(PLAYER_ID)
         self.cm.clear()
 
-    def message(self, message, color=colors.white):
+    def message(self, message, color=palettes.WHITE):
         self.message_box.append(ColoredMessage(
             color=color,
             message=message
@@ -131,4 +131,3 @@ class DefendScene(GameScene):
 
         self.popup_message("You have been tasked with protecting the peasants of the Toshim Plains.")
         self.popup_message("At the end of each season, the horde will come, ravenous in hunger.")
-

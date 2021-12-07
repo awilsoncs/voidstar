@@ -4,7 +4,7 @@ import tcod.console
 import tcod.event
 
 import settings
-from engine import GameScene, core, colors
+from engine import GameScene, core, palettes
 
 MenuAction = namedtuple(
     'MenuAction',
@@ -75,8 +75,8 @@ class ListMenuScene(GameScene):
             settings.SCREEN_WIDTH,
             settings.SCREEN_HEIGHT,
             0,
-            fg=colors.white,
-            bg=colors.black
+            fg=palettes.WHITE,
+            bg=palettes.BACKGROUND
         )
         window.print(0, 0, self.title)
         window.print(0, 1, '    '.join(
@@ -89,14 +89,14 @@ class ListMenuScene(GameScene):
                     settings.SCREEN_WIDTH,
                     1,
                     0,
-                    fg=colors.black,
-                    bg=colors.white
+                    fg=palettes.BACKGROUND,
+                    bg=palettes.WHITE
                 )
-                self.print(window, 4, row, item, fg=colors.black, bg=colors.white)
+                self.print(window, 4, row, item, fg=palettes.BACKGROUND, bg=palettes.WHITE)
             else:
                 self.print(window, 4, row, item)
 
-    def print(self, window, x, y, item, fg=colors.white, bg=colors.black):
+    def print(self, window, x, y, item, fg=palettes.WHITE, bg=palettes.BACKGROUND):
         window.print(
             x, y,
             ' - '.join(self.row_builder(item)),

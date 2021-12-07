@@ -1,15 +1,15 @@
 from dataclasses import dataclass
 
 from engine.component import Component
-from engine import colors
+from engine import palettes
 
 
 @dataclass
 class Appearance(Component):
     """Define an entity's base appearance."""
     symbol: str = ' '
-    color: tuple = colors.white
-    bg_color: tuple = colors.black
+    color: tuple = palettes.WHITE
+    bg_color: tuple = palettes.BACKGROUND
 
     def to_tile(self):
         """Return the Appearance in the tcod Tile format."""

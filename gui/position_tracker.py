@@ -1,7 +1,7 @@
 import time
 
 from components import Coordinates
-from engine import colors
+from engine import palettes
 from gui.gui_element import GuiElement
 from gui.labels import Label
 
@@ -12,7 +12,7 @@ class PositionTracker(GuiElement):
         super().__init__(x, y)
         self.last_update = time.time()
         self.entity = entity
-        self.label = Label(x, y, '', fg=colors.yellow)
+        self.label = Label(x, y, '', fg=palettes.GOLD)
 
     def update(self, scene):
         coords = scene.cm.get_one(Coordinates, entity=self.entity)

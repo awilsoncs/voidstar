@@ -1,8 +1,7 @@
 from collections import OrderedDict
 
 import settings
-from engine import GameScene
-from engine import colors
+from engine import GameScene, palettes
 from gui.easy_menu import EasyMenu
 from gui.labels import Label
 
@@ -19,7 +18,7 @@ class NavigationMenuScene(GameScene):
         self.options = option_scene_map
         center_x = (settings.SCREEN_WIDTH - len(title)) // 2
         center_y = settings.SCREEN_HEIGHT // 2 - 4
-        title_label = Label(center_x, center_y, title, fg=colors.light_orange)
+        title_label = Label(center_x, center_y, title, fg=palettes.CHILI)
         self.add_gui_element(title_label)
 
     def before_update(self):
