@@ -1,10 +1,8 @@
 import random
 from components import Entity, Appearance, Attributes, Coordinates
 from components.attack import Attack
-from components.actors.monster_actor import MonsterActor
 from components.corpse import Corpse
 from components.drop_gold import DropGold
-from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
 from components.tags.hordeling_tag import HordelingTag
