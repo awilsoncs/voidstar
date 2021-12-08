@@ -13,6 +13,7 @@ class ComponentManager(object):
         self.components_by_entity: EntityDictIndex = defaultdict(lambda: defaultdict(list))
         self.components_by_id: Dict[int, Component] = {}
         self.component_types: List[ComponentType] = []
+        self.stashed_components: Dict[int, Component] = {}
 
     # properties
     @property
@@ -113,6 +114,16 @@ class ComponentManager(object):
         for component in components_to_delete:
             self.delete_component(component)
 
+    def stash_component(self, cid):
+        component = self.get_component_by_id(cid)
+        self.stashed_components[cid] = component
+        self.delete_component(component)
+
+    def unstash_component(self, cid):
+        component = self.stashed_components[cid]
+        del self.stashed_components[cid]
+        return component
+
     # private methods
     def _add(self, component: Component) -> None:
         """Add a component to the db."""
@@ -123,3 +134,4 @@ class ComponentManager(object):
             self.components_by_entity[entity][component_class].append(component)
             self.components[component_class].append(component)
         self.components_by_id[component.id] = component
+
