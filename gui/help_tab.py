@@ -19,4 +19,4 @@ class HelpTab(GuiElement):
         panel.print(self.x, self.y+11, "f      : Shoot", fg=self.fg, bg=self.bg)
         panel.print(self.x, self.y+12, "a      : Fast Forward", fg=self.fg, bg=self.bg)
         panel.print(self.x, self.y+13, "`      : Debug", fg=self.fg, bg=self.bg)
-        panel.print(self.x, self.y+14, "ESC    : Back to Menu", fg=self.fg, bg=self.bg)
+        panel.print(self.x, self.y+14, "ESC    : Back", fg=self.fg, bg=self.bg)

@@ -4,7 +4,7 @@ from enum import auto, Enum
 class Intention(Enum):
     NONE = auto()
 
-    QUIT_GAME = auto()
+    BACK = auto()
 
     # Actions
     MELEE_ATTACK = auto()

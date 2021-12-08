@@ -27,5 +27,5 @@ def handle_key_event(scene, entity_id, action_map):
 
 DEAD_KEY_ACTION_MAP = {
     tcod.event.K_BACKQUOTE: Intention.SHOW_DEBUG_SCREEN,
-    tcod.event.K_ESCAPE: Intention.QUIT_GAME
+    tcod.event.K_ESCAPE: Intention.BACK
 }

@@ -25,7 +25,7 @@ class RangedAttackActor(EnergyActor):
             intention = KEY_ACTION_MAP.get(key_event, None)
             if intention is Intention.SHOOT:
                 print("shoot")
-            elif intention is Intention.QUIT_GAME:
+            elif intention is Intention.BACK:
                 old_actor = scene.cm.unstash_component(self.old_actor)
                 scene.cm.add(old_actor)
                 blinker = scene.cm.get_one(AnimationBlinker, entity=self.entity)
@@ -39,5 +39,5 @@ class RangedAttackActor(EnergyActor):
 
 KEY_ACTION_MAP = {
     tcod.event.K_f: Intention.SHOOT,
-    tcod.event.K_ESCAPE: Intention.QUIT_GAME
+    tcod.event.K_ESCAPE: Intention.BACK
 }
