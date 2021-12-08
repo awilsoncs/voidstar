@@ -12,6 +12,7 @@ from components.enums import Intention
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.events.fast_forward import FastForward
 from components.states.dizzy_state import DizzyState
+from components.tags.hordeling_tag import HordelingTag
 from content.states import dizzy_animation
 from engine import core
 from systems.utilities import set_intention
@@ -48,8 +49,12 @@ class PlayerActor(EnergyActor):
                     # fast forwards are migrated to a new actor system
                     scene.cm.add(FastForward())
                 elif intention is Intention.SHOOT:
-                    new_controller = RangedAttackActor(entity=entity_id, old_actor=self.id)
-                    blinker = AnimationBlinker(entity=entity_id)
+                    hordelings = scene.cm.get(HordelingTag)
+                    if not hordelings:
+                        return
+                    target = hordelings[0].entity
+                    new_controller = RangedAttackActor(entity=entity_id, old_actor=self.id, target=target)
+                    blinker = AnimationBlinker(entity=target)
                     scene.cm.stash_component(self.id)
                     scene.cm.add(new_controller, blinker)
                 else:
