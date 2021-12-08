@@ -18,3 +18,8 @@ class Appearance(Component):
             (*self.color, 255),
             (*self.bg_color, 255)
         )
+
+    def set_appearance(self, symbol, fg, bg):
+        self.symbol = symbol
+        self.color = fg
+        self.bg_color = bg

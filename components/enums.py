@@ -9,7 +9,7 @@ class Intention(Enum):
     # Actions
     MELEE_ATTACK = auto()
     THWACK = auto()
-    SHOOT_NEARBY = auto()
+    SHOOT = auto()
     STEP_NORTH = auto()
     STEP_EAST = auto()
     STEP_WEST = auto()

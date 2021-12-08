@@ -3,7 +3,6 @@ from dataclasses import dataclass
 import tcod
 
 from components import TimedActor
-from components.actors.energy_actor import EnergyActor
 from components.enums import Intention
 from engine import core
 from systems.utilities import set_intention
