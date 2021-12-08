@@ -7,13 +7,8 @@ from content.houses import make_peasant_home
 from content.player import make_player
 from content.terrain import make_tree, make_water
 from engine import core
-from engine.component_manager import ComponentManager
 from engine.constants import PRIORITY_MEDIUM
 from engine.utilities import get_3_by_3_square
-
-
-def build(cm: ComponentManager, zone_id: int, peasants):
-    return FieldBuilder(peasants).make_world(cm, zone_id)
 
 
 class FieldBuilder:
@@ -26,6 +21,9 @@ class FieldBuilder:
         self.zone_id = core.get_id()
         self.noise_generator = core.get_noise_generator()
         self.peasants = peasants
+
+    def build(self, cm):
+        self.make_world(cm, 1)
 
     def make_world(self, cm, zone_id):
         """Create a component manager containing the initial map."""

@@ -17,17 +17,18 @@ from gui.help_tab import HelpTab
 from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SwampedLabel
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
-from procgen.zonebuilders import fields
 from systems import act, death, \
     debug_system, update_senses, pickup_gold, \
     move, control_turns, quit, melee_attack, control_cursor, thwack, peasant_dead_check
 
 
 class DefendScene(GameScene):
-    def __init__(self, peasants, hordelings, gold=0, debug=True):
+    def __init__(self, zonebuilder=None, debug=True):
         super().__init__(debug)
         self.player = PLAYER_ID
         self.message_box = []
+        self.zonebuilder = zonebuilder
+
         self.map = tcod.map.Map(settings.MAP_WIDTH, settings.MAP_HEIGHT, order='F')
         # track tiles the player has seen
         self.memory_map = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
@@ -64,9 +65,8 @@ class DefendScene(GameScene):
         # self.add_gui_element(FPSCounter(1, 49))
 
         self.zone_id = core.get_id()
-        self.hordelings = hordelings
-        self.peasants = peasants
-        self.gold = gold
+        self.peasants = 3
+        self.gold = 0
 
     def on_load(self):
         self.cm.clear()
@@ -106,11 +106,7 @@ class DefendScene(GameScene):
         ))
 
     def setup_level(self):
-        fields.build(
-            self.cm,
-            self.zone_id,
-            peasants=self.peasants
-        )
+        self.zonebuilder.build(self.cm)
 
         # load up the transparency map
         self.play_window.cm = self.cm
