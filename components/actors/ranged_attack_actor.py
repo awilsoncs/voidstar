@@ -24,7 +24,7 @@ class RangedAttackActor(EnergyActor):
             key_event = key_event.sym
             intention = KEY_ACTION_MAP.get(key_event, None)
             if intention is Intention.SHOOT:
-                print("shoot")
+                self.shoot(scene)
             elif intention in {
                 Intention.STEP_NORTH,
                 Intention.STEP_EAST,
@@ -33,8 +33,7 @@ class RangedAttackActor(EnergyActor):
             }:
                 self._next_enemy(scene)
             elif intention is Intention.BACK:
-                old_actor = scene.cm.unstash_component(self.old_actor)
-                scene.cm.add(old_actor)
+                scene.cm.unstash_component(self.old_actor)
                 blinker = scene.cm.get_one(AnimationBlinker, entity=self.target)
                 blinker.stop(scene)
                 scene.cm.delete_component(blinker)

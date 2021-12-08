@@ -121,6 +121,7 @@ class ComponentManager(object):
 
     def unstash_component(self, cid):
         component = self.stashed_components[cid]
+        self.add(component)
         del self.stashed_components[cid]
         return component
 
