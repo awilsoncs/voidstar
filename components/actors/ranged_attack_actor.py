@@ -33,11 +33,19 @@ class RangedAttackActor(EnergyActor):
             }:
                 self._next_enemy(scene)
             elif intention is Intention.BACK:
-                scene.cm.unstash_component(self.old_actor)
-                blinker = scene.cm.get_one(AnimationBlinker, entity=self.target)
-                blinker.stop(scene)
-                scene.cm.delete_component(blinker)
-                scene.cm.delete_component(self)
+                self.back_out(scene)
+
+    def shoot(self, scene):
+        old_actor = self.back_out(scene)
+        old_actor.pass_turn()
+
+    def back_out(self, scene):
+        old_actor = scene.cm.unstash_component(self.old_actor)
+        blinker = scene.cm.get_one(AnimationBlinker, entity=self.target)
+        blinker.stop(scene)
+        scene.cm.delete_component(blinker)
+        scene.cm.delete_component(self)
+        return old_actor
 
     def _next_enemy(self, scene):
         next_enemy = self._get_next_enemy(scene)
