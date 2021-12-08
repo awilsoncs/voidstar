@@ -1,6 +1,6 @@
 from components import Entity, Appearance, Coordinates
-from components.animation_effects.deleter import AnimationDeleter
 from components.animation_effects.path import AnimationPath
+from components.events.deleter import Deleter
 from components.owner import Owner
 from components.path_node import create_path
 from engine import core, palettes
@@ -15,7 +15,7 @@ def roundabout(owner, x, y):
             Entity(id=entity_id, entity=entity_id, name='sword_attack'),
             Coordinates(entity=entity_id, x=x + 1, y=y - 1, priority=PRIORITY_HIGH),
             Owner(entity=entity_id, owner=owner),
-            AnimationPath(entity=entity_id, delay_ms=30),
+            AnimationPath(entity=entity_id),
             *create_path(
                 entity_id,
                 [
@@ -54,6 +54,6 @@ def stab(owner, x, y):
             Appearance(entity=entity_id, symbol='/', color=palettes.STONE, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH),
             Owner(entity=entity_id, owner=owner),
-            AnimationDeleter(entity=entity_id, duration=100)
+            Deleter(entity=entity_id, next_update=core.time_ms() + 125)
         ]
     )

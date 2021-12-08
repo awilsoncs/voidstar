@@ -21,7 +21,6 @@ from procgen.zonebuilders import fields
 from systems import act, death, \
     debug_system, update_senses, pickup_gold, \
     move, control_turns, quit, melee_attack, control_cursor, thwack, peasant_dead_check
-from systems.animators import animation_controller
 
 
 class DefendScene(GameScene):
@@ -77,7 +76,6 @@ class DefendScene(GameScene):
     def update(self):
         try:
             act.run(self)
-            animation_controller.run(self)
             control_cursor.run(self)
             death.run(self)
             debug_system.run(self)

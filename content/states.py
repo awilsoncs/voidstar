@@ -14,7 +14,7 @@ def dizzy_animation(owner, x, y):
             Appearance(entity=entity_id, symbol='?', color=palettes.LIGHT_WATER, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH),
             Owner(entity=entity_id, owner=owner),
-            AnimationFloat(entity=entity_id, delay_ms=125, duration=10),
+            AnimationFloat(entity=entity_id, duration=10),
         ]
     )
 
@@ -27,6 +27,6 @@ def help_animation(x, y):
             Entity(id=entity_id, entity=entity_id, name='help'),
             Appearance(entity=entity_id, symbol='!', color=palettes.HORDELING, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH),
-            AnimationFloat(entity=entity_id, delay_ms=125, duration=10),
+            AnimationFloat(entity=entity_id, duration=10),
         ]
     )

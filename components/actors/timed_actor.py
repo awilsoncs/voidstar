@@ -10,6 +10,7 @@ from engine.constants import PRIORITY_MEDIUM
 @dataclass
 class TimedActor(Actor, ABC):
     SLOWEST = 100000
+    MINIMUM_FLICKER = 125
     QUARTER_HOUR = 250
     HALF_HOUR = 500
     HOURLY = 1000
