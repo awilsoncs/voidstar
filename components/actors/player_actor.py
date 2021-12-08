@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import tcod
 
 from components import Coordinates
+from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
 from components.actions.thwack_action import ThwackAction
 from components.actors.energy_actor import EnergyActor
@@ -50,13 +51,10 @@ class PlayerActor(EnergyActor):
                     scene.cm.add(FastForward())
                 elif intention is Intention.SHOOT:
                     hordelings = scene.cm.get(HordelingTag)
-                    if not hordelings:
+                    shoot_ability = scene.cm.get_one(ShootAbility, entity=self.entity)
+                    if not hordelings or not shoot_ability or not shoot_ability.count > 0:
                         return
-                    target = hordelings[0].entity
-                    new_controller = RangedAttackActor(entity=entity_id, old_actor=self.id, target=target)
-                    blinker = AnimationBlinker(entity=target)
-                    scene.cm.stash_component(self.id)
-                    scene.cm.add(new_controller, blinker)
+                    self._handle_shoot(entity_id, hordelings, scene)
                 else:
                     set_intention(scene, entity_id, None, intention)
             else:
@@ -66,6 +64,13 @@ class PlayerActor(EnergyActor):
                     if ability:
                         scene.cm.add(ThwackAction(entity=entity_id))
             scene.cm.add(ChargeAbilityEvent(entity=entity_id))
+
+    def _handle_shoot(self, entity_id, hordelings, scene):
+        target = hordelings[0].entity
+        new_controller = RangedAttackActor(entity=entity_id, old_actor=self.id, target=target)
+        blinker = AnimationBlinker(entity=target)
+        scene.cm.stash_component(self.id)
+        scene.cm.add(new_controller, blinker)
 
 
 KEY_ACTION_MAP = {

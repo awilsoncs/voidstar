@@ -2,6 +2,8 @@ from dataclasses import dataclass
 
 import tcod
 
+from components.abilities.shoot_ability import ShootAbility
+from components.actions.attack_action import AttackAction
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention
@@ -36,6 +38,12 @@ class RangedAttackActor(EnergyActor):
                 self.back_out(scene)
 
     def shoot(self, scene):
+        shoot_ability = scene.cm.get_one(ShootAbility, entity=self.entity)
+        if not shoot_ability or shoot_ability.count <= 0:
+            self.back_out(scene)
+        shoot_ability.count -= 1
+        attack = AttackAction(entity=self.entity, recipient=self.target, damage=1)
+        scene.cm.add(attack)
         old_actor = self.back_out(scene)
         old_actor.pass_turn()
 

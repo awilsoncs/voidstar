@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from components import Attributes
+from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
 from components.states.dizzy_state import DizzyState
 from components.tags.hordeling_tag import HordelingTag
@@ -108,3 +109,25 @@ class Thwackometer(Bar):
             self.value = dizzy.duration
             self.max_value = 3
 
+
+@dataclass
+class Shootometer(Bar):
+    symbol: str = ')'
+
+    fg_color: tuple = palettes.WOOD
+    mg_color: tuple = palettes.DARK_WOOD
+
+    shoot_fg: tuple = palettes.WOOD
+    shoot_mg: tuple = palettes.DARK_WOOD
+
+    max: int = 0  # we'll need this when the player dies
+
+    def update(self, scene):
+        thwack_ability = scene.cm.get_one(ShootAbility, entity=PLAYER_ID)
+
+        self.fg_color = self.shoot_fg
+        self.mg_color = self.shoot_mg
+
+        self.value = thwack_ability.count if thwack_ability else 0
+        self.max = thwack_ability.max if thwack_ability else self.max
+        self.max_value = thwack_ability.max if thwack_ability else self.max

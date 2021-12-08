@@ -1,5 +1,6 @@
 import settings
 from components import Entity, Appearance, Senses, Attributes, Coordinates
+from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
 from components.actors.player_dead_actor import PlayerDeadActor
 from components.attack import Attack
@@ -30,6 +31,7 @@ def make_player(zone_id):
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             ThwackAbility(entity=entity_id, count=3, max=3),
+            ShootAbility(entity=entity_id)
         ]
     )
 
