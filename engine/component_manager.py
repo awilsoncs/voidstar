@@ -135,4 +135,3 @@ class ComponentManager(object):
             self.components_by_entity[entity][component_class].append(component)
             self.components[component_class].append(component)
         self.components_by_id[component.id] = component
-
