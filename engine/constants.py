@@ -6,3 +6,5 @@ PRIORITY_LOWEST = 0
 
 # Well Known Entity IDs
 PLAYER_ID = 0
+
+INVALID = -1234567890
