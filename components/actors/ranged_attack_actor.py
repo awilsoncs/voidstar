@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 import tcod
 
@@ -8,14 +9,14 @@ from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention
 from components.tags.hordeling_tag import HordelingTag
-from engine import core
+from engine import core, constants
 from engine.utilities import is_visible
 
 
 @dataclass
 class RangedAttackActor(EnergyActor):
     energy_cost: int = EnergyActor.INSTANT
-    old_actor: int = None
+    old_actor: int = constants.INVALID
     target: int = 0
 
     def act(self, scene):
@@ -45,8 +46,7 @@ class RangedAttackActor(EnergyActor):
         shoot_ability.count -= 1
         attack = AttackAction(entity=self.entity, recipient=self.target, damage=1)
         scene.cm.add(attack)
-        old_actor = self.back_out(scene)
-        old_actor.pass_turn()
+        self.back_out(scene)
 
     def back_out(self, scene):
         old_actor = scene.cm.unstash_component(self.old_actor)

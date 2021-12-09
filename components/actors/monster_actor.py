@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from components import Coordinates
 from components.actions.attack_action import AttackAction
 from components.actors.energy_actor import EnergyActor
+from components.attack import Attack
 from components.target_value import TargetValue
 from engine.core import log_debug
 from components.actors import VECTOR_STEP_MAP, STEPS
@@ -29,11 +30,12 @@ class MonsterActor(EnergyActor):
 
             # < 2 allows diagonal attacks
             if owner_coord.distance_from(closest_target) < 2:
+                attack = scene.cm.get_one(Attack, entity=self.entity)
                 scene.cm.add(
                     AttackAction(
                         entity=self.entity,
                         recipient=closest_target.entity,
-                        damage=1
+                        damage=attack.damage
                     )
                 )
             else:
