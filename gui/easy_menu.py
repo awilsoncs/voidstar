@@ -101,7 +101,7 @@ class EasyMenu(GuiElement):
 
         key_event = core.wait_for_char()
         if self.return_only:
-            while key_event is None or int(key_event.sym) is not K_RETURN:
+            while key_event is None or int(key_event.sym) != K_RETURN:
                 key_event = core.wait_for_char()
 
         return key_event

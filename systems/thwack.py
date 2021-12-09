@@ -47,9 +47,8 @@ def handle_thwack_action(scene, thwack):
 def handle_thwack_ability(scene, thwack_ability):
     thwack_actions = scene.cm.get_all(ThwackAction, entity=thwack_ability.entity)
 
-    if not thwack_actions:
-        if scene.cm.get_one(ChargeAbilityEvent, entity=thwack_ability.entity):
-            thwack_ability.count = min(thwack_ability.count + 1, thwack_ability.max)
+    if not thwack_actions and scene.cm.get_one(ChargeAbilityEvent, entity=thwack_ability.entity):
+        thwack_ability.count = min(thwack_ability.count + 1, thwack_ability.max)
 
     for thwack in thwack_actions:
         handle_thwack_action(scene, thwack)

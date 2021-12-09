@@ -64,7 +64,7 @@ class PlayerActor(EnergyActor):
                     set_intention(scene, entity_id, None, intention)
             else:
                 # new event-based actions
-                if int(key_event) is tcod.event.K_SPACE:
+                if int(key_event) == tcod.event.K_SPACE:
                     ability = scene.cm.get_one(ThwackAbility, entity=entity_id)
                     if ability:
                         scene.cm.add(ThwackAction(entity=entity_id))

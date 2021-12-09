@@ -6,4 +6,3 @@ def run(scene):
     if not faction_members:
         scene.popup_message("All of the peasants were killed! The king will have your head for this. Game Over.")
         scene.pop()
-        return
