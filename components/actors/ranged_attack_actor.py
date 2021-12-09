@@ -9,6 +9,7 @@ from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention
 from components.tags.hordeling_tag import HordelingTag
 from engine import core
+from engine.utilities import is_visible
 
 
 @dataclass
@@ -65,7 +66,10 @@ class RangedAttackActor(EnergyActor):
 
     def _get_next_enemy(self, scene):
         current_target = scene.cm.get_one(HordelingTag, entity=self.target)
-        enemies = sorted(scene.cm.get(HordelingTag), key=lambda x: x.id)
+        all_enemies = scene.cm.get(HordelingTag)
+        visible_enemies = [e for e in all_enemies if is_visible(scene, e.entity)]
+        enemies = sorted(visible_enemies, key=lambda x: x.id)
+
         index = enemies.index(current_target)
         next_index = (index + 1) % len(enemies)
         return enemies[next_index].entity

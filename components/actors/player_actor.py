@@ -16,6 +16,7 @@ from components.states.dizzy_state import DizzyState
 from components.tags.hordeling_tag import HordelingTag
 from content.states import dizzy_animation
 from engine import core
+from engine.utilities import is_visible
 from systems.utilities import set_intention
 
 
@@ -50,9 +51,13 @@ class PlayerActor(EnergyActor):
                     # fast forwards are migrated to a new actor system
                     scene.cm.add(FastForward())
                 elif intention is Intention.SHOOT:
-                    hordelings = scene.cm.get(HordelingTag)
+                    hordelings = [e for e in scene.cm.get(HordelingTag) if is_visible(scene, e.entity)]
                     shoot_ability = scene.cm.get_one(ShootAbility, entity=self.entity)
-                    if not hordelings or not shoot_ability or not shoot_ability.count > 0:
+                    if (
+                            not hordelings
+                            or not shoot_ability
+                            or not shoot_ability.count > 0
+                    ):
                         return
                     self._handle_shoot(entity_id, hordelings, scene)
                 else:
@@ -66,9 +71,9 @@ class PlayerActor(EnergyActor):
             scene.cm.add(ChargeAbilityEvent(entity=entity_id))
 
     def _handle_shoot(self, entity_id, hordelings, scene):
-        target = hordelings[0].entity
-        new_controller = RangedAttackActor(entity=entity_id, old_actor=self.id, target=target)
-        blinker = AnimationBlinker(entity=target)
+        target = hordelings[0]
+        new_controller = RangedAttackActor(entity=entity_id, old_actor=self.id, target=target.entity)
+        blinker = AnimationBlinker(entity=target.entity)
         scene.cm.stash_component(self.id)
         scene.cm.add(new_controller, blinker)
 
