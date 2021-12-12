@@ -6,15 +6,10 @@ from components.events.deleter import Deleter
 from components.tags.corpse_tag import CorpseTag
 from engine import palettes, core
 from engine.constants import PRIORITY_LOW
-from engine.utilities import clamp
 
 
 def make_corpse(name, x, y, symbol='%', color=palettes.BLOOD, bg_color=palettes.BACKGROUND):
     entity_id = core.get_id()
-
-    x = clamp(x, 1, settings.MAP_WIDTH - 1)
-    y = clamp(y, 1, settings.MAP_HEIGHT - 1)
-
     return (
         entity_id,
         [
@@ -43,10 +38,10 @@ def make_blood_pool(x, y, color):
 
 def make_blood_splatter(count, x, y, color):
     pools = []
-    for _ in range(5):
-        pools += make_blood_pool(
-            x + int(random.triangular(-count, 0, count)),
-            y + int(random.triangular(-count, 0, count)),
-            color
-        )[1]
+    for _ in range(count):
+        x2 = x + int(random.triangular(-count, 0, count))
+        y2 = y + int(random.triangular(-count, 0, count))
+
+        if 0 < x2 < settings.MAP_WIDTH and 0 < y2 < settings.MAP_HEIGHT:
+            pools += make_blood_pool(x2, y2, color)[1]
     return pools
