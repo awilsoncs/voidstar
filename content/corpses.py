@@ -1,14 +1,20 @@
 import random
 
+import settings
 from components import Entity, Appearance, Coordinates
 from components.events.deleter import Deleter
 from components.tags.corpse_tag import CorpseTag
 from engine import palettes, core
 from engine.constants import PRIORITY_LOW
+from engine.utilities import clamp
 
 
 def make_corpse(name, x, y, symbol='%', color=palettes.BLOOD, bg_color=palettes.BACKGROUND):
     entity_id = core.get_id()
+
+    x = clamp(x, 1, settings.MAP_WIDTH - 1)
+    y = clamp(y, 1, settings.MAP_HEIGHT - 1)
+
     return (
         entity_id,
         [

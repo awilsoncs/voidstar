@@ -4,6 +4,16 @@ from itertools import product
 from components import Coordinates
 
 
+def clamp(number: int, min: int, max: int):
+    assert min <= max, "clamp range cannot be zero"
+    if number < min:
+        return min
+    elif number > max:
+        return max
+    else:
+        return number
+
+
 def distance(x1, y1, x2, y2):
     return math.sqrt(distance_squared(x1, y1, x2, y2))
 
