@@ -4,6 +4,7 @@ from itertools import product
 import settings
 from components import Coordinates
 from content.debug_enemies import make_debug_hordeling
+from content.enemies import make_juggernaut
 from content.houses import make_peasant_home
 from content.player import make_player
 from engine import core
@@ -51,7 +52,7 @@ class DebugFieldBuilder:
         for i in range(10):
             x = random.randint(5, settings.MAP_WIDTH - 5)
             y = random.randint(5, settings.MAP_HEIGHT - 5)
-            hordeling = make_debug_hordeling(x, y)
+            hordeling = make_juggernaut(x, y)
             self.cm.add(*hordeling[1])
             self.object_map[x, y] = hordeling[0]
 
