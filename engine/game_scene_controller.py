@@ -59,8 +59,3 @@ class GameSceneController:
             if self._scene_stack:
                 self._scene_stack[-1].render()
                 tcod.console_flush()
-
-    @log_debug(__name__)
-    def next_level(self, peasants, monsters, gold):
-        # TODO the game scene controller shouldn't be responsible for choosing the next scene
-        self.push_scene(DefendScene(peasants, monsters, gold))

@@ -20,7 +20,7 @@ class FieldBuilder:
         self.cm = None
         self.zone_id = core.get_id()
         self.noise_generator = core.get_noise_generator()
-        self.peasants = peasants
+        self.initial_peasants = peasants
 
     def build(self, cm):
         self.make_world(cm, 1)
@@ -29,6 +29,8 @@ class FieldBuilder:
         """Create a component manager containing the initial map."""
         self.cm = cm
         self.zone_id = zone_id
+        self.object_map = {}
+        self.tile_map = {}
 
         self.create_player(settings.MAP_HEIGHT // 2, settings.MAP_WIDTH // 2)
         self.place_objects()
@@ -121,7 +123,8 @@ class FieldBuilder:
             self.add_tree(0, y)
             self.add_tree(settings.MAP_WIDTH - 1, y)
 
-        while self.peasants > 0:
+        peasants = self.initial_peasants
+        while peasants > 0:
             x = random.randint(5, settings.MAP_WIDTH - 5)
             y = random.randint(5, settings.MAP_HEIGHT - 5)
             footprint = get_3_by_3_square(x, y)
@@ -129,7 +132,7 @@ class FieldBuilder:
             disjoint = self.object_map.keys().isdisjoint(footprint)
             if disjoint:
                 self.add_house(x, y)
-                self.peasants -= 1
+                peasants -= 1
 
         for _ in range(random.randint(settings.COPSE_MIN, settings.COPSE_MAX)):
             x = random.randint(0, settings.MAP_WIDTH - 1)

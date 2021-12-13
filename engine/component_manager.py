@@ -33,6 +33,8 @@ class ComponentManager(object):
         self.components = defaultdict(list)
         self.components_by_entity = defaultdict(lambda: defaultdict(list))
         self.components_by_id = {}
+        self.component_types = []
+        self.stashed_components = {}
 
     # data manipulation methods
     def add(self, component: Component, *components: Component) -> None:
