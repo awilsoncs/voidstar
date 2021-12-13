@@ -9,6 +9,7 @@ from components.corpse import Corpse
 from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
+from components.move import Move
 from components.target_value import PLAYER, TargetValue
 from engine import PLAYER_ID, palettes
 from engine.constants import PRIORITY_LOW
@@ -31,7 +32,8 @@ def make_player(zone_id):
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             ThwackAbility(entity=entity_id, count=3, max=3),
-            ShootAbility(entity=entity_id)
+            ShootAbility(entity=entity_id),
+            Move(entity=entity_id)
         ]
     )
 

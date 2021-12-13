@@ -5,6 +5,7 @@ from components.cry_for_help import CryForHelp
 from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
+from components.move import Move
 from components.residence import Residence
 from components.tags.peasant_tag import PeasantTag
 from components.target_value import PEASANT, TargetValue
@@ -30,6 +31,7 @@ def make_peasant(house_id, x, y):
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             TaxValue(entity=entity_id, value=TaxValue.PEASANT),
             CryForHelp(entity=entity_id),
-            Residence(entity=entity_id, house_id=house_id)
+            Residence(entity=entity_id, house_id=house_id),
+            Move(entity=entity_id)
         ]
     )

@@ -1,12 +1,13 @@
 import random
 from components import Entity, Appearance, Attributes, Coordinates
+from components.actors.energy_actor import EnergyActor
 from components.attack import Attack
 from components.actors.monster_actor import MonsterActor
 from components.corpse import Corpse
 from components.drop_gold import DropGold
-from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
+from components.move import Move
 from components.tags.hordeling_tag import HordelingTag
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
@@ -25,7 +26,8 @@ def make_hordeling(x, y):
         Attributes(entity=entity_id, hp=1, max_hp=1),
         Attack(entity=entity_id, damage=1),
         Material(entity=entity_id, blocks=True, blocks_sight=False),
-        HordelingTag(entity=entity_id)
+        HordelingTag(entity=entity_id),
+        Move(entity=entity_id)
     ]
 
     if random.randint(1, 10) == 10:
@@ -50,7 +52,8 @@ def make_juggernaut(x, y):
         Attributes(entity=entity_id, hp=3, max_hp=3),
         Attack(entity=entity_id, damage=2),
         Material(entity=entity_id, blocks=True, blocks_sight=False),
-        HordelingTag(entity=entity_id)
+        HordelingTag(entity=entity_id),
+        Move(entity=entity_id, energy_cost=EnergyActor.VERY_SLOW)
     ]
 
     if random.randint(1, 10) == 10:

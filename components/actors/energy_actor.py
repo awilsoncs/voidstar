@@ -14,6 +14,7 @@ class EnergyActor(Actor, ABC):
     QUARTER_HOUR = 3
     HALF_HOUR = 6
     HOURLY = 12
+    VERY_SLOW = 24
     DAILY = 288
 
     priority: int = PRIORITY_MEDIUM
