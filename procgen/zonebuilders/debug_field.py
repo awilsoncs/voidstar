@@ -3,7 +3,6 @@ from itertools import product
 
 import settings
 from components import Coordinates
-from content.debug_enemies import make_debug_hordeling
 from content.enemies import make_juggernaut
 from content.houses import make_peasant_home
 from content.player import make_player

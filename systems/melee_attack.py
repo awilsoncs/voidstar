@@ -33,10 +33,10 @@ def handle_attack_action(scene, event):
     if house_structure:
         _handle_house_damage(scene, house_structure, damage)
     else:
-        _handle_entity_damage(scene, target, damage)
         attack_effects: List[AttackEffect] = scene.cm.get_all(AttackEffect, entity=entity)
         for attack_effect in attack_effects:
             attack_effect.apply(scene, entity, target)
+        _handle_entity_damage(scene, target, damage)
 
     cry_for_help = scene.cm.get_one(CryForHelp, entity=target)
     if cry_for_help:

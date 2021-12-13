@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from components import Coordinates
 from components.attack_effect.attack_effect import AttackEffect
+from content.states import knockback_animation
 
 
 @dataclass
@@ -14,3 +15,6 @@ class KnockbackAttack(AttackEffect):
         direction = source_coords.direction_towards(target_coords)
         target_coords.x += direction[0]
         target_coords.y += direction[1]
+
+        attack_animation = knockback_animation(target_coords.x, target_coords.y)
+        scene.cm.add(*attack_animation[1])
