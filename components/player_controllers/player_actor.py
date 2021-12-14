@@ -7,7 +7,7 @@ from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
 from components.actions.thwack_action import ThwackAction
 from components.actors.energy_actor import EnergyActor
-from components.actors.ranged_attack_actor import RangedAttackActor
+from components.player_controllers.ranged_attack_actor import RangedAttackActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention
 from components.events.chargeabilityevent import ChargeAbilityEvent

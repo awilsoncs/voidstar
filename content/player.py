@@ -2,11 +2,10 @@ import settings
 from components import Entity, Appearance, Senses, Attributes, Coordinates
 from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
-from components.actors.player_dead_actor import PlayerDeadActor
+from components.player_controllers.player_dead_actor import PlayerDeadActor
 from components.attack import Attack
-from components.actors.player_actor import PlayerActor
+from components.player_controllers.player_actor import PlayerActor
 from components.corpse import Corpse
-from components.enums import ControlMode
 from components.faction import Faction
 from components.material import Material
 from components.move import Move
