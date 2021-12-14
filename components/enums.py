@@ -10,6 +10,7 @@ class Intention(Enum):
     MELEE_ATTACK = auto()
     THWACK = auto()
     SHOOT = auto()
+    PLANT_SAPLING = auto()
     STEP_NORTH = auto()
     STEP_EAST = auto()
     STEP_WEST = auto()

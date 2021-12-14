@@ -18,6 +18,19 @@ def confused_animation(x, y):
     )
 
 
+def no_money_animation(x, y):
+    entity_id = core.get_id()
+    return (
+        entity_id,
+        [
+            Entity(id=entity_id, entity=entity_id, name='no_money_anim'),
+            Appearance(entity=entity_id, symbol='$', color=palettes.FRESH_BLOOD, bg_color=palettes.BACKGROUND),
+            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH),
+            AnimationFloat(entity=entity_id, duration=5),
+        ]
+    )
+
+
 def help_animation(x, y):
     entity_id = core.get_id()
     return (
