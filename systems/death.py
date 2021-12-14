@@ -36,6 +36,7 @@ def die(scene, entity):
     corpse = scene.cm.get_one(Corpse, entity=entity)
 
     corpse_color = corpse.color if corpse else palettes.BLOOD
+    corpse_symbol = corpse.symbol if corpse else '%'
 
     x = coords.x
     y = coords.y
@@ -50,4 +51,4 @@ def die(scene, entity):
     if entity == PLAYER_ID:
         scene.cm.add(*player.make_corpse(x, y)[1])
     else:
-        scene.cm.add(*corpses.make_corpse(name=entity_obj.name, x=x, y=y, color=corpse_color)[1])
+        scene.cm.add(*corpses.make_corpse(name=entity_obj.name, symbol=corpse_symbol, x=x, y=y, color=corpse_color)[1])

@@ -51,7 +51,6 @@ class PlayerActor(EnergyActor):
                 # todo Migrate all of this to a component definition system
                 if intention is Intention.FAST_FORWARD:
                     # fast forwards are migrated to a new actor system
-                    # todo Migrate FastForward to a player controller
                     scene.cm.add(FastForward())
                 elif intention is Intention.SHOOT:
                     hordelings = [e for e in scene.cm.get(HordelingTag) if is_visible(scene, e.entity)]
