@@ -1,0 +1,20 @@
+from dataclasses import dataclass
+
+from components import Coordinates
+from components.actors.calendar_actor import Calendar
+from components.season_reset_listeners.seasonal_actor import SeasonResetListener
+from content.trees import make_tree
+
+
+@dataclass
+class GrowInSpring(SeasonResetListener):
+    def on_season_reset(self, scene):
+        calendar = scene.cm.get(Calendar)
+        if not calendar:
+            return
+
+        coords = scene.cm.get_one(Coordinates, entity=self.entity)
+        x = coords.x
+        y = coords.y
+        scene.cm.delete(self.entity)
+        scene.cm.add(*make_tree(x, y)[1])
