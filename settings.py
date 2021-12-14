@@ -22,8 +22,6 @@ def get_relative_path(relative_path):
 
 def create_options_file():
     option_data_base = {
-        'screen-width': 60,
-        'screen-height': 40,
         'grass-density': 2,
         'lakes-min': 1,
         'lakes-max': 4,
@@ -48,9 +46,6 @@ except FileNotFoundError:
     option_data = create_options_file()
 
 
-# actual size of the window
-SCREEN_WIDTH = option_data['screen-width']
-SCREEN_HEIGHT = option_data['screen-height']
 GRASS_DENSITY = option_data['grass-density']
 LAKES_MIN = option_data['lakes-min']
 LAKES_MAX = option_data['lakes-max']
@@ -65,6 +60,10 @@ TORCH_RADIUS = option_data['torch-radius']
 
 # Nonconfigurable options
 FONT = resource_path('tiles.png')
+
+# actual size of the window
+SCREEN_WIDTH = 60
+SCREEN_HEIGHT = 40
 
 # size of the map
 MAP_WIDTH = SCREEN_WIDTH - 25
