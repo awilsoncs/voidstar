@@ -40,7 +40,7 @@ class DefendScene(GameScene):
         )
 
         anchor = VerticalAnchor(1, 1)
-        anchor.add_space(1)
+        # anchor.add_space(1)
 
         anchor.add_element(Label(1, 1, settings.CHARACTER_NAME))
         anchor.add_element(HealthBar(1, 2))
