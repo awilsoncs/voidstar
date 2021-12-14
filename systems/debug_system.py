@@ -15,6 +15,7 @@ def run(scene):
                 {
                     "examine game objects": get_examine_game_objects(scene),
                     "heal": get_heal(scene),
+                    "get rich": get_rich(scene),
                     "suicide": get_suicide(scene),
                     "teleport to": get_teleport_to(scene)
                 },
@@ -56,6 +57,12 @@ def get_heal(scene):
         health = scene.cm.get_one(Attributes, entity=engine.constants.PLAYER_ID)
         if health:
             health.hp = health.max_hp
+    return out_fn
+
+
+def get_rich(scene):
+    def out_fn():
+        scene.gold += 10
     return out_fn
 
 
