@@ -5,7 +5,8 @@ import settings
 from components import Coordinates
 from content.houses import make_peasant_home
 from content.player import make_player
-from content.terrain import make_tree, make_water
+from content.terrain import make_water
+from content.trees import make_tree
 from engine import core
 from engine.constants import PRIORITY_MEDIUM
 from engine.utilities import get_3_by_3_square
@@ -67,16 +68,7 @@ class FieldBuilder:
 
     def add_tree(self, x: int, y: int) -> None:
         if (x, y) not in self.object_map:
-            tree = make_tree(self.zone_id)
-            tree[1].append(
-                Coordinates(
-                    entity=tree[0],
-                    x=x,
-                    y=y,
-                    priority=PRIORITY_MEDIUM,
-                    terrain=True,
-                )
-            )
+            tree = make_tree(x, y)
             self.cm.add(*tree[1])
             self.object_map[x, y] = tree[0]
 
