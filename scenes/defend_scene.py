@@ -57,7 +57,7 @@ class DefendScene(GameScene):
 
         anchor.add_element(HordeStatusLabel(1, 8))
         anchor.add_element(HordelingBar(1, 9))
-        anchor.add_space(20)
+        anchor.add_space(14)
 
         anchor.add_element(HelpTab(1, 30))
 
@@ -77,7 +77,6 @@ class DefendScene(GameScene):
     def update(self):
         try:
             act.run(self)
-            control_cursor.run(self)
             death.run(self)
             debug_system.run(self)
             thwack.run(self)
