@@ -14,7 +14,7 @@ from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.events.fast_forward import FastForward
 from components.states.dizzy_state import DizzyState
 from components.tags.hordeling_tag import HordelingTag
-from content.states import dizzy_animation
+from content.states import confused_animation, cant_shoot_animation
 from engine import core
 from engine.utilities import is_visible
 from systems.utilities import set_intention
@@ -34,7 +34,7 @@ class PlayerActor(EnergyActor):
                 dizzy.duration -= 1
 
                 coords = scene.cm.get_one(Coordinates, entity=self.entity)
-                scene.cm.add(*dizzy_animation(self.entity, coords.x, coords.y)[1])
+                scene.cm.add(*confused_animation(coords.x, coords.y)[1])
 
                 if dizzy.duration <= 0:
                     scene.cm.delete_component(dizzy)
@@ -53,11 +53,11 @@ class PlayerActor(EnergyActor):
                 elif intention is Intention.SHOOT:
                     hordelings = [e for e in scene.cm.get(HordelingTag) if is_visible(scene, e.entity)]
                     shoot_ability = scene.cm.get_one(ShootAbility, entity=self.entity)
-                    if (
-                            not hordelings
-                            or not shoot_ability
-                            or not shoot_ability.count > 0
-                    ):
+                    if shoot_ability and shoot_ability.count <= 0:
+                        self._handle_out_of_ammo(scene)
+                        return
+                    elif not hordelings:
+                        self._handle_no_enemies(scene)
                         return
                     self._handle_shoot(entity_id, hordelings, scene)
                 else:
@@ -69,6 +69,16 @@ class PlayerActor(EnergyActor):
                     if ability:
                         scene.cm.add(ThwackAction(entity=entity_id))
             scene.cm.add(ChargeAbilityEvent(entity=entity_id))
+
+    def _handle_out_of_ammo(self, scene):
+        player_coords = scene.cm.get_one(Coordinates, entity=self.entity)
+        cant_shoot_anim = cant_shoot_animation(player_coords.x, player_coords.y)
+        scene.cm.add(*cant_shoot_anim[1])
+
+    def _handle_no_enemies(self, scene):
+        player_coords = scene.cm.get_one(Coordinates, entity=self.entity)
+        confused_anim = confused_animation(player_coords.x, player_coords.y)
+        scene.cm.add(*confused_anim[1])
 
     def _handle_shoot(self, entity_id, hordelings, scene):
         target = hordelings[0]

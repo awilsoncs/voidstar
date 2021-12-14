@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from components import Coordinates
-from components.attack_effect.attack_effect import AttackEffect
+from components.attack_effects.attack_effect import AttackEffect
 from content.states import knockback_animation
 
 

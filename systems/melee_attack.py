@@ -3,7 +3,7 @@ from typing import List
 from components import Attributes, Coordinates
 from components.actions.attack_action import AttackAction
 from components.actors.actor import Actor
-from components.attack_effect.attack_effect import AttackEffect
+from components.attack_effects.attack_effect import AttackEffect
 from components.cry_for_help import CryForHelp
 from components.house_structure import HouseStructure
 from components.owner import Owner

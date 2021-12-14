@@ -3,7 +3,7 @@ from components import Entity, Appearance, Attributes, Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.attack import Attack
 from components.actors.monster_actor import MonsterActor
-from components.attack_effect.knockback_attack import KnockbackAttack
+from components.attack_effects.knockback_attack import KnockbackAttack
 from components.corpse import Corpse
 from components.drop_gold import DropGold
 from components.faction import Faction
