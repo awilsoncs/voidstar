@@ -6,6 +6,7 @@ import settings
 from components import clear_components
 from components.coordinates import Coordinates
 from components.events.chargeabilityevent import ChargeAbilityEvent
+from components.game_start_listeners.start_game import StartGame
 from components.material import Material
 from content.utilities import make_calendar
 from engine import GameScene, core, palettes
@@ -125,3 +126,5 @@ class DefendScene(GameScene):
 
         self.popup_message("You have been tasked with protecting the peasants of the Toshim Plains.")
         self.popup_message("At the end of each season, the horde will come, ravenous in hunger.")
+
+        self.cm.add(StartGame(entity=self.player))
