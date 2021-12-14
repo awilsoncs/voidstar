@@ -8,7 +8,6 @@ from content.player import make_player
 from content.terrain import make_water
 from content.trees import make_tree
 from engine import core
-from engine.constants import PRIORITY_MEDIUM
 from engine.utilities import get_3_by_3_square
 
 
