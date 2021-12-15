@@ -1,5 +1,5 @@
 import settings
-from components import Entity, Appearance, Senses, Attributes
+from components import Entity, Appearance, Senses, Attributes, Coordinates
 from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
 from components.attack import Attack
@@ -13,13 +13,14 @@ from components.target_value import PLAYER, TargetValue
 from engine import PLAYER_ID, palettes
 
 
-def make_player(zone_id):
+def make_player(x, y):
     entity_id = PLAYER_ID
 
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='player', zone=zone_id),
+            Entity(id=entity_id, entity=entity_id, name='player', zone=0),
+            Coordinates(entity=entity_id, x=x, y=y),
             Appearance(entity=entity_id, symbol='@', color=palettes.WHITE, bg_color=palettes.BACKGROUND),
             PlayerCorpse(entity=entity_id),
             Senses(entity=entity_id, sight_radius=settings.TORCH_RADIUS),

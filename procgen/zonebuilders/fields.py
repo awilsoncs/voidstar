@@ -21,6 +21,7 @@ class FieldBuilder:
         self.zone_id = core.get_id()
         self.noise_generator = core.get_noise_generator()
         self.initial_peasants = peasants
+        self.player = None
 
     def build(self, cm):
         self.make_world(cm, 1)
@@ -37,11 +38,9 @@ class FieldBuilder:
         return self.cm
 
     def create_player(self, x, y):
-        player = make_player(self.zone_id)
-        player[1].append(
-            Coordinates(entity=player[0], x=x, y=y),
-        )
+        player = make_player(x, y)
         self.cm.add(*player[1])
+        self.object_map[x, y] = player[0]
 
     def spawn_copse(self, x: int, y: int) -> None:
         working_set = [(x, y)]
