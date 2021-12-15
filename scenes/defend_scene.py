@@ -1,19 +1,15 @@
 import numpy as np
-import tcod
-import tcod.map
 
 import settings
 from components import clear_components
-from components.coordinates import Coordinates
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.game_start_listeners.start_game import StartGame
-from components.material import Material
 from content.utilities import make_calendar
 from content.world_builder import make_world_build
-from engine import GameScene, core, palettes
+from engine import GameScene, core
+from engine.component_manager import ComponentManager
 from engine.constants import PLAYER_ID
 from engine.core import timed
-from engine.infos import ColoredMessage
 from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer, Shootometer
 from gui.help_tab import HelpTab
 from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SwampedLabel
@@ -28,7 +24,6 @@ class DefendScene(GameScene):
     def __init__(self, debug=True):
         super().__init__(debug)
         self.player = PLAYER_ID
-        self.message_box = []
 
         # track tiles the player has seen
         self.memory_map = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
@@ -72,41 +67,7 @@ class DefendScene(GameScene):
         self.gold = 0
 
     def on_load(self):
-        self.cm.clear()
-        self.setup_level()
-
-    @timed(100, __name__)
-    def update(self):
-        try:
-            act.run(self)
-            death.run(self)
-            debug_system.run(self)
-            thwack.run(self)
-            melee_attack.run(self)
-            move.run(self)
-            pickup_gold.run(self)
-            peasant_dead_check.run(self)
-
-            clear_components.of_type(ChargeAbilityEvent, self)
-            control_turns.run(self)
-            quit.run(self)
-
-        except Exception as e:
-            if self.debug:
-                raise e
-            self.message(str(e), color=palettes.BLOOD)
-
-    def on_unload(self):
-        self.cm.delete(PLAYER_ID)
-        self.cm.clear()
-
-    def message(self, message, color=palettes.WHITE):
-        self.message_box.append(ColoredMessage(
-            color=color,
-            message=message
-        ))
-
-    def setup_level(self):
+        self.cm = ComponentManager()
         self.play_window.cm = self.cm
         self.cm.add(*make_world_build()[1])
         self.cm.add(*make_calendar()[1])
@@ -115,3 +76,17 @@ class DefendScene(GameScene):
         self.popup_message("At the end of each season, the horde will come, ravenous in hunger.")
 
         self.cm.add(StartGame(entity=self.player))
+
+    @timed(100, __name__)
+    def update(self):
+        act.run(self)
+        death.run(self)
+        debug_system.run(self)
+        thwack.run(self)
+        melee_attack.run(self)
+        move.run(self)
+        pickup_gold.run(self)
+        peasant_dead_check.run(self)
+        clear_components.of_type(ChargeAbilityEvent, self)
+        control_turns.run(self)
+        quit.run(self)
