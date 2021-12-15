@@ -1,3 +1,4 @@
+from components import Entity
 from components.build_world_listeners.add_player_step import AddPlayerStep
 from components.build_world_listeners.build_world import BuildWorld
 from components.build_world_listeners.delete_world_builder import DeleteWorldBuilder
@@ -13,6 +14,7 @@ def make_world_build():
     return (
         entity_id,
         [
+            Entity(id=entity_id, entity=entity_id, name="Worldbuilder"),
             BuildWorld(entity=entity_id),
             AddPlayerStep(entity=entity_id),
             PlaceMapBoundary(entity=entity_id),

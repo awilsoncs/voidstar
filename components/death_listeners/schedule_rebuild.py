@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 
 from components.death_listeners.death_listener import DeathListener
@@ -11,6 +12,7 @@ class ScheduleRebuild(DeathListener):
     root: int = constants.INVALID
 
     def on_die(self, scene):
+        logging.info(f"{self.entity} scheduled rebuild")
         house_structure = scene.cm.get_one(HouseStructure, entity=self.root)
         if house_structure:
             house_structure.is_destroyed = True

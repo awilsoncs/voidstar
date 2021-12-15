@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 
 from components import Coordinates
@@ -10,5 +11,6 @@ class DropFallenLog(DeathListener):
     """Drop gold when the owner dies."""
 
     def on_die(self, scene):
+        logging.info(f"{self.entity} dropped a log on death")
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         scene.cm.add(*make_fallen_log(coords.x, coords.y)[1])

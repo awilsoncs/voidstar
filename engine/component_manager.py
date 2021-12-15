@@ -1,3 +1,4 @@
+import logging
 from collections import defaultdict
 from typing import Set, Dict, List, Iterable, Generic, Type, Callable
 
@@ -73,6 +74,7 @@ class ComponentManager(object):
 
         Does not delete any references to the entity or its components.
         """
+        logging.debug(f"Deleting entity {entity}")
         components = self.get_entity(entity)
 
         for _, component_list in components.items():
@@ -98,6 +100,7 @@ class ComponentManager(object):
 
         Does not delete any references to the component.
         """
+        logging.debug(f"Deleting component {component}")
         if not component:
             raise ValueError("Cannot delete None.")
         entity = component.entity
