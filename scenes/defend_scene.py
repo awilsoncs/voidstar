@@ -9,6 +9,7 @@ from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.game_start_listeners.start_game import StartGame
 from components.material import Material
 from content.utilities import make_calendar
+from content.world_builder import make_world_build
 from engine import GameScene, core, palettes
 from engine.constants import PLAYER_ID
 from engine.core import timed
@@ -24,11 +25,10 @@ from systems import act, death, \
 
 
 class DefendScene(GameScene):
-    def __init__(self, zonebuilder=None, debug=True):
+    def __init__(self, debug=True):
         super().__init__(debug)
         self.player = PLAYER_ID
         self.message_box = []
-        self.zonebuilder = zonebuilder
 
         # track tiles the player has seen
         self.memory_map = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
@@ -107,10 +107,8 @@ class DefendScene(GameScene):
         ))
 
     def setup_level(self):
-        self.zonebuilder.build(self.cm)
-
         self.play_window.cm = self.cm
-
+        self.cm.add(*make_world_build()[1])
         self.cm.add(*make_calendar()[1])
 
         self.popup_message("You have been tasked with protecting the peasants of the Toshim Plains.")
