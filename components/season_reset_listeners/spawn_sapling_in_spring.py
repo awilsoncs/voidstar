@@ -39,5 +39,3 @@ class SpawnSaplingInSpring(SeasonResetListener):
             ]
             target_tile = random.choice(plantable_tiles)
             scene.cm.add(*make_sapling(target_tile[0], target_tile[1])[1])
-
-
