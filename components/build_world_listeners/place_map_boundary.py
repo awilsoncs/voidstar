@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 
 import settings
@@ -13,6 +14,7 @@ def add_wall_tree(scene, x: int, y: int) -> None:
 @dataclass
 class PlaceMapBoundary(BuildWorldListener):
     def on_build_world(self, scene):
+        logging.info("Placing map boundary...")
         for x in range(0, settings.MAP_WIDTH):
             add_wall_tree(scene, x, 0)
             add_wall_tree(scene, x, settings.MAP_HEIGHT - 1)

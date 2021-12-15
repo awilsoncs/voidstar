@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 from typing import List
 
@@ -13,8 +14,10 @@ class BuildWorld(EnergyActor):
 
     @log_debug(__name__)
     def act(self, scene):
+        logging.info("Building world...")
         start_game_actors: List[BuildWorldListener] = scene.cm.get(BuildWorldListener)
         for start_game_actor in start_game_actors:
             start_game_actor.on_build_world(scene)
 
         scene.cm.delete_component(self)
+

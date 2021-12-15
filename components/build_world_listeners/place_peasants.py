@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 import random
 
@@ -17,6 +18,7 @@ def add_house(scene, x, y):
 @dataclass
 class PlacePeasants(BuildWorldListener):
     def on_build_world(self, scene):
+        logging.info("Placing peasants...")
         peasants = 3
         while peasants > 0:
             x = random.randint(5, settings.MAP_WIDTH - 5)

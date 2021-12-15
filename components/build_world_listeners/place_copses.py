@@ -1,3 +1,4 @@
+import logging
 import random
 from dataclasses import dataclass
 
@@ -36,6 +37,7 @@ def spawn_copse(scene, x: int, y: int) -> None:
 @dataclass
 class PlaceTrees(BuildWorldListener):
     def on_build_world(self, scene):
+        logging.info("Placing trees..")
         for _ in range(random.randint(settings.COPSE_MIN, settings.COPSE_MAX)):
             x = random.randint(0, settings.MAP_WIDTH - 1)
             y = random.randint(0, settings.MAP_HEIGHT - 1)
