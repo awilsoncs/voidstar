@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 
 from components import Coordinates
@@ -11,6 +12,7 @@ from components.tags.peasant_tag import PeasantTag
 class MovePeasantsIn(AttackStartListener):
     """Move peasants into their homes when the attack begins."""
     def on_attack_start(self, scene):
+        logging.info("Moving peasants into homes...")
         peasants = scene.cm.get(PeasantTag)
         for peasant in peasants:
             _move_peasant_home(scene, peasant)

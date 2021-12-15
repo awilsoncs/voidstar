@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 
 from components.actors.energy_actor import EnergyActor
@@ -11,6 +12,7 @@ class StartAttack(EnergyActor):
 
     @log_debug(__name__)
     def act(self, scene):
+        logging.info("Starting attack...")
         actors = scene.cm.get(AttackStartListener)
         for actor in actors:
             actor.on_attack_start(scene)
