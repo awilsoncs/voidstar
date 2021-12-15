@@ -29,6 +29,12 @@ def get_3_by_3_square(x, y):
     }
 
 
+def get_3_by_3_box(x, y):
+    square = get_3_by_3_square(x, y)
+    square.remove((x, y))
+    return square
+
+
 def is_visible(scene, entity: int):
     coords = scene.cm.get_one(Coordinates, entity=entity)
     return coords and scene.map.fov[coords.x, coords.y]
