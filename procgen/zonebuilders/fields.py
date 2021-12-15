@@ -6,7 +6,7 @@ from components import Coordinates
 from content.houses import make_peasant_home
 from content.player import make_player
 from content.terrain import make_water
-from content.trees import make_tree
+from content.trees import make_tree, make_wall_tree
 from engine import core
 from engine.utilities import get_3_by_3_square
 
@@ -71,6 +71,12 @@ class FieldBuilder:
             self.cm.add(*tree[1])
             self.object_map[x, y] = tree[0]
 
+    def add_wall_tree(self, x: int, y: int) -> None:
+        if (x, y) not in self.object_map:
+            tree = make_wall_tree(x, y)
+            self.cm.add(*tree[1])
+            self.object_map[x, y] = tree[0]
+
     def spawn_body_water(self, x: int, y: int) -> None:
         working_set = [(x, y)]
         maximum = 50
@@ -106,13 +112,13 @@ class FieldBuilder:
                 self.object_map[x+dx, y+dy] = entity[0]
 
     def place_objects(self):
-        for x in range(0, settings.MAP_WIDTH - 1):
-            self.add_tree(x, 0)
-            self.add_tree(x, settings.MAP_HEIGHT - 1)
+        for x in range(0, settings.MAP_WIDTH):
+            self.add_wall_tree(x, 0)
+            self.add_wall_tree(x, settings.MAP_HEIGHT - 1)
 
         for y in range(1, settings.MAP_HEIGHT - 1):
-            self.add_tree(0, y)
-            self.add_tree(settings.MAP_WIDTH - 1, y)
+            self.add_wall_tree(0, y)
+            self.add_wall_tree(settings.MAP_WIDTH - 1, y)
 
         peasants = self.initial_peasants
         while peasants > 0:
