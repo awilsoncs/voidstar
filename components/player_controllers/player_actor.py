@@ -63,7 +63,7 @@ class PlayerActor(EnergyActor):
                         return
                     self._handle_shoot(entity_id, hordelings, scene)
                 elif intention is Intention.PLANT_SAPLING:
-                    if scene.gold < 2:
+                    if scene.gold < 1:
                         self._handle_no_money(scene)
                         return
                     self._handle_plant_sapling(entity_id, scene)
