@@ -4,8 +4,8 @@ from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
 from components.attack import Attack
 from components.death_listeners.player_corpse import PlayerCorpse
+from components.move_listeners.update_senses_on_move import UpdateSensesOnMove
 from components.player_controllers.player_actor import PlayerActor
-from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction
 from components.material import Material
 from components.move import Move
@@ -31,6 +31,7 @@ def make_player(zone_id):
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             ThwackAbility(entity=entity_id, count=3, max=3),
             ShootAbility(entity=entity_id),
+            UpdateSensesOnMove(entity=entity_id),
             Move(entity=entity_id)
         ]
     )

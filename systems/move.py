@@ -9,6 +9,7 @@ from components.enums import Intention
 from components.faction import Faction
 from components.material import Material
 from components.move import Move
+from components.move_listeners.move_listener import MoveListener
 from components.states.swamped_state import Swamped, Swamper
 from content.attacks import stab
 from systems.utilities import get_blocking_object, retract_turn, retract_intention
@@ -139,6 +140,9 @@ def move(scene, entity: int, vector: Tuple[int, int]):
     coords = scene.cm.get_one(Coordinates, entity=entity)
     if coords:
         move_coords(coords, vector)
+        move_listeners = scene.cm.get(MoveListener)
+        for move_listener in move_listeners:
+            move_listener.on_move(scene)
 
         swampers = any(
             scene.cm.get_one(Swamper, coord.entity) is not None

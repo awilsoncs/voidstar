@@ -85,7 +85,7 @@ class Thwackometer(Bar):
     thwack_mg: tuple = palettes.GABRIEL_3_5
 
     dizzy_fg: tuple = palettes.LIGHT_WATER
-    dizzy_mg: tuple = palettes.GABRIEL_2_2
+    dizzy_mg: tuple = palettes.SHADOW
 
     max: int = 0  # we'll need this when the player dies
 

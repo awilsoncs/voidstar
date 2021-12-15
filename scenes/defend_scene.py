@@ -19,8 +19,8 @@ from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, Swampe
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
 from systems import act, death, \
-    debug_system, update_senses, pickup_gold, \
-    move, control_turns, quit, melee_attack, control_cursor, thwack, peasant_dead_check
+    debug_system, pickup_gold, \
+    move, control_turns, quit, melee_attack, thwack, peasant_dead_check
 
 
 class DefendScene(GameScene):
@@ -30,14 +30,15 @@ class DefendScene(GameScene):
         self.message_box = []
         self.zonebuilder = zonebuilder
 
-        self.map = tcod.map.Map(settings.MAP_WIDTH, settings.MAP_HEIGHT, order='F')
         # track tiles the player has seen
         self.memory_map = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
+        self.visibility_map = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
 
         # build out the gui
         self.play_window = PlayWindow(
             25, 0, settings.MAP_WIDTH, settings.MAP_HEIGHT,
-            self.cm, self.map.fov, self.memory_map
+            self.cm, self.visibility_map
+            , self.memory_map
         )
 
         anchor = VerticalAnchor(1, 1)
@@ -83,7 +84,6 @@ class DefendScene(GameScene):
             thwack.run(self)
             melee_attack.run(self)
             move.run(self)
-            update_senses.run(self)
             pickup_gold.run(self)
             peasant_dead_check.run(self)
 
@@ -109,20 +109,9 @@ class DefendScene(GameScene):
     def setup_level(self):
         self.zonebuilder.build(self.cm)
 
-        # load up the transparency map
         self.play_window.cm = self.cm
 
-        coordinates = self.cm.get(Coordinates)
-        coordinates = [c for c in coordinates if c.terrain]
-
-        self.map.transparent.fill(True)
-
         self.cm.add(*make_calendar()[1])
-
-        for coord in coordinates:
-            material = self.cm.get_one(Material, coord.entity)
-            self.map.transparent[coord.x, coord.y] = not material.blocks_sight if material else True
-            self.map.walkable[coord.x, coord.y] = not material.blocks if material else True
 
         self.popup_message("You have been tasked with protecting the peasants of the Toshim Plains.")
         self.popup_message("At the end of each season, the horde will come, ravenous in hunger.")

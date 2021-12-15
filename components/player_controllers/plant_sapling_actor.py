@@ -40,7 +40,7 @@ class PlantSaplingActor(EnergyActor):
         if is_plantable(scene, plant_x, plant_y):
             sapling = make_sapling(plant_x, plant_y)
             scene.cm.add(*sapling[1])
-            scene.gold -= 2
+            scene.gold -= 1
             old_actor = self.back_out(scene)
             old_actor.pass_turn()
         else:

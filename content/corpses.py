@@ -5,7 +5,7 @@ from components import Entity, Appearance, Coordinates
 from components.events.deleter import Deleter
 from components.player_controllers.player_dead_actor import PlayerDeadActor
 from components.tags.corpse_tag import CorpseTag
-from engine import palettes, core, PLAYER_ID
+from engine import palettes, core
 from engine.constants import PRIORITY_LOW
 
 
@@ -50,7 +50,7 @@ def make_blood_splatter(count, x, y, color):
 
 def make_player_corpse(x, y):
     """Create a corpse with some remaining agency."""
-    entity_id = PLAYER_ID
+    entity_id = core.get_id()
 
     return (
         entity_id,

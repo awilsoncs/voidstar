@@ -37,4 +37,4 @@ def get_3_by_3_box(x, y):
 
 def is_visible(scene, entity: int):
     coords = scene.cm.get_one(Coordinates, entity=entity)
-    return coords and scene.map.fov[coords.x, coords.y]
+    return coords and scene.visibility_map[coords.x, coords.y]

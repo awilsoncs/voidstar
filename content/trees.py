@@ -31,7 +31,7 @@ def make_tree(x, y):
             Attributes(entity=entity_id, hp=5, max_hp=5),
             Corpse(entity=entity_id, symbol="%", color=palettes.WOOD),
             DropFallenLog(entity=entity_id),
-            Faction(entity=entity_id, faction=Faction.Options.MONSTER),
+            Faction(entity=entity_id, faction=Faction.Options.NEUTRAL),
             Appearance(entity=entity_id, symbol='♣', color=palettes.FOILAGE_C, bg_color=palettes.BACKGROUND),
             Material(entity=entity_id, blocks=True, blocks_sight=True),
             TreeTag(entity=entity_id)

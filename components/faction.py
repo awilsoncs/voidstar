@@ -11,5 +11,6 @@ class Faction(Component):
         NONE = 'none'
         MONSTER = 'monster'
         PEASANT = 'peasant'
+        NEUTRAL = 'neutral'
 
     faction: Options = Options.NONE
