@@ -1,5 +1,5 @@
 from components import Entity, Appearance, Coordinates, Attributes
-from components.corpse import Corpse
+from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction
 from components.material import Material
 from engine import core, palettes

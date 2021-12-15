@@ -4,8 +4,8 @@ from components.actors.energy_actor import EnergyActor
 from components.attack import Attack
 from components.actors.monster_actor import MonsterActor
 from components.attack_effects.knockback_attack import KnockbackAttack
-from components.corpse import Corpse
-from components.drop_gold import DropGold
+from components.death_listeners.npc_corpse import Corpse
+from components.death_listeners.drop_gold import DropGold
 from components.faction import Faction
 from components.material import Material
 from components.move import Move

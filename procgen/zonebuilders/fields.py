@@ -3,7 +3,7 @@ from itertools import product
 
 import settings
 from components import Coordinates
-from content.houses import make_peasant_home
+from content.structures.houses import make_peasant_home
 from content.player import make_player
 from content.terrain import make_water
 from content.trees import make_tree, make_wall_tree

@@ -1,5 +1,5 @@
 from components import Entity, Coordinates, Appearance, Attributes
-from components.corpse import Corpse
+from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction
 from components.material import Material
 from components.season_reset_listeners.grow_in_spring import GrowInSpring

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from random import choice
 
 from components import Attributes, Appearance
-from components.corpse import Corpse
+from components.death_listeners.npc_corpse import Corpse
 from components.house_structure import HouseStructure
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from engine import palettes
