@@ -16,7 +16,7 @@ from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, Swampe
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
 from systems import act, death, \
-    debug_system, pickup_gold, \
+    pickup_gold, \
     move, control_turns, quit, melee_attack, thwack, peasant_dead_check
 
 
@@ -77,7 +77,6 @@ class DefendScene(GameScene):
     def update(self):
         act.run(self)
         death.run(self)
-        debug_system.run(self)
         thwack.run(self)
         melee_attack.run(self)
         move.run(self)

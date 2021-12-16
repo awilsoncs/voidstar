@@ -18,6 +18,7 @@ from components.tags.hordeling_tag import HordelingTag
 from content.states import confused_animation, cant_shoot_animation, no_money_animation
 from engine import core, palettes
 from engine.utilities import is_visible
+from components.show_debug import ShowDebug
 from systems.utilities import set_intention
 
 
@@ -52,6 +53,8 @@ class PlayerActor(EnergyActor):
                 if intention is Intention.FAST_FORWARD:
                     # fast forwards are migrated to a new actor system
                     scene.cm.add(FastForward())
+                if intention is Intention.SHOW_DEBUG_SCREEN:
+                    scene.cm.add(ShowDebug(entity=self.entity))
                 elif intention is Intention.SHOOT:
                     hordelings = [e for e in scene.cm.get(HordelingTag) if is_visible(scene, e.entity)]
                     shoot_ability = scene.cm.get_one(ShootAbility, entity=self.entity)
