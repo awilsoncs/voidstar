@@ -8,7 +8,6 @@ from engine import GameScene
 from engine.component_manager import ComponentManager
 from engine.core import timed, log_debug
 from gui.gui import Gui
-from scenes.defend_scene import DefendScene
 
 
 class GameSceneController:
