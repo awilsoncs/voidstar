@@ -60,10 +60,7 @@ class DefendScene(GameScene):
 
         self.add_gui_element(anchor)
         self.add_gui_element(self.play_window)
-        # self.add_gui_element(FPSCounter(1, 49))
 
-        self.zone_id = core.get_id()
-        self.peasants = 3
         self.gold = 0
 
     def on_load(self):
