@@ -1,8 +1,9 @@
+import logging
 from dataclasses import dataclass
-from typing import Optional, List
+from typing import List
 
 from components import Coordinates
-from components.relationships.residence import Residence
+from components.relationships.farmed_by import FarmedBy
 from components.relationships.resident import Resident
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.house_structure import HouseStructure
@@ -20,6 +21,8 @@ class Rebuilder(SeasonResetListener):
             if self._get_living_residents(scene):
                 self._rebuild_house(scene)
             else:
+                self._delete_farms(scene)
+
                 # https://www.youtube.com/watch?v=4KoiYEoWImo
                 scene.cm.delete(self.entity)
 
@@ -57,3 +60,22 @@ class Rebuilder(SeasonResetListener):
             scene.cm.add(*wall[1])
 
         house_structure.is_destroyed = False
+
+    def _delete_farms(self, scene):
+        logging.debug(f"Deleting farms for house #{self.entity}")
+        resident_link: Resident = scene.cm.get_one(Resident, entity=self.entity)
+        if not resident_link:
+            logging.warning("House with no historical resident found, should not happen")
+            return
+        else:
+            resident_id = resident_link.resident
+
+        farms: List[int] = scene.cm.get(
+            FarmedBy,
+            query=lambda fb: fb.farmer == resident_id,
+            project=lambda fb: fb.entity
+        )
+
+        for farm in farms:
+            logging.debug(f"Deleting farm #{farm}")
+            scene.cm.delete(farm)
