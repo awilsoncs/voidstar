@@ -13,4 +13,4 @@ dist:
 	pyinstaller ./dist.spec
 
 push:
-	butler push .\dist\oh-no-its-the-horde.exe jazzbox/oh-no-its-the-horde:windows-x64 --userversion 0.3.0
+	butler push .\dist\oh-no-its-the-horde.exe jazzbox/oh-no-its-the-horde:windows-x64 --userversion 0.4.0
