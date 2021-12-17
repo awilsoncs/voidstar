@@ -6,7 +6,7 @@ from components.actors.actor import Actor
 from components.attack_effects.attack_effect import AttackEffect
 from components.cry_for_help import CryForHelp
 from components.house_structure import HouseStructure
-from components.owner import Owner
+from components.relationships.owner import Owner
 from content.states import help_animation
 from engine.core import log_debug
 

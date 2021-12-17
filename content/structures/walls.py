@@ -3,7 +3,7 @@ from components.death_listeners.npc_corpse import Corpse
 from components.death_listeners.schedule_rebuild import ScheduleRebuild
 from components.faction import Faction
 from components.material import Material
-from components.owner import Owner
+from components.relationships.owner import Owner
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 

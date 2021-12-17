@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from components import Coordinates
-from components.residence import Residence
+from components.relationships.residence import Residence
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.house_structure import HouseStructure
 from content.structures.walls import make_wall

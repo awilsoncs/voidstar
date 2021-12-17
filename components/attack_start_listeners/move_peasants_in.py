@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from components import Coordinates
 from components.attack_start_listeners.attack_start_actor import AttackStartListener
 from components.house_structure import HouseStructure
-from components.residence import Residence
+from components.relationships.residence import Residence
 from components.tags.peasant_tag import PeasantTag
 
 

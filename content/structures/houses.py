@@ -5,8 +5,8 @@ from content.structures.walls import make_wall
 from engine import core
 
 
-def make_house(root_id, x, y):
-    floorboard = make_floorboard(root_id, x, y)
+def make_house(root_id, resident, x, y):
+    floorboard = make_floorboard(root_id, x, y, resident)
 
     upper_left = make_wall(root_id, x - 1, y - 1)
     upper_middle = make_wall(root_id, x, y - 1)
@@ -42,4 +42,4 @@ def make_house(root_id, x, y):
 def make_peasant_home(x, y):
     house_id = core.get_id()
     peasant = make_peasant(house_id, x, y)
-    return make_house(house_id, x, y) + [peasant]
+    return make_house(house_id, peasant[0], x, y) + [peasant]

@@ -35,6 +35,20 @@ def get_3_by_3_box(x, y):
     return square
 
 
+def get_box(start_loc, end_loc):
+    """Get a box defined by the top left and bottom right points."""
+    tiles = {(start_loc[0], start_loc[1])}
+    for x in range(start_loc[0], end_loc[0]):
+        tiles.add((x, start_loc[1]))
+        tiles.add((x, end_loc[1]))
+
+    for y in range(start_loc[1]+1, end_loc[1]-1):
+        tiles.add((start_loc[0], y))
+        tiles.add((end_loc[0], y))
+
+    return tiles
+
+
 def is_visible(scene, entity: int):
     coords = scene.cm.get_one(Coordinates, entity=entity)
     return coords and scene.visibility_map[coords.x, coords.y]
