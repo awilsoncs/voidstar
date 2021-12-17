@@ -32,5 +32,3 @@ class PlantFarm(SeasonResetListener):
             pass
         else:
             start_new_farm(farmer, scene)
-
-
