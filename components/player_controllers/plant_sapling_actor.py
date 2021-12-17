@@ -6,7 +6,7 @@ from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention
-from content.saplings import make_sapling
+from content.terrain.saplings import make_sapling
 from engine import constants, core
 
 

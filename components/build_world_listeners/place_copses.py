@@ -5,7 +5,7 @@ from dataclasses import dataclass
 import settings
 from components import Coordinates
 from components.build_world_listeners.build_world_listeners import BuildWorldListener
-from content.trees import make_tree
+from content.terrain.trees import make_tree
 from engine.utilities import get_3_by_3_box
 
 

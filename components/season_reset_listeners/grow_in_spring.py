@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from components import Coordinates
 from components.actors.calendar_actor import Calendar
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
-from content.trees import make_tree
+from content.terrain.trees import make_tree
 from engine import core
 
 

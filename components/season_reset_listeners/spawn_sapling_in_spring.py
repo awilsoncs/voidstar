@@ -6,7 +6,7 @@ from components.actors.calendar_actor import Calendar
 from components.player_controllers.plant_sapling_actor import is_plantable
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.tree_tag import TreeTag
-from content.saplings import make_sapling
+from content.terrain.saplings import make_sapling
 from engine import core
 from engine.utilities import get_3_by_3_box
 
