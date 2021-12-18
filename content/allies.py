@@ -29,7 +29,6 @@ def make_peasant(house_id, x, y):
             Attributes(entity=entity_id, hp=10, max_hp=10),
             TargetValue(entity=entity_id, value=PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
-            TaxValue(entity=entity_id, value=TaxValue.PEASANT),
             CryForHelp(entity=entity_id),
             Residence(entity=entity_id, house_id=house_id),
             Move(entity=entity_id),
