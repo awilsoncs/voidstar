@@ -31,7 +31,7 @@ def create_options_file():
         'copse-proliferation': .05,
         'character-name': 'Sir Chauncey',
         'spawn-min': 1,
-        'spawn-max': 6,
+        'spawn-max': 1,
         'torch-radius': -1
     }
     with open(get_relative_path('options.yaml'), mode='w+') as file:
