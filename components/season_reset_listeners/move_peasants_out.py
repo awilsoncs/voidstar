@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from random import choice
 
 from components import Coordinates
+from components.actors.peasant_actor import PeasantActor
 from components.game_start_listeners.game_start_listener import GameStartListener
 from components.relationships.farmed_by import FarmedBy
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
@@ -29,6 +30,9 @@ def _move_peasants_out(scene):
 
         peasant_coords.x = coords.x
         peasant_coords.y = coords.y
+
+        actor = scene.cm.get_one(PeasantActor, entity=peasant.entity)
+        actor.state = PeasantActor.State.FARMING
 
 
 @dataclass

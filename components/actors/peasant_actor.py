@@ -1,5 +1,6 @@
 import random
 from dataclasses import dataclass
+from enum import auto, Enum
 from typing import List, Tuple
 
 from components import TimedActor, Coordinates
@@ -10,11 +11,18 @@ from engine.core import log_debug
 
 @dataclass
 class PeasantActor(TimedActor):
+    class State(Enum):
+        UNKNOWN = auto()
+        FARMING = auto()
+        HIDING = auto()
+
     timer_delay = TimedActor.HALF_HOUR
+    state: State = State.UNKNOWN
 
     @log_debug(__name__)
     def act(self, scene):
-        self.farm(scene)
+        if self.state == PeasantActor.State.FARMING:
+            self.farm(scene)
 
     def farm(self, scene):
         farm_tiles: List[Coordinates] = scene.cm.get(
