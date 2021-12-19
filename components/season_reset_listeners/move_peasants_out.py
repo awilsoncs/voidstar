@@ -2,11 +2,13 @@ from dataclasses import dataclass
 from random import choice
 
 from components import Coordinates
+from components.actors.calendar_actor import Calendar
 from components.actors.peasant_actor import PeasantActor
 from components.game_start_listeners.game_start_listener import GameStartListener
 from components.relationships.farmed_by import FarmedBy
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.peasant_tag import PeasantTag
+from engine import core
 
 moves = [
     (-2, -2), (0, -2), (2, -2),
@@ -32,7 +34,12 @@ def _move_peasants_out(scene):
         peasant_coords.y = coords.y
 
         actor = scene.cm.get_one(PeasantActor, entity=peasant.entity)
-        actor.state = PeasantActor.State.FARMING
+
+        calendar = scene.cm.get_one(Calendar, entity=core.get_id("calendar"))
+        if calendar.season != 4:
+            actor.state = PeasantActor.State.FARMING
+        else:
+            actor.state = PeasantActor.State.WANDERING
 
 
 @dataclass
