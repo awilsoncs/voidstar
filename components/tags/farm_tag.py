@@ -4,5 +4,5 @@ from components.tags.tag import Tag
 
 
 @dataclass
-class HordelingTag(Tag):
-    value: str = 'hordeling'
+class FarmTag(Tag):
+    value: str = 'farm'

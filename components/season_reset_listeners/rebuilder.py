@@ -1,11 +1,14 @@
+import logging
 from dataclasses import dataclass
-from typing import Optional
+from typing import List
 
 from components import Coordinates
-from components.residence import Residence
+from components.relationships.farmed_by import FarmedBy
+from components.relationships.resident import Resident
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.house_structure import HouseStructure
-from content.structures.walls import make_wall
+from components.tags.peasant_tag import PeasantTag
+from content.farmsteads.walls import make_wall
 
 
 @dataclass
@@ -15,19 +18,18 @@ class Rebuilder(SeasonResetListener):
     def on_season_reset(self, scene):
         house_structure = scene.cm.get_one(HouseStructure, entity=self.entity)
         if house_structure and house_structure.is_destroyed:
-            if self._is_resident_alive(scene):
+            if self._get_living_residents(scene):
                 self._rebuild_house(scene)
             else:
+                self._delete_farms(scene)
+
                 # https://www.youtube.com/watch?v=4KoiYEoWImo
                 scene.cm.delete(self.entity)
 
-    def _is_resident_alive(self, scene) -> bool:
-        house_structure: Optional[HouseStructure] = scene.cm.get_one(HouseStructure, entity=self.entity)
-        if not house_structure:
-            raise NotImplementedError("Cannot handle resident with missing house structure")
-        house_id = house_structure.house_id
-        residences = scene.cm.get(Residence)
-        return any(residence.house_id == house_id for residence in residences)
+    def _get_living_residents(self, scene) -> List[PeasantTag]:
+        resident: Resident = scene.cm.get_one(Resident, entity=self.entity)
+        peasants: List[PeasantTag] = scene.cm.get(PeasantTag, query=lambda pt: pt.entity == resident.resident)
+        return peasants
 
     def _rebuild_house(self, scene):
         house_structure = scene.cm.get_one(HouseStructure, entity=self.entity)
@@ -58,3 +60,22 @@ class Rebuilder(SeasonResetListener):
             scene.cm.add(*wall[1])
 
         house_structure.is_destroyed = False
+
+    def _delete_farms(self, scene):
+        logging.debug(f"Deleting farms for house #{self.entity}")
+        resident_link: Resident = scene.cm.get_one(Resident, entity=self.entity)
+        if not resident_link:
+            logging.warning("House with no historical resident found, should not happen")
+            return
+        else:
+            resident_id = resident_link.resident
+
+        farms: List[int] = scene.cm.get(
+            FarmedBy,
+            query=lambda fb: fb.farmer == resident_id,
+            project=lambda fb: fb.entity
+        )
+
+        for farm in farms:
+            logging.debug(f"Deleting farm #{farm}")
+            scene.cm.delete(farm)

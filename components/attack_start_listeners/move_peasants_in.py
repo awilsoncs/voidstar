@@ -2,9 +2,10 @@ import logging
 from dataclasses import dataclass
 
 from components import Coordinates
+from components.actors.peasant_actor import PeasantActor
 from components.attack_start_listeners.attack_start_actor import AttackStartListener
 from components.house_structure import HouseStructure
-from components.residence import Residence
+from components.relationships.residence import Residence
 from components.tags.peasant_tag import PeasantTag
 
 
@@ -32,3 +33,5 @@ def _move_peasant_home(scene, peasant) -> None:
             if peasant_coords:
                 peasant_coords.x = house_coords.x
                 peasant_coords.y = house_coords.y
+    peasant_actor = scene.cm.get_one(PeasantActor, entity=peasant.entity)
+    peasant_actor.state = PeasantActor.State.HIDING

@@ -4,6 +4,7 @@ import engine
 import settings
 from components import Entity, Coordinates, Attributes, Senses
 from components.actors.energy_actor import EnergyActor
+from components.wrath_effect import WrathEffect
 from gui.easy_menu import EasyMenu
 
 
@@ -19,6 +20,7 @@ class ShowDebug(EnergyActor):
                     "examine game objects": get_examine_game_objects(scene),
                     "heal": get_heal(scene),
                     "get rich": get_rich(scene),
+                    "wrath": get_wrath(scene, self.entity),
                     "suicide": get_suicide(scene),
                     "teleport to": get_teleport_to(scene)
                 },
@@ -101,4 +103,10 @@ def get_teleport_to_entity(scene, entity):
             player_coords.y = target_coords.y
             senses = scene.cm.get_one(Senses, entity=engine.constants.PLAYER_ID)
             senses.dirty = True
+    return out_fn
+
+
+def get_wrath(scene, entity):
+    def out_fn():
+        scene.cm.add(WrathEffect(entity=entity))
     return out_fn

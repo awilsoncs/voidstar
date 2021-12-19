@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 import settings
 from components.build_world_listeners.build_world_listeners import BuildWorldListener
-from content.trees import make_wall_tree
+from content.terrain.trees import make_wall_tree
 
 
 def add_wall_tree(scene, x: int, y: int) -> None:

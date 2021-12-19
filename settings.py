@@ -26,12 +26,12 @@ def create_options_file():
         'lakes-min': 1,
         'lakes-max': 4,
         'lake-proliferation': .2,
-        'copse-min': 10,
-        'copse-max': 20,
+        'copse-min': 1,
+        'copse-max': 3,
         'copse-proliferation': .05,
         'character-name': 'Sir Chauncey',
         'spawn-min': 1,
-        'spawn-max': 6,
+        'spawn-max': 1,
         'torch-radius': -1
     }
     with open(get_relative_path('options.yaml'), mode='w+') as file:

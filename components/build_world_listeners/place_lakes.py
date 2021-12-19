@@ -5,8 +5,7 @@ from dataclasses import dataclass
 import settings
 from components import Coordinates
 from components.build_world_listeners.build_world_listeners import BuildWorldListener
-from content.terrain import make_water
-from content.trees import make_tree
+from content.terrain.water import make_water
 from engine.utilities import get_3_by_3_box
 
 
