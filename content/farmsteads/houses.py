@@ -85,20 +85,24 @@ def add_house(scene, x, y):
 def place_farmstead(scene):
     coords = {(coord.x, coord.y) for coord in scene.cm.get(Coordinates)}
 
-    x = random.randint(5, settings.MAP_WIDTH - 5)
-    y = random.randint(5, settings.MAP_HEIGHT - 5)
+    x, y = get_point()
     footprint = get_3_by_3_square(x, y)
 
     attempts = 100
     while not coords.isdisjoint(footprint) and attempts > 0:
-        x = random.randint(5, settings.MAP_WIDTH - 5)
-        y = random.randint(5, settings.MAP_HEIGHT - 5)
-        footprint = get_3_by_3_square(x, y)
         attempts -= 1
+        x, y = get_point()
+        footprint = get_3_by_3_square(x, y)
 
     if not attempts:
         logging.warning("Failed to place farmstead.")
         return
 
     add_house(scene, x, y)
+
+
+def get_point():
+    x = random.randint(5, settings.MAP_WIDTH - 5)
+    y = random.randint(5, settings.MAP_HEIGHT - 5)
+    return x, y
 
