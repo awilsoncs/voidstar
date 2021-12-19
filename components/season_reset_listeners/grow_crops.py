@@ -18,10 +18,10 @@ class GrowCrops(AttackStartListener):
         if not calendar:
             return
 
-        if calendar.season > 1:
+        if calendar.season > 2:
             return
 
-        if random.random() < .6:
+        if random.random() < .3:
 
             logging.info(f"EID#{self.entity}::GrowCrops: Growing crops..")
 

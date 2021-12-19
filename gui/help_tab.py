@@ -17,6 +17,7 @@ class HelpTab(GuiElement):
 
         panel.print(self.x, self.y+5, "SPACE  : Thwack", fg=self.fg, bg=self.bg)
         panel.print(self.x, self.y+6, "f      : Shoot", fg=self.fg, bg=self.bg)
-        panel.print(self.x, self.y+7, "a      : Fast Forward", fg=self.fg, bg=self.bg)
-        panel.print(self.x, self.y+8, "`      : Debug", fg=self.fg, bg=self.bg)
-        panel.print(self.x, self.y+9, "ESC    : Back", fg=self.fg, bg=self.bg)
+        panel.print(self.x, self.y+7, "s      : Plant Sapling", fg=self.fg, bg=self.bg)
+        panel.print(self.x, self.y+8, "a      : Fast Forward", fg=self.fg, bg=self.bg)
+        panel.print(self.x, self.y+10, "`      : Debug", fg=self.fg, bg=self.bg)
+        panel.print(self.x, self.y+11, "ESC    : Back", fg=self.fg, bg=self.bg)

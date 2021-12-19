@@ -54,9 +54,9 @@ class DefendScene(GameScene):
 
         anchor.add_element(HordeStatusLabel(1, 8))
         anchor.add_element(HordelingBar(1, 9))
-        anchor.add_space(14)
+        anchor.add_space(13)
 
-        anchor.add_element(HelpTab(1, 30))
+        anchor.add_element(HelpTab(1, 28))
 
         self.add_gui_element(anchor)
         self.add_gui_element(self.play_window)
