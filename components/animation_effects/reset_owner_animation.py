@@ -10,6 +10,8 @@ from components.relationships.owner import Owner
 class ResetOwnerAnimation(DeleteListener):
     def on_delete(self, scene):
         owner = scene.cm.get_one(Owner, entity=self.entity)
+
+        # todo unhardcode this
         peasant = scene.cm.get_one(Actor, entity=owner.owner)
         logging.info(f"EID#{self.entity}:ResetOwnerAnimation triggered, owner={owner.owner}")
 
