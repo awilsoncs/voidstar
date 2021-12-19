@@ -3,20 +3,20 @@ from dataclasses import dataclass
 from enum import auto, Enum
 from typing import List, Tuple
 
-from components import TimedActor, Coordinates
+from components import Coordinates
+from components.actors.energy_actor import EnergyActor
 from components.relationships.farmed_by import FarmedBy
 from content.attacks import stab
 from engine.core import log_debug
 
 
 @dataclass
-class PeasantActor(TimedActor):
+class PeasantActor(EnergyActor):
     class State(Enum):
         UNKNOWN = auto()
         FARMING = auto()
         HIDING = auto()
 
-    timer_delay = TimedActor.HALF_HOUR
     state: State = State.UNKNOWN
 
     @log_debug(__name__)
@@ -41,5 +41,5 @@ class PeasantActor(TimedActor):
 
         stab_animation = stab(self.entity, target_tile[0], target_tile[1])
         scene.cm.add(*stab_animation[1])
-        delay = random.randint(TimedActor.HALF_HOUR, TimedActor.DAILY)
+        delay = random.randint(EnergyActor.HOURLY, EnergyActor.HOURLY*6)
         self.pass_turn(delay)
