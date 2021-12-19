@@ -37,14 +37,17 @@ def get_3_by_3_box(x, y):
 
 def get_box(start_loc, end_loc):
     """Get a box defined by the top left and bottom right points."""
-    tiles = {(start_loc[0], start_loc[1])}
-    for x in range(start_loc[0], end_loc[0]):
-        tiles.add((x, start_loc[1]))
-        tiles.add((x, end_loc[1]))
+    tiles = set()
+    start_x, start_y = start_loc
+    end_x, end_y = end_loc
 
-    for y in range(start_loc[1]+1, end_loc[1]-1):
-        tiles.add((start_loc[0], y))
-        tiles.add((end_loc[0], y))
+    for x in range(start_x, end_x+1):
+        tiles.add((x, start_y))
+        tiles.add((x, end_y))
+
+    # for y in range(start_y, end_y+1):
+    #     tiles.add((start_x, y))
+    #     tiles.add((end_x, y))
 
     return tiles
 

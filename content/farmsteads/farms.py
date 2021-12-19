@@ -12,7 +12,7 @@ def make_farm_plot(x, y, farmer):
         [
             Entity(id=entity_id, entity=entity_id, name='farm_plot'),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOW),
-            Appearance(entity=entity_id, symbol='=', color=palettes.DIRT, bg_color=palettes.BACKGROUND),
+            Appearance(entity=entity_id, symbol='≈', color=palettes.DIRT, bg_color=palettes.BACKGROUND),
             FarmedBy(entity=entity_id, farmer=farmer),
             GrowCrops(entity=entity_id)
         ]

@@ -6,10 +6,8 @@ from components.faction import Faction
 from components.material import Material
 from components.move import Move
 from components.relationships.residence import Residence
-from components.season_reset_listeners.plant_farm import PlantFarm
 from components.tags.peasant_tag import PeasantTag
 from components.target_value import PEASANT, TargetValue
-from components.tax_value import TaxValue
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
@@ -31,7 +29,7 @@ def make_peasant(house_id, x, y):
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             CryForHelp(entity=entity_id),
             Residence(entity=entity_id, house_id=house_id),
-            Move(entity=entity_id),
-            PlantFarm(entity=entity_id),
+            Move(entity=entity_id)
         ]
     )
+

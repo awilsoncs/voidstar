@@ -8,7 +8,7 @@ from components.relationships.resident import Resident
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.house_structure import HouseStructure
 from components.tags.peasant_tag import PeasantTag
-from content.structures.walls import make_wall
+from content.farmsteads.walls import make_wall
 
 
 @dataclass
