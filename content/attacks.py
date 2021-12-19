@@ -1,6 +1,6 @@
 from components import Entity, Appearance, Coordinates
 from components.animation_effects.path import AnimationPath
-from components.events.deleter import Deleter
+from components.delete_listeners.deleter import Deleter
 from components.relationships.owner import Owner
 from components.path_node import create_path
 from engine import core, palettes

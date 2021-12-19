@@ -2,7 +2,7 @@ import random
 
 import settings
 from components import Entity, Appearance, Coordinates
-from components.events.deleter import Deleter
+from components.delete_listeners.deleter import Deleter
 from components.player_controllers.player_dead_actor import PlayerDeadActor
 from components.tags.corpse_tag import CorpseTag
 from engine import palettes, core
