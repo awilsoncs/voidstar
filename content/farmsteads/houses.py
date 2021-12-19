@@ -1,3 +1,4 @@
+import logging
 import random
 
 import settings
@@ -82,9 +83,22 @@ def add_house(scene, x, y):
 
 
 def place_farmstead(scene):
+    coords = {(coord.x, coord.y) for coord in scene.cm.get(Coordinates)}
+
     x = random.randint(5, settings.MAP_WIDTH - 5)
     y = random.randint(5, settings.MAP_HEIGHT - 5)
     footprint = get_3_by_3_square(x, y)
-    coords = {(coord.x, coord.y) for coord in scene.cm.get(Coordinates)}
-    if coords.isdisjoint(footprint):
-        add_house(scene, x, y)
+
+    attempts = 100
+    while not coords.isdisjoint(footprint) and attempts > 0:
+        x = random.randint(5, settings.MAP_WIDTH - 5)
+        y = random.randint(5, settings.MAP_HEIGHT - 5)
+        footprint = get_3_by_3_square(x, y)
+        attempts -= 1
+
+    if not attempts:
+        logging.warning("Failed to place farmstead.")
+        return
+
+    add_house(scene, x, y)
+
