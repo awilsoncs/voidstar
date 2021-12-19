@@ -28,7 +28,8 @@ def make_peasant(house_id, x, y):
             Material(entity=entity_id, blocks=False, blocks_sight=False),
             CryForHelp(entity=entity_id),
             Residence(entity=entity_id, house_id=house_id),
-            Move(entity=entity_id)
+            Move(entity=entity_id),
+            PeasantActor(entity=entity_id)
         ]
     )
 
