@@ -40,7 +40,11 @@ class PlayWindow(GuiElement):
 
         # store a console with the static terrain on it so that we don't have to regenerate it each frame
         self.memory_console = tcod.console.Console(width, height, order='F')
+
+        # hold terrain view
         self.terrain_console = tcod.console.Console(width, height, order='F')
+        self.shadow_terrain_console = tcod.console.Console(width, height, order='F')
+
         self.black = tcod.console.Console(width, height, order='F')
         self.console = tcod.console.Console(width, height, order='F')  # buffer console
 
@@ -58,7 +62,7 @@ class PlayWindow(GuiElement):
                     (*grass_color, 255),
                     (*palettes.BACKGROUND, 255)
                 )
-                self.memory_console.tiles[x, y] = (
+                self.shadow_terrain_console.tiles[x, y] = (
                     symbol,
                     (*memory_color, 255),
                     (*palettes.BACKGROUND, 255)
@@ -67,6 +71,8 @@ class PlayWindow(GuiElement):
     @timed(25, __name__)
     def render(self, panel: console.Console) -> None:
         self.console.clear()
+        self.memory_console.clear()
+        self.shadow_terrain_console.blit(self.memory_console)
         self.terrain_console.blit(self.console)
 
         coordinates = self.cm.get(Coordinates)
@@ -75,16 +81,20 @@ class PlayWindow(GuiElement):
         for coord in coordinates:
             appearance = self.cm.get_one(Appearance, entity=coord.entity)
             if appearance:
-                self.console.rgba[coord.x, coord.y] = appearance.to_tile()
+                appearance_tile = appearance.to_tile()
+                hidden_tile = (
+                    appearance_tile[0],
+                    (*palettes.SHADOW, 255),
+                    (*palettes.BACKGROUND, 255)
+                )
+
+                self.console.rgba[coord.x, coord.y] = appearance_tile
+                self.memory_console.rgba[coord.x, coord.y] = hidden_tile
 
         buffer = np.where(
             self.visibility_map,
             self.console.rgba,
-            np.where(
-                self.memory_map,
-                self.memory_console.rgba,
-                self.black.rgba
-            )
+            self.memory_console.rgba
         )
         self.console = tcod.console.Console(self.width, self.height, order='F', buffer=buffer)
         self.console.blit(panel, dest_x=self.x, dest_y=self.y, width=self.width, height=self.height)
