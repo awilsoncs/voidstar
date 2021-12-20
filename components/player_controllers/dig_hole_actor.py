@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import List
 
 import tcod
 
@@ -6,6 +7,7 @@ from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention
+from components.fillable import Fillable
 from content.terrain.hole import make_hole
 from engine import constants, core
 
@@ -30,7 +32,7 @@ class DigHoleActor(EnergyActor):
             elif intention is Intention.BACK:
                 self.back_out(scene)
 
-    def _dig_hole(self, scene, direction):
+    def _dig_hole(self, scene, direction, old_actor=None):
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         x = coords.x
         y = coords.y
@@ -44,7 +46,15 @@ class DigHoleActor(EnergyActor):
             old_actor = self.back_out(scene)
             old_actor.pass_turn()
         else:
-            self.back_out(scene)
+            fillable_entities = _get_fillables(scene, hole_x, hole_y)
+            if fillable_entities:
+                scene.gold -= 2
+                for entity in fillable_entities:
+                    scene.cm.delete(entity)
+                old_actor = self.back_out(scene)
+                old_actor.pass_turn()
+            else:
+                self.back_out(scene)
 
     def back_out(self, scene):
         old_actor = scene.cm.unstash_component(self.old_actor)
@@ -60,9 +70,16 @@ def _is_diggable(scene, x, y) -> bool:
     return not target_coords
 
 
-def _is_fillable(scene, x, y) -> bool:
+def _get_fillables(scene, x, y) -> List[int]:
     """Return True if there's something that can be removed by digging."""
-    
+    fillable_entities = scene.cm.get(
+        Coordinates,
+        query=lambda coords: coords.x == x and coords.y == y and scene.cm.get_one(Fillable, entity=coords.entity),
+        project=lambda coords: coords.entity
+    )
+    return fillable_entities
+
+
 
 
 KEY_ACTION_MAP = {
