@@ -10,7 +10,7 @@ def make_hole(x, y):
         entity_id,
         [
             Entity(id=entity_id, entity=entity_id, name='hole'),
-            Appearance(entity=entity_id, symbol='O', color=palettes.STONE, bg_color=palettes.BACKGROUND),
+            Appearance(entity=entity_id, symbol='O', color=palettes.DIRT, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST, terrain=True),
             Material(entity=entity_id, blocks=True, blocks_sight=False)
         ]
