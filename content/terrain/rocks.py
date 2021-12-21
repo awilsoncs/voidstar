@@ -3,7 +3,7 @@ import random
 from components import Entity, Appearance, Coordinates
 from components.diggable import Diggable
 from components.material import Material
-from components.states.swamped_state import Swamper
+from components.move_costs.swamped_state import Swamper
 from engine import core, palettes
 from engine.constants import PRIORITY_LOWEST
 

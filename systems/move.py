@@ -1,3 +1,4 @@
+from functools import reduce
 from typing import Tuple
 
 from components import Senses
@@ -9,10 +10,11 @@ from components.enums import Intention
 from components.faction import Faction
 from components.material import Material
 from components.move import Move
+from components.move_costs.move_cost import MoveCost
 from components.move_listeners.move_listener import MoveListener
-from components.states.swamped_state import Swamped, Swamper
+from components.move_costs.swamped_state import Swamped, Swamper
 from content.attacks import stab
-from systems.utilities import get_blocking_object, retract_turn, retract_intention
+from systems.utilities import get_blocking_object, retract_intention
 
 
 def get_hostile(scene, entity, step_direction):
@@ -44,7 +46,15 @@ def run(scene):
             move(scene, entity, step_direction)
             dirty_senses(scene, entity)
             move_component = scene.cm.get_one(Move, entity=entity)
-            actor.pass_turn(move_component.energy_cost)
+
+            # account for the mob's state
+            move_factor = reduce(
+                lambda x, y: x*y,
+                [mc.factor for mc in scene.cm.get_all(MoveCost, entity=entity)],
+                1.0
+            )
+            final_move_cost = int(move_component.energy_cost * move_factor)
+            actor.pass_turn(final_move_cost)
             retract_intention(scene, entity)
         elif get_hostile(scene, entity, step_direction):
 
@@ -135,7 +145,6 @@ def move(scene, entity: int, vector: Tuple[int, int]):
 
     if swamped:
         scene.cm.delete_component(swamped)
-        return
 
     coords = scene.cm.get_one(Coordinates, entity=entity)
     if coords:
