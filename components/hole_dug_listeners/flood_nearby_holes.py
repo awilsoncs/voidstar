@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import List
 
 from components import Coordinates
 from components.actors.energy_actor import EnergyActor
@@ -30,7 +29,6 @@ class FloodHolesSystem(EnergyActor, HoleDugListener):
         self.is_recharging = True
 
     def act(self, scene) -> None:
-        # we don't want this running all the time
         self._fill_step(scene)
 
     def _fill_step(self, scene):

@@ -1,6 +1,7 @@
 from components import Entity, Appearance, Coordinates, Attributes
 from components.death_listeners.drop_log import DropFallenLog
 from components.death_listeners.npc_corpse import Corpse
+from components.death_listeners.terrain_changes_on_death import TerrainChangedOnDeath
 from components.faction import Faction
 from components.material import Material
 from components.tags.tree_tag import TreeTag
@@ -34,6 +35,7 @@ def make_tree(x, y):
             Faction(entity=entity_id, faction=Faction.Options.NEUTRAL),
             Appearance(entity=entity_id, symbol='♣', color=palettes.FOILAGE_C, bg_color=palettes.BACKGROUND),
             Material(entity=entity_id, blocks=True, blocks_sight=True),
-            TreeTag(entity=entity_id)
+            TreeTag(entity=entity_id),
+            TerrainChangedOnDeath(entity=entity_id)
         ]
     )
