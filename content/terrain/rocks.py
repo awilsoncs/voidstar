@@ -5,7 +5,7 @@ from components import Entity, Appearance, Coordinates
 from components.death_listeners.drop_gold import DropGold
 from components.diggable import Diggable
 from components.material import Material
-from components.move_costs.swamped_state import Swamper
+from components.states.swamped_state import Swamper
 from engine import core, palettes
 from engine.component import Component
 from engine.constants import PRIORITY_LOWEST

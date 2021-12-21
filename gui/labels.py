@@ -1,5 +1,5 @@
 from components.actors.calendar_actor import Calendar
-from components.move_costs.swamped_state import Swamped
+from components.states.swamped_state import Swamped
 from engine import palettes, core, PLAYER_ID
 from gui.gui_element import GuiElement
 
