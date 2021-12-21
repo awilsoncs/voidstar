@@ -6,6 +6,7 @@ import tcod
 from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
+from components.death_listeners.die import Die
 from components.enums import Intention
 from components.diggable import Diggable
 from content.terrain.hole import make_hole
@@ -46,11 +47,11 @@ class DigHoleActor(EnergyActor):
             old_actor = self.back_out(scene)
             old_actor.pass_turn()
         else:
-            fillable_entities = _get_fillables(scene, hole_x, hole_y)
-            if fillable_entities:
+            diggable_entities = _get_fillables(scene, hole_x, hole_y)
+            if diggable_entities:
                 scene.gold -= 2
-                for entity in fillable_entities:
-                    scene.cm.delete(entity)
+                for entity in diggable_entities:
+                    scene.cm.add(Die(entity=entity))
                 old_actor = self.back_out(scene)
                 old_actor.pass_turn()
             else:
