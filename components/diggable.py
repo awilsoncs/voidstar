@@ -4,5 +4,5 @@ from engine.component import Component
 
 
 @dataclass
-class Fillable(Component):
+class Diggable(Component):
     pass

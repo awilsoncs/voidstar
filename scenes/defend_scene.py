@@ -4,6 +4,7 @@ import settings
 from components import clear_components
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.game_start_listeners.start_game import StartGame
+from content.physics_controller import make_physics_controller
 from content.utilities import make_calendar
 from content.world_builder import make_world_build
 from engine import GameScene, core
@@ -68,6 +69,7 @@ class DefendScene(GameScene):
         self.play_window.cm = self.cm
         self.cm.add(*make_world_build()[1])
         self.cm.add(*make_calendar()[1])
+        self.cm.add(*make_physics_controller()[1])
         self.cm.add(StartGame(entity=self.player))
 
     @timed(100, __name__)

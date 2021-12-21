@@ -7,7 +7,7 @@ from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention
-from components.fillable import Fillable
+from components.diggable import Diggable
 from content.terrain.hole import make_hole
 from engine import constants, core
 
@@ -74,7 +74,7 @@ def _get_fillables(scene, x, y) -> List[int]:
     """Return True if there's something that can be removed by digging."""
     fillable_entities = scene.cm.get(
         Coordinates,
-        query=lambda coords: coords.x == x and coords.y == y and scene.cm.get_one(Fillable, entity=coords.entity),
+        query=lambda coords: coords.x == x and coords.y == y and scene.cm.get_one(Diggable, entity=coords.entity),
         project=lambda coords: coords.entity
     )
     return fillable_entities
