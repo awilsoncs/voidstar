@@ -1,5 +1,5 @@
 from components.actors.calendar_actor import Calendar
-from components.states.swamped_state import Swamped
+from components.states.swamped_state import Hindered
 from engine import palettes, core, PLAYER_ID
 from gui.gui_element import GuiElement
 
@@ -64,16 +64,16 @@ class HordeStatusLabel(GuiElement):
 
 class SwampedLabel(GuiElement):
     def __init__(self, x, y):
-        super().__init__(x, y, name='swamped-label')
+        super().__init__(x, y, name='hindered-label')
         self.value = '#problem#'
 
     def update(self, scene):
-        swamped = scene.cm.get_one(Swamped, entity=PLAYER_ID)
-        if swamped:
-            self.value = "*Swamped*"
+        hindered = scene.cm.get_one(Hindered, entity=PLAYER_ID)
+        if hindered:
+            self.value = "*Hindered*"
         else:
             self.value = ""
 
     def render(self, panel):
         """Draw the bar onto the panel"""
-        panel.print(self.x, self.y, f'{self.value}', fg=palettes.LIGHT_WATER, bg=palettes.WATER)
+        panel.print(self.x, self.y, f'{self.value}', fg=palettes.LIGHT_WATER, bg=palettes.BACKGROUND)

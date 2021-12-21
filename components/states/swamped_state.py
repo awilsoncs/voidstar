@@ -4,10 +4,10 @@ from engine.component import Component
 
 
 @dataclass
-class Swamped(Component):
+class Hindered(Component):
     pass
 
 
 @dataclass
-class Swamper(Component):
+class DifficultTerrain(Component):
     pass
