@@ -9,6 +9,7 @@ from components.animation_effects.blinker import AnimationBlinker
 from components.death_listeners.die import Die
 from components.enums import Intention
 from components.diggable import Diggable
+from content.terrain.dirt import make_dirt
 from content.terrain.hole import make_hole
 from engine import constants, core
 
@@ -41,21 +42,33 @@ class DigHoleActor(EnergyActor):
         hole_x = x+direction[0]
         hole_y = y+direction[1]
         if _is_diggable(scene, hole_x, hole_y):
-            hole = make_hole(hole_x, hole_y)
-            scene.cm.add(*hole[1])
-            scene.gold -= 2
-            old_actor = self.back_out(scene)
-            old_actor.pass_turn()
+            self._apply_dig_hole(hole_x, hole_y, scene)
         else:
-            diggable_entities = _get_fillables(scene, hole_x, hole_y)
+            diggable_entities = _get_diggables(scene, hole_x, hole_y)
             if diggable_entities:
                 scene.gold -= 2
-                for entity in diggable_entities:
-                    scene.cm.add(Die(entity=entity))
+                assert len(diggable_entities) == 1, "found more than one diggable on a tile"
+                entity = diggable_entities.pop()
+                scene.cm.add(Die(entity=entity))
+                diggable = scene.cm.get_one(Diggable, entity=entity)
+                if diggable.is_free:
+                    # there's a dirt here, skip straight to digging the new hole
+                    self._apply_dig_hole(hole_x, hole_y, scene)
+                    return
+
+                dirt = make_dirt(hole_x, hole_y)
+                scene.cm.add(*dirt[1])
                 old_actor = self.back_out(scene)
                 old_actor.pass_turn()
             else:
                 self.back_out(scene)
+
+    def _apply_dig_hole(self, hole_x, hole_y, scene):
+        hole = make_hole(hole_x, hole_y)
+        scene.cm.add(*hole[1])
+        scene.gold -= 2
+        old_actor = self.back_out(scene)
+        old_actor.pass_turn()
 
     def back_out(self, scene):
         old_actor = scene.cm.unstash_component(self.old_actor)
@@ -71,7 +84,7 @@ def _is_diggable(scene, x, y) -> bool:
     return not target_coords
 
 
-def _get_fillables(scene, x, y) -> List[int]:
+def _get_diggables(scene, x, y) -> List[int]:
     """Return True if there's something that can be removed by digging."""
     fillable_entities = scene.cm.get(
         Coordinates,
