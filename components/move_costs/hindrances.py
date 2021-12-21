@@ -1,14 +1,13 @@
 from dataclasses import dataclass
 
-from components.move_costs.move_cost import MoveCost
 from engine.component import Component
 
 
 @dataclass
-class Swamped(MoveCost):
+class Hindered(Component):
     factor: float = 2.0
 
 
 @dataclass
-class Swamper(Component):
-    pass
+class Hindrance(Component):
+    factor: float = 2.0

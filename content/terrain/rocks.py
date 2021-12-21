@@ -5,7 +5,7 @@ from components import Entity, Appearance, Coordinates
 from components.death_listeners.drop_gold import DropGold
 from components.diggable import Diggable
 from components.material import Material
-from components.move_costs.swamped_state import Swamper
+from components.move_costs.hindrances import Hindrance
 from engine import core, palettes
 from engine.component import Component
 from engine.constants import PRIORITY_LOWEST
@@ -21,7 +21,7 @@ def make_rock(x, y):
             Appearance(entity=entity_id, symbol=appearance, color=palettes.STONE, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST, terrain=True),
             Material(entity=entity_id, blocks=False, blocks_sight=False),
-            Swamper(entity=entity_id),
+            Hindrance(entity=entity_id, factor=2.0),
             Diggable(entity=entity_id)
         ]
     )

@@ -10,9 +10,8 @@ from components.enums import Intention
 from components.faction import Faction
 from components.material import Material
 from components.move import Move
-from components.move_costs.move_cost import MoveCost
 from components.move_listeners.move_listener import MoveListener
-from components.move_costs.swamped_state import Swamped, Swamper
+from components.move_costs.hindrances import Hindered, Hindrance
 from content.attacks import stab
 from systems.utilities import get_blocking_object, retract_intention
 
@@ -50,7 +49,7 @@ def run(scene):
             # account for the mob's state
             move_factor = reduce(
                 lambda x, y: x*y,
-                [mc.factor for mc in scene.cm.get_all(MoveCost, entity=entity)],
+                [mc.factor for mc in scene.cm.get_all(Hindered, entity=entity)],
                 1.0
             )
             final_move_cost = int(move_component.energy_cost * move_factor)
@@ -141,10 +140,12 @@ def move(scene, entity: int, vector: Tuple[int, int]):
     This function is intended to be the final call before performing the actual move,
     and no validation occurs herein (except possibly to avoid crashes).
     """
-    swamped = scene.cm.get_one(Swamped, entity=entity)
-
-    if swamped:
-        scene.cm.delete_component(swamped)
+    move_costs = scene.cm.get_all(Hindered, entity=entity)
+    if len(move_costs) > 1:
+        raise NotImplementedError("Can't handle more than one move cost yet.")
+    if move_costs:
+        move_cost = move_costs.pop()
+        scene.cm.delete_component(move_cost)
 
     coords = scene.cm.get_one(Coordinates, entity=entity)
     if coords:
@@ -153,17 +154,16 @@ def move(scene, entity: int, vector: Tuple[int, int]):
         for move_listener in move_listeners:
             move_listener.on_move(scene)
 
-        swampers = any(
-            scene.cm.get_one(Swamper, coord.entity) is not None
-            for coord in scene.cm.get(Coordinates)
-            if (
-                coord.x == coords.x
-                and coord.y == coords.y
-            )
+        hindering_entities = scene.cm.get(
+            Coordinates,
+            query=lambda c: c.x == coords.x and c.y == coords.y and scene.cm.get_one(Hindrance, entity=c.entity),
+            project=lambda c: c.entity
         )
 
-        if swampers:
-            scene.cm.add(Swamped(entity=entity))
+        if hindering_entities:
+            hindering_entity = hindering_entities.pop()
+            hindrance_component = scene.cm.get_one(Hindrance, entity=hindering_entity)
+            scene.cm.add(Hindered(entity=entity, factor=hindrance_component.factor))
 
 
 def move_coords(coords: Coordinates, vector: Tuple[int, int]):
