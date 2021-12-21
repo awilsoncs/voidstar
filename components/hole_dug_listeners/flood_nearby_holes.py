@@ -2,8 +2,9 @@ from dataclasses import dataclass
 from typing import List
 
 from components import Coordinates
+from components.actors.energy_actor import EnergyActor
 from components.floodable import Floodable
-from components.fluid import Fluid
+from components.flooder import Flooder
 from components.hole_dug_listeners.hole_dug_listener import HoleDugListener
 from content.terrain.water import make_water
 
@@ -13,7 +14,6 @@ def _fill_hole(scene, hole):
     scene.cm.delete(hole)
     water = make_water(coordinates.x, coordinates.y)
     scene.cm.add(*water[1])
-    return water[0]
 
 
 def is_adjacent(scene, first: int, second: int):
@@ -22,43 +22,31 @@ def is_adjacent(scene, first: int, second: int):
     return first_coord and second_coord and first_coord.distance_from(second_coord) <= 1
 
 
-def _has_adjacent_fluid(scene, hole: int):
-    fluids: List[int] = scene.cm.get(
-        Fluid,
-        query=lambda f: is_adjacent(scene, hole, f.entity),
-        project=lambda f: f.entity
-    )
-    return bool(fluids)
-
-
-def _get_neighboring_holes(scene, water: int) -> List[int]:
-    return scene.cm.get(
-        Floodable,
-        query=lambda f: is_adjacent(scene, f.entity, water),
-        project=lambda f: f.entity
-    )
-
-
-def _fill_from(scene, start_hole):
-    remaining_holes = [start_hole]
-
-    while remaining_holes:
-        next_hole = remaining_holes.pop()
-        new_water = _fill_hole(scene, next_hole)
-
-        new_neighbors: List[int] = [
-            hole
-            for hole in _get_neighboring_holes(scene, new_water)
-        ]
-
-        remaining_holes += new_neighbors
-
-
 @dataclass
-class FloodHoles(HoleDugListener):
-    def on_hole_dug(self, scene, new_hole):
-        if not _has_adjacent_fluid(scene, new_hole):
-            return
+class FloodHolesSystem(EnergyActor, HoleDugListener):
+    is_recharging: bool = False
 
-        _fill_from(scene, new_hole)
+    def on_hole_dug(self, scene, new_hole):
+        self.is_recharging = True
+
+    def act(self, scene) -> None:
+        # we don't want this running all the time
+        self._fill_step(scene)
+
+    def _fill_step(self, scene):
+        # find all floodables with an adjacent flooder
+        floodables = scene.cm.get(
+            Floodable,
+            query=lambda this: any(is_adjacent(scene, this.entity, other.entity) for other in scene.cm.get(Flooder)),
+            project=lambda this: this.entity
+        )
+
+        if not floodables:
+            self.is_recharging = False
+
+        for floodable in floodables:
+            _fill_hole(scene, floodable)
+        self.pass_turn(EnergyActor.HALF_HOUR)
+
+
 

@@ -4,5 +4,5 @@ from engine.component import Component
 
 
 @dataclass
-class Fluid(Component):
+class Flooder(Component):
     pass

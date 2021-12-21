@@ -1,6 +1,6 @@
 from components import Entity, Appearance, Coordinates
 from components.diggable import Diggable
-from components.fluid import Fluid
+from components.flooder import Flooder
 from components.material import Material
 from components.states.swamped_state import Swamper
 from engine import core, palettes
@@ -18,6 +18,6 @@ def make_water(x, y):
             Material(entity=entity_id, blocks=False, blocks_sight=False),
             Swamper(entity=entity_id),
             Diggable(entity=entity_id),
-            Fluid(entity=entity_id)
+            Flooder(entity=entity_id)
         ]
     )

@@ -1,4 +1,4 @@
-from components.hole_dug_listeners.flood_nearby_holes import FloodHoles
+from components.hole_dug_listeners.flood_nearby_holes import FloodHolesSystem
 from engine import core
 
 
@@ -8,6 +8,6 @@ def make_physics_controller():
     return (
         entity_id,
         [
-            FloodHoles(entity=entity_id)
+            FloodHolesSystem(entity=entity_id)
         ]
     )
