@@ -82,9 +82,10 @@ class PlayWindow(GuiElement):
             appearance = self.cm.get_one(Appearance, entity=coord.entity)
             if appearance:
                 appearance_tile = appearance.to_tile()
+                color = palettes.SHADOW if not appearance.above_stealth else appearance.color
                 hidden_tile = (
                     appearance_tile[0],
-                    (*palettes.SHADOW, 255),
+                    (*color, 255),
                     (*palettes.BACKGROUND, 255)
                 )
 

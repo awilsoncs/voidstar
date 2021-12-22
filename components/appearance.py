@@ -10,6 +10,7 @@ class Appearance(Component):
     symbol: str = ' '
     color: tuple = palettes.WHITE
     bg_color: tuple = palettes.BACKGROUND
+    above_stealth: bool = False
 
     def to_tile(self):
         """Return the Appearance in the tcod Tile format."""
