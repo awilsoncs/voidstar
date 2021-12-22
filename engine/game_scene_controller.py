@@ -8,7 +8,6 @@ from engine import GameScene
 from engine.component_manager import ComponentManager
 from engine.core import timed, log_debug
 from gui.gui import Gui
-from scenes.defend_scene import DefendScene
 
 
 class GameSceneController:
@@ -54,13 +53,9 @@ class GameSceneController:
     def start(self):
         """Invoke the FSM execution and transition."""
         while self._scene_stack:
-            self._scene_stack[-1].before_update()
-            self._scene_stack[-1].update()
-            if self._scene_stack:
-                self._scene_stack[-1].render()
-                tcod.console_flush()
+            current_scene = self._scene_stack[-1]
 
-    @log_debug(__name__)
-    def next_level(self, peasants, monsters, gold):
-        # TODO the game scene controller shouldn't be responsible for choosing the next scene
-        self.push_scene(DefendScene(peasants, monsters, gold))
+            current_scene.before_update()
+            current_scene.update()
+            current_scene.render()
+            tcod.console_flush()

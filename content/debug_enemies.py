@@ -1,8 +1,7 @@
-import random
 from components import Entity, Appearance, Attributes, Coordinates
 from components.attack import Attack
-from components.corpse import Corpse
-from components.drop_gold import DropGold
+from components.death_listeners.npc_corpse import Corpse
+from components.death_listeners.drop_gold import DropGold
 from components.faction import Faction
 from components.material import Material
 from components.tags.hordeling_tag import HordelingTag
@@ -22,11 +21,9 @@ def make_debug_hordeling(x, y):
         Attributes(entity=entity_id, hp=1, max_hp=1),
         Attack(entity=entity_id, damage=1),
         Material(entity=entity_id, blocks=True, blocks_sight=False),
-        HordelingTag(entity=entity_id)
+        HordelingTag(entity=entity_id),
+        DropGold(entity=entity_id)
     ]
-
-    if random.randint(1, 10) == 10:
-        components.append(DropGold(entity=entity_id))
 
     return (
         entity_id,

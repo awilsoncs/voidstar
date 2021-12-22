@@ -45,7 +45,7 @@ class PlayWindow(GuiElement):
         self.console = tcod.console.Console(width, height, order='F')  # buffer console
 
     def on_load(self) -> None:
-        memory_color = palettes.GABRIEL_2_2
+        memory_color = palettes.SHADOW
         for y in range(MAP_HEIGHT):
             for x in range(MAP_WIDTH):
                 grass_color = palettes.GRASS
@@ -64,18 +64,6 @@ class PlayWindow(GuiElement):
                     (*palettes.BACKGROUND, 255)
                 )
 
-        coordinates = self.cm.get(Coordinates)
-        coordinates = [c for c in coordinates if c.terrain]
-        coordinates = sorted(coordinates, key=lambda c: c.priority)
-        for coord in coordinates:
-            appearance = self.cm.get_one(Appearance, entity=coord.entity)
-            self.terrain_console.tiles[coord.x, coord.y] = appearance.to_tile()
-            self.memory_console.tiles[coord.x, coord.y] = (
-                ord(appearance.symbol),
-                (*memory_color, 255),
-                (*appearance.bg_color, 255)
-            )
-
     @timed(25, __name__)
     def render(self, panel: console.Console) -> None:
         self.console.clear()
@@ -87,15 +75,15 @@ class PlayWindow(GuiElement):
         for coord in coordinates:
             appearance = self.cm.get_one(Appearance, entity=coord.entity)
             if appearance:
-                self.console.tiles[coord.x, coord.y] = appearance.to_tile()
+                self.console.rgba[coord.x, coord.y] = appearance.to_tile()
 
         buffer = np.where(
             self.visibility_map,
-            self.console.tiles,
+            self.console.rgba,
             np.where(
                 self.memory_map,
-                self.memory_console.tiles,
-                self.black.tiles
+                self.memory_console.rgba,
+                self.black.rgba
             )
         )
         self.console = tcod.console.Console(self.width, self.height, order='F', buffer=buffer)

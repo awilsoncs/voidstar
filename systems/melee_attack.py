@@ -1,9 +1,12 @@
+from typing import List
+
 from components import Attributes, Coordinates
 from components.actions.attack_action import AttackAction
 from components.actors.actor import Actor
+from components.attack_effects.attack_effect import AttackEffect
 from components.cry_for_help import CryForHelp
 from components.house_structure import HouseStructure
-from components.owner import Owner
+from components.relationships.owner import Owner
 from content.states import help_animation
 from engine.core import log_debug
 
@@ -16,8 +19,8 @@ def run(scene):
 
 @log_debug(__name__)
 def handle_attack_action(scene, event):
-    entity = event.entity
-    target = event.recipient
+    entity: int = event.entity
+    target: int = event.recipient
 
     owner = scene.cm.get_one(Owner, entity=target)
     if owner:
@@ -30,6 +33,9 @@ def handle_attack_action(scene, event):
     if house_structure:
         _handle_house_damage(scene, house_structure, damage)
     else:
+        attack_effects: List[AttackEffect] = scene.cm.get_all(AttackEffect, entity=entity)
+        for attack_effect in attack_effects:
+            attack_effect.apply(scene, entity, target)
         _handle_entity_damage(scene, target, damage)
 
     cry_for_help = scene.cm.get_one(CryForHelp, entity=target)

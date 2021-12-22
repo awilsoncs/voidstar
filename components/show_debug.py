@@ -1,27 +1,33 @@
+from dataclasses import dataclass
+
 import engine
 import settings
 from components import Entity, Coordinates, Attributes, Senses
-from components.actors.actor import Actor
-from components.enums import Intention
+from components.actors.energy_actor import EnergyActor
+from components.wrath_effect import WrathEffect
 from gui.easy_menu import EasyMenu
-from systems.utilities import retract_intention
 
 
-def run(scene):
-    for actor in [b for b in scene.cm.get(Actor) if b.intention is Intention.SHOW_DEBUG_SCREEN]:
+@dataclass
+class ShowDebug(EnergyActor):
+    energy_cost: int = EnergyActor.INSTANT
+
+    def act(self, scene):
         scene.gui.add_element(
             EasyMenu(
                 "Debug Options",
                 {
                     "examine game objects": get_examine_game_objects(scene),
                     "heal": get_heal(scene),
+                    "get rich": get_rich(scene),
+                    "wrath": get_wrath(scene, self.entity),
                     "suicide": get_suicide(scene),
                     "teleport to": get_teleport_to(scene)
                 },
                 settings.INVENTORY_WIDTH,
             )
         )
-        retract_intention(scene, actor.entity)
+        scene.cm.delete_component(self)
 
 
 def get_examine_game_objects(scene):
@@ -59,6 +65,12 @@ def get_heal(scene):
     return out_fn
 
 
+def get_rich(scene):
+    def out_fn():
+        scene.gold += 10
+    return out_fn
+
+
 def get_suicide(scene):
     def out_fn():
         health = scene.cm.get_one(Attributes, entity=engine.constants.PLAYER_ID)
@@ -91,4 +103,10 @@ def get_teleport_to_entity(scene, entity):
             player_coords.y = target_coords.y
             senses = scene.cm.get_one(Senses, entity=engine.constants.PLAYER_ID)
             senses.dirty = True
+    return out_fn
+
+
+def get_wrath(scene, entity):
+    def out_fn():
+        scene.cm.add(WrathEffect(entity=entity))
     return out_fn

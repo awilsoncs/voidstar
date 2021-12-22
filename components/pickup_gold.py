@@ -5,4 +5,4 @@ from engine.component import Component
 
 @dataclass
 class PickupGold(Component):
-    pass
+    amount: int = 10

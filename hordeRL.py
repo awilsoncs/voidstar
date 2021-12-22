@@ -19,7 +19,7 @@ if __name__ == '__main__':
     parser.add_argument('-l', '--log', choices=['INFO', 'WARNING', 'CRITICAL', 'ERROR', 'DEBUG'], default='INFO')
     args = parser.parse_args()
 
-    logging.basicConfig()
+    logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
     logging.getLogger().setLevel(args.log)
 
     if args.prof:

@@ -24,4 +24,4 @@ def pickup_gold(scene, event):
         and coords.y == player_coords.y
     ):
         scene.cm.delete(event.entity)
-        scene.gold += 10
+        scene.gold += event.amount

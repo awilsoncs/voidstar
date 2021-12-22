@@ -8,6 +8,8 @@ from components.coordinates import Coordinates
 from components.enums import Intention
 from components.faction import Faction
 from components.material import Material
+from components.move import Move
+from components.move_listeners.move_listener import MoveListener
 from components.states.swamped_state import Swamped, Swamper
 from content.attacks import stab
 from systems.utilities import get_blocking_object, retract_turn, retract_intention
@@ -41,7 +43,8 @@ def run(scene):
             # do move
             move(scene, entity, step_direction)
             dirty_senses(scene, entity)
-            actor.pass_turn()
+            move_component = scene.cm.get_one(Move, entity=entity)
+            actor.pass_turn(move_component.energy_cost)
             retract_intention(scene, entity)
         elif get_hostile(scene, entity, step_direction):
 
@@ -98,6 +101,10 @@ def get_step_target(scene, entity, step_action):
 
 def can_step(scene, entity, step_action) -> bool:
     """Validate a step action."""
+    move_component = scene.cm.get_one(Move, entity=entity)
+    if not move_component:
+        return False
+
     entity_coords = scene.cm.get_one(Coordinates, entity)
     target_x = entity_coords.x + step_action[0]
     target_y = entity_coords.y + step_action[1]
@@ -133,6 +140,9 @@ def move(scene, entity: int, vector: Tuple[int, int]):
     coords = scene.cm.get_one(Coordinates, entity=entity)
     if coords:
         move_coords(coords, vector)
+        move_listeners = scene.cm.get(MoveListener)
+        for move_listener in move_listeners:
+            move_listener.on_move(scene)
 
         swampers = any(
             scene.cm.get_one(Swamper, coord.entity) is not None

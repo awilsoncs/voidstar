@@ -3,7 +3,7 @@ import tcod.event
 from components import TimedActor, Coordinates, Entity
 from components.cursor_result import CursorResult
 from components.enums import Intention, ControlMode
-from components.owner import Owner
+from components.relationships.owner import Owner
 from content.cursor import make_cursor
 from engine import core
 from systems.utilities import retract_intention, get_actors_with_intention, set_intention

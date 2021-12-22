@@ -1,9 +1,10 @@
+import logging
 from collections import defaultdict
-from typing import Set, Dict, List, Iterable, Generic, Type, Callable
+from typing import Set, Dict, List, Iterable, Generic, Type, Callable, Any
 
 from engine.component import Component
 from engine.core import get_id, log_debug
-from engine.types import EntityDictIndex, EntityDict, T, ComponentType, ComponentList
+from engine.types import EntityDictIndex, EntityDict, T, ComponentType, ComponentList, U
 
 
 class ComponentManager(object):
@@ -33,6 +34,8 @@ class ComponentManager(object):
         self.components = defaultdict(list)
         self.components_by_entity = defaultdict(lambda: defaultdict(list))
         self.components_by_id = {}
+        self.component_types = []
+        self.stashed_components = {}
 
     # data manipulation methods
     def add(self, component: Component, *components: Component) -> None:
@@ -41,9 +44,21 @@ class ComponentManager(object):
         for component in components:
             self._add(component)
 
-    def get(self, component_type: T, query: Callable[[T], bool] = lambda x: True) -> List[T]:
-        """Get all components of a given type."""
-        return [x for x in self.components[component_type] if query(x)]
+    def get(
+            self,
+            component_type: T,
+            query: Callable[[T], bool] = lambda x: True,
+            project: Callable[[T], U] = lambda x: x
+    ) -> List[U]:
+        """Get all components of a given type.
+        @type component_type: the component type to select
+        @param query: a boolean function to choose returned components
+        @type project: a transformation applied to a selected components
+        """
+        return [
+            project(x)
+            for x in self.components[component_type] if query(x)
+        ]
 
     def get_entity(self, entity: int) -> EntityDict:
         """Get a dictionary representing an Entity."""
@@ -71,6 +86,7 @@ class ComponentManager(object):
 
         Does not delete any references to the entity or its components.
         """
+        logging.debug(f"Deleting entity {entity}")
         components = self.get_entity(entity)
 
         for _, component_list in components.items():
@@ -96,6 +112,7 @@ class ComponentManager(object):
 
         Does not delete any references to the component.
         """
+        logging.debug(f"Deleting component {component}")
         if not component:
             raise ValueError("Cannot delete None.")
         entity = component.entity
