@@ -9,8 +9,8 @@ from components.tax_value import TaxValue
 from engine import core, palettes
 from engine.constants import PRIORITY_LOW
 
-crops_description = "A valuable crop. Easy pickings for the hordelings, " \
-                    "but will sell for 5 gold at the end of the season- if you protect them."
+crops_description = "A valuable crop. They're easy pickens for the hordelings, " \
+                    "but they will sell for 5 gold at the end of the season- if you protect them."
 
 def make_crops(x, y, farmer, field_id):
     entity_id = core.get_id()

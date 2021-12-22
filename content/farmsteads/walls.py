@@ -8,6 +8,9 @@ from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
 
+description = "A wall, made of a light, grassy material. Be wary, it's highly flammable."
+
+
 def make_wall(root_id, x, y):
     entity_id = core.get_id()
     return (

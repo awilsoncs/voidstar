@@ -11,7 +11,8 @@ from components.target_value import PEASANT, TargetValue
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
-peasant_description = "A peasant, tasked with working the fields."
+peasant_description = "A peasant, tasked with working the fields. " \
+                      "Unaware of your incompetency, their face belies a cheerful contentment."
 
 
 def make_peasant(house_id, x, y):
