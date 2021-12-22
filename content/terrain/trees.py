@@ -9,12 +9,22 @@ from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
 
+wall_tree_description = "This hardy species of Shimto tree towers over the village. " \
+                        "You won't be able to cut this one down."
+
+
 def make_wall_tree(x, y):
     entity_id = core.get_id()
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='tree', static=True, zone=0),
+            Entity(
+                id=entity_id,
+                entity=entity_id,
+                name='hardy tree',
+                static=True,
+                description=wall_tree_description
+            ),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=True),
             Appearance(entity=entity_id, symbol='♣', color=palettes.FOILAGE_B, bg_color=palettes.BACKGROUND),
             Material(entity=entity_id, blocks=True, blocks_sight=True)
@@ -22,12 +32,21 @@ def make_wall_tree(x, y):
     )
 
 
+tree_description = "A tree of the Shimto Plains. You can chop it down to sell its valuable wood."
+
+
 def make_tree(x, y):
     entity_id = core.get_id()
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='tree', static=True, zone=0),
+            Entity(
+                id=entity_id,
+                entity=entity_id,
+                name='tree',
+                static=True,
+                description=tree_description
+            ),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=True),
             Attributes(entity=entity_id, hp=5, max_hp=5),
             Corpse(entity=entity_id, symbol="%", color=palettes.WOOD),

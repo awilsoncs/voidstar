@@ -19,7 +19,7 @@ def make_player(x, y):
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='player', zone=0),
+            Entity(id=entity_id, entity=entity_id, name='player'),
             Coordinates(entity=entity_id, x=x, y=y),
             Appearance(entity=entity_id, symbol='@', color=palettes.WHITE, bg_color=palettes.BACKGROUND),
             PlayerCorpse(entity=entity_id),

@@ -9,13 +9,20 @@ from components.tax_value import TaxValue
 from engine import core, palettes
 from engine.constants import PRIORITY_LOW
 
+crops_description = "A valuable crop. Easy pickings for the hordelings, " \
+                    "but will sell for 5 gold at the end of the season- if you protect them."
 
 def make_crops(x, y, farmer, field_id):
     entity_id = core.get_id()
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='crop'),
+            Entity(
+                id=entity_id,
+                entity=entity_id,
+                name='crop',
+                description=crops_description
+            ),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOW),
             Appearance(entity=entity_id, symbol='δ', color=palettes.FIRE, bg_color=palettes.BACKGROUND),
             FarmedBy(entity=entity_id, farmer=farmer),

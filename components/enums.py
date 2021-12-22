@@ -12,6 +12,7 @@ class Intention(Enum):
     SHOOT = auto()
     PLANT_SAPLING = auto()
     DIG_HOLE = auto()
+    LOOK = auto()
 
     STEP_NORTH = auto()
     STEP_EAST = auto()
@@ -23,11 +24,6 @@ class Intention(Enum):
     STEP_NORTH_WEST = auto()
     DALLY = auto()
     FAST_FORWARD = auto()
-
-    ACTIVATE_CURSOR = auto()
-    REPORT_CURSOR = auto()
-    REPORT_LOCATION = auto()
-    KILL_CURSOR = auto()
 
     # Screen Control
     SHOW_DEBUG_SCREEN = auto()

@@ -11,13 +11,20 @@ from components.target_value import PEASANT, TargetValue
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
+peasant_description = "A peasant, tasked with working the fields."
+
 
 def make_peasant(house_id, x, y):
     entity_id = core.get_id()
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='peasant'),
+            Entity(
+                id=entity_id,
+                entity=entity_id,
+                name='peasant',
+                description=peasant_description
+            ),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=False),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             PeasantTag(entity=entity_id),

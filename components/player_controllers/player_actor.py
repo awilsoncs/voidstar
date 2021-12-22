@@ -8,6 +8,7 @@ from components.abilities.thwack_ability import ThwackAbility
 from components.actions.thwack_action import ThwackAction
 from components.actors.energy_actor import EnergyActor
 from components.player_controllers.dig_hole_actor import DigHoleActor
+from components.player_controllers.look_cursor_controller import LookCursorController
 from components.player_controllers.plant_sapling_actor import PlantSaplingActor
 from components.player_controllers.ranged_attack_actor import RangedAttackActor
 from components.animation_effects.blinker import AnimationBlinker
@@ -16,6 +17,7 @@ from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.events.fast_forward import FastForward
 from components.states.dizzy_state import DizzyState
 from components.tags.hordeling_tag import HordelingTag
+from content.cursor import make_cursor
 from content.states import confused_animation, cant_shoot_animation, no_money_animation
 from engine import core, palettes
 from engine.utilities import is_visible
@@ -76,6 +78,8 @@ class PlayerActor(EnergyActor):
                         self._handle_no_money(scene)
                         return
                     self._handle_dig_hole(entity_id, scene)
+                elif intention is Intention.LOOK:
+                    self._handle_look(scene)
                 else:
                     set_intention(scene, entity_id, None, intention)
             else:
@@ -128,12 +132,19 @@ class PlayerActor(EnergyActor):
         scene.cm.stash_component(self.id)
         scene.cm.add(new_controller, blinker)
 
+    def _handle_look(self, scene):
+        coords = scene.cm.get_one(Coordinates, entity=self.entity)
+        cursor = make_cursor(coords.x, coords.y)
+        scene.cm.add(LookCursorController(entity=self.entity, old_actor=self.id, cursor=cursor[0]))
+        scene.cm.add(*cursor[1])
+        scene.cm.stash_component(self.id)
 
 KEY_ACTION_MAP = {
     tcod.event.K_a: Intention.FAST_FORWARD,
     tcod.event.K_f: Intention.SHOOT,
     tcod.event.K_s: Intention.PLANT_SAPLING,
     tcod.event.K_d: Intention.DIG_HOLE,
+    tcod.event.K_l: Intention.LOOK,
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,
