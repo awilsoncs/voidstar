@@ -1,8 +1,10 @@
+import logging
 from dataclasses import dataclass
 
 import engine
 import settings
 from components import Entity, Coordinates, Attributes, Senses
+from components.abilities.masonry_ability import MasonryAbility
 from components.actors.energy_actor import EnergyActor
 from components.wrath_effect import WrathEffect
 from gui.easy_menu import EasyMenu
@@ -22,7 +24,8 @@ class ShowDebug(EnergyActor):
                     "get rich": get_rich(scene),
                     "wrath": get_wrath(scene, self.entity),
                     "suicide": get_suicide(scene),
-                    "teleport to": get_teleport_to(scene)
+                    "teleport to": get_teleport_to(scene),
+                    "toggle ability": get_toggle_masonry(scene)
                 },
                 settings.INVENTORY_WIDTH,
             )
@@ -109,4 +112,33 @@ def get_teleport_to_entity(scene, entity):
 def get_wrath(scene, entity):
     def out_fn():
         scene.cm.add(WrathEffect(entity=entity))
+    return out_fn
+
+
+def get_activate_ability(scene):
+    def out_fn():
+        ability_map = {}
+
+        has_masonry = scene.cm.get_one(MasonryAbility, entity=scene.player)
+        ability_map[f"Masonry ({'X' if has_masonry else ' '}"] = get_toggle_masonry(scene)
+
+        scene.gui.add_element(
+            EasyMenu(
+                "Toggle which ability?",
+                ability_map,
+                settings.INVENTORY_WIDTH,
+            )
+        )
+    return out_fn
+
+
+def get_toggle_masonry(scene):
+    def out_fn():
+        ability = scene.cm.get_one(MasonryAbility, entity=scene.player)
+        if ability:
+            logging.info("Enabling Masonry")
+            scene.cm.delete_component(ability)
+        else:
+            logging.info("Disabling Masonry")
+            scene.cm.add(MasonryAbility(entity=scene.player))
     return out_fn

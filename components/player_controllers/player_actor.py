@@ -3,6 +3,7 @@ from dataclasses import dataclass
 import tcod
 
 from components import Coordinates
+from components.abilities.masonry_ability import MasonryAbility
 from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
 from components.actions.thwack_action import ThwackAction
@@ -67,7 +68,7 @@ class PlayerActor(EnergyActor):
                         self._handle_out_of_ammo(scene)
                         return
                     elif not hordelings:
-                        self._handle_no_enemies(scene)
+                        self._handle_confused(scene)
                         return
                     self._handle_shoot(entity_id, hordelings, scene)
                 elif intention is Intention.PLANT_SAPLING:
@@ -81,9 +82,14 @@ class PlayerActor(EnergyActor):
                         return
                     self._handle_place_fence(entity_id, scene)
                 elif intention is Intention.MAKE_WALL:
-                    if scene.gold < 10:
+                    masonry_ability = scene.cm.get_one(MasonryAbility, entity=scene.player)
+                    if not masonry_ability:
+                        self._handle_confused(scene)
+                        return
+                    elif scene.gold < 10:
                         self._handle_no_money(scene)
                         return
+
                     self._handle_place_wall(entity_id, scene)
                 elif intention is Intention.DIG_HOLE:
                     if scene.gold < 2:
@@ -107,7 +113,7 @@ class PlayerActor(EnergyActor):
         cant_shoot_anim = cant_shoot_animation(player_coords.x, player_coords.y)
         scene.cm.add(*cant_shoot_anim[1])
 
-    def _handle_no_enemies(self, scene):
+    def _handle_confused(self, scene):
         player_coords = scene.cm.get_one(Coordinates, entity=self.entity)
         confused_anim = confused_animation(player_coords.x, player_coords.y)
         scene.cm.add(*confused_anim[1])

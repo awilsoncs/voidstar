@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from random import choice
 
 from components import Attributes, Appearance
+from components.abilities.masonry_ability import MasonryAbility
 from components.death_listeners.npc_corpse import Corpse
 from components.house_structure import HouseStructure
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
@@ -11,7 +12,14 @@ from engine import palettes
 @dataclass
 class UpgradeHouse(SeasonResetListener):
     def on_season_reset(self, scene):
-        house_structures = scene.cm.get(HouseStructure, query=lambda hs: hs.upgrade_level != 2 and not hs.is_destroyed)
+        masonry_ability = scene.cm.get_one(MasonryAbility, entity=scene.player)
+        max_upgrade = 2 if masonry_ability else 1
+
+        house_structures = scene.cm.get(
+            HouseStructure,
+            query=lambda hs: hs.upgrade_level != max_upgrade and not hs.is_destroyed
+        )
+
         if not house_structures:
             # Everything is upgraded.
             return

@@ -1,5 +1,6 @@
 import settings
 from components import Entity, Appearance, Senses, Attributes, Coordinates
+from components.abilities.masonry_ability import MasonryAbility
 from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
 from components.attack import Attack
@@ -33,6 +34,7 @@ def make_player(x, y):
             ThwackAbility(entity=entity_id, count=3, max=3),
             ShootAbility(entity=entity_id),
             UpdateSenses(entity=entity_id),
-            Move(entity=entity_id)
+            Move(entity=entity_id),
+            MasonryAbility(entity=entity_id)
         ]
     )
