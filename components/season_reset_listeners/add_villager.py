@@ -11,5 +11,3 @@ class AddVillager(SeasonResetListener):
         calendar = scene.cm.get_one(Calendar, entity=self.entity)
         if calendar.season == 1:
             place_farmstead(scene)
-
-

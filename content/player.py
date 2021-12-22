@@ -34,7 +34,6 @@ def make_player(x, y):
             ThwackAbility(entity=entity_id, count=3, max=3),
             ShootAbility(entity=entity_id),
             UpdateSenses(entity=entity_id),
-            Move(entity=entity_id),
-            MasonryAbility(entity=entity_id)
+            Move(entity=entity_id)
         ]
     )

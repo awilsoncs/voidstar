@@ -2,7 +2,7 @@ import random
 from components import Entity, Appearance, Attributes, Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.attack import Attack
-from components.actors.monster_actor import MonsterActor
+from components.actors.juggernaut_actor import JuggernautActor
 from components.attack_effects.knockback_attack import KnockbackAttack
 from components.death_listeners.npc_corpse import Corpse
 from components.death_listeners.drop_gold import DropGold
@@ -10,6 +10,7 @@ from components.faction import Faction
 from components.material import Material
 from components.move import Move
 from components.tags.hordeling_tag import HordelingTag
+from content.pathfinder_cost import PathfinderCost
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
@@ -22,14 +23,15 @@ def make_juggernaut(x, y):
         Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=False),
         Faction(entity=entity_id, faction=Faction.Options.MONSTER),
         Corpse(entity=entity_id),
-        MonsterActor(entity=entity_id),
+        JuggernautActor(entity=entity_id),
         Appearance(entity=entity_id, symbol='H', color=palettes.HORDELING, bg_color=palettes.BACKGROUND),
         Attributes(entity=entity_id, hp=3, max_hp=3),
         Attack(entity=entity_id, damage=2),
         Material(entity=entity_id, blocks=True, blocks_sight=False),
         HordelingTag(entity=entity_id),
         Move(entity=entity_id, energy_cost=EnergyActor.VERY_SLOW),
-        KnockbackAttack(entity=entity_id)
+        KnockbackAttack(entity=entity_id),
+        PathfinderCost(entity=entity_id, cost=5)
     ]
 
     if random.randint(1, 10) == 10:

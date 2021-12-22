@@ -3,6 +3,7 @@ from components.death_listeners.npc_corpse import Corpse
 from components.diggable import Diggable
 from components.faction import Faction
 from components.material import Material
+from content.pathfinder_cost import PathfinderCost
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
@@ -20,6 +21,7 @@ def make_fence(x, y):
             Faction(entity=entity_id, faction=Faction.Options.NEUTRAL),
             Diggable(entity=entity_id),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
+            PathfinderCost(entity=entity_id, cost=20)
         ]
     )
 
@@ -37,5 +39,6 @@ def make_stone_wall(x, y):
             Faction(entity=entity_id, faction=Faction.Options.NEUTRAL),
             Diggable(entity=entity_id),
             Material(entity=entity_id, blocks=True, blocks_sight=True),
+            PathfinderCost(entity=entity_id, cost=40)
         ]
     )

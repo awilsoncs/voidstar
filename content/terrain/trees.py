@@ -5,6 +5,7 @@ from components.death_listeners.terrain_changes_on_death import TerrainChangedOn
 from components.faction import Faction
 from components.material import Material
 from components.tags.tree_tag import TreeTag
+from content.pathfinder_cost import PathfinderCost
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
@@ -55,6 +56,7 @@ def make_tree(x, y):
             Appearance(entity=entity_id, symbol='♣', color=palettes.FOILAGE_C, bg_color=palettes.BACKGROUND),
             Material(entity=entity_id, blocks=True, blocks_sight=True),
             TreeTag(entity=entity_id),
-            TerrainChangedOnDeath(entity=entity_id)
+            TerrainChangedOnDeath(entity=entity_id),
+            PathfinderCost(entity=entity_id, cost=20)
         ]
     )

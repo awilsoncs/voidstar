@@ -6,6 +6,7 @@ from components.death_listeners.drop_gold import DropGold
 from components.diggable import Diggable
 from components.material import Material
 from components.states.swamped_state import DifficultTerrain
+from content.pathfinder_cost import PathfinderCost
 from engine import core, palettes
 from engine.component import Component
 from engine.constants import PRIORITY_LOWEST
@@ -22,7 +23,8 @@ def make_rock(x, y):
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST, terrain=True),
             Material(entity=entity_id, blocks=False, blocks_sight=False),
             DifficultTerrain(entity=entity_id),
-            Diggable(entity=entity_id)
+            Diggable(entity=entity_id),
+            PathfinderCost(entity=entity_id, cost=4)
         ]
     )
     if random.randint(1, 20) == 1:

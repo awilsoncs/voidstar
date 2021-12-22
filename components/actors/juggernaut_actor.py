@@ -12,7 +12,7 @@ from systems.utilities import set_intention
 
 
 @dataclass
-class MonsterActor(EnergyActor):
+class JuggernautActor(EnergyActor):
 
     @log_debug(__name__)
     def act(self, scene):
