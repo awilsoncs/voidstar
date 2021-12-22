@@ -11,6 +11,8 @@ class Intention(Enum):
     THWACK = auto()
     SHOOT = auto()
     PLANT_SAPLING = auto()
+    DIG_HOLE = auto()
+
     STEP_NORTH = auto()
     STEP_EAST = auto()
     STEP_WEST = auto()

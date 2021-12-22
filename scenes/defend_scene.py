@@ -4,9 +4,10 @@ import settings
 from components import clear_components
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.game_start_listeners.start_game import StartGame
+from content.physics_controller import make_physics_controller
 from content.utilities import make_calendar
 from content.world_builder import make_world_build
-from engine import GameScene, core
+from engine import GameScene
 from engine.component_manager import ComponentManager
 from engine.constants import PLAYER_ID
 from engine.core import timed
@@ -54,9 +55,9 @@ class DefendScene(GameScene):
 
         anchor.add_element(HordeStatusLabel(1, 8))
         anchor.add_element(HordelingBar(1, 9))
-        anchor.add_space(13)
+        anchor.add_space(12)
 
-        anchor.add_element(HelpTab(1, 28))
+        anchor.add_element(HelpTab(1, 26))
 
         self.add_gui_element(anchor)
         self.add_gui_element(self.play_window)
@@ -68,6 +69,7 @@ class DefendScene(GameScene):
         self.play_window.cm = self.cm
         self.cm.add(*make_world_build()[1])
         self.cm.add(*make_calendar()[1])
+        self.cm.add(*make_physics_controller()[1])
         self.cm.add(StartGame(entity=self.player))
 
     @timed(100, __name__)

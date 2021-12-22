@@ -24,14 +24,17 @@ def create_options_file():
     option_data_base = {
         'grass-density': 2,
         'lakes-min': 1,
-        'lakes-max': 4,
+        'lakes-max': 1,
         'lake-proliferation': .2,
-        'copse-min': 1,
-        'copse-max': 3,
+        'copse-min': 5,
+        'copse-max': 5,
         'copse-proliferation': .05,
         'character-name': 'Sir Chauncey',
         'spawn-min': 1,
         'spawn-max': 1,
+        'rock-field-min': 2,
+        'rock-field-max': 2,
+        'rocks-proliferation': .075,
         'torch-radius': -1
     }
     with open(get_relative_path('options.yaml'), mode='w+') as file:

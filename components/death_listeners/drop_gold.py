@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from components import Coordinates
 from components.death_listeners.death_listener import DeathListener
-from content.gold import make_gold_nugget
+from content.getables.gold import make_gold_nugget
 
 
 @dataclass

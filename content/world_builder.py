@@ -6,6 +6,7 @@ from components.build_world_listeners.place_lakes import PlaceLakes
 from components.build_world_listeners.place_map_boundary import PlaceMapBoundary
 from components.build_world_listeners.place_peasants import PlacePeasants
 from components.build_world_listeners.place_copses import PlaceTrees
+from components.build_world_listeners.place_rocks import PlaceRocks
 from engine import core
 
 
@@ -21,6 +22,7 @@ def make_world_build():
             PlaceLakes(entity=entity_id),
             PlacePeasants(entity=entity_id),
             PlaceTrees(entity=entity_id),
+            PlaceRocks(entity=entity_id),
             DeleteWorldBuilder(entity=entity_id)
         ]
     )
