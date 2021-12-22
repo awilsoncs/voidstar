@@ -9,7 +9,9 @@ from components.actions.thwack_action import ThwackAction
 from components.actors.energy_actor import EnergyActor
 from components.player_controllers.dig_hole_actor import DigHoleActor
 from components.player_controllers.look_cursor_controller import LookCursorController
-from components.player_controllers.plant_sapling_actor import PlantSaplingActor
+from components.player_controllers.place_fence_actor import PlaceFenceActor
+from components.player_controllers.place_stone_wall_actor import PlaceStoneWallActor
+from components.player_controllers.plant_sapling_actor import PlaceSaplingActor
 from components.player_controllers.ranged_attack_actor import RangedAttackActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention
@@ -73,6 +75,16 @@ class PlayerActor(EnergyActor):
                         self._handle_no_money(scene)
                         return
                     self._handle_plant_sapling(entity_id, scene)
+                elif intention is Intention.MAKE_FENCE:
+                    if scene.gold < 5:
+                        self._handle_no_money(scene)
+                        return
+                    self._handle_place_fence(entity_id, scene)
+                elif intention is Intention.MAKE_WALL:
+                    if scene.gold < 10:
+                        self._handle_no_money(scene)
+                        return
+                    self._handle_place_wall(entity_id, scene)
                 elif intention is Intention.DIG_HOLE:
                     if scene.gold < 2:
                         self._handle_no_money(scene)
@@ -113,11 +125,31 @@ class PlayerActor(EnergyActor):
         scene.cm.add(*confused_anim[1])
 
     def _handle_plant_sapling(self, entity_id, scene):
-        new_controller = PlantSaplingActor(entity=entity_id, old_actor=self.id)
+        new_controller = PlaceSaplingActor(entity=entity_id, old_actor=self.id)
         blinker = AnimationBlinker(
             entity=self.entity,
             new_symbol='+',
             new_color=palettes.FOILAGE_C
+        )
+        scene.cm.stash_component(self.id)
+        scene.cm.add(new_controller, blinker)
+
+    def _handle_place_fence(self, entity_id, scene):
+        new_controller = PlaceFenceActor(entity=entity_id, old_actor=self.id)
+        blinker = AnimationBlinker(
+            entity=self.entity,
+            new_symbol='#',
+            new_color=palettes.WOOD
+        )
+        scene.cm.stash_component(self.id)
+        scene.cm.add(new_controller, blinker)
+
+    def _handle_place_wall(self, entity_id, scene):
+        new_controller = PlaceStoneWallActor(entity=entity_id, old_actor=self.id)
+        blinker = AnimationBlinker(
+            entity=self.entity,
+            new_symbol='#',
+            new_color=palettes.STONE
         )
         scene.cm.stash_component(self.id)
         scene.cm.add(new_controller, blinker)
@@ -139,12 +171,15 @@ class PlayerActor(EnergyActor):
         scene.cm.add(*cursor[1])
         scene.cm.stash_component(self.id)
 
+
 KEY_ACTION_MAP = {
     tcod.event.K_a: Intention.FAST_FORWARD,
     tcod.event.K_f: Intention.SHOOT,
     tcod.event.K_s: Intention.PLANT_SAPLING,
     tcod.event.K_d: Intention.DIG_HOLE,
     tcod.event.K_l: Intention.LOOK,
+    tcod.event.K_e: Intention.MAKE_FENCE,
+    tcod.event.K_r: Intention.MAKE_WALL,
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,

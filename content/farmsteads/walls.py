@@ -27,3 +27,4 @@ def make_wall(root_id, x, y):
             ScheduleRebuild(entity=entity_id, root=root_id)
         ]
     )
+

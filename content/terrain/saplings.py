@@ -12,7 +12,7 @@ def make_sapling(x, y):
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='tree', static=True, zone=0),
+            Entity(id=entity_id, entity=entity_id, name='tree', static=True),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=True),
             Attributes(entity=entity_id, hp=2, max_hp=2),
             Corpse(entity=entity_id, symbol="%", color=palettes.FOILAGE_C),

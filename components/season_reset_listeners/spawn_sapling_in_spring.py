@@ -3,7 +3,7 @@ import random
 
 from components import Coordinates
 from components.actors.calendar_actor import Calendar
-from components.player_controllers.plant_sapling_actor import is_plantable
+from components.player_controllers.place_thing_actor import is_buildable
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.tree_tag import TreeTag
 from content.terrain.saplings import make_sapling
@@ -35,7 +35,7 @@ class SpawnSaplingInSpring(SeasonResetListener):
             plantable_tiles = [
                 (x2, y2)
                 for x2, y2 in get_3_by_3_box(x, y)
-                if is_plantable(scene, x2, y2)
+                if is_buildable(scene, x2, y2)
             ]
             target_tile = random.choice(plantable_tiles)
             scene.cm.add(*make_sapling(target_tile[0], target_tile[1])[1])
