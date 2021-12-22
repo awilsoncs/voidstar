@@ -10,7 +10,7 @@ from components.faction import Faction
 from components.material import Material
 from components.move import Move
 from components.move_listeners.move_listener import MoveListener
-from components.states.swamped_state import Swamped, Swamper
+from components.states.swamped_state import Hindered, DifficultTerrain
 from content.attacks import stab
 from systems.utilities import get_blocking_object, retract_turn, retract_intention
 
@@ -131,7 +131,7 @@ def move(scene, entity: int, vector: Tuple[int, int]):
     This function is intended to be the final call before performing the actual move,
     and no validation occurs herein (except possibly to avoid crashes).
     """
-    swamped = scene.cm.get_one(Swamped, entity=entity)
+    swamped = scene.cm.get_one(Hindered, entity=entity)
 
     if swamped:
         scene.cm.delete_component(swamped)
@@ -145,7 +145,7 @@ def move(scene, entity: int, vector: Tuple[int, int]):
             move_listener.on_move(scene)
 
         swampers = any(
-            scene.cm.get_one(Swamper, coord.entity) is not None
+            scene.cm.get_one(DifficultTerrain, coord.entity) is not None
             for coord in scene.cm.get(Coordinates)
             if (
                 coord.x == coords.x
@@ -154,7 +154,7 @@ def move(scene, entity: int, vector: Tuple[int, int]):
         )
 
         if swampers:
-            scene.cm.add(Swamped(entity=entity))
+            scene.cm.add(Hindered(entity=entity))
 
 
 def move_coords(coords: Coordinates, vector: Tuple[int, int]):

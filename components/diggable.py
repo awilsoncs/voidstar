@@ -4,10 +4,6 @@ from engine.component import Component
 
 
 @dataclass
-class Hindered(Component):
-    pass
-
-
-@dataclass
-class DifficultTerrain(Component):
+class Diggable(Component):
+    is_free: bool = False
     pass

@@ -7,6 +7,7 @@ from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
 from components.actions.thwack_action import ThwackAction
 from components.actors.energy_actor import EnergyActor
+from components.player_controllers.dig_hole_actor import DigHoleActor
 from components.player_controllers.plant_sapling_actor import PlantSaplingActor
 from components.player_controllers.ranged_attack_actor import RangedAttackActor
 from components.animation_effects.blinker import AnimationBlinker
@@ -70,6 +71,11 @@ class PlayerActor(EnergyActor):
                         self._handle_no_money(scene)
                         return
                     self._handle_plant_sapling(entity_id, scene)
+                elif intention is Intention.DIG_HOLE:
+                    if scene.gold < 2:
+                        self._handle_no_money(scene)
+                        return
+                    self._handle_dig_hole(entity_id, scene)
                 else:
                     set_intention(scene, entity_id, None, intention)
             else:
@@ -112,11 +118,22 @@ class PlayerActor(EnergyActor):
         scene.cm.stash_component(self.id)
         scene.cm.add(new_controller, blinker)
 
+    def _handle_dig_hole(self, entity_id, scene):
+        new_controller = DigHoleActor(entity=entity_id, old_actor=self.id)
+        blinker = AnimationBlinker(
+            entity=self.entity,
+            new_symbol='o',
+            new_color=palettes.DIRT
+        )
+        scene.cm.stash_component(self.id)
+        scene.cm.add(new_controller, blinker)
+
 
 KEY_ACTION_MAP = {
     tcod.event.K_a: Intention.FAST_FORWARD,
     tcod.event.K_f: Intention.SHOOT,
     tcod.event.K_s: Intention.PLANT_SAPLING,
+    tcod.event.K_d: Intention.DIG_HOLE,
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,
