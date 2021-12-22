@@ -4,7 +4,9 @@ from dataclasses import dataclass, field
 import settings
 from components import Coordinates
 from components.actors.energy_actor import EnergyActor
-from content.enemies import make_hordeling, make_juggernaut
+from content.enemies.juggernaut import make_juggernaut
+from content.enemies.juvenile import make_juvenile
+from content.enemies.sneaker import make_sneaker
 
 
 def get_hordeling_count():
@@ -23,10 +25,13 @@ class HordelingSpawner(EnergyActor):
             coords = scene.cm.get_one(Coordinates, entity=self.entity)
             assert coords, "no coords found for spawner"
 
-            if random.random() > 0.95:
+            roll = random.random()
+            if roll > 0.95:
                 scene.cm.add(*make_juggernaut(coords.x, coords.y)[1])
+            elif roll > 0.9:
+                scene.cm.add(*make_sneaker(coords.x, coords.y)[1])
             else:
-                scene.cm.add(*make_hordeling(coords.x, coords.y)[1])
+                scene.cm.add(*make_juvenile(coords.x, coords.y)[1])
             self.remaining -= 1
         self.pass_turn()
 

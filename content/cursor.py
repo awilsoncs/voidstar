@@ -15,7 +15,7 @@ def make_cursor(x, y):
                 symbol='X',
                 color=palettes.GOLD,
                 bg_color=palettes.BACKGROUND,
-                above_stealth=True
+                render_mode=Appearance.RenderMode.HIGH_VEE
             ),
         ]
     )
