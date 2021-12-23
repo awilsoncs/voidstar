@@ -14,7 +14,7 @@ class Deleter(TimedActor):
 
     @log_debug(__name__)
     def act(self, scene):
-        logging.info(f"EID#{self.entity}:Deleter event")
+        logging.debug(f"EID#{self.entity}:Deleter event")
         delete_listeners: List[DeleteListener] = scene.cm.get(DeleteListener, query=lambda dl: dl.entity == self.entity)
         for listener in delete_listeners:
             listener.on_delete(scene)

@@ -13,6 +13,6 @@ class ResetOwnerAnimation(DeleteListener):
 
         # todo unhardcode this
         peasant = scene.cm.get_one(Actor, entity=owner.owner)
-        logging.info(f"EID#{self.entity}:ResetOwnerAnimation triggered, owner={owner.owner}")
+        logging.debug(f"EID#{self.entity}:ResetOwnerAnimation triggered, owner={owner.owner}")
 
         peasant.can_animate = True

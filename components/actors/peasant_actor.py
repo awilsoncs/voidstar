@@ -38,7 +38,7 @@ class PeasantActor(EnergyActor):
         if not self.can_animate:
             return
 
-        logging.info(f"EID#{self.entity}:PeasantActor farming")
+        logging.debug(f"EID#{self.entity}:PeasantActor farming")
         self.can_animate = False
 
         farm_tiles: List[Coordinates] = scene.cm.get(

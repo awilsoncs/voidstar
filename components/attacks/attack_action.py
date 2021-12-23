@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 from typing import List
 
@@ -20,6 +21,7 @@ class AttackAction(EnergyActor):
     damage: int = 0
 
     def act(self, scene) -> None:
+        logging.info(f"EID#{self.entity}::AttackAction dealing {self.damage} dmg to {self.target}")
         owner = scene.cm.get_one(Owner, entity=self.target)
         if owner:
             structures = scene.cm.get(HouseStructure, query=lambda hs: hs.house_id == owner.owner)
