@@ -31,7 +31,7 @@ def make_crops(x, y, farmer, field_id):
             DieInWinter(entity=entity_id),
             TargetValue(entity=entity_id, value=target_value.CROPS),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
-            Attributes(entity=entity_id, hp=1, max_hp=1),
+            Attributes(entity=entity_id, hp=3, max_hp=3),
             Corpse(entity=entity_id, color=palettes.FIRE)
         ]
     )
