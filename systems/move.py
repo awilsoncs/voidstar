@@ -1,9 +1,8 @@
 from typing import Tuple
 
 from components import Senses
-from components.actions.attack_action import AttackAction
 from components.actors.actor import Actor
-from components.attack import Attack
+from components.attacks.attack import Attack
 from components.coordinates import Coordinates
 from components.enums import Intention
 from components.faction import Faction
@@ -11,8 +10,7 @@ from components.material import Material
 from components.move import Move
 from components.move_listeners.move_listener import MoveListener
 from components.states.swamped_state import Hindered, DifficultTerrain
-from content.attacks import stab
-from systems.utilities import get_blocking_object, retract_turn, retract_intention
+from systems.utilities import get_blocking_object, retract_intention
 
 
 def get_hostile(scene, entity, step_direction):
@@ -48,20 +46,11 @@ def run(scene):
             retract_intention(scene, entity)
         elif get_hostile(scene, entity, step_direction):
 
-            entity_attack = scene.cm.get_one(Attack, entity=entity)
+            entity_attack: Attack = scene.cm.get_one(Attack, entity=entity)
             if entity_attack:
-                hostile = get_hostile(scene, entity, step_direction)
-                scene.cm.add(AttackAction(entity=entity, recipient=hostile, damage=1))
-                coords = scene.cm.get_one(Coordinates, entity)
-                scene.cm.add(
-                    *stab(
-                        entity,
-                        coords.x + step_direction[0],
-                        coords.y + step_direction[1]
-                    )[1]
-                )
-            else:
-                actor.pass_turn()
+                hostile: int = get_hostile(scene, entity, step_direction)
+                entity_attack.apply_attack(scene, hostile)
+            actor.pass_turn()
             retract_intention(scene, entity)
         else:
             actor.pass_turn()

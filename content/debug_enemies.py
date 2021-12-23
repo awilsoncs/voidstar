@@ -1,5 +1,5 @@
 from components import Entity, Appearance, Attributes, Coordinates
-from components.attack import Attack
+from components.attacks.attack import Attack
 from components.death_listeners.npc_corpse import Corpse
 from components.death_listeners.drop_gold import DropGold
 from components.faction import Faction

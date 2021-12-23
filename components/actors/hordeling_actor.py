@@ -1,5 +1,5 @@
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Tuple, List, Optional
 
 import numpy as np
@@ -7,16 +7,14 @@ import tcod
 
 import settings
 from components import Coordinates
-from components.actions.attack_action import AttackAction
+from components.attacks.attack_action import AttackAction
 from components.actors.energy_actor import EnergyActor
-from components.attack import Attack
-from components.options import Options
+from components.attacks.attack import Attack
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.pathfinding.cost_mapper import CostMapper
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
 from components.target_value import TargetValue
 from content.attacks import stab
-from content.breadcrumb import make_breadcrumb
 from engine import constants
 from engine.core import log_debug
 from components.actors import VECTOR_STEP_MAP
@@ -62,7 +60,7 @@ class HordelingActor(EnergyActor):
         scene.cm.add(
             AttackAction(
                 entity=self.entity,
-                recipient=self.target,
+                target=self.target,
                 damage=attack.damage
             )
         )
@@ -73,6 +71,7 @@ class HordelingActor(EnergyActor):
                 coords.y + facing[1]
             )[1]
         )
+        self.pass_turn()
 
     def is_target_in_range(self, scene) -> bool:
         coords = scene.cm.get_one(Coordinates, entity=self.entity)

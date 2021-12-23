@@ -3,7 +3,7 @@ from math import sqrt
 from components import Coordinates
 from components.abilities.thwack_ability import ThwackAbility
 from components.events.chargeabilityevent import ChargeAbilityEvent
-from components.actions.attack_action import AttackAction
+from components.attacks.attack_action import AttackAction
 from components.actions.thwack_action import ThwackAction
 from components.states.dizzy_state import DizzyState
 from content.attacks import thwack_animation, thwack_dizzy_animation
@@ -25,7 +25,7 @@ def handle_thwack_action(scene, thwack):
         # convert the thwack action to an attack action each adjacent enemy
         thwackables = get_enemies_in_range(scene, thwack.entity, max_range=sqrt(2))
         attacks = [
-            AttackAction(entity=thwack.entity, recipient=t, damage=1)
+            AttackAction(entity=thwack.entity, target=t, damage=1)
             for t in thwackables
         ]
 

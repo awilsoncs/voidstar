@@ -2,7 +2,7 @@ import random
 
 from components import Entity, Coordinates, Appearance, Attributes
 from components.actors.hordeling_actor import HordelingActor
-from components.attack import Attack
+from components.attacks.attack import Attack
 from components.death_listeners.drop_gold import DropGold
 from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction

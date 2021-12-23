@@ -2,8 +2,8 @@ import random
 from components import Entity, Appearance, Attributes, Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_actor import HordelingActor
-from components.attack import Attack
-from components.attack_effects.knockback_attack import KnockbackAttack
+from components.attacks.attack import Attack
+from components.attacks.attack_effects.knockback_attack import KnockbackAttack
 from components.death_listeners.npc_corpse import Corpse
 from components.death_listeners.drop_gold import DropGold
 from components.faction import Faction

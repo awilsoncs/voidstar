@@ -4,6 +4,7 @@ from components.death_listeners.schedule_rebuild import ScheduleRebuild
 from components.faction import Faction
 from components.material import Material
 from components.relationships.owner import Owner
+from components.structure import Structure
 from content.pathfinder_cost import PathfinderCost
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
@@ -26,7 +27,8 @@ def make_wall(root_id, x, y):
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=True),
             ScheduleRebuild(entity=entity_id, root=root_id),
-            PathfinderCost(entity=entity_id, cost=10)
+            PathfinderCost(entity=entity_id, cost=10),
+            Structure(entity=entity_id)
         ]
     )
 

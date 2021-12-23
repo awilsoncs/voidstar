@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import tcod
 
 from components.abilities.shoot_ability import ShootAbility
-from components.actions.attack_action import AttackAction
+from components.attacks.attack_action import AttackAction
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention

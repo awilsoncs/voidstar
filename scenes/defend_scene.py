@@ -77,7 +77,6 @@ class DefendScene(GameScene):
         act.run(self)
         death.run(self)
         thwack.run(self)
-        melee_attack.run(self)
         move.run(self)
         pickup_gold.run(self)
         peasant_dead_check.run(self)

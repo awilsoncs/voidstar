@@ -1,9 +1,8 @@
 import settings
 from components import Entity, Appearance, Senses, Attributes, Coordinates
-from components.abilities.masonry_ability import MasonryAbility
 from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
-from components.attack import Attack
+from components.attacks.attack import Attack
 from components.death_listeners.player_corpse import PlayerCorpse
 from components.move_listeners.update_senses_on_move import UpdateSenses
 from components.options import Options
