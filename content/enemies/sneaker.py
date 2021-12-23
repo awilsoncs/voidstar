@@ -3,7 +3,7 @@ import random
 from components import Entity, Coordinates, Appearance, Attributes
 
 from components.actors.hordeling_actor import HordelingActor
-from components.attacks.attack import Attack
+from components.attacks.standard_attack import StandardAttack
 from components.death_listeners.drop_gold import DropGold
 from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction
@@ -35,7 +35,7 @@ def make_sneaker(x, y):
             render_mode=Appearance.RenderMode.STEALTHY
         ),
         Attributes(entity=entity_id, hp=1, max_hp=1),
-        Attack(entity=entity_id, damage=1),
+        StandardAttack(entity=entity_id, damage=1),
         Material(entity=entity_id, blocks=True, blocks_sight=False),
         HordelingTag(entity=entity_id),
         Move(entity=entity_id),

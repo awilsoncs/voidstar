@@ -1,3 +1,5 @@
+import logging
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 from components import Coordinates
@@ -7,10 +9,9 @@ from engine.component import Component
 
 
 @dataclass
-class Attack(Component):
+class Attack(Component, ABC):
     damage: int = 1
 
+    @abstractmethod
     def apply_attack(self, scene, target):
-        scene.cm.add(AttackAction(entity=self.entity, target=target, damage=1))
-        target_coords = scene.cm.get_one(Coordinates, target)
-        scene.cm.add(*stab(self.entity, target_coords.x, target_coords.y)[1])
+        raise NotImplementedError("Attack must use subclass")

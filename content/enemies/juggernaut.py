@@ -2,8 +2,8 @@ import random
 from components import Entity, Appearance, Attributes, Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_actor import HordelingActor
-from components.attacks.attack import Attack
 from components.attacks.attack_effects.knockback_attack import KnockbackAttack
+from components.attacks.siege_attack import SiegeAttack
 from components.death_listeners.npc_corpse import Corpse
 from components.death_listeners.drop_gold import DropGold
 from components.faction import Faction
@@ -28,7 +28,7 @@ def make_juggernaut(x, y):
         StraightLineCostMapper(entity=entity_id),
         Appearance(entity=entity_id, symbol='H', color=palettes.HORDELING, bg_color=palettes.BACKGROUND),
         Attributes(entity=entity_id, hp=3, max_hp=3),
-        Attack(entity=entity_id, damage=2),
+        SiegeAttack(entity=entity_id, damage=2),
         Material(entity=entity_id, blocks=True, blocks_sight=False),
         HordelingTag(entity=entity_id),
         Move(entity=entity_id, energy_cost=EnergyActor.VERY_SLOW),

@@ -2,7 +2,7 @@ import settings
 from components import Entity, Appearance, Senses, Attributes, Coordinates
 from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
-from components.attacks.attack import Attack
+from components.attacks.standard_attack import StandardAttack
 from components.death_listeners.player_corpse import PlayerCorpse
 from components.move_listeners.update_senses_on_move import UpdateSenses
 from components.options import Options
@@ -27,7 +27,7 @@ def make_player(x, y):
             Senses(entity=entity_id, sight_radius=settings.TORCH_RADIUS),
             PlayerActor(entity=entity_id),
             Attributes(entity=entity_id, hp=5, max_hp=5),
-            Attack(entity=entity_id, damage=1),
+            StandardAttack(entity=entity_id, damage=1),
             TargetValue(entity=entity_id, value=PLAYER),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False),

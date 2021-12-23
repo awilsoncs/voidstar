@@ -1,8 +1,7 @@
 import logging
 from collections import defaultdict
-from typing import Set, Dict, List, Iterable, Generic, Type, Callable, Any
+from typing import Set, Dict, List, Iterable, Generic, Type, Callable
 
-from components.delete_listeners.delete_listener import DeleteListener
 from engine import constants
 from engine.component import Component
 from engine.core import get_id, log_debug
@@ -119,6 +118,8 @@ class ComponentManager(object):
             raise ValueError("Cannot delete None.")
         entity = component.entity
 
+        component.on_component_delete(self)
+
         if entity in self.entities:
             component_types = type(component).mro()
             for component_type in component_types:
@@ -131,9 +132,6 @@ class ComponentManager(object):
 
     def delete_components(self, component_type: ComponentType) -> None:
         components_to_delete = [c for c in self.components[component_type]]
-        for component in components_to_delete:
-            component.on_component_delete(self)
-
         for component in components_to_delete:
             self.delete_component(component)
 
