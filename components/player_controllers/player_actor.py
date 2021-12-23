@@ -144,7 +144,7 @@ class PlayerActor(EnergyActor):
         new_controller = PlaceFenceActor(entity=entity_id, old_actor=self.id)
         blinker = AnimationBlinker(
             entity=self.entity,
-            new_symbol='#',
+            new_symbol='o',
             new_color=palettes.WOOD
         )
         scene.cm.stash_component(self.id)
@@ -154,7 +154,7 @@ class PlayerActor(EnergyActor):
         new_controller = PlaceStoneWallActor(entity=entity_id, old_actor=self.id)
         blinker = AnimationBlinker(
             entity=self.entity,
-            new_symbol='#',
+            new_symbol='o',
             new_color=palettes.STONE
         )
         scene.cm.stash_component(self.id)

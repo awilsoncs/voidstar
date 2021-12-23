@@ -15,7 +15,7 @@ def make_fence(x, y):
         entity_id,
         [
             Entity(id=entity_id, entity=entity_id, name='fence'),
-            Appearance(entity=entity_id, symbol='#', color=palettes.WOOD, bg_color=palettes.BACKGROUND),
+            Appearance(entity=entity_id, symbol='o', color=palettes.WOOD, bg_color=palettes.BACKGROUND),
             Corpse(entity=entity_id, symbol='%', color=palettes.WOOD, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
             Attributes(entity=entity_id, hp=10, max_hp=10),
@@ -34,7 +34,7 @@ def make_stone_wall(x, y):
         entity_id,
         [
             Entity(id=entity_id, entity=entity_id, name='stone wall'),
-            Appearance(entity=entity_id, symbol='#', color=palettes.STONE, bg_color=palettes.BACKGROUND),
+            Appearance(entity=entity_id, symbol='o', color=palettes.STONE, bg_color=palettes.BACKGROUND),
             Corpse(entity=entity_id, symbol='%', color=palettes.STONE, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
             Attributes(entity=entity_id, hp=20, max_hp=20),
