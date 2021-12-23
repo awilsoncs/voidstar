@@ -43,7 +43,7 @@ class RangedAttackActor(EnergyActor):
         if not shoot_ability or shoot_ability.count <= 0:
             self.back_out(scene)
         shoot_ability.count -= 1
-        attack = AttackAction(entity=self.entity, recipient=self.target, damage=1)
+        attack = AttackAction(entity=self.entity, target=self.target, damage=1)
         scene.cm.add(attack)
         self.back_out(scene)
 
