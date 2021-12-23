@@ -1,7 +1,6 @@
 import logging
-import random
-from dataclasses import dataclass
-from typing import Tuple, List
+from dataclasses import dataclass, field
+from typing import Tuple, List, Optional
 
 import numpy as np
 import tcod
@@ -11,22 +10,17 @@ from components import Coordinates
 from components.actions.attack_action import AttackAction
 from components.actors.energy_actor import EnergyActor
 from components.attack import Attack
+from components.options import Options
+from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
+from components.pathfinding.cost_mapper import CostMapper
+from components.pathfinding.normal_cost_mapper import NormalCostMapper
 from components.target_value import TargetValue
 from content.attacks import stab
-from content.pathfinder_cost import PathfinderCost
+from content.breadcrumb import make_breadcrumb
 from engine import constants
 from engine.core import log_debug
-from components.actors import VECTOR_STEP_MAP, STEPS
+from components.actors import VECTOR_STEP_MAP
 from systems.utilities import set_intention
-
-
-def get_cost_map(scene):
-    size = (settings.MAP_WIDTH, settings.MAP_HEIGHT)
-    cost = np.ones(size, dtype=np.int8, order='F')
-    for cost_component in scene.cm.get(PathfinderCost):
-        coords = scene.cm.get_one(Coordinates, entity=cost_component.entity)
-        cost[coords.x, coords.y] += cost_component.cost
-    return cost
 
 
 @dataclass
@@ -36,15 +30,22 @@ class HordelingActor(EnergyActor):
 
     @log_debug(__name__)
     def act(self, scene):
-        self.cost_map = get_cost_map(scene)
+        self.cost_map = self.get_cost_map(scene)
 
-        if self.target not in scene.cm.entities:
-            self.target = self.get_new_target(scene)
+        self.target = self.get_new_target(scene)
 
         if self.is_target_in_range(scene):
             self.attack_target(scene)
         else:
             self.move_towards_target(scene)
+
+    def get_cost_map(self, scene):
+        cost_mapper: Optional[CostMapper] = scene.cm.get_one(CostMapper, entity=self.entity)
+        if cost_mapper:
+            return cost_mapper.get_cost_map(scene)
+        else:
+            # If one hasn't been set up, we default to the normal behavior
+            return NormalCostMapper(entity=self.entity).get_cost_map(scene)
 
     def move_towards_target(self, scene):
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
@@ -87,6 +88,11 @@ class HordelingActor(EnergyActor):
 
         target_coords = scene.cm.get_one(Coordinates, entity=self.target)
         path: List[Tuple[int, int]] = pf.path_to((target_coords.x, target_coords.y))[1:].tolist()
+
+        breadcrumb_tracker = scene.cm.get_one(BreadcrumbTracker, entity=self.entity)
+        if breadcrumb_tracker:
+            breadcrumb_tracker.add_breadcrumbs(scene, path)
+
         if path:
             return path[0]
         else:
@@ -102,7 +108,7 @@ class HordelingActor(EnergyActor):
         best = (None, 0)
         for target in scene.cm.get(TargetValue):
             target_coords = scene.cm.get_one(Coordinates, entity=target.entity)
-            cost_to_reach = float(dist[target_coords.x, target_coords.y])
+            cost_to_reach = float(dist[target_coords.x, target_coords.y])**2
             value = float(target.value) / cost_to_reach
             if value > best[1]:
                 logging.debug(f"Found better target: {target.entity} at value {value}")

@@ -2,6 +2,8 @@ import logging
 from collections import defaultdict
 from typing import Set, Dict, List, Iterable, Generic, Type, Callable, Any
 
+from components.delete_listeners.delete_listener import DeleteListener
+from engine import constants
 from engine.component import Component
 from engine.core import get_id, log_debug
 from engine.types import EntityDictIndex, EntityDict, T, ComponentType, ComponentList, U
@@ -116,6 +118,10 @@ class ComponentManager(object):
         if not component:
             raise ValueError("Cannot delete None.")
         entity = component.entity
+
+        # perform any component-specific behavior
+        component.on_component_delete(self)
+
         if entity in self.entities:
             component_types = type(component).mro()
             for component_type in component_types:
@@ -147,6 +153,7 @@ class ComponentManager(object):
         """Add a component to the db."""
         component.id = get_id()
         entity = component.entity
+        assert entity != constants.INVALID, f"Invalid entity id! {component}. Did you forget to set the owning entity?"
         component_classes = type(component).mro()
         for component_class in component_classes:
             self.components_by_entity[entity][component_class].append(component)

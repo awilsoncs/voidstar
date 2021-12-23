@@ -58,7 +58,7 @@ class PlayerActor(EnergyActor):
                 # todo Migrate all of this to a component definition system
                 if intention is Intention.FAST_FORWARD:
                     # fast forwards are migrated to a new actor system
-                    scene.cm.add(FastForward())
+                    scene.cm.add(FastForward(entity=scene.player))
                 if intention is Intention.SHOW_DEBUG_SCREEN:
                     scene.cm.add(ShowDebug(entity=self.entity))
                 elif intention is Intention.SHOOT:

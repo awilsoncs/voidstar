@@ -6,8 +6,12 @@ import settings
 from components import Entity, Coordinates, Attributes, Senses
 from components.abilities.masonry_ability import MasonryAbility
 from components.actors.energy_actor import EnergyActor
+from components.actors.hordeling_actor import HordelingActor
+from components.options import Options
+from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.wrath_effect import WrathEffect
 from gui.easy_menu import EasyMenu
+
 
 
 @dataclass
@@ -25,7 +29,8 @@ class ShowDebug(EnergyActor):
                     "wrath": get_wrath(scene, self.entity),
                     "suicide": get_suicide(scene),
                     "teleport to": get_teleport_to(scene),
-                    "toggle ability": get_toggle_masonry(scene)
+                    "toggle ability": get_toggle_masonry(scene),
+                    "toggle pathing": get_pathfinding_for(scene)
                 },
                 settings.INVENTORY_WIDTH,
             )
@@ -141,4 +146,29 @@ def get_toggle_masonry(scene):
         else:
             logging.info("Disabling Masonry")
             scene.cm.add(MasonryAbility(entity=scene.player))
+    return out_fn
+
+
+def get_pathfinding_for(scene):
+    def out_fn():
+        actors = scene.cm.get(HordelingActor)
+        entities = [scene.cm.get_one(Entity, entity=e.entity) for e in actors]
+        entities = sorted(entities, key=lambda e: e.id)
+        scene.gui.add_element(
+            EasyMenu(
+                "Toggle pathfinding for which?",
+                {entity.get_readable_key(): get_show_pathing(scene, entity.entity) for entity in entities},
+                settings.INVENTORY_WIDTH,
+            )
+        )
+    return out_fn
+
+
+def get_show_pathing(scene, entity):
+    def out_fn():
+        tracker = scene.cm.get_one(BreadcrumbTracker, entity=entity)
+        if tracker:
+            scene.cm.delete_component(tracker)
+        else:
+            scene.cm.add(BreadcrumbTracker(entity=entity))
     return out_fn

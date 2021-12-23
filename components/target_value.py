@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from engine.component import Component
 
 PEASANT = 100
-PLAYER = 50
-CROPS = 25
+PLAYER = 25
+CROPS = 50
 DEFAULT = 0
 
 

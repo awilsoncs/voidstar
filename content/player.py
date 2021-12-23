@@ -6,6 +6,7 @@ from components.abilities.thwack_ability import ThwackAbility
 from components.attack import Attack
 from components.death_listeners.player_corpse import PlayerCorpse
 from components.move_listeners.update_senses_on_move import UpdateSenses
+from components.options import Options
 from components.player_controllers.player_actor import PlayerActor
 from components.faction import Faction
 from components.material import Material
@@ -34,6 +35,7 @@ def make_player(x, y):
             ThwackAbility(entity=entity_id, count=3, max=3),
             ShootAbility(entity=entity_id),
             UpdateSenses(entity=entity_id),
-            Move(entity=entity_id)
+            Move(entity=entity_id),
+            Options(entity=entity_id)
         ]
     )

@@ -59,13 +59,13 @@ class Calendar(EnergyActor):
     def _start_attack(self, scene):
         scene.popup_message("The Horde has arrived. Prepare to defend the village!")
         scene.cm.add(*hordeling_spawner_spawner(waves=self.round)[1])
-        scene.cm.add(StartAttack())
+        scene.cm.add(StartAttack(entity=scene.player))
         self.is_recharging = False
         self.status = "Under attack!"
 
     def _end_attack(self, scene):
         self.status = "Peacetime"
-        scene.cm.add(ResetSeason())
+        scene.cm.add(ResetSeason(entity=scene.player))
         self.round += 1
         self.is_recharging = True
         self.increment()
