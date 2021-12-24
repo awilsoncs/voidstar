@@ -3,7 +3,7 @@ from components.diggable import Diggable
 from components.floodable import Floodable
 from components.hole_dug_listeners.hole_dug_event import HoleDugEvent
 from components.material import Material
-from components.states.swamped_state import DifficultTerrain
+from components.states.move_cost_affectors import DifficultTerrain
 from content.pathfinder_cost import PathfinderCost
 from engine import core, palettes
 from engine.constants import PRIORITY_LOWEST

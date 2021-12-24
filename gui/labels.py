@@ -1,5 +1,5 @@
 from components.actors.calendar_actor import Calendar
-from components.states.swamped_state import Hindered
+from components.states.move_cost_affectors import Hindered, Haste
 from engine import palettes, core, PLAYER_ID
 from gui.gui_element import GuiElement
 
@@ -62,15 +62,18 @@ class HordeStatusLabel(GuiElement):
         panel.print(self.x, self.y, f'{self.value}', fg=palettes.HORDELING, bg=palettes.BACKGROUND)
 
 
-class SwampedLabel(GuiElement):
+class SpeedLabel(GuiElement):
     def __init__(self, x, y):
         super().__init__(x, y, name='hindered-label')
         self.value = '#problem#'
 
     def update(self, scene):
         hindered = scene.cm.get_one(Hindered, entity=PLAYER_ID)
+        haste = scene.cm.get_one(Haste, entity=PLAYER_ID)
         if hindered:
             self.value = "*Hindered*"
+        elif haste:
+            self.value = "*Haste*"
         else:
             self.value = ""
 

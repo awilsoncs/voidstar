@@ -13,7 +13,7 @@ from engine.constants import PLAYER_ID
 from engine.core import timed
 from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer, Shootometer
 from gui.help_tab import HelpTab
-from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SwampedLabel
+from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SpeedLabel
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
 from systems import act, death, \
@@ -44,7 +44,7 @@ class DefendScene(GameScene):
         anchor.add_element(HealthBar(1, 2))
         anchor.add_element(Thwackometer(1, 3))
         anchor.add_element(Shootometer(1, 4))
-        anchor.add_element(SwampedLabel(1, 5))
+        anchor.add_element(SpeedLabel(1, 5))
         anchor.add_element(CalendarLabel(1, 0))
         anchor.add_element(GoldLabel(1, 0))
         anchor.add_space(1)

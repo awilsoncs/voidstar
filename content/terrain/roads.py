@@ -1,6 +1,7 @@
 from typing import Tuple, List
 
 from components import Entity, Appearance, Coordinates
+from components.states.move_cost_affectors import EasyTerrain
 from engine import core, palettes
 from engine.component import Component
 from engine.constants import PRIORITY_LOWEST
@@ -14,6 +15,7 @@ def make_road(x, y):
             Entity(id=entity_id, entity=entity_id, name='road', static=True),
             Appearance(entity=entity_id, symbol='.', color=palettes.GOLD, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST),
+            EasyTerrain(entity=entity_id)
         ]
     )
     return entity

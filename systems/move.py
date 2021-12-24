@@ -9,7 +9,7 @@ from components.faction import Faction
 from components.material import Material
 from components.move import Move
 from components.move_listeners.move_listener import MoveListener
-from components.states.swamped_state import Hindered, DifficultTerrain
+from components.states.move_cost_affectors import Hindered, DifficultTerrain, EasyTerrain, Haste
 from systems.utilities import get_blocking_object, retract_intention
 
 
@@ -42,10 +42,13 @@ def run(scene):
             move(scene, entity, step_direction)
             dirty_senses(scene, entity)
             move_component = scene.cm.get_one(Move, entity=entity)
-            actor.pass_turn(move_component.energy_cost)
+            if scene.cm.get_one(Haste, entity=entity):
+                energy = move_component.energy_cost // 2
+            else:
+                energy = move_component.energy_cost
+            actor.pass_turn(energy)
             retract_intention(scene, entity)
         elif get_hostile(scene, entity, step_direction):
-
             entity_attack: Attack = scene.cm.get_one(Attack, entity=entity)
             if entity_attack:
                 hostile: int = get_hostile(scene, entity, step_direction)
@@ -100,10 +103,7 @@ def can_step(scene, entity, step_action) -> bool:
     blocking_object = get_blocking_object(scene.cm, target_x, target_y)
 
     entity_material = scene.cm.get_one(Material, entity)
-    return not (
-        entity_material
-        and blocking_object
-    )
+    return not (entity_material and blocking_object)
 
 
 def dirty_senses(scene, entity):
@@ -133,17 +133,32 @@ def move(scene, entity: int, vector: Tuple[int, int]):
         for move_listener in move_listeners:
             move_listener.on_move(scene)
 
-        swampers = any(
-            scene.cm.get_one(DifficultTerrain, coord.entity) is not None
+        _apply_post_move_factors(coords, entity, scene)
+
+
+def _apply_post_move_factors(coords, entity, scene):
+    difficult_terrain: bool = any(
+        scene.cm.get_one(DifficultTerrain, entity=coord.entity) is not None
+        for coord in scene.cm.get(Coordinates)
+        if (coord.x == coords.x and coord.y == coords.y)
+    )
+
+    if difficult_terrain:
+        scene.cm.add(Hindered(entity=entity))
+
+    if entity == scene.entity:
+        # Only the player should be hasty
+        easy_terrain: bool = any(
+            scene.cm.get_one(EasyTerrain, entity=coord.entity) is not None
             for coord in scene.cm.get(Coordinates)
-            if (
-                coord.x == coords.x
-                and coord.y == coords.y
-            )
+            if (coord.x == coords.x and coord.y == coords.y)
         )
 
-        if swampers:
-            scene.cm.add(Hindered(entity=entity))
+        haste = scene.cm.get_one(Haste, entity=entity)
+        if easy_terrain and not haste:
+            scene.cm.add(Haste(entity=entity))
+        elif not easy_terrain and haste:
+            scene.cm.delete_component(haste)
 
 
 def move_coords(coords: Coordinates, vector: Tuple[int, int]):

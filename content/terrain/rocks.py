@@ -5,7 +5,7 @@ from components import Entity, Appearance, Coordinates
 from components.death_listeners.drop_gold import DropGold
 from components.diggable import Diggable
 from components.material import Material
-from components.states.swamped_state import DifficultTerrain
+from components.states.move_cost_affectors import DifficultTerrain
 from content.pathfinder_cost import PathfinderCost
 from engine import core, palettes
 from engine.component import Component

@@ -11,3 +11,13 @@ class Hindered(Component):
 @dataclass
 class DifficultTerrain(Component):
     pass
+
+
+@dataclass
+class Haste(Component):
+    pass
+
+
+@dataclass
+class EasyTerrain(Component):
+    pass
