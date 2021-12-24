@@ -146,7 +146,7 @@ def _apply_post_move_factors(coords, entity, scene):
     if difficult_terrain:
         scene.cm.add(Hindered(entity=entity))
 
-    if entity == scene.entity:
+    if entity == scene.player:
         # Only the player should be hasty
         easy_terrain: bool = any(
             scene.cm.get_one(EasyTerrain, entity=coord.entity) is not None

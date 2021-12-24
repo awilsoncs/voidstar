@@ -10,6 +10,7 @@ from components.player_controllers.player_actor import PlayerActor
 from components.faction import Faction
 from components.material import Material
 from components.move import Move
+from components.season_reset_listeners.move_player_to_town_center import MovePlayerToTownCenter
 from components.target_value import PLAYER, TargetValue
 from engine import PLAYER_ID, palettes
 
@@ -33,8 +34,9 @@ def make_player(x, y):
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             ThwackAbility(entity=entity_id, count=3, max=3),
             ShootAbility(entity=entity_id),
-            UpdateSenses(entity=entity_id),
             Move(entity=entity_id),
-            Options(entity=entity_id)
+            Options(entity=entity_id),
+            MovePlayerToTownCenter(entity=entity_id),
+            UpdateSenses(entity=entity_id)
         ]
     )
