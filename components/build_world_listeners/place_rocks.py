@@ -38,7 +38,7 @@ def add_rock_field(scene, x: int, y: int) -> None:
 @dataclass
 class PlaceRocks(BuildWorldListener):
     def on_build_world(self, scene):
-        logging.info("Placing rocks...")
+        logging.info(f"EID#{self.entity}::PlaceRocks placing rock fields in town...")
         for _ in range(random.randint(settings.LAKES_MIN, settings.LAKES_MAX)):
             x = random.randint(0, settings.MAP_WIDTH - 1)
             y = random.randint(0, settings.MAP_HEIGHT - 1)

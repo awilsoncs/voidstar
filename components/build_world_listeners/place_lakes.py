@@ -37,7 +37,7 @@ def spawn_lake(scene, x: int, y: int) -> None:
 @dataclass
 class PlaceLakes(BuildWorldListener):
     def on_build_world(self, scene):
-        logging.info("Placing lakes...")
+        logging.info(f"EID#{self.entity}::PlaceLakes placing lakes in town")
         for _ in range(random.randint(settings.LAKES_MIN, settings.LAKES_MAX)):
             x = random.randint(0, settings.MAP_WIDTH - 1)
             y = random.randint(0, settings.MAP_HEIGHT - 1)
