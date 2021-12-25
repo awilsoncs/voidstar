@@ -7,11 +7,11 @@ from components import Entity, Coordinates, Attributes, Senses
 from components.abilities.masonry_ability import MasonryAbility
 from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_actor import HordelingActor
-from components.options import Options
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.wrath_effect import WrathEffect
+from content.farmsteads.houses import place_farmstead
+from content.terrain.roads import connect_point_to_road_network
 from gui.easy_menu import EasyMenu
-
 
 
 @dataclass
@@ -30,7 +30,8 @@ class ShowDebug(EnergyActor):
                     "suicide": get_suicide(scene),
                     "teleport to": get_teleport_to(scene),
                     "toggle ability": get_toggle_masonry(scene),
-                    "toggle pathing": get_pathfinding_for(scene)
+                    "toggle pathing": get_pathfinding_for(scene),
+                    "spawn a home": get_spawn_home(scene)
                 },
                 settings.INVENTORY_WIDTH,
             )
@@ -50,6 +51,7 @@ def get_examine_game_objects(scene):
                 settings.INVENTORY_WIDTH,
             )
         )
+
     return out_fn
 
 
@@ -58,10 +60,11 @@ def get_examine_object(scene, entity):
         entity_blob = scene.cm.get_entity(entity)
         entity_component = entity_blob[Entity][0]
         print(f'Debug Show Item: {entity_component.name}')
-        
+
         for _, values in entity_blob.items():
             for component in values:
                 print(f'\t{component}')
+
     return out_fn
 
 
@@ -70,12 +73,14 @@ def get_heal(scene):
         health = scene.cm.get_one(Attributes, entity=engine.constants.PLAYER_ID)
         if health:
             health.hp = health.max_hp
+
     return out_fn
 
 
 def get_rich(scene):
     def out_fn():
         scene.gold += 10
+
     return out_fn
 
 
@@ -84,6 +89,7 @@ def get_suicide(scene):
         health = scene.cm.get_one(Attributes, entity=engine.constants.PLAYER_ID)
         if health:
             health.hp = 0
+
     return out_fn
 
 
@@ -99,6 +105,7 @@ def get_teleport_to(scene):
                 settings.INVENTORY_WIDTH,
             )
         )
+
     return out_fn
 
 
@@ -111,12 +118,14 @@ def get_teleport_to_entity(scene, entity):
             player_coords.y = target_coords.y
             senses = scene.cm.get_one(Senses, entity=engine.constants.PLAYER_ID)
             senses.dirty = True
+
     return out_fn
 
 
 def get_wrath(scene, entity):
     def out_fn():
         scene.cm.add(WrathEffect(entity=entity))
+
     return out_fn
 
 
@@ -134,6 +143,7 @@ def get_activate_ability(scene):
                 settings.INVENTORY_WIDTH,
             )
         )
+
     return out_fn
 
 
@@ -146,6 +156,7 @@ def get_toggle_masonry(scene):
         else:
             logging.info("Disabling Masonry")
             scene.cm.add(MasonryAbility(entity=scene.player))
+
     return out_fn
 
 
@@ -161,6 +172,7 @@ def get_pathfinding_for(scene):
                 settings.INVENTORY_WIDTH,
             )
         )
+
     return out_fn
 
 
@@ -171,4 +183,13 @@ def get_show_pathing(scene, entity):
             scene.cm.delete_component(tracker)
         else:
             scene.cm.add(BreadcrumbTracker(entity=entity))
+
+    return out_fn
+
+
+def get_spawn_home(scene):
+    def out_fn():
+        farmstead_id = place_farmstead(scene)
+        farmstead_point = scene.cm.get_one(Coordinates, entity=farmstead_id).position
+        connect_point_to_road_network(scene, farmstead_point)
     return out_fn

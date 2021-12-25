@@ -13,6 +13,7 @@ from components.attacks.attack import Attack
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.pathfinding.cost_mapper import CostMapper
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
+from components.pathfinding.target_selection import get_new_target
 from components.target_value import TargetValue
 from content.attacks import stab
 from engine import constants
@@ -30,7 +31,10 @@ class HordelingActor(EnergyActor):
     def act(self, scene):
         self.cost_map = self.get_cost_map(scene)
 
-        self.target = self.get_new_target(scene)
+        entity_values = [(tv.entity, tv.value) for tv in scene.cm.get(TargetValue)]
+
+        coords = scene.cm.get_one(Coordinates, entity=self.entity)
+        self.target = get_new_target(scene, self.cost_map, (coords.x, coords.y), entity_values)
 
         if self.is_target_in_range(scene):
             self.attack_target(scene)
@@ -97,20 +101,4 @@ class HordelingActor(EnergyActor):
         else:
             return None
 
-    def get_new_target(self, scene) -> int:
-        logging.debug(f"EID#{self.entity}::HordelingActor hunting new target")
-        dist = tcod.path.maxarray((settings.MAP_WIDTH, settings.MAP_HEIGHT), dtype=np.int32)
-        coords = scene.cm.get_one(Coordinates, entity=self.entity)
-        dist[coords.x, coords.y] = 0
-        tcod.path.dijkstra2d(dist, self.cost_map, 2, 3, out=dist)
-        # find the cost of all the possible targets
-        best = (None, 0)
-        for target in scene.cm.get(TargetValue):
-            target_coords = scene.cm.get_one(Coordinates, entity=target.entity)
-            cost_to_reach = float(dist[target_coords.x, target_coords.y])**2
-            value = float(target.value) / cost_to_reach
-            if value > best[1]:
-                logging.debug(f"Found better target: {target.entity} at value {value}")
-                best = (target.entity, value)
 
-        return best[0]

@@ -1,5 +1,6 @@
 import logging
 import random
+from typing import List, Tuple, Set
 
 import settings
 from components import Coordinates
@@ -8,11 +9,33 @@ from content.farmsteads.allies import make_peasant
 from content.farmsteads.farms import make_farm_plot
 from content.farmsteads.floorboard import make_floorboard
 from content.farmsteads.walls import make_wall
-from engine import core
+from engine import core, constants
+from engine.types import ComplexEntity, EntityId
 from engine.utilities import get_box, get_3_by_3_square
 
 
-def make_house(root_id, resident, x, y):
+def place_farmstead(scene) -> EntityId:
+    """Place a new house, farm, peasant, and connect them to the road network."""
+    coords: Set[Coordinates] = {(coord.x, coord.y) for coord in scene.cm.get(Coordinates)}
+
+    x, y = _get_point()
+    footprint = get_3_by_3_square(x, y)
+
+    attempts = 100
+    while not coords.isdisjoint(footprint) and attempts > 0:
+        attempts -= 1
+        x, y = _get_point()
+        footprint = get_3_by_3_square(x, y)
+
+    if not attempts:
+        logging.warning("Failed to place farmstead.")
+        return constants.INVALID
+
+    house = _add_house(scene, x, y)
+    return house
+
+
+def _make_house(root_id: EntityId, resident, x, y) -> ComplexEntity:
     floorboard = make_floorboard(root_id, x, y, resident)
 
     upper_left = make_wall(root_id, x - 1, y - 1)
@@ -39,22 +62,27 @@ def make_house(root_id, resident, x, y):
 
     floorboard[1].append(structure)
 
-    return [
-        upper_left, upper_middle, upper_right,
-        middle_left, floorboard, middle_right,
-        bottom_left, bottom_middle, bottom_right
-    ]
+    return (
+        root_id,
+        [
+            upper_left, upper_middle, upper_right,
+            middle_left, floorboard, middle_right,
+            bottom_left, bottom_middle, bottom_right
+        ]
+    )
 
 
-def make_peasant_home(x, y):
+def _make_peasant_home(x, y) -> ComplexEntity:
     house_id = core.get_id()
     peasant = make_peasant(house_id, x, y)
-    return make_house(house_id, peasant[0], x, y) + [peasant]
+    house = _make_house(house_id, peasant[0], x, y)
+    house[1].append(peasant)
+    return house
 
 
-def add_house(scene, x, y):
-    house = make_peasant_home(x, y)
-    for entity in house:
+def _add_house(scene, x, y) -> EntityId:
+    house: ComplexEntity = _make_peasant_home(x, y)
+    for entity in house[1]:
         scene.cm.add(*entity[1])
 
     possible_coords = [x for x in get_box((x - 3, y - 3), (x + 2, y + 2))]
@@ -75,33 +103,15 @@ def add_house(scene, x, y):
             finalized_plot = [x for x in farm_plot]
 
     if finalized_plot:
+        peasant = house[-1][-1]
+        peasant_id = peasant[0]
         for point in finalized_plot:
-            peasant = house[-1]
-            peasant_id = peasant[0]
             plot = make_farm_plot(point[0], point[1], peasant_id)
             scene.cm.add(*plot[1])
+    return house[0]
 
 
-def place_farmstead(scene):
-    coords = {(coord.x, coord.y) for coord in scene.cm.get(Coordinates)}
-
-    x, y = get_point()
-    footprint = get_3_by_3_square(x, y)
-
-    attempts = 100
-    while not coords.isdisjoint(footprint) and attempts > 0:
-        attempts -= 1
-        x, y = get_point()
-        footprint = get_3_by_3_square(x, y)
-
-    if not attempts:
-        logging.warning("Failed to place farmstead.")
-        return
-
-    add_house(scene, x, y)
-
-
-def get_point():
+def _get_point():
     x = random.randint(5, settings.MAP_WIDTH - 5)
     y = random.randint(5, settings.MAP_HEIGHT - 5)
     return x, y

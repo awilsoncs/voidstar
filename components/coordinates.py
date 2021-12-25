@@ -38,5 +38,10 @@ class Coordinates(Component):
         else:
             return 0, 0
 
-    def distance_from(self, other):
-        return math.sqrt((self.x - other.x) ** 2 + (self.y - other.y) ** 2)
+    def distance_from(self, other: 'Coordinates') -> float:
+        return self.distance_from_point(other.x, other.y)
+
+    def distance_from_point(self, x: int, y: int) -> float:
+        return math.sqrt((self.x - x) ** 2 + (self.y - y) ** 2)
+
+
