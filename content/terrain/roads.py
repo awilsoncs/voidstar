@@ -37,13 +37,14 @@ def connect_point_to_road_network(scene, start: Tuple[int, int]):
 
 def _draw_road(scene, start: Tuple[int, int], end: Tuple[int, int], cost_map):
     for node in _road_between(cost_map, start, end):
-        if scene.cm.get(Coordinates, query=lambda c: c.x == node[0] and c.y == node[1]):
+        coords = scene.cm.get(Coordinates, query=lambda c: scene.cm.get_one(RoadMarker, entity=c.entity))
+        if coords and coords[0].x == node[0] and coords[0].y == node[1]:
             break
         scene.cm.add(*make_road(node[0], node[1])[1])
 
 
 def _road_between(cost_map, start: Tuple[int, int], end: Tuple[int, int]) -> Iterator[Tuple[int, int]]:
-    graph = tcod.path.SimpleGraph(cost=cost_map, cardinal=2, diagonal=5)
+    graph = tcod.path.SimpleGraph(cost=cost_map, cardinal=2, diagonal=50)
     pf = tcod.path.Pathfinder(graph)
     pf.add_root(start)
     path: List[Tuple[int, int]] = pf.path_to(end).tolist()[2:-1]

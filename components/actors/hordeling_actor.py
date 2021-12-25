@@ -13,6 +13,7 @@ from components.attacks.attack import Attack
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.pathfinding.cost_mapper import CostMapper
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
+from components.pathfinding.pathfinder import Pathfinder
 from components.pathfinding.target_selection import get_new_target
 from components.target_value import TargetValue
 from content.attacks import stab
@@ -83,14 +84,9 @@ class HordelingActor(EnergyActor):
         return coords.distance_from(target) < 2
 
     def get_next_step(self, scene):
-        graph = tcod.path.SimpleGraph(cost=self.cost_map, cardinal=2, diagonal=3)
-        pf = tcod.path.Pathfinder(graph)
-
         self_coords = scene.cm.get_one(Coordinates, entity=self.entity)
-        pf.add_root((self_coords.x, self_coords.y))
-
         target_coords = scene.cm.get_one(Coordinates, entity=self.target)
-        path: List[Tuple[int, int]] = pf.path_to((target_coords.x, target_coords.y))[1:].tolist()
+        path = Pathfinder().get_path(self.cost_map, self_coords.position, target_coords.position)
 
         breadcrumb_tracker = scene.cm.get_one(BreadcrumbTracker, entity=self.entity)
         if breadcrumb_tracker:
