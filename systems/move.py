@@ -143,9 +143,6 @@ def _apply_post_move_factors(coords, entity, scene):
         if (coord.x == coords.x and coord.y == coords.y)
     )
 
-    if difficult_terrain:
-        scene.cm.add(Hindered(entity=entity))
-
     if entity == scene.player:
         # Only the player should be hasty
         easy_terrain: bool = any(
@@ -153,12 +150,17 @@ def _apply_post_move_factors(coords, entity, scene):
             for coord in scene.cm.get(Coordinates)
             if (coord.x == coords.x and coord.y == coords.y)
         )
+    else:
+        easy_terrain = False
 
-        haste = scene.cm.get_one(Haste, entity=entity)
-        if easy_terrain and not haste:
-            scene.cm.add(Haste(entity=entity))
-        elif not easy_terrain and haste:
-            scene.cm.delete_component(haste)
+    haste = scene.cm.get_one(Haste, entity=entity)
+    if not easy_terrain and haste:
+        scene.cm.delete_component(haste)
+
+    if easy_terrain and not haste:
+        scene.cm.add(Haste(entity=entity))
+    elif difficult_terrain and not easy_terrain:
+        scene.cm.add(Hindered(entity=entity))
 
 
 def move_coords(coords: Coordinates, vector: Tuple[int, int]):
