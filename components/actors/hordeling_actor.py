@@ -1,11 +1,6 @@
-import logging
 from dataclasses import dataclass
-from typing import Tuple, List, Optional
+from typing import Optional
 
-import numpy as np
-import tcod
-
-import settings
 from components import Coordinates
 from components.attacks.attack_action import AttackAction
 from components.actors.energy_actor import EnergyActor
@@ -92,8 +87,10 @@ class HordelingActor(EnergyActor):
         if breadcrumb_tracker:
             breadcrumb_tracker.add_breadcrumbs(scene, path)
 
+        path = [p for p in path]
+
         if path:
-            return path[0]
+            return path[1]
         else:
             return None
 

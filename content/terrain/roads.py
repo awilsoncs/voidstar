@@ -3,6 +3,7 @@ from typing import Tuple, List, Iterator
 import tcod.path
 
 from components import Entity, Appearance, Coordinates
+from components.Sellable import Sellable
 from components.pathfinding.road_cost_mapper import RoadCostMapper
 from components.pathfinding.target_selection import get_new_target
 from components.states.move_cost_affectors import EasyTerrain
@@ -21,7 +22,7 @@ def make_road(x, y):
             Appearance(entity=entity_id, symbol='.', color=palettes.GOLD, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST),
             EasyTerrain(entity=entity_id),
-            RoadMarker(entity=entity_id),
+            RoadMarker(entity=entity_id)
         ]
     )
     return entity

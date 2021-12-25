@@ -18,6 +18,7 @@ from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.events.fast_forward import FastForward
+from components.player_controllers.sell_thing_actor import SellThingActor
 from components.states.dizzy_state import DizzyState
 from components.tags.hordeling_tag import HordelingTag
 from content.cursor import make_cursor
@@ -98,6 +99,8 @@ class PlayerActor(EnergyActor):
                     self._handle_dig_hole(entity_id, scene)
                 elif intention is Intention.LOOK:
                     self._handle_look(scene)
+                elif intention is Intention.SELL:
+                    self._handle_sell(scene)
                 else:
                     set_intention(scene, entity_id, None, intention)
             else:
@@ -170,6 +173,16 @@ class PlayerActor(EnergyActor):
         scene.cm.stash_component(self.id)
         scene.cm.add(new_controller, blinker)
 
+    def _handle_sell(self, scene):
+        new_controller = SellThingActor(entity=self.entity, old_actor=self.id)
+        blinker = AnimationBlinker(
+            entity=self.entity,
+            new_symbol='$',
+            new_color=palettes.GOLD
+        )
+        scene.cm.stash_component(self.id)
+        scene.cm.add(new_controller, blinker)
+
     def _handle_look(self, scene):
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         cursor = make_cursor(coords.x, coords.y)
@@ -186,6 +199,7 @@ KEY_ACTION_MAP = {
     tcod.event.K_l: Intention.LOOK,
     tcod.event.K_e: Intention.MAKE_FENCE,
     tcod.event.K_r: Intention.MAKE_WALL,
+    tcod.event.K_c: Intention.SELL,
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,

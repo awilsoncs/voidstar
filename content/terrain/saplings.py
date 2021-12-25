@@ -1,4 +1,5 @@
 from components import Entity, Coordinates, Appearance, Attributes
+from components.Sellable import Sellable
 from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction
 from components.material import Material
@@ -21,6 +22,7 @@ def make_sapling(x, y):
             Appearance(entity=entity_id, symbol='+', color=palettes.FOILAGE_C, bg_color=palettes.BACKGROUND),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             GrowInSpring(entity=entity_id),
-            PathfinderCost(entity=entity_id, cost=10)
+            PathfinderCost(entity=entity_id, cost=10),
+            Sellable(entity=entity_id, value=0),
         ]
     )

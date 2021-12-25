@@ -1,4 +1,5 @@
 from components import Entity, Appearance, Coordinates, Attributes
+from components.Sellable import Sellable
 from components.death_listeners.npc_corpse import Corpse
 from components.diggable import Diggable
 from components.faction import Faction
@@ -23,7 +24,8 @@ def make_fence(x, y):
             Diggable(entity=entity_id),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             PathfinderCost(entity=entity_id, cost=20),
-            Structure(entity=entity_id)
+            Structure(entity=entity_id),
+            Sellable(entity=entity_id, value=2)
         ]
     )
 
@@ -42,6 +44,7 @@ def make_stone_wall(x, y):
             Diggable(entity=entity_id),
             Material(entity=entity_id, blocks=True, blocks_sight=True),
             PathfinderCost(entity=entity_id, cost=40),
-            Structure(entity=entity_id)
+            Structure(entity=entity_id),
+            Sellable(entity=entity_id, value=5),
         ]
     )
