@@ -14,7 +14,7 @@ def make_debug_hordeling(x, y):
 
     components = [
         Entity(id=entity_id, entity=entity_id, name='debug_hordeling'),
-        Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=False),
+        Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
         Faction(entity=entity_id, faction=Faction.Options.MONSTER),
         Corpse(entity=entity_id),
         Appearance(entity=entity_id, symbol='h', color=palettes.HORDELING, bg_color=palettes.BACKGROUND),

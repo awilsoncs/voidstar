@@ -5,7 +5,7 @@ from components.faction import Faction
 from components.material import Material
 from components.relationships.owner import Owner
 from components.structure import Structure
-from content.pathfinder_cost import PathfinderCost
+from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 

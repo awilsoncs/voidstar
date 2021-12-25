@@ -11,7 +11,7 @@ from components.material import Material
 from components.move import Move
 from components.pathfinding.stealthy_cost_map import StealthyCostMapper
 from components.tags.hordeling_tag import HordelingTag
-from content.pathfinder_cost import PathfinderCost
+from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
@@ -23,7 +23,7 @@ def make_sneaker(x, y):
 
     components = [
         Entity(id=entity_id, entity=entity_id, name='sneaky hordeling'),
-        Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=False),
+        Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
         Faction(entity=entity_id, faction=Faction.Options.MONSTER),
         Corpse(entity=entity_id),
         HordelingActor(entity=entity_id),

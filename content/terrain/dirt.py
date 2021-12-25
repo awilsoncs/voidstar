@@ -18,7 +18,7 @@ def make_dirt(x, y):
         [
             Entity(id=entity_id, entity=entity_id, name='dirt', static=True),
             Appearance(entity=entity_id, symbol=appearance, color=palettes.DIRT, bg_color=palettes.BACKGROUND),
-            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST, terrain=True),
+            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST, buildable=True),
             Material(entity=entity_id, blocks=False, blocks_sight=False),
             Diggable(entity=entity_id, is_free=True),
             GrowGrass(entity=entity_id)

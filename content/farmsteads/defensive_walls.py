@@ -5,7 +5,7 @@ from components.diggable import Diggable
 from components.faction import Faction
 from components.material import Material
 from components.structure import Structure
-from content.pathfinder_cost import PathfinderCost
+from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
@@ -20,8 +20,7 @@ def make_fence(x, y):
             Corpse(entity=entity_id, symbol='%', color=palettes.WOOD, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
             Attributes(entity=entity_id, hp=10, max_hp=10),
-            Faction(entity=entity_id, faction=Faction.Options.NEUTRAL),
-            Diggable(entity=entity_id),
+            Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             PathfinderCost(entity=entity_id, cost=20),
             Structure(entity=entity_id),
@@ -40,8 +39,7 @@ def make_stone_wall(x, y):
             Corpse(entity=entity_id, symbol='%', color=palettes.STONE, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
             Attributes(entity=entity_id, hp=20, max_hp=20),
-            Faction(entity=entity_id, faction=Faction.Options.NEUTRAL),
-            Diggable(entity=entity_id),
+            Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=True),
             PathfinderCost(entity=entity_id, cost=40),
             Structure(entity=entity_id),

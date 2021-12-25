@@ -80,7 +80,10 @@ class DigHoleActor(EnergyActor):
 
 
 def _is_diggable(scene, x, y) -> bool:
-    target_coords = scene.cm.get(Coordinates, query=lambda coords: coords.x == x and coords.y == y)
+    target_coords = scene.cm.get(
+        Coordinates,
+        query=lambda coords: coords.x == x and coords.y == y and not coords.buildable
+    )
     return not target_coords
 
 
@@ -92,8 +95,6 @@ def _get_diggables(scene, x, y) -> List[int]:
         project=lambda coords: coords.entity
     )
     return fillable_entities
-
-
 
 
 KEY_ACTION_MAP = {

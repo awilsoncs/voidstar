@@ -13,7 +13,7 @@ def roundabout(owner, x, y):
         entity_id,
         [
             Entity(id=entity_id, entity=entity_id, name='sword_attack'),
-            Coordinates(entity=entity_id, x=x + 1, y=y - 1, priority=PRIORITY_HIGH),
+            Coordinates(entity=entity_id, x=x + 1, y=y - 1, priority=PRIORITY_HIGH, buildable=True),
             Owner(entity=entity_id, owner=owner),
             AnimationPath(entity=entity_id),
             *create_path(

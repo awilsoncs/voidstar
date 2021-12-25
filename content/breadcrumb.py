@@ -9,7 +9,7 @@ def make_breadcrumb(x, y):
         entity_id,
         [
             Entity(id=entity_id, entity=entity_id, name='breadcrumb'),
-            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH),
+            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH, buildable=True),
             Appearance(
                 entity=entity_id,
                 symbol='o',

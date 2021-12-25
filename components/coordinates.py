@@ -12,7 +12,7 @@ class Coordinates(Component):
     x: int = None
     y: int = None
     priority: int = PRIORITY_MEDIUM
-    terrain: bool = False
+    buildable: bool = False
 
     @property
     def position(self) -> Tuple[int, int]:

@@ -28,7 +28,7 @@ def make_peasant(house_id, x, y) -> Entity:
             name='peasant',
             description=peasant_description
         ),
-        Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM, terrain=False),
+        Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
         Faction(entity=entity_id, faction=Faction.Options.PEASANT),
         PeasantTag(entity=entity_id),
         Appearance(entity=entity_id, symbol='p', color=palettes.WHITE, bg_color=palettes.BACKGROUND),

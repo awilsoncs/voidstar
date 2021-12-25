@@ -3,7 +3,7 @@ import numpy as np
 import settings
 from components import Coordinates
 from components.pathfinding.cost_mapper import CostMapper
-from content.pathfinder_cost import PathfinderCost
+from components.pathfinder_cost import PathfinderCost
 
 
 class StealthyCostMapper(CostMapper):
