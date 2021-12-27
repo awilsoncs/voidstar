@@ -47,7 +47,6 @@ class DigHoleActor(EnergyActor):
             diggable_entities = _get_diggables(scene, hole_x, hole_y)
             if diggable_entities:
                 scene.gold -= 2
-                assert len(diggable_entities) == 1, "found more than one diggable on a tile"
                 entity = diggable_entities.pop()
                 scene.cm.add(Die(entity=entity))
                 diggable = scene.cm.get_one(Diggable, entity=entity)
@@ -91,10 +90,9 @@ def _get_diggables(scene, x, y) -> List[int]:
     """Return True if there's something that can be removed by digging."""
     fillable_entities = scene.cm.get(
         Coordinates,
-        query=lambda coords: coords.x == x and coords.y == y and scene.cm.get_one(Diggable, entity=coords.entity),
-        project=lambda coords: coords.entity
+        query=lambda coords: coords.x == x and coords.y == y and scene.cm.get_one(Diggable, entity=coords.entity)
     )
-    return fillable_entities
+    return [fe.entity for fe in sorted(fillable_entities, key=lambda fe: fe.priority)]
 
 
 KEY_ACTION_MAP = {
