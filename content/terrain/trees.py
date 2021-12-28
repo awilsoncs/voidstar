@@ -10,7 +10,7 @@ from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
 
-wall_tree_description = "This hardy species of Shimto tree towers over the village. " \
+wall_tree_description = "This hardy species of Toshim tree towers over the village. " \
                         "You won't be able to cut this one down."
 
 
@@ -34,7 +34,7 @@ def make_wall_tree(x, y):
     )
 
 
-tree_description = "A tree of the Shimto Plains. You can chop it down to sell its valuable wood."
+tree_description = "A tree of the Toshim Plains. You can chop it down to sell its valuable wood."
 
 
 def make_tree(x, y):
