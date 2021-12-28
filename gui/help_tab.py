@@ -40,7 +40,7 @@ class HelpTab(GuiElement):
         panel.print(self.x, self.y+8, "d      : Dig", fg=self.fg, bg=self.bg)
         panel.print(self.x, self.y+9, "e      : Build Fence", fg=self.fg, bg=self.bg)
         panel.print(self.x, self.y+10, "r      : Build Wall", fg=masonry_color, bg=self.bg)
-        panel.print(self.x, self.y+11, "c      : Dig", fg=self.fg, bg=self.bg)
+        panel.print(self.x, self.y+11, "c      : Sell Thing", fg=self.fg, bg=self.bg)
         panel.print(self.x, self.y+12, "a      : Fast Forward", fg=self.fg, bg=self.bg)
         panel.print(self.x, self.y+13, "`      : Debug", fg=self.fg, bg=self.bg)
         panel.print(self.x, self.y+114, "ESC    : Back", fg=self.fg, bg=self.bg)
