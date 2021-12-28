@@ -22,18 +22,6 @@ def get_blocking_object(cm: ComponentManager, x: int, y: int) -> int:
 
 
 @log_debug(__name__)
-def set_intention(scene, entity, target, intention):
-    actor = scene.cm.get_one(Actor, entity=entity)
-    if actor:
-        actor.intention = intention
-        actor.intention_target = target
-
-
-def retract_intention(scene, entity):
-    set_intention(scene, entity, None, Intention.NONE)
-
-
-@log_debug(__name__)
 def retract_turn(scene, entity: int):
     turn = scene.cm.get_one(TurnEvent, entity=entity)
     if turn:

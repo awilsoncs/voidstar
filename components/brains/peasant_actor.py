@@ -7,14 +7,14 @@ from typing import List, Tuple
 from components import Coordinates
 from components.actors import STEPS
 from components.actors.energy_actor import EnergyActor
+from components.brains.brain import Brain
 from components.relationships.farmed_by import FarmedBy
 from content.farmsteads.farm_animation import farm_animation
 from engine.core import log_debug
-from systems.utilities import set_intention
 
 
 @dataclass
-class PeasantActor(EnergyActor):
+class PeasantActor(Brain):
     class State(Enum):
         UNKNOWN = auto()
         FARMING = auto()
@@ -61,5 +61,4 @@ class PeasantActor(EnergyActor):
         self.pass_turn(delay)
 
     def wander(self, scene):
-        set_intention(scene, self.entity, 0, random.choice(STEPS))
-
+        self.intention = random.choice(STEPS)

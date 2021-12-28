@@ -2,21 +2,22 @@ from dataclasses import dataclass
 
 import tcod
 
-from components.abilities.shoot_ability import ShootAbility
 from components.attacks.attack_action import AttackAction
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention
+from components.brains.brain import Brain
 from components.tags.hordeling_tag import HordelingTag
 from engine import core, constants
 from engine.utilities import is_visible
 
 
 @dataclass
-class RangedAttackActor(EnergyActor):
+class RangedAttackActor(Brain):
     energy_cost: int = EnergyActor.INSTANT
     old_actor: int = constants.INVALID
     target: int = 0
+    shoot_ability: int = constants.INVALID
 
     def act(self, scene):
         self._handle_input(scene)
@@ -39,12 +40,12 @@ class RangedAttackActor(EnergyActor):
                 self.back_out(scene)
 
     def shoot(self, scene):
-        shoot_ability = scene.cm.get_one(ShootAbility, entity=self.entity)
-        if not shoot_ability or shoot_ability.count <= 0:
-            self.back_out(scene)
-        shoot_ability.count -= 1
         attack = AttackAction(entity=self.entity, target=self.target, damage=1)
         scene.cm.add(attack)
+
+        ability = scene.cm.get_component_by_id(self.shoot_ability)
+        ability.count -= 1
+
         self.back_out(scene)
 
     def back_out(self, scene):

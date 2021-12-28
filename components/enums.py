@@ -13,8 +13,8 @@ class Intention(Enum):
     PLANT_SAPLING = auto()
     DIG_HOLE = auto()
     LOOK = auto()
-    MAKE_FENCE = auto()
-    MAKE_WALL = auto()
+    BUILD_FENCE = auto()
+    BUILD_WALL = auto()
     SELL = auto()
 
     STEP_NORTH = auto()

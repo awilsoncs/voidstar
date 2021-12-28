@@ -2,7 +2,7 @@ import logging
 from dataclasses import dataclass
 
 from components import Coordinates
-from components.actors.peasant_actor import PeasantActor
+from components.brains.peasant_actor import PeasantActor
 from components.attack_start_listeners.attack_start_actor import AttackStartListener
 from components.house_structure import HouseStructure
 from components.relationships.residence import Residence

@@ -1,22 +1,24 @@
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import List, Tuple
+from typing import List
 
 import tcod
 
 from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
+from components.death_listeners.die import Die
 from components.enums import Intention
+from components.diggable import Diggable
+from components.brains.brain import Brain
+from content.terrain.dirt import make_dirt
+from content.terrain.hole import make_hole
 from engine import constants, core
-from engine.component import Component
 
 
 @dataclass
-class PlaceThingActor(EnergyActor, ABC):
+class DigHoleActor(Brain):
     energy_cost: int = EnergyActor.INSTANT
     old_actor: int = constants.INVALID
-    gold_cost: int = constants.INVALID
 
     def act(self, scene) -> None:
         key_event = core.get_key_event()
@@ -29,29 +31,44 @@ class PlaceThingActor(EnergyActor, ABC):
                 Intention.STEP_WEST,
                 Intention.STEP_SOUTH
             }:
-                self._place_thing(scene, intention)
+                self._dig_hole(scene, intention)
             elif intention is Intention.BACK:
                 self.back_out(scene)
 
-    @abstractmethod
-    def make_thing(self, x: int, y: int) -> Tuple[int, List[Component]]:
-        raise NotImplementedError()
-
-    def _place_thing(self, scene, direction):
+    def _dig_hole(self, scene, direction, old_actor=None):
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         x = coords.x
         y = coords.y
         direction = STEP_VECTORS[direction]
-        thing_x = x+direction[0]
-        thing_y = y+direction[1]
-        if is_buildable(scene, thing_x, thing_y):
-            thing = self.make_thing(thing_x, thing_y)
-            scene.cm.add(*thing[1])
-            scene.gold -= self.gold_cost
-            old_actor = self.back_out(scene)
-            old_actor.pass_turn()
+        hole_x = x+direction[0]
+        hole_y = y+direction[1]
+        if _is_diggable(scene, hole_x, hole_y):
+            self._apply_dig_hole(hole_x, hole_y, scene)
         else:
-            self.back_out(scene)
+            diggable_entities = _get_diggables(scene, hole_x, hole_y)
+            if diggable_entities:
+                scene.gold -= 2
+                entity = diggable_entities.pop()
+                scene.cm.add(Die(entity=entity))
+                diggable = scene.cm.get_one(Diggable, entity=entity)
+                if diggable.is_free:
+                    # there's a dirt here, skip straight to digging the new hole
+                    self._apply_dig_hole(hole_x, hole_y, scene)
+                    return
+
+                dirt = make_dirt(hole_x, hole_y)
+                scene.cm.add(*dirt[1])
+                old_actor = self.back_out(scene)
+                old_actor.pass_turn()
+            else:
+                self.back_out(scene)
+
+    def _apply_dig_hole(self, hole_x, hole_y, scene):
+        hole = make_hole(hole_x, hole_y)
+        scene.cm.add(*hole[1])
+        scene.gold -= 2
+        old_actor = self.back_out(scene)
+        old_actor.pass_turn()
 
     def back_out(self, scene):
         old_actor = scene.cm.unstash_component(self.old_actor)
@@ -62,12 +79,21 @@ class PlaceThingActor(EnergyActor, ABC):
         return old_actor
 
 
-def is_buildable(scene, x, y):
+def _is_diggable(scene, x, y) -> bool:
     target_coords = scene.cm.get(
         Coordinates,
         query=lambda coords: coords.x == x and coords.y == y and not coords.buildable
     )
     return not target_coords
+
+
+def _get_diggables(scene, x, y) -> List[int]:
+    """Return True if there's something that can be removed by digging."""
+    fillable_entities = scene.cm.get(
+        Coordinates,
+        query=lambda coords: coords.x == x and coords.y == y and scene.cm.get_one(Diggable, entity=coords.entity)
+    )
+    return [fe.entity for fe in sorted(fillable_entities, key=lambda fe: fe.priority)]
 
 
 KEY_ACTION_MAP = {

@@ -1,4 +1,4 @@
-from components.abilities.masonry_ability import MasonryAbility
+from components.abilities.build_wall_ability import BuildWallAbility
 from engine import palettes
 from gui.gui_element import GuiElement
 
@@ -22,7 +22,7 @@ class HelpTab(GuiElement):
         self.has_masonry = False
 
     def update(self, scene):
-        if scene.cm.get_one(MasonryAbility, entity=scene.player):
+        if scene.cm.get_one(BuildWallAbility, entity=scene.player):
             self.has_masonry = True
         else:
             self.has_masonry = False

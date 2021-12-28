@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Tuple, List
 
-from components.player_controllers.place_thing_actor import PlaceThingActor
+from components.brains.place_thing_actor import PlaceThingActor
 from content.terrain.saplings import make_sapling
 from engine.component import Component
 

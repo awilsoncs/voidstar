@@ -1,7 +1,7 @@
 import random
 from components import Entity, Appearance, Attributes, Coordinates
 from components.actors.energy_actor import EnergyActor
-from components.actors.hordeling_actor import HordelingActor
+from components.brains.hordeling_actor import HordelingActor
 from components.attacks.attack_effects.knockback_attack import KnockbackAttack
 from components.attacks.siege_attack import SiegeAttack
 from components.death_listeners.npc_corpse import Corpse

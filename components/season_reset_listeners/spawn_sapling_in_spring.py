@@ -3,7 +3,7 @@ import random
 
 from components import Coordinates
 from components.actors.calendar_actor import Calendar
-from components.player_controllers.place_thing_actor import is_buildable
+from components.brains.place_thing_actor import is_buildable
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.tree_tag import TreeTag
 from content.terrain.saplings import make_sapling

@@ -4,9 +4,9 @@ from dataclasses import dataclass
 import engine
 import settings
 from components import Entity, Coordinates, Attributes, Senses
-from components.abilities.masonry_ability import MasonryAbility
+from components.abilities.build_wall_ability import BuildWallAbility
 from components.actors.energy_actor import EnergyActor
-from components.actors.hordeling_actor import HordelingActor
+from components.brains.hordeling_actor import HordelingActor
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.wrath_effect import WrathEffect
 from content.farmsteads.houses import place_farmstead
@@ -133,7 +133,7 @@ def get_activate_ability(scene):
     def out_fn():
         ability_map = {}
 
-        has_masonry = scene.cm.get_one(MasonryAbility, entity=scene.player)
+        has_masonry = scene.cm.get_one(BuildWallAbility, entity=scene.player)
         ability_map[f"Masonry ({'X' if has_masonry else ' '}"] = get_toggle_masonry(scene)
 
         scene.gui.add_element(
@@ -149,13 +149,13 @@ def get_activate_ability(scene):
 
 def get_toggle_masonry(scene):
     def out_fn():
-        ability = scene.cm.get_one(MasonryAbility, entity=scene.player)
+        ability = scene.cm.get_one(BuildWallAbility, entity=scene.player)
         if ability:
             logging.info("Enabling Masonry")
             scene.cm.delete_component(ability)
         else:
             logging.info("Disabling Masonry")
-            scene.cm.add(MasonryAbility(entity=scene.player))
+            scene.cm.add(BuildWallAbility(entity=scene.player))
 
     return out_fn
 

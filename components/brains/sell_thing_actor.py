@@ -8,16 +8,15 @@ from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.death_listeners.die import Die
 from components.enums import Intention
-from components.diggable import Diggable
 from components.Sellable import Sellable
+from components.brains.brain import Brain
 from content.terrain.dirt import make_dirt
-from content.terrain.hole import make_hole
 from engine import constants, core
 from engine.types import EntityId
 
 
 @dataclass
-class SellThingActor(EnergyActor):
+class SellThingActor(Brain):
     energy_cost: int = EnergyActor.INSTANT
     old_actor: int = constants.INVALID
 

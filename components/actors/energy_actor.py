@@ -2,14 +2,14 @@ from abc import ABC
 from dataclasses import dataclass
 
 from components.actors.actor import Actor
-from components.enums import Intention, ControlMode
+from components.enums import Intention
+from engine import constants
 from engine.constants import PRIORITY_MEDIUM
 
 
 @dataclass
 class EnergyActor(Actor, ABC):
     """Provides control and other 'mind' information."""
-
     INSTANT = 0
     QUARTER_HOUR = 3
     HALF_HOUR = 6
@@ -21,11 +21,6 @@ class EnergyActor(Actor, ABC):
     energy: int = 0
     energy_cost: int = HOURLY
     is_recharging: bool = True  # True if the entity should accept energy
-
-
-    # action management
-    intention: Intention = Intention.NONE
-    intention_target: int = None
 
     def can_act(self) -> bool:
         return self.energy >= 0

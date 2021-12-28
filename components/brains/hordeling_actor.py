@@ -3,8 +3,8 @@ from typing import Optional
 
 from components import Coordinates
 from components.attacks.attack_action import AttackAction
-from components.actors.energy_actor import EnergyActor
 from components.attacks.attack import Attack
+from components.brains.brain import Brain
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.pathfinding.cost_mapper import CostMapper
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
@@ -15,11 +15,10 @@ from content.attacks import stab
 from engine import constants
 from engine.core import log_debug
 from components.actors import VECTOR_STEP_MAP
-from systems.utilities import set_intention
 
 
 @dataclass
-class HordelingActor(EnergyActor):
+class HordelingActor(Brain):
     target: int = constants.INVALID
     cost_map = None
 
@@ -49,8 +48,7 @@ class HordelingActor(EnergyActor):
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         next_step_node = self.get_next_step(scene)
         next_step = (next_step_node[0] - coords.x, next_step_node[1] - coords.y)
-        step_intention = VECTOR_STEP_MAP[next_step]
-        set_intention(scene, self.entity, 0, step_intention)
+        self.intention = VECTOR_STEP_MAP[next_step]
 
     def attack_target(self, scene):
         coords = scene.cm.get_one(Coordinates, entity=self.entity)

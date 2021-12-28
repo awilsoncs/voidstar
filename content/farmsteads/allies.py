@@ -1,7 +1,7 @@
 from typing import List
 
 from components import Entity, Appearance, Attributes, Coordinates
-from components.actors.peasant_actor import PeasantActor
+from components.brains.peasant_actor import PeasantActor
 from components.death_listeners.npc_corpse import Corpse
 from components.cry_for_help import CryForHelp
 from components.faction import Faction

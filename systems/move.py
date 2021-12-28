@@ -3,6 +3,7 @@ from typing import Tuple
 from components import Senses
 from components.actors.actor import Actor
 from components.attacks.attack import Attack
+from components.brains.brain import Brain
 from components.coordinates import Coordinates
 from components.enums import Intention
 from components.faction import Faction
@@ -10,7 +11,7 @@ from components.material import Material
 from components.move import Move
 from components.move_listeners.move_listener import MoveListener
 from components.states.move_cost_affectors import Hindered, DifficultTerrain, EasyTerrain, Haste
-from systems.utilities import get_blocking_object, retract_intention
+from systems.utilities import get_blocking_object
 
 
 def get_hostile(scene, entity, step_direction):
@@ -31,11 +32,13 @@ def get_hostile(scene, entity, step_direction):
 def run(scene):
     for actor in get_actors_with_step_intention(scene):
         entity = actor.entity
-        actor = scene.cm.get_one(Actor, entity=entity)
+        actor = scene.cm.get_one(Brain, entity=entity)
 
         # is there a hostile in that direction? if so, bump attack
         # is there a non-hostile blocking entity in that direction? if so, too bad
         # otherwise, move them
+        if actor.intention not in STEP_VECTORS:
+            print(actor)
         step_direction = STEP_VECTORS[actor.intention]
         if can_step(scene, entity, step_direction):
             # do move
@@ -47,17 +50,16 @@ def run(scene):
             else:
                 energy = move_component.energy_cost
             actor.pass_turn(energy)
-            retract_intention(scene, entity)
+            actor.intention = Intention.NONE
         elif get_hostile(scene, entity, step_direction):
             entity_attack: Attack = scene.cm.get_one(Attack, entity=entity)
             if entity_attack:
                 hostile: int = get_hostile(scene, entity, step_direction)
                 entity_attack.apply_attack(scene, hostile)
             actor.pass_turn()
-            retract_intention(scene, entity)
+            actor.intention = Intention.NONE
         else:
             actor.pass_turn()
-            retract_intention(scene, entity)
 
 
 def get_actors_with_step_intention(scene):

@@ -6,11 +6,12 @@ import settings
 from components import Coordinates, Entity
 from components.actors.energy_actor import EnergyActor
 from components.enums import Intention
+from components.brains.brain import Brain
 from engine import constants, core
 
 
 @dataclass
-class LookCursorController(EnergyActor):
+class LookCursorController(Brain):
     energy_cost: int = EnergyActor.INSTANT
     old_actor: int = constants.INVALID
     cursor: int = constants.INVALID
