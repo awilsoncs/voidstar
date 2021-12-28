@@ -1,12 +1,20 @@
 import settings
 from components import Entity, Appearance, Senses, Attributes, Coordinates
+from components.abilities.build_fence_ability import BuildFenceAbility
+from components.abilities.build_wall_ability import BuildWallAbility
+from components.abilities.debug_ability import DebugAbility
+from components.abilities.dig_hole_ability import DigHoleAbility
+from components.abilities.fast_forward_ability import FastForwardAbility
+from components.abilities.look_ability import LookAbility
+from components.abilities.plant_sapling_ability import PlantSaplingAbility
+from components.abilities.sell_ability import SellAbility
 from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
 from components.attacks.standard_attack import StandardAttack
 from components.death_listeners.player_corpse import PlayerCorpse
 from components.move_listeners.update_senses_on_move import UpdateSenses
 from components.options import Options
-from components.player_controllers.player_actor import PlayerActor
+from components.brains.player_actor import PlayerBrain
 from components.faction import Faction
 from components.material import Material
 from components.move import Move
@@ -26,17 +34,26 @@ def make_player(x, y):
             Appearance(entity=entity_id, symbol='@', color=palettes.WHITE, bg_color=palettes.BACKGROUND),
             PlayerCorpse(entity=entity_id),
             Senses(entity=entity_id, sight_radius=settings.TORCH_RADIUS),
-            PlayerActor(entity=entity_id),
+            PlayerBrain(entity=entity_id),
             Attributes(entity=entity_id, hp=5, max_hp=5),
             StandardAttack(entity=entity_id, damage=1),
             TargetValue(entity=entity_id, value=PLAYER),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
-            ThwackAbility(entity=entity_id, count=3, max=3),
-            ShootAbility(entity=entity_id),
             Move(entity=entity_id),
             Options(entity=entity_id),
             MovePlayerToTownCenter(entity=entity_id),
-            UpdateSenses(entity=entity_id)
+            UpdateSenses(entity=entity_id),
+            # Abilities
+            ThwackAbility(entity=entity_id, count=3, max=3),
+            ShootAbility(entity=entity_id),
+            DebugAbility(entity=entity_id),
+            FastForwardAbility(entity=entity_id),
+            PlantSaplingAbility(entity=entity_id),
+            DigHoleAbility(entity=entity_id),
+            LookAbility(entity=entity_id),
+            BuildWallAbility(entity=entity_id),
+            BuildFenceAbility(entity=entity_id),
+            SellAbility(entity=entity_id)
         ]
     )
