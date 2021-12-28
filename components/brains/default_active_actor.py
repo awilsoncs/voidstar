@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 from typing import Optional
 
@@ -9,8 +10,9 @@ from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.pathfinding.cost_mapper import CostMapper
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
 from components.pathfinding.pathfinder import Pathfinder
+from components.pathfinding.target_evaluation.hordeling_target_evaluator import HordelingTargetEvaluator
+from components.pathfinding.target_evaluation.target_evaluator import TargetEvaluator
 from components.pathfinding.target_selection import get_new_target
-from components.target_value import TargetValue
 from content.attacks import stab
 from engine import constants
 from engine.core import log_debug
@@ -18,7 +20,7 @@ from components.actors import VECTOR_STEP_MAP
 
 
 @dataclass
-class HordelingActor(Brain):
+class DefaultActiveActor(Brain):
     target: int = constants.INVALID
     cost_map = None
 
@@ -26,7 +28,17 @@ class HordelingActor(Brain):
     def act(self, scene):
         self.cost_map = self.get_cost_map(scene)
 
-        entity_values = [(tv.entity, tv.value) for tv in scene.cm.get(TargetValue)]
+        target_evaluator = scene.cm.get_one(TargetEvaluator, entity=self.entity)
+        if not target_evaluator:
+            logging.warning(f"EID#{self.entity}::DefaultActiveActor missing target evaluator")
+            target_evaluator = HordelingTargetEvaluator()
+
+        entity_values = target_evaluator.get_targets(scene)
+
+        if not entity_values:
+            # No targets
+            self.pass_turn()
+            return
 
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         self.target = get_new_target(scene, self.cost_map, (coords.x, coords.y), entity_values)
@@ -91,5 +103,3 @@ class HordelingActor(Brain):
             return path[1]
         else:
             return None
-
-

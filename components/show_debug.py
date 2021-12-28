@@ -6,7 +6,7 @@ import settings
 from components import Entity, Coordinates, Attributes, Senses
 from components.abilities.build_wall_ability import BuildWallAbility
 from components.actors.energy_actor import EnergyActor
-from components.brains.hordeling_actor import HordelingActor
+from components.brains.default_active_actor import DefaultActiveActor
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.wrath_effect import WrathEffect
 from content.farmsteads.houses import place_farmstead
@@ -162,7 +162,7 @@ def get_toggle_masonry(scene):
 
 def get_pathfinding_for(scene):
     def out_fn():
-        actors = scene.cm.get(HordelingActor)
+        actors = scene.cm.get(DefaultActiveActor)
         entities = [scene.cm.get_one(Entity, entity=e.entity) for e in actors]
         entities = sorted(entities, key=lambda e: e.id)
         scene.gui.add_element(

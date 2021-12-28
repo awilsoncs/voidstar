@@ -5,6 +5,7 @@ from components.abilities.build_wall_ability import BuildWallAbility
 from components.abilities.debug_ability import DebugAbility
 from components.abilities.dig_hole_ability import DigHoleAbility
 from components.abilities.fast_forward_ability import FastForwardAbility
+from components.abilities.hire_knight_ability import HireKnightAbility
 from components.abilities.look_ability import LookAbility
 from components.abilities.place_cow_ability import PlaceCowAbility
 from components.abilities.plant_sapling_ability import PlantSaplingAbility
@@ -56,6 +57,7 @@ def make_player(x, y):
             BuildWallAbility(entity=entity_id),
             BuildFenceAbility(entity=entity_id),
             SellAbility(entity=entity_id),
-            PlaceCowAbility(entity=entity_id)
+            PlaceCowAbility(entity=entity_id),
+            HireKnightAbility(entity=entity_id)
         ]
     )

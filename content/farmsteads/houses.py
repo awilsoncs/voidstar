@@ -1,11 +1,11 @@
 import logging
 import random
-from typing import List, Tuple, Set
+from typing import Set
 
 import settings
 from components import Coordinates
 from components.house_structure import HouseStructure
-from content.farmsteads.allies import make_peasant
+from content.allies.peasants import make_peasant
 from content.farmsteads.farms import make_farm_plot
 from content.farmsteads.floorboard import make_floorboard
 from content.farmsteads.walls import make_wall

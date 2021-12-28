@@ -1,6 +1,7 @@
 import random
 
 from components import Entity, Coordinates, Appearance, Attributes
+from components.Sellable import Sellable
 from components.brains.default_active_actor import DefaultActiveActor
 from components.attacks.standard_attack import StandardAttack
 from components.death_listeners.drop_gold import DropGold
@@ -9,37 +10,30 @@ from components.faction import Faction
 from components.material import Material
 from components.move import Move
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
-from components.pathfinding.target_evaluation.hordeling_target_evaluator import HordelingTargetEvaluator
-from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
+from components.pathfinding.target_evaluation.ally_target_evaluator import AllyTargetEvaluator
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
 
-def make_juvenile(x, y):
+def make_knight(x, y):
     entity_id = core.get_id()
 
     components = [
-        Entity(id=entity_id, entity=entity_id, name='hordeling'),
+        Entity(id=entity_id, entity=entity_id, name='knight'),
         Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
-        Faction(entity=entity_id, faction=Faction.Options.MONSTER),
+        Faction(entity=entity_id, faction=Faction.Options.PEASANT),
         Corpse(entity=entity_id),
         DefaultActiveActor(entity=entity_id),
         NormalCostMapper(entity=entity_id),
-        Appearance(entity=entity_id, symbol='h', color=palettes.HORDELING, bg_color=palettes.BACKGROUND),
-        Attributes(entity=entity_id, hp=1, max_hp=1),
-        StandardAttack(entity=entity_id, damage=1),
-        Material(entity=entity_id, blocks=True, blocks_sight=False),
-        HordelingTag(entity=entity_id),
+        Appearance(entity=entity_id, symbol='K', color=palettes.STONE, bg_color=palettes.BACKGROUND),
+        Attributes(entity=entity_id, hp=10, max_hp=10),
+        StandardAttack(entity=entity_id, damage=3),
+        Material(entity=entity_id, blocks=False, blocks_sight=False),
         Move(entity=entity_id),
-        PathfinderCost(entity=entity_id, cost=5),
-        HordelingTargetEvaluator(entity=entity_id)
+        PathfinderCost(entity=entity_id, cost=40),
+        Sellable(entity=entity_id, value=0),
+        AllyTargetEvaluator(entity=entity_id)
     ]
 
-    if random.randint(1, 10) == 10:
-        components.append(DropGold(entity=entity_id))
-
-    return (
-        entity_id,
-        components
-    )
+    return entity_id, components
