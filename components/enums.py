@@ -15,6 +15,7 @@ class Intention(Enum):
     LOOK = auto()
     BUILD_FENCE = auto()
     BUILD_WALL = auto()
+    PLACE_COW = auto()
     SELL = auto()
 
     STEP_NORTH = auto()

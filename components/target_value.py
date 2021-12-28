@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from engine.component import Component
 
 PEASANT = 100
+COW = 100
 PLAYER = 25
 CROPS = 50
 DEFAULT = 0

@@ -4,10 +4,12 @@ from dataclasses import dataclass
 
 from components.abilities.ability import Ability
 from components.animation_effects.blinker import AnimationBlinker
+from engine.core import log_debug
 
 
 @dataclass
 class ControlModeAbility(Ability, ABC):
+    @log_debug(__name__)
     def use(self, scene, dispatcher):
         sym, color = self.get_anim()
         mode = self.get_mode()

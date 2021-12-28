@@ -5,6 +5,7 @@ from components.abilities.control_mode_ability import ControlModeAbility
 from components.enums import Intention
 from components.brains.place_fence_actor import PlaceFenceActor
 from engine import palettes
+from engine.core import log_debug
 
 
 @dataclass

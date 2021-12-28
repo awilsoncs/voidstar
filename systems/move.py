@@ -1,3 +1,4 @@
+import logging
 from typing import Tuple
 
 from components import Senses
@@ -31,6 +32,7 @@ def get_hostile(scene, entity, step_direction):
 
 def run(scene):
     for actor in get_actors_with_step_intention(scene):
+        logging.debug(f"Move System: moving {actor}")
         entity = actor.entity
         actor = scene.cm.get_one(Brain, entity=entity)
 
@@ -60,6 +62,7 @@ def run(scene):
             actor.intention = Intention.NONE
         else:
             actor.pass_turn()
+            actor.intention = Intention.NONE
 
 
 def get_actors_with_step_intention(scene):

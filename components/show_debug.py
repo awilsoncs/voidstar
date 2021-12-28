@@ -79,7 +79,7 @@ def get_heal(scene):
 
 def get_rich(scene):
     def out_fn():
-        scene.gold += 10
+        scene.gold += 100
 
     return out_fn
 

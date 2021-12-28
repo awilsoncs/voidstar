@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 from components import Coordinates
 from components.abilities.ability import Ability
 from components.enums import Intention
@@ -5,6 +7,7 @@ from components.brains.look_cursor_controller import LookCursorController
 from content.cursor import make_cursor
 
 
+@dataclass
 class LookAbility(Ability):
     ability_title: str = "Look Around"
     unlock_cost: int = 0

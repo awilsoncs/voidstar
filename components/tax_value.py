@@ -7,5 +7,6 @@ from engine.component import Component
 class TaxValue(Component):
     DEFAULT = 1
     CROPS = 5
+    COW = 25
 
     value: int = DEFAULT

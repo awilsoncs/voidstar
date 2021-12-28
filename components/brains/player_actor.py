@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass
 
 import tcod
@@ -23,7 +24,6 @@ class PlayerBrain(Brain):
                 dizzy.duration -= 1
                 coords = scene.cm.get_one(Coordinates, entity=self.entity)
                 scene.cm.add(*confused_animation(coords.x, coords.y)[1])
-
                 if dizzy.duration <= 0:
                     scene.cm.delete_component(dizzy)
         else:
@@ -32,11 +32,13 @@ class PlayerBrain(Brain):
     def handle_key_event(self, scene, action_map):
         key_event = core.get_key_event()
         if key_event:
-            key_event = key_event.sym
-            intention = action_map.get(key_event, None)
+            logging.debug(f"EID#{self.entity}::PlayerActor received input {key_event}")
+            key_code = key_event.sym
+            intention = action_map.get(key_code, None)
+            logging.debug(f"EID#{self.entity}::PlayerActor translated {key_event} -> {intention}")
+
             abilities = {a.intention: a for a in scene.cm.get_all(Ability, entity=self.entity)}
             if intention in abilities:
-                # todo Migrate all of this to a component definition system
                 if intention in abilities:
                     ability = abilities[intention]
                     if not ability:
@@ -44,8 +46,10 @@ class PlayerBrain(Brain):
                         return
                     ability.apply(scene, self.id)
             elif intention is None:
+                logging.debug(f"EID#{self.entity}::PlayerActor found no useable intention")
                 return
             else:
+                logging.debug(f"EID#{self.entity}::PlayerActor deferred intention (usually for movement intentions)")
                 self.intention = intention
 
     def _handle_confused(self, scene):
@@ -62,7 +66,9 @@ KEY_ACTION_MAP = {
     tcod.event.K_l: Intention.LOOK,
     tcod.event.K_e: Intention.BUILD_FENCE,
     tcod.event.K_r: Intention.BUILD_WALL,
-    tcod.event.K_c: Intention.SELL,
+    tcod.event.K_c: Intention.PLACE_COW,
+    tcod.event.K_g: Intention.SELL,
+
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,
