@@ -4,7 +4,7 @@ from components import Entity, Coordinates, Appearance, Attributes
 from components.Sellable import Sellable
 from components.brains.default_active_actor import DefaultActiveActor
 from components.attacks.standard_attack import StandardAttack
-from components.death_listeners.drop_gold import DropGold
+from components.brains.stationary_attack_actor import StationaryAttackActor
 from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction
 from components.material import Material
@@ -24,13 +24,12 @@ def make_knight(x, y):
         Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
         Faction(entity=entity_id, faction=Faction.Options.PEASANT),
         Corpse(entity=entity_id),
-        DefaultActiveActor(entity=entity_id),
+        StationaryAttackActor(entity=entity_id),
         NormalCostMapper(entity=entity_id),
         Appearance(entity=entity_id, symbol='K', color=palettes.STONE, bg_color=palettes.BACKGROUND),
         Attributes(entity=entity_id, hp=10, max_hp=10),
         StandardAttack(entity=entity_id, damage=3),
         Material(entity=entity_id, blocks=False, blocks_sight=False),
-        Move(entity=entity_id),
         PathfinderCost(entity=entity_id, cost=40),
         Sellable(entity=entity_id, value=0),
         AllyTargetEvaluator(entity=entity_id)
