@@ -9,7 +9,7 @@ from content.enemies.sneaker import make_sneaker
 
 
 @dataclass
-class HordelingSpawnerSpawner(EnergyActor):
+class HordelingSpawner(EnergyActor):
     """Hordelings will spawn at this object's location."""
     energy_cost: int = EnergyActor.HOURLY
     waves: int = 1

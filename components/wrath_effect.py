@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_spawner import HordelingSpawner
-from components.actors.hordeling_spawner import HordelingSpawnerSpawner
+from components.actors.hordeling_spawner import HordelingSpawner
 from components.death_listeners.die import Die
 from components.tags.hordeling_tag import HordelingTag
 
@@ -18,9 +18,6 @@ class WrathEffect(EnergyActor):
         logging.debug("Erasing the origin of evil")
         spawners = scene.cm.get(HordelingSpawner)
         for spawner in spawners:
-            scene.cm.delete(spawner.entity)
-        spawner_spawners = scene.cm.get(HordelingSpawnerSpawner)
-        for spawner in spawner_spawners:
             scene.cm.delete(spawner.entity)
 
         logging.debug("Obliterating hordelings")
