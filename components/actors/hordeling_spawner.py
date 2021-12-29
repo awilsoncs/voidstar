@@ -1,39 +1,55 @@
 import random
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 import settings
-from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from content.enemies.juggernaut import make_juggernaut
 from content.enemies.juvenile import make_juvenile
 from content.enemies.sneaker import make_sneaker
 
 
-def get_hordeling_count():
-    return random.randint(settings.SPAWN_MIN, settings.SPAWN_MAX)
-
-
 @dataclass
-class HordelingSpawner(EnergyActor):
+class HordelingSpawnerSpawner(EnergyActor):
     """Hordelings will spawn at this object's location."""
-    remaining: int = field(default_factory=get_hordeling_count)
-    timer_delay: int = EnergyActor.QUARTER_HOUR
+    energy_cost: int = EnergyActor.HOURLY
+    waves: int = 1
 
     def act(self, scene):
-        if random.randint(1, 100) < settings.SPAWN_FREQUENCY:
+        spawn_hordeling(scene)
+        self.pass_turn(random.randint(EnergyActor.QUARTER_HOUR, EnergyActor.HOURLY*20))
 
-            coords = scene.cm.get_one(Coordinates, entity=self.entity)
-            assert coords, "no coords found for spawner"
+        self.waves -= 1
 
-            roll = random.random()
-            if roll > 0.95:
-                scene.cm.add(*make_juggernaut(coords.x, coords.y)[1])
-            elif roll > 0.9:
-                scene.cm.add(*make_sneaker(coords.x, coords.y)[1])
-            else:
-                scene.cm.add(*make_juvenile(coords.x, coords.y)[1])
-            self.remaining -= 1
-        self.pass_turn()
-
-        if self.remaining <= 0:
+        if self.waves <= 0:
             scene.cm.delete(self.entity)
+
+
+def spawn_hordeling(scene):
+    """Add a hordeling spawner to a random edge of the map."""
+    x, y = get_wall_coords()
+    roll = random.random()
+    if roll > 0.95:
+        scene.cm.add(*make_juggernaut(x, y)[1])
+    elif roll > 0.9:
+        scene.cm.add(*make_sneaker(x, y)[1])
+    else:
+        scene.cm.add(*make_juvenile(x, y)[1])
+
+
+def get_wall_coords():
+    return random.choice(
+        [
+            (get_random_width_location(), 0),
+            (0, get_random_height_location()),
+            (settings.MAP_WIDTH - 1, get_random_height_location()),
+            (get_random_width_location(), settings.MAP_HEIGHT - 1)
+        ]
+    )
+
+
+def get_random_width_location():
+    return random.randrange(1, settings.MAP_WIDTH - 1)
+
+
+def get_random_height_location():
+    return random.randrange(1, settings.MAP_HEIGHT - 1)

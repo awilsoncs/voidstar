@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_spawner import HordelingSpawner
-from components.actors.hordeling_spawner_spawner import HordelingSpawnerSpawner
+from components.actors.hordeling_spawner import HordelingSpawnerSpawner
 from components.attack_start_listeners.start_attack import StartAttack
 from components.season_reset_listeners.reset_season import ResetSeason
 from components.tags.hordeling_tag import HordelingTag
