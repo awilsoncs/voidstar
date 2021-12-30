@@ -1,6 +1,6 @@
 from components import Entity, Coordinates, Appearance
 from components.relationships.farmed_by import FarmedBy
-from components.season_reset_listeners.grow_crops import GrowCrops
+from components.attack_start_listeners.grow_crops import GrowCrops
 from engine import core, palettes
 from engine.constants import PRIORITY_LOW
 

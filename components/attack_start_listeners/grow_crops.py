@@ -6,6 +6,7 @@ from components import Coordinates
 from components.actors.calendar_actor import Calendar
 from components.attack_start_listeners.attack_start_actor import AttackStartListener
 from components.relationships.farmed_by import FarmedBy
+from components.tags.crop_info import CropInfo
 from content.farmsteads.crops import make_crops
 from engine import core
 
@@ -21,12 +22,14 @@ class GrowCrops(AttackStartListener):
         if calendar.season > 2:
             return
 
-        if random.random() < .3:
+        crop_info = scene.cm.get(CropInfo, query=lambda ci: ci.field_id == self.entity)
+        if crop_info:
+            return
 
-            logging.info(f"EID#{self.entity}::GrowCrops: Growing crops..")
+        logging.info(f"EID#{self.entity}::GrowCrops: Growing crops..")
 
-            farmed_by = scene.cm.get_one(FarmedBy, entity=self.entity)
-            farmer = farmed_by.farmer
+        farmed_by = scene.cm.get_one(FarmedBy, entity=self.entity)
+        farmer = farmed_by.farmer
 
-            coords = scene.cm.get_one(Coordinates, entity=self.entity)
-            scene.cm.add(*make_crops(coords.x, coords.y, farmer, self.entity)[1])
+        coords = scene.cm.get_one(Coordinates, entity=self.entity)
+        scene.cm.add(*make_crops(coords.x, coords.y, farmer, self.entity)[1])

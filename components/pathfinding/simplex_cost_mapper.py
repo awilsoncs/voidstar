@@ -8,7 +8,7 @@ from components.pathfinding.cost_mapper import CostMapper
 
 class SimplexCostMapper(CostMapper):
     def get_cost_map(self, scene):
-        noise = tcod.noise.Noise(dimensions=2, algorithm=tcod.noise.Algorithm.SIMPLEX, octaves=1)
+        noise = tcod.noise.Noise(dimensions=2, algorithm=tcod.noise.Algorithm.SIMPLEX, octaves=10)
         cost = noise[tcod.noise.grid(shape=(settings.MAP_WIDTH-6, settings.MAP_HEIGHT-6), scale=0.1, origin=(0, 0))]
 
         # Block paths from going into the map border trees
