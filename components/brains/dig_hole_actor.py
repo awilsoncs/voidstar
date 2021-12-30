@@ -3,6 +3,7 @@ from typing import List
 
 import tcod
 
+import settings
 from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
@@ -42,9 +43,9 @@ class DigHoleActor(Brain):
         direction = STEP_VECTORS[direction]
         hole_x = x+direction[0]
         hole_y = y+direction[1]
-        if _is_diggable(scene, hole_x, hole_y):
+        if _is_empty(scene, hole_x, hole_y) and _in_bounds(hole_x, hole_y):
             self._apply_dig_hole(hole_x, hole_y, scene)
-        else:
+        elif _in_bounds(hole_x, hole_y):
             diggable_entities = _get_diggables(scene, hole_x, hole_y)
             if diggable_entities:
                 scene.gold -= 2
@@ -60,8 +61,8 @@ class DigHoleActor(Brain):
                 scene.cm.add(*dirt[1])
                 old_actor = self.back_out(scene)
                 old_actor.pass_turn()
-            else:
-                self.back_out(scene)
+        else:
+            self.back_out(scene)
 
     def _apply_dig_hole(self, hole_x, hole_y, scene):
         hole = make_hole(hole_x, hole_y)
@@ -79,7 +80,13 @@ class DigHoleActor(Brain):
         return old_actor
 
 
-def _is_diggable(scene, x, y) -> bool:
+def _in_bounds(x, y):
+    in_x_bounds = 2 < x < settings.MAP_WIDTH - 2
+    in_y_bounds = 2 < y < settings.MAP_HEIGHT - 2
+    return in_y_bounds and in_x_bounds
+
+
+def _is_empty(scene, x, y) -> bool:
     target_coords = scene.cm.get(
         Coordinates,
         query=lambda coords: coords.x == x and coords.y == y and not coords.buildable
