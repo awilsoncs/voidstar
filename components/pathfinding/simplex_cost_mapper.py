@@ -15,5 +15,5 @@ class SimplexCostMapper(CostMapper):
 
         border += 1
         border *= 1000
-        border = border.astype(np.uint8)
+        border = border.astype(np.uint16)
         return border

@@ -2,9 +2,12 @@ import logging
 import random
 from typing import List
 
+import settings
 from components import Coordinates
 from components.build_world_listeners.build_world_listeners import BuildWorldListener
 from components.house_structure import HouseStructure
+from components.pathfinding.pathfinder import Pathfinder
+from components.pathfinding.simplex_cost_mapper import SimplexCostMapper
 from components.tags.town_center_flag import TownCenterFlag
 from content.terrain.roads import make_road, connect_point_to_road_network
 from engine.utilities import get_3_by_3_square, get_3_by_3_box
@@ -27,15 +30,26 @@ class PlaceRoads(BuildWorldListener):
         houses: List[HouseStructure] = scene.cm.get(HouseStructure, project=lambda hs: hs.house_id)
         house_coords: List[Coordinates] = [scene.cm.get_one(Coordinates, entity=house) for house in houses]
 
+        self.add_town_center(house_coords, scene)
+        self.connect_houses_to_road(house_coords, scene)
+        self.draw_road_across_map(scene)
+
+    def draw_road_across_map(self, scene):
+        logging.info(f"EID#{self.entity}::PlaceRoads placing highway")
+        start = (0, random.randint(2, settings.MAP_WIDTH-3))
+        connect_point_to_road_network(scene, start)
+        end = (settings.MAP_WIDTH-1, random.randint(2, settings.MAP_HEIGHT-3))
+        connect_point_to_road_network(scene, end)
+
+    def connect_houses_to_road(self, house_coords, scene):
+        for coord in house_coords:
+            connect_point_to_road_network(scene, coord.position, trim_start=True)
+
+    def add_town_center(self, house_coords, scene):
         # Identify the town center by averaging the coords
         avg_x, avg_y = get_town_center(house_coords, scene)
-
         for coord in list(get_3_by_3_box(avg_x, avg_y)):
             scene.cm.add(*make_road(coord[0], coord[1])[1])
-
         town_center = make_road(avg_x, avg_y)
         town_center[1].append(TownCenterFlag(entity=town_center[0]))
         scene.cm.add(*town_center[1])
-
-        for coord in house_coords:
-            connect_point_to_road_network(scene, coord.position)
