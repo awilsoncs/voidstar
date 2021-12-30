@@ -24,7 +24,7 @@ def make_knight(x, y):
         Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
         Faction(entity=entity_id, faction=Faction.Options.PEASANT),
         Corpse(entity=entity_id),
-        StationaryAttackActor(entity=entity_id),
+        StationaryAttackActor(entity=entity_id, root_x=x, root_y=y),
         NormalCostMapper(entity=entity_id),
         Appearance(entity=entity_id, symbol='K', color=palettes.STONE, bg_color=palettes.BACKGROUND),
         Attributes(entity=entity_id, hp=10, max_hp=10),
