@@ -79,10 +79,10 @@ class Thwackometer(Bar):
     symbol: str = '/'
 
     fg_color: tuple = palettes.STONE
-    mg_color: tuple = palettes.GABRIEL_3_5
+    mg_color: tuple = palettes.MEAT
 
     thwack_fg: tuple = palettes.STONE
-    thwack_mg: tuple = palettes.GABRIEL_3_5
+    thwack_mg: tuple = palettes.MEAT
 
     dizzy_fg: tuple = palettes.LIGHT_WATER
     dizzy_mg: tuple = palettes.SHADOW

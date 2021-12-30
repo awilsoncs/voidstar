@@ -17,6 +17,7 @@ class Intention(Enum):
     BUILD_WALL = auto()
     PLACE_COW = auto()
     HIRE_KNIGHT = auto()
+    PLACE_HAUNCH = auto()
     SELL = auto()
 
     STEP_NORTH = auto()

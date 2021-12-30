@@ -4,8 +4,9 @@ from engine.component import Component
 
 PEASANT = 100
 COW = 100
-PLAYER = 25
-CROPS = 50
+HAUNCH = 1000
+PLAYER = 50
+CROPS = 75
 DEFAULT = 0
 
 

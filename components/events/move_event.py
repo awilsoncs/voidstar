@@ -7,3 +7,4 @@ from engine.component import Component
 class MoveEvent(Component):
     dx: int = 0
     dy: int = 0
+    is_forced: int = 0

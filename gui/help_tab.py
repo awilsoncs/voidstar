@@ -10,7 +10,7 @@ class HelpTab(GuiElement):
             x,
             y,
             fg=palettes.WHITE,
-            mg=palettes.GABRIEL_3_5,
+            mg=palettes.MEAT,
             bg=palettes.BACKGROUND,
             name=None
     ):

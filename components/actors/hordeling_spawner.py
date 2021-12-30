@@ -29,7 +29,7 @@ def spawn_hordeling(scene):
     """Add a hordeling spawner to a random edge of the map."""
     x, y = get_wall_coords()
     roll = random.random()
-    if roll > .0:
+    if roll > .8:
         maker = random.choice([make_sneaker, make_juggernaut, make_pirhana])
         scene.cm.add(*maker(x, y)[1])
     else:

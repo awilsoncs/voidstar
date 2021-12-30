@@ -68,6 +68,7 @@ KEY_ACTION_MAP = {
     tcod.event.K_r: Intention.BUILD_WALL,
     tcod.event.K_c: Intention.PLACE_COW,
     tcod.event.K_k: Intention.HIRE_KNIGHT,
+    tcod.event.K_h: Intention.PLACE_HAUNCH,
     tcod.event.K_g: Intention.SELL,
 
     tcod.event.K_UP: Intention.STEP_NORTH,
