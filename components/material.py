@@ -7,3 +7,4 @@ from engine.component import Component
 class Material(Component):
     blocks: bool = False
     blocks_sight: bool = False
+    indestructible: bool = False

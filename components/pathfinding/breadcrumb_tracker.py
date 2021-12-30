@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass, field
 from typing import List, Tuple
 
@@ -10,6 +11,7 @@ class BreadcrumbTracker(Component):
     breadcrumbs: List[int] = field(default_factory=list)
 
     def add_breadcrumbs(self, scene, path: List[Tuple[int, int]]):
+        logging.debug(f"EID#{self.entity}::BreadcrumbTracker adding breadcrumbs to scene")
         new_breadcrumbs = []
         for path_node in path:
             breadcrumb = make_breadcrumb(path_node[0], path_node[1])

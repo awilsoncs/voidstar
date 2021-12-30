@@ -16,6 +16,8 @@ class PlaceRiver(BuildWorldListener):
         start = (random.randint(2, settings.MAP_WIDTH-3), 1)
         end = (random.randint(2, settings.MAP_WIDTH-3), settings.MAP_HEIGHT-2)
         river = Pathfinder().get_path(cost, start, end, diagonal=0)
+        if not river:
+            logging.warning(f"EID#{self.entity}::PlaceRiver could not find a path for river")
         for x, y in river:
             logging.info(f"EID#{self.entity}::PlaceRiver placing water ({x}, {y})")
             scene.cm.add(*make_water(x, y)[1])

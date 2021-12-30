@@ -95,6 +95,7 @@ class DefaultActiveActor(Brain):
 
         breadcrumb_tracker = scene.cm.get_one(BreadcrumbTracker, entity=self.entity)
         if breadcrumb_tracker:
+
             breadcrumb_tracker.add_breadcrumbs(scene, path)
 
         path = [p for p in path]
@@ -102,4 +103,5 @@ class DefaultActiveActor(Brain):
         if path:
             return path[1]
         else:
+            logging.warning(f"EID#{self.entity}::DefaultActiveActor found no valid path")
             return None

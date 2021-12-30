@@ -17,6 +17,9 @@ def get_blocking_object(cm: ComponentManager, x: int, y: int) -> int:
             if (coord.x == x and coord.y == y)
         )
     )
+
+
+
     blocking_material = next(materials_at_coords, None)
     return blocking_material.entity if blocking_material else None
 

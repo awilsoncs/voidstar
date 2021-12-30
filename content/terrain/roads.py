@@ -43,6 +43,9 @@ def _draw_road(scene, start: Tuple[int, int], end: Tuple[int, int], cost_map, tr
         coords = scene.cm.get(Coordinates, query=lambda c: scene.cm.get_one(RoadMarker, entity=c.entity))
         if coords and coords[0].x == node[0] and coords[0].y == node[1]:
             break
+        other_coords = scene.cm.get(Coordinates, query=lambda c: list(c.position) == node, project=lambda c: c.entity)
+        for other in other_coords:
+            scene.cm.delete(other)
         scene.cm.add(*make_road(node[0], node[1])[1])
 
 

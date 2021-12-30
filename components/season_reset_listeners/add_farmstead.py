@@ -14,4 +14,4 @@ class AddFarmstead(SeasonResetListener):
         if calendar.season == 1:
             farmstead_id = place_farmstead(scene)
             farmstead_center = scene.cm.get_one(Coordinates, entity=farmstead_id).position
-            connect_point_to_road_network(scene, farmstead_center)
+            connect_point_to_road_network(scene, farmstead_center, trim_start=True)

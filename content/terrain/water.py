@@ -13,13 +13,13 @@ def make_water(x, y):
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='tree', static=True),
+            Entity(id=entity_id, entity=entity_id, name='water', static=True),
             Appearance(entity=entity_id, symbol='~', color=palettes.LIGHT_WATER, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST),
-            Material(entity=entity_id, blocks=False, blocks_sight=False),
+            Material(entity=entity_id, blocks=True, blocks_sight=False),
             DifficultTerrain(entity=entity_id),
             Diggable(entity=entity_id),
             Flooder(entity=entity_id),
-            PathfinderCost(entity=entity_id, cost=4)
+            PathfinderCost(entity=entity_id, cost=0)
         ]
     )

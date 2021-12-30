@@ -191,5 +191,5 @@ def get_spawn_home(scene):
     def out_fn():
         farmstead_id = place_farmstead(scene)
         farmstead_point = scene.cm.get_one(Coordinates, entity=farmstead_id).position
-        connect_point_to_road_network(scene, farmstead_point)
+        connect_point_to_road_network(scene, farmstead_point, trim_start=True)
     return out_fn
