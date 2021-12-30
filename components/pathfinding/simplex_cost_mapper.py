@@ -8,11 +8,11 @@ from components.pathfinding.cost_mapper import CostMapper
 
 class SimplexCostMapper(CostMapper):
     def get_cost_map(self, scene):
-        noise = tcod.noise.Noise(dimensions=2, algorithm=tcod.noise.Algorithm.SIMPLEX, octaves=10)
+        noise = tcod.noise.Noise(dimensions=2, algorithm=tcod.noise.Algorithm.SIMPLEX, octaves=1)
         cost = noise[tcod.noise.grid(shape=(settings.MAP_WIDTH-6, settings.MAP_HEIGHT-6), scale=0.1, origin=(0, 0))]
 
         # Block paths from going into the map border trees
-        blocked_area = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=float)
+        blocked_area = np.ones((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=float) * 1000
 
         # Want a high cost frame around the village so that hordelings don't get trapped behind impassible terrain
         avoid_area = np.ones((settings.MAP_WIDTH-2, settings.MAP_HEIGHT-2), order='F', dtype=float) * 2

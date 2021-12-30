@@ -28,8 +28,8 @@ def spawn_lake(scene, x: int, y: int) -> None:
             for _x, _y in get_3_by_3_box(working_x, working_y)
             if (
                 random.random() <= settings.LAKE_PROLIFERATION
-                and 1 < _x < settings.MAP_WIDTH - 1
-                and 1 < _y < settings.MAP_HEIGHT - 1
+                and 3 < _x < settings.MAP_WIDTH - 3
+                and 3 < _y < settings.MAP_HEIGHT - 3
             )
         ]
 
@@ -39,8 +39,8 @@ class PlaceLakes(BuildWorldListener):
     def on_build_world(self, scene):
         logging.info(f"EID#{self.entity}::PlaceLakes placing lakes in town")
         for _ in range(random.randint(settings.LAKES_MIN, settings.LAKES_MAX)):
-            x = random.randint(0, settings.MAP_WIDTH - 1)
-            y = random.randint(0, settings.MAP_HEIGHT - 1)
+            x = random.randint(5, settings.MAP_WIDTH - 5)
+            y = random.randint(5, settings.MAP_HEIGHT - 5)
             coords = {(coord.x, coord.y) for coord in scene.cm.get(Coordinates)}
             if (x, y) not in coords:
                 spawn_lake(scene, x, y)
