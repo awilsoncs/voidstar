@@ -5,6 +5,7 @@ import settings
 from components.actors.energy_actor import EnergyActor
 from content.enemies.juggernaut import make_juggernaut
 from content.enemies.juvenile import make_juvenile
+from content.enemies.pirhana import make_pirhana
 from content.enemies.sneaker import make_sneaker
 
 
@@ -28,10 +29,9 @@ def spawn_hordeling(scene):
     """Add a hordeling spawner to a random edge of the map."""
     x, y = get_wall_coords()
     roll = random.random()
-    if roll > 1.0:
-        scene.cm.add(*make_juggernaut(x, y)[1])
-    elif roll > 0:
-        scene.cm.add(*make_sneaker(x, y)[1])
+    if roll > .0:
+        maker = random.choice([make_sneaker, make_juggernaut, make_pirhana])
+        scene.cm.add(*maker(x, y)[1])
     else:
         scene.cm.add(*make_juvenile(x, y)[1])
 
