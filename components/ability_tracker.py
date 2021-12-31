@@ -3,12 +3,17 @@ from dataclasses import dataclass
 
 from components.abilities.ability import Ability
 from components.abilities.null_ability import NullAbility
+from components.attack_start_listeners.attack_start_actor import AttackStartListener
 from engine.component import Component
 
 
 @dataclass
-class AbilityTracker(Component):
+class AbilityTracker(AttackStartListener):
     current_ability: int = 0
+
+    def on_attack_start(self, scene):
+        logging.debug(f"EID#{self.entity}::AbilityTracker resetting ability to 0")
+        self.current_ability = 0
 
     def get_current_ability(self, scene):
         abilities = scene.cm.get_all(Ability, entity=self.entity)
