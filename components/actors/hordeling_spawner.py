@@ -2,6 +2,7 @@ import random
 from dataclasses import dataclass
 
 import settings
+from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from content.enemies.juggernaut import make_juggernaut
 from content.enemies.juvenile import make_juvenile
@@ -28,6 +29,10 @@ class HordelingSpawner(EnergyActor):
 def spawn_hordeling(scene):
     """Add a hordeling spawner to a random edge of the map."""
     x, y = get_wall_coords()
+    taken = set(scene.cm.get(Coordinates, project=lambda c: c.position))
+    while (x, y) in taken:
+        taken = get_wall_coords()
+
     roll = random.random()
     if roll > .8:
         maker = random.choice([make_sneaker, make_juggernaut, make_pirhana])
@@ -48,8 +53,8 @@ def get_wall_coords():
 
 
 def get_random_width_location():
-    return random.randrange(1, settings.MAP_WIDTH - 1)
+    return random.randrange(1, settings.MAP_WIDTH - 2)
 
 
 def get_random_height_location():
-    return random.randrange(1, settings.MAP_HEIGHT - 1)
+    return random.randrange(1, settings.MAP_HEIGHT - 2)
