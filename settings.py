@@ -29,7 +29,7 @@ def create_options_file():
         'copse-min': 5,
         'copse-max': 5,
         'copse-proliferation': .05,
-        'character-name': 'Sir Chauncey',
+        'character-name': 'Sir Cameron',
         'spawn-min': 1,
         'spawn-max': 1,
         'rock-field-min': 2,
