@@ -19,7 +19,7 @@ class ShootAbility(SeasonResetListener, Ability):
     unlock_cost: int = 100
     use_cost: int = 5
 
-    def on_season_reset(self, scene):
+    def on_season_reset(self, scene, season):
         self.count = self.max
 
     def use(self, scene, dispatcher):

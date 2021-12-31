@@ -18,7 +18,7 @@ moves = [
 ]
 
 
-def _move_peasants_out(scene):
+def _move_peasants_out(scene, season):
     peasants = scene.cm.get(PeasantTag)
     for peasant in peasants:
         farm_plots = scene.cm.get(
@@ -35,8 +35,7 @@ def _move_peasants_out(scene):
 
         actor = scene.cm.get_one(PeasantActor, entity=peasant.entity)
 
-        calendar = scene.cm.get_one(Calendar, entity=core.get_id("calendar"))
-        if calendar.season != 4:
+        if season != 'Winter':
             actor.state = PeasantActor.State.FARMING
         else:
             actor.state = PeasantActor.State.WANDERING
@@ -45,8 +44,8 @@ def _move_peasants_out(scene):
 @dataclass
 class MovePeasantsOut(SeasonResetListener, GameStartListener):
     """Move the peasants out of their houses."""
-    def on_season_reset(self, scene):
-        _move_peasants_out(scene)
+    def on_season_reset(self, scene, season):
+        _move_peasants_out(scene, season)
 
     def on_game_start(self, scene):
-        _move_peasants_out(scene)
+        _move_peasants_out(scene, 'Spring')

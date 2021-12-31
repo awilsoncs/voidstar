@@ -20,7 +20,7 @@ class StationaryAttackActor(Brain, SeasonResetListener, AttackStartListener):
     root_x: int = constants.INVALID
     root_y: int = constants.INVALID
 
-    def on_season_reset(self, scene):
+    def on_season_reset(self, scene, season):
         self.teleport_to_root(scene)
 
     def on_attack_start(self, scene):

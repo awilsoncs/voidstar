@@ -6,7 +6,7 @@ from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 
 @dataclass
 class StartMusic(GameStartListener, SeasonResetListener):
-    def on_season_reset(self, scene):
+    def on_season_reset(self, scene, season):
         scene.sound.play('town')
 
     def on_game_start(self, scene):

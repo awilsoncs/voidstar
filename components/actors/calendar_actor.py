@@ -34,14 +34,17 @@ class Calendar(EnergyActor):
         self.pass_turn()
 
     def get_timecode(self):
-        season = {
-            1: "Spring",
-            2: "Summer",
-            3: "Autumn",
-            4: "Winter"
-        }[self.season]
+        season = self.get_season_string()
 
         return f'{season} {self.day}d {self.year}y'
+
+    def get_season_string(self):
+        return {
+            1: "Spring",
+            2: "Summer",
+            3: "Fall",
+            4: "Winter"
+        }[self.season]
 
     def act(self, scene):
         if self.day < 25:
@@ -65,10 +68,10 @@ class Calendar(EnergyActor):
 
     def _end_attack(self, scene):
         self.status = "Peacetime"
-        scene.cm.add(ResetSeason(entity=scene.player))
         self.round += 1
         self.is_recharging = True
         self.increment()
+        scene.cm.add(ResetSeason(entity=self.entity, season=self.get_season_string()))
 
 
 def still_under_attack(scene):

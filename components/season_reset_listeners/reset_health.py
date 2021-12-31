@@ -7,7 +7,7 @@ from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 
 @dataclass
 class ResetHealth(SeasonResetListener):
-    def on_season_reset(self, scene):
+    def on_season_reset(self, scene, season):
         scene.message("You rest and your wounds heal.")
         healths: List[Attributes] = scene.cm.get(Attributes)
         for health in healths:

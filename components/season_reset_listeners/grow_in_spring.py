@@ -9,12 +9,8 @@ from engine import core
 
 @dataclass
 class GrowInSpring(SeasonResetListener):
-    def on_season_reset(self, scene):
-        calendar = scene.cm.get_one(Calendar, entity=core.get_id("calendar"))
-        if not calendar:
-            return
-
-        if calendar.season == 1:
+    def on_season_reset(self, scene, season):
+        if season == 'Spring':
             coords = scene.cm.get_one(Coordinates, entity=self.entity)
             x = coords.x
             y = coords.y

@@ -11,7 +11,7 @@ from engine import palettes
 
 @dataclass
 class UpgradeHouse(SeasonResetListener):
-    def on_season_reset(self, scene):
+    def on_season_reset(self, scene, season):
         masonry_ability = scene.cm.get_one(BuildWallAbility, entity=scene.player)
         max_upgrade = 2 if masonry_ability else 1
 

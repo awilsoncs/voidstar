@@ -9,11 +9,14 @@ from engine.core import log_debug
 @dataclass
 class ResetSeason(EnergyActor):
     energy_cost: int = EnergyActor.INSTANT
+    # Season we're entering
+    season: str = 'None'
 
     @log_debug(__name__)
     def act(self, scene):
         seasonal_actors: List[SeasonResetListener] = scene.cm.get(SeasonResetListener)
         for seasonal_actor in seasonal_actors:
-            seasonal_actor.on_season_reset(scene)
+            seasonal_actor.on_season_reset(scene, self.season)
 
+        scene.message(f"{self.season} has begun.")
         scene.cm.delete_component(self)

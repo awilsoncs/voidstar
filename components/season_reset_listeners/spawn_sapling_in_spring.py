@@ -16,12 +16,8 @@ class SpawnSaplingInSpring(SeasonResetListener):
     """Cause trees to spawn saplings."""
     # Attaches to the calendar- if attached to individual trees, will cause a circular dependency with saplings.
 
-    def on_season_reset(self, scene):
-        calendar = scene.cm.get_one(Calendar, entity=core.get_id("calendar"))
-        if not calendar:
-            return
-
-        if calendar.season != 1:
+    def on_season_reset(self, scene, season):
+        if season != 'Spring':
             return
 
         tree_coords = [

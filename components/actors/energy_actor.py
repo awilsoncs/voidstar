@@ -13,6 +13,7 @@ class EnergyActor(Actor, ABC):
     INSTANT = 0
     QUARTER_HOUR = 3
     HALF_HOUR = 6
+    FAST = 8
     HOURLY = 12
     VERY_SLOW = 24
     DAILY = 288

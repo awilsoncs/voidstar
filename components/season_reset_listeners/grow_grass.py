@@ -7,12 +7,6 @@ from engine import core
 
 @dataclass
 class GrowGrass(SeasonResetListener):
-    def on_season_reset(self, scene):
-        calendar = scene.cm.get_one(Calendar, entity=core.get_id("calendar"))
-        if not calendar:
-            return
-
-        if calendar.season > 2:
-            return
-
-        scene.cm.delete(self.entity)
+    def on_season_reset(self, scene, season):
+        if season in {'Spring', 'Summer'}:
+            scene.cm.delete(self.entity)

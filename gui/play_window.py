@@ -1,4 +1,5 @@
 import random
+from itertools import product
 
 import numpy as np
 import tcod
@@ -37,6 +38,7 @@ class PlayWindow(GuiElement):
         self.visibility_map = visibility_map
         self.width = width
         self.height = height
+        self.snowy = set()
 
         # store a console with the static terrain on it so that we don't have to regenerate it each frame
         self.memory_console = tcod.console.Console(width, height, order='F')
@@ -111,3 +113,27 @@ class PlayWindow(GuiElement):
         )
         self.console = tcod.console.Console(self.width, self.height, order='F', buffer=buffer)
         self.console.blit(panel, dest_x=self.x, dest_y=self.y, width=self.width, height=self.height)
+
+    def add_snow(self):
+        all_tiles = set(product(range(1, settings.MAP_WIDTH-1), range(1, settings.MAP_HEIGHT-1)))
+        unsnowed = all_tiles - self.snowy
+        if not unsnowed:
+            return
+        x, y = random.choice(list(unsnowed))
+
+        symbol = ord(random.choice(
+            (['.', ',', '"', '\''] * settings.GRASS_DENSITY) + ([' '] * 40)
+        ))
+
+        self.terrain_console.tiles[x, y] = (
+            symbol,
+            (*palettes.WHITE, 255),
+            (*palettes.BACKGROUND, 255)
+        )
+
+        self.shadow_terrain_console.tiles[x, y] = (
+            symbol,
+            (*palettes.SHADOW, 255),
+            (*palettes.BACKGROUND, 255)
+        )
+        self.snowy.add((x, y))

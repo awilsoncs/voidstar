@@ -15,7 +15,7 @@ from content.farmsteads.walls import make_wall
 class Rebuilder(SeasonResetListener):
     """Rebuild during a season reset if the resident is still alive. Otherwise, delete."""
 
-    def on_season_reset(self, scene):
+    def on_season_reset(self, scene, season):
         house_structure = scene.cm.get_one(HouseStructure, entity=self.entity)
         if house_structure and house_structure.is_destroyed:
             if self._get_living_residents(scene):
