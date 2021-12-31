@@ -18,7 +18,9 @@ class Corpse(DeathListener):
         entity_obj = scene.cm.get_one(Entity, entity=self.entity)
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
 
-        scene.cm.add(*corpses.make_blood_splatter(5, coords.x, coords.y, self.color))
+        splatter = corpses.make_blood_splatter(5, coords.x, coords.y, self.color)
+        if splatter:
+            scene.cm.add(*splatter)
         scene.cm.add(
             *corpses.make_corpse(
                 name=entity_obj.name,
