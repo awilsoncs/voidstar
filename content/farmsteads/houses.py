@@ -38,14 +38,14 @@ def place_farmstead(scene) -> EntityId:
 def _make_house(root_id: EntityId, resident, x, y) -> ComplexEntity:
     floorboard = make_floorboard(root_id, x, y, resident)
 
-    upper_left = make_wall(root_id, x - 1, y - 1)
-    upper_middle = make_wall(root_id, x, y - 1)
-    upper_right = make_wall(root_id, x + 1, y - 1)
-    middle_left = make_wall(root_id, x - 1, y)
-    middle_right = make_wall(root_id, x + 1, y)
-    bottom_left = make_wall(root_id, x - 1, y + 1)
-    bottom_middle = make_wall(root_id, x, y + 1)
-    bottom_right = make_wall(root_id, x + 1, y + 1)
+    upper_left = make_wall(root_id, x - 1, y - 1, piece='ul')
+    upper_middle = make_wall(root_id, x, y - 1, piece='um')
+    upper_right = make_wall(root_id, x + 1, y - 1, piece='ur')
+    middle_left = make_wall(root_id, x - 1, y, piece='ml')
+    middle_right = make_wall(root_id, x + 1, y, piece='mr')
+    bottom_left = make_wall(root_id, x - 1, y + 1, piece='bl')
+    bottom_middle = make_wall(root_id, x, y + 1, piece='bm')
+    bottom_right = make_wall(root_id, x + 1, y + 1, piece='br')
 
     structure = HouseStructure(
         entity=root_id,

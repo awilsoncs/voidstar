@@ -13,14 +13,16 @@ from engine.constants import PRIORITY_MEDIUM
 description = "A wall, made of a light, grassy material. Be wary, it's highly flammable."
 
 
-def make_wall(root_id, x, y) -> Entity:
+def make_wall(root_id, x, y, piece='um') -> Entity:
     entity_id = core.get_id()
+    glyph = piece_map[piece]
+
     return (
         entity_id,
         [
             Entity(id=entity_id, entity=entity_id, name='wall'),
             Owner(entity=entity_id, owner=root_id),
-            Appearance(entity=entity_id, symbol='#', color=palettes.STRAW, bg_color=palettes.BACKGROUND),
+            Appearance(entity=entity_id, symbol=glyph, color=palettes.STRAW, bg_color=palettes.BACKGROUND),
             Corpse(entity=entity_id, symbol='%', color=palettes.STRAW, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
             Attributes(entity=entity_id, hp=80, max_hp=80),
@@ -32,3 +34,14 @@ def make_wall(root_id, x, y) -> Entity:
         ]
     )
 
+
+piece_map = {
+    'ul': '╔',
+    'um': '═',
+    'ur': '╗',
+    'ml': '║',
+    'br': '╝',
+    'bm': '═',
+    'bl': '╚',
+    'mr': '║'
+}

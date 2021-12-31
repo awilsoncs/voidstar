@@ -36,14 +36,14 @@ class Rebuilder(SeasonResetListener):
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         x = coords.x
         y = coords.y
-        upper_left = make_wall(self.entity, x - 1, y - 1)
-        upper_middle = make_wall(self.entity, x, y - 1)
-        upper_right = make_wall(self.entity, x + 1, y - 1)
-        middle_left = make_wall(self.entity, x - 1, y)
-        middle_right = make_wall(self.entity, x + 1, y)
-        bottom_left = make_wall(self.entity, x - 1, y + 1)
-        bottom_middle = make_wall(self.entity, x, y + 1)
-        bottom_right = make_wall(self.entity, x + 1, y + 1)
+        upper_left = make_wall(self.entity, x - 1, y - 1, piece='ul')
+        upper_middle = make_wall(self.entity, x, y - 1, piece='um')
+        upper_right = make_wall(self.entity, x + 1, y - 1, piece='ur')
+        middle_left = make_wall(self.entity, x - 1, y, piece='ml')
+        middle_right = make_wall(self.entity, x + 1, y, piece='mr')
+        bottom_left = make_wall(self.entity, x - 1, y + 1, piece='bl')
+        bottom_middle = make_wall(self.entity, x, y + 1, piece='bm')
+        bottom_right = make_wall(self.entity, x + 1, y + 1, piece='br')
         house_structure.upper_left = upper_left[0]
         house_structure.upper_middle = upper_middle[0]
         house_structure.upper_right = upper_right[0]
