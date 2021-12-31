@@ -21,18 +21,18 @@ def make_pirhana(x, y):
     entity_id = core.get_id()
 
     components = [
-        Entity(id=entity_id, entity=entity_id, name='pirhana hordeling'),
+        Entity(id=entity_id, entity=entity_id, name='voracious hordeling'),
         Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
         Faction(entity=entity_id, faction=Faction.Options.MONSTER),
         Corpse(entity=entity_id),
         DefaultActiveActor(entity=entity_id),
         NormalCostMapper(entity=entity_id),
-        Appearance(entity=entity_id, symbol='h', color=palettes.HORDELING, bg_color=palettes.BACKGROUND),
+        Appearance(entity=entity_id, symbol='v', color=palettes.HORDELING, bg_color=palettes.BACKGROUND),
         Attributes(entity=entity_id, hp=1, max_hp=1),
         StandardAttack(entity=entity_id, damage=1),
         Material(entity=entity_id, blocks=True, blocks_sight=False),
         HordelingTag(entity=entity_id),
-        Move(entity=entity_id, energy_cost=EnergyActor.HOURLY * .8),
+        Move(entity=entity_id, energy_cost=EnergyActor.FAST),
         PathfinderCost(entity=entity_id, cost=5),
         HighCropTargetEvaluator(entity=entity_id)
     ]
