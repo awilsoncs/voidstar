@@ -51,24 +51,7 @@ class PlayWindow(GuiElement):
         self.console = tcod.console.Console(width, height, order='F')  # buffer console
 
     def on_load(self) -> None:
-        memory_color = palettes.SHADOW
-        for y in range(MAP_HEIGHT):
-            for x in range(MAP_WIDTH):
-                grass_color = palettes.GRASS
-
-                symbol = ord(random.choice(
-                    (['.', ',', '"', '\''] * settings.GRASS_DENSITY) + ([' '] * 20)
-                ))
-                self.terrain_console.tiles[x, y] = (
-                    symbol,
-                    (*grass_color, 255),
-                    (*palettes.BACKGROUND, 255)
-                )
-                self.shadow_terrain_console.tiles[x, y] = (
-                    symbol,
-                    (*memory_color, 255),
-                    (*palettes.BACKGROUND, 255)
-                )
+        self.regenerate_grass()
 
     @timed(25, __name__)
     def render(self, panel: console.Console) -> None:
@@ -114,6 +97,26 @@ class PlayWindow(GuiElement):
         self.console = tcod.console.Console(self.width, self.height, order='F', buffer=buffer)
         self.console.blit(panel, dest_x=self.x, dest_y=self.y, width=self.width, height=self.height)
 
+    def regenerate_grass(self):
+        memory_color = palettes.SHADOW
+        for y in range(MAP_HEIGHT):
+            for x in range(MAP_WIDTH):
+                grass_color = palettes.GRASS
+
+                symbol = ord(random.choice(
+                    (['.', ',', '"', '\''] * settings.GRASS_DENSITY) + ([' '] * 20)
+                ))
+                self.terrain_console.tiles[x, y] = (
+                    symbol,
+                    (*grass_color, 255),
+                    (*palettes.BACKGROUND, 255)
+                )
+                self.shadow_terrain_console.tiles[x, y] = (
+                    symbol,
+                    (*memory_color, 255),
+                    (*palettes.BACKGROUND, 255)
+                )
+
     def add_snow(self):
         all_tiles = set(product(range(1, settings.MAP_WIDTH-1), range(1, settings.MAP_HEIGHT-1)))
         unsnowed = all_tiles - self.snowy
@@ -137,3 +140,27 @@ class PlayWindow(GuiElement):
             (*palettes.BACKGROUND, 255)
         )
         self.snowy.add((x, y))
+
+    def add_grass(self):
+        if not self.snowy:
+            return
+        snowy_tiles = list(self.snowy)
+        x, y = random.choice(snowy_tiles)
+        symbol = ord(random.choice(
+            (['.', ',', '"', '\''] * settings.GRASS_DENSITY) + ([' '] * 20)
+        ))
+
+        self.terrain_console.tiles[x, y] = (
+            symbol,
+            (*palettes.GRASS, 255),
+            (*palettes.BACKGROUND, 255)
+        )
+
+        self.shadow_terrain_console.tiles[x, y] = (
+            symbol,
+            (*palettes.SHADOW, 255),
+            (*palettes.BACKGROUND, 255)
+        )
+        self.snowy.remove((x, y))
+
+
