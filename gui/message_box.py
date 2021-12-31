@@ -1,6 +1,5 @@
 import textwrap
 
-import settings
 from engine import palettes
 from gui.gui_element import GuiElement
 
