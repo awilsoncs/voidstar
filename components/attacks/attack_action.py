@@ -2,16 +2,14 @@ import logging
 from dataclasses import dataclass
 from typing import List
 
-from components import Coordinates, entity, Attributes
-from components.actors.actor import Actor
+from components import Coordinates, Attributes, Entity
 from components.actors.energy_actor import EnergyActor
 from components.attacks.attack_effects.attack_effect import AttackEffect
 from components.cry_for_help import CryForHelp
 from components.house_structure import HouseStructure
 from components.relationships.owner import Owner
 from content.states import help_animation
-from engine import constants
-from engine.component import Component
+from engine import constants, palettes
 
 
 @dataclass
@@ -21,6 +19,11 @@ class AttackAction(EnergyActor):
     damage: int = 0
 
     def act(self, scene) -> None:
+        this_entity = scene.cm.get_one(Entity, entity=self.entity)
+        target_entity = scene.cm.get_one(Entity, entity=self.target)
+
+        scene.message(f"{this_entity.name} dealt {self.damage} dmg to {target_entity.name}!", color=palettes.BLOOD)
+
         logging.info(f"EID#{self.entity}::AttackAction dealing {self.damage} dmg to {self.target}")
         owner = scene.cm.get_one(Owner, entity=self.target)
         if owner:

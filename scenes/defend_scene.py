@@ -1,3 +1,5 @@
+from typing import Tuple
+
 import numpy as np
 
 import settings
@@ -7,13 +9,15 @@ from components.game_start_listeners.start_game import StartGame
 from content.physics_controller import make_physics_controller
 from content.utilities import make_calendar
 from content.world_builder import make_world_build
-from engine import GameScene
+from engine import GameScene, palettes
 from engine.component_manager import ComponentManager
 from engine.constants import PLAYER_ID
 from engine.core import timed
+from engine.message import Message
 from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
 from gui.help_tab import HelpTab
 from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SpeedLabel, AbilityLabel
+from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
 from systems import act, death, \
@@ -29,6 +33,7 @@ class DefendScene(GameScene):
         # track tiles the player has seen
         self.memory_map = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
         self.visibility_map = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
+        self.messages = []
 
         # build out the gui
         self.play_window = PlayWindow(
@@ -51,7 +56,8 @@ class DefendScene(GameScene):
         anchor.add_element(PeasantBar(1, 6))
         anchor.add_element(HordeStatusLabel(1, 8))
         anchor.add_element(HordelingBar(1, 9))
-        anchor.add_space(6)
+        anchor.add_element(MessageBox(1, 10, 23, 14, self.messages))
+        anchor.add_space(15)
 
         anchor.add_element(HelpTab(1, 26))
 
@@ -78,3 +84,8 @@ class DefendScene(GameScene):
         clear_components.of_type(ChargeAbilityEvent, self)
         control_turns.run(self)
         quit.run(self)
+
+    def message(self, text: str, color: Tuple[int, int, int] = palettes.MEAT):
+        if len(self.messages) > 20:
+            self.messages.pop(0)
+        self.messages.append(Message(f" {text}", color=color))

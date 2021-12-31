@@ -35,7 +35,7 @@ class LookCursorController(Brain):
                 self.back_out(scene)
 
     def _handle_look(self, scene):
-        scene.popup_message(self._get_description(scene))
+        scene.message(self._get_description(scene))
 
     def _get_description(self, scene):
         coords = scene.cm.get_one(Coordinates, entity=self.cursor)

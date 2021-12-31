@@ -21,7 +21,7 @@ def make_juggernaut(x, y):
     entity_id = core.get_id()
 
     components = [
-        Entity(id=entity_id, entity=entity_id, name='juggernaut hordeling'),
+        Entity(id=entity_id, entity=entity_id, name='Juggernaut'),
         Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
         Faction(entity=entity_id, faction=Faction.Options.MONSTER),
         Corpse(entity=entity_id),
