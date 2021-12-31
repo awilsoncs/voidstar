@@ -21,11 +21,11 @@ class HelpTab(GuiElement):
 
     def render(self, panel):
         """Draw the bar onto the panel"""
-        panel.print(self.x, self.y, "Controls", fg=self.fg, bg=self.bg)
-        panel.print(self.x, self.y+2, "  ↑ ", fg=self.fg, bg=self.bg)
-        panel.print(self.x, self.y+3, "← ↓ →  : Move / Attack", fg=self.fg, bg=self.bg)
+        panel.print(self.x, self.y, "Controls_________________________", fg=self.fg, bg=self.bg)
+        panel.print(self.x, self.y+2, "  ↑ ", fg=self.mg, bg=self.bg)
+        panel.print(self.x, self.y+3, "← ↓ →  : Move / Attack", fg=self.mg, bg=self.bg)
 
-        panel.print(self.x, self.y+5, "SPACE  : Use Ability", fg=self.fg, bg=self.bg)
-        panel.print(self.x, self.y+6, "q      : Last Ability", fg=self.fg, bg=self.bg)
-        panel.print(self.x, self.y+7, "e      : Next Ability", fg=self.fg, bg=self.bg)
-        panel.print(self.x, self.y+8, "ESC    : Back", fg=self.fg, bg=self.bg)
+        panel.print(self.x, self.y+5, "SPACE  : Use Ability", fg=self.mg, bg=self.bg)
+        panel.print(self.x, self.y+6, "q      : Last Ability", fg=self.mg, bg=self.bg)
+        panel.print(self.x, self.y+7, "e      : Next Ability", fg=self.mg, bg=self.bg)
+        panel.print(self.x, self.y+8, "ESC    : Back", fg=self.mg, bg=self.bg)

@@ -43,7 +43,7 @@ class DefendScene(GameScene):
         )
 
         anchor = VerticalAnchor(1, 1)
-        anchor.add_element(Label(1, 1, settings.CHARACTER_NAME))
+        anchor.add_element(Label(1, 1, f'@ {settings.CHARACTER_NAME}_______________'))
         anchor.add_element(HealthBar(1, 0))
         anchor.add_element(Thwackometer(1, 0))
         anchor.add_element(SpeedLabel(1, 0))
@@ -52,14 +52,15 @@ class DefendScene(GameScene):
         anchor.add_element(AbilityLabel(1, 0))
         anchor.add_space(1)
 
-        anchor.add_element(Label(1, 5, "Peasants"))
-        anchor.add_element(PeasantBar(1, 6))
-        anchor.add_element(HordeStatusLabel(1, 8))
-        anchor.add_element(HordelingBar(1, 9))
-        anchor.add_element(MessageBox(1, 10, 23, 14, self.messages))
+        anchor.add_element(Label(1, 6, "Village___________________"))
+        anchor.add_element(Label(1, 7, "Peasants"))
+        anchor.add_element(PeasantBar(1, 8))
+        anchor.add_element(HordeStatusLabel(1, 9))
+        anchor.add_element(HordelingBar(1, 10))
+        anchor.add_element(MessageBox(1, 11, 23, 14, self.messages))
         anchor.add_space(15)
 
-        anchor.add_element(HelpTab(1, 26))
+        anchor.add_element(HelpTab(1, 27))
 
         self.add_gui_element(anchor)
         self.add_gui_element(self.play_window)

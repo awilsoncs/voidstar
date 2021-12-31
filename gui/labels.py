@@ -24,10 +24,10 @@ class GoldLabel(GuiElement):
     """Represent a text label."""
     def __init__(self, x, y):
         super().__init__(x, y, name='gold-label')
-        self.value = 0
+        self.value = '0c'
 
     def update(self, scene):
-        self.value = scene.gold
+        self.value = f'{scene.gold}c'
 
     def render(self, panel):
         """Draw the bar onto the panel"""
