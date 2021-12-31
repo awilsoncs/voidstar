@@ -1,26 +1,24 @@
 # Shamelessly stolen: https://lospec.com/palette-list/fantasy-24
-BACKGROUND = (0, 0, 0)
-GRASS = (57, 87, 28)
-FOILAGE_B = (31, 36, 10)
-FOILAGE_C = (165, 140, 39)
-GOLD = (239, 172, 40)
-WHITE = (239, 216, 161)
-GABRIEL_2_1 = (171, 92, 28)
-SHADOW = (24, 63, 57)
-FIRE = (239, 105, 47)
-STRAW = (239, 183, 117)
-DIRT = (165, 98, 67)
-WOOD = (119, 52, 33)
-GABRIEL_3_2 = (114, 65, 19)
-GABRIEL_3_3 = (42, 29, 13)
-GABRIEL_3_4 = (57, 42, 28)
-MEAT = (104, 76, 60)
-STONE = (146, 126, 106)
-WATER = (39, 100, 104)
-FRESH_BLOOD = (239, 58, 12)
-DARK_WOOD = (69, 35, 13)
-LIGHT_WATER = (60, 159, 156)
-HORDELING = (155, 26, 10)
+import settings
+
+BACKGROUND = settings.BACKGROUND
+GRASS = settings.GRASS
+WALL_TREE = settings.WALL_TREE
+FOILAGE_C = settings.NORMAL_TREE
+GOLD = settings.GOLD
+WHITE = settings.WHITE
+GABRIEL_2_1 = settings.GABRIEL_2_1
+SHADOW = settings.SHADOW
+FIRE = settings.FIRE
+STRAW = settings.STRAW
+DIRT = settings.DIRT
+WOOD = settings.WOOD
+MEAT = settings.MEAT
+STONE = settings.STONE
+WATER = settings.WATER
+FRESH_BLOOD = settings.FRESH_BLOOD
+LIGHT_WATER = settings.LIGHT_WATER
+HORDELING = settings.HORDELING
 # (54, 23, 12),
-BLOOD = (85, 15, 10)
+BLOOD = settings.BLOOD
 # (48, 15, 10)

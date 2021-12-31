@@ -27,7 +27,7 @@ def make_wall_tree(x, y):
                 description=wall_tree_description
             ),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
-            Appearance(entity=entity_id, symbol='♣', color=palettes.FOILAGE_B, bg_color=palettes.BACKGROUND),
+            Appearance(entity=entity_id, symbol='♣', color=palettes.WALL_TREE, bg_color=palettes.BACKGROUND),
             Material(entity=entity_id, blocks=True, blocks_sight=True),
             PathfinderCost(entity=entity_id, cost=100)
         ]
