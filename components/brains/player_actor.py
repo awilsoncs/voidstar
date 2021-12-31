@@ -5,6 +5,7 @@ import tcod
 
 from components import Coordinates
 from components.abilities.ability import Ability
+from components.ability_tracker import AbilityTracker
 from components.enums import Intention
 from components.brains.brain import Brain
 from components.states.dizzy_state import DizzyState
@@ -37,14 +38,13 @@ class PlayerBrain(Brain):
             intention = action_map.get(key_code, None)
             logging.debug(f"EID#{self.entity}::PlayerActor translated {key_event} -> {intention}")
 
-            abilities = {a.intention: a for a in scene.cm.get_all(Ability, entity=self.entity)}
-            if intention in abilities:
-                if intention in abilities:
-                    ability = abilities[intention]
-                    if not ability:
-                        self._handle_confused(scene)
-                        return
-                    ability.apply(scene, self.id)
+            tracker = scene.cm.get_one(AbilityTracker, entity=self.entity)
+            if intention is Intention.NEXT_ABILITY:
+                tracker.increment(scene)
+            elif intention is Intention.PREVIOUS_ABILITY:
+                tracker.decrement(scene)
+            elif intention is Intention.USE_ABILITY:
+                tracker.get_current_ability(scene).apply(scene, self.id)
             elif intention is None:
                 logging.debug(f"EID#{self.entity}::PlayerActor found no useable intention")
                 return
@@ -59,25 +59,15 @@ class PlayerBrain(Brain):
 
 
 KEY_ACTION_MAP = {
-    tcod.event.K_a: Intention.FAST_FORWARD,
-    tcod.event.K_f: Intention.SHOOT,
-    tcod.event.K_s: Intention.PLANT_SAPLING,
-    tcod.event.K_d: Intention.DIG_HOLE,
-    tcod.event.K_l: Intention.LOOK,
-    tcod.event.K_e: Intention.BUILD_FENCE,
-    tcod.event.K_r: Intention.BUILD_WALL,
-    tcod.event.K_c: Intention.PLACE_COW,
-    tcod.event.K_k: Intention.HIRE_KNIGHT,
-    tcod.event.K_h: Intention.PLACE_HAUNCH,
-    tcod.event.K_g: Intention.SELL,
+    tcod.event.K_e: Intention.NEXT_ABILITY,
+    tcod.event.K_q: Intention.PREVIOUS_ABILITY,
+    tcod.event.K_SPACE: Intention.USE_ABILITY,
 
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,
     tcod.event.K_LEFT: Intention.STEP_WEST,
     tcod.event.K_PERIOD: Intention.DALLY,
-    tcod.event.K_SPACE: Intention.THWACK,
 
-    tcod.event.K_BACKQUOTE: Intention.SHOW_DEBUG_SCREEN,
     tcod.event.K_ESCAPE: Intention.BACK
 }

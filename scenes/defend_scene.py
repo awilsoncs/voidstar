@@ -11,14 +11,14 @@ from engine import GameScene
 from engine.component_manager import ComponentManager
 from engine.constants import PLAYER_ID
 from engine.core import timed
-from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer, Shootometer
+from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
 from gui.help_tab import HelpTab
-from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SpeedLabel
+from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SpeedLabel, AbilityLabel
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
 from systems import act, death, \
     pickup_gold, \
-    move, control_turns, quit, melee_attack, thwack, peasant_dead_check
+    move, control_turns, quit, peasant_dead_check
 
 
 class DefendScene(GameScene):
@@ -38,21 +38,17 @@ class DefendScene(GameScene):
         )
 
         anchor = VerticalAnchor(1, 1)
-        # anchor.add_space(1)
-
         anchor.add_element(Label(1, 1, settings.CHARACTER_NAME))
-        anchor.add_element(HealthBar(1, 2))
-        anchor.add_element(Thwackometer(1, 3))
-        anchor.add_element(Shootometer(1, 4))
-        anchor.add_element(SpeedLabel(1, 5))
+        anchor.add_element(HealthBar(1, 0))
+        anchor.add_element(Thwackometer(1, 0))
+        anchor.add_element(SpeedLabel(1, 0))
         anchor.add_element(CalendarLabel(1, 0))
         anchor.add_element(GoldLabel(1, 0))
+        anchor.add_element(AbilityLabel(1, 0))
         anchor.add_space(1)
 
         anchor.add_element(Label(1, 5, "Peasants"))
         anchor.add_element(PeasantBar(1, 6))
-        anchor.add_space(1)
-
         anchor.add_element(HordeStatusLabel(1, 8))
         anchor.add_element(HordelingBar(1, 9))
         anchor.add_space(6)

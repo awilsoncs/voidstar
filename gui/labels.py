@@ -1,3 +1,6 @@
+import tcod
+
+from components.ability_tracker import AbilityTracker
 from components.actors.calendar_actor import Calendar
 from components.states.move_cost_affectors import Hindered, Haste
 from engine import palettes, core, PLAYER_ID
@@ -80,3 +83,17 @@ class SpeedLabel(GuiElement):
     def render(self, panel):
         """Draw the bar onto the panel"""
         panel.print(self.x, self.y, f'{self.value}', fg=palettes.LIGHT_WATER, bg=palettes.BACKGROUND)
+
+
+class AbilityLabel(GuiElement):
+    def __init__(self, x, y):
+        super().__init__(x, y, name='hindered-label')
+        self.value = "No Abilities"
+
+    def render(self, panel: tcod.console.Console) -> None:
+        panel.print(self.x, self.y, f'{self.value}', fg=palettes.WHITE, bg=palettes.BACKGROUND)
+
+    def update(self, scene):
+        ability_tracker = scene.cm.get_one(AbilityTracker, entity=scene.player)
+        ability = ability_tracker.get_current_ability(scene)
+        self.value = f'{ability.ability_title} - {ability.use_cost}c'

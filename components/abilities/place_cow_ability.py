@@ -3,7 +3,6 @@ from dataclasses import dataclass
 
 from components.abilities.control_mode_ability import ControlModeAbility
 from components.brains.place_cow_actor import PlaceCowActor
-from components.enums import Intention
 from engine import palettes
 
 
@@ -12,7 +11,6 @@ class PlaceCowAbility(ControlModeAbility):
     ability_title: str = "Place Cow"
     unlock_cost: int = 100
     use_cost: int = 100
-    intention: Intention = Intention.PLACE_COW
 
     def get_mode(self) -> Callable:
         return PlaceCowActor

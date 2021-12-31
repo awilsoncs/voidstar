@@ -5,7 +5,6 @@ from components import Coordinates
 from components.abilities.ability import Ability
 from components.actors.energy_actor import EnergyActor
 from components.attacks.attack_action import AttackAction
-from components.enums import Intention
 from components.states.dizzy_state import DizzyState
 from content.attacks import thwack_animation, thwack_dizzy_animation
 from systems.utilities import get_enemies_in_range
@@ -18,7 +17,6 @@ class ThwackAbility(Ability, EnergyActor):
     use_cost: int = 0
     count: int = 0
     max: int = 3
-    intention: Intention = Intention.THWACK
     is_recharging: bool = False
 
     def use(self, scene, dispatcher):

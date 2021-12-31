@@ -7,18 +7,9 @@ class Intention(Enum):
     BACK = auto()
 
     # Actions
-    MELEE_ATTACK = auto()
-    THWACK = auto()
-    SHOOT = auto()
-    PLANT_SAPLING = auto()
-    DIG_HOLE = auto()
-    LOOK = auto()
-    BUILD_FENCE = auto()
-    BUILD_WALL = auto()
-    PLACE_COW = auto()
-    HIRE_KNIGHT = auto()
-    PLACE_HAUNCH = auto()
-    SELL = auto()
+    NEXT_ABILITY = auto()
+    PREVIOUS_ABILITY = auto()
+    USE_ABILITY = auto()
 
     STEP_NORTH = auto()
     STEP_EAST = auto()
@@ -29,9 +20,6 @@ class Intention(Enum):
     STEP_NORTH_EAST = auto()
     STEP_NORTH_WEST = auto()
     DALLY = auto()
-    FAST_FORWARD = auto()
-
-    # Screen Control
     SHOW_DEBUG_SCREEN = auto()
 
 

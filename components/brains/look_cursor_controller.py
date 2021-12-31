@@ -28,7 +28,7 @@ class LookCursorController(Brain):
                 Intention.STEP_SOUTH
             }:
                 self._move_cursor(scene, intention)
-            if intention is Intention.LOOK:
+            if intention is Intention.USE_ABILITY:
                 self._handle_look(scene)
             elif intention is Intention.BACK:
                 scene.cm.delete(self.cursor)
@@ -77,8 +77,7 @@ KEY_ACTION_MAP = {
     tcod.event.K_RIGHT: Intention.STEP_EAST,
     tcod.event.K_LEFT: Intention.STEP_WEST,
     tcod.event.K_ESCAPE: Intention.BACK,
-    tcod.event.K_l: Intention.LOOK,
-    tcod.event.K_SPACE: Intention.LOOK
+    tcod.event.K_SPACE: Intention.USE_ABILITY
 }
 
 STEP_VECTORS = {

@@ -13,6 +13,7 @@ from components.abilities.plant_sapling_ability import PlantSaplingAbility
 from components.abilities.sell_ability import SellAbility
 from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
+from components.ability_tracker import AbilityTracker
 from components.attacks.standard_attack import StandardAttack
 from components.death_listeners.player_corpse import PlayerCorpse
 from components.move_listeners.update_senses_on_move import UpdateSenses
@@ -48,6 +49,7 @@ def make_player(x, y):
             MovePlayerToTownCenter(entity=entity_id),
             UpdateSenses(entity=entity_id),
             # Abilities
+            AbilityTracker(entity=entity_id),
             ThwackAbility(entity=entity_id, count=3, max=3),
             ShootAbility(entity=entity_id),
             DebugAbility(entity=entity_id),

@@ -27,7 +27,7 @@ class RangedAttackActor(Brain):
         if key_event:
             key_event = key_event.sym
             intention = KEY_ACTION_MAP.get(key_event, None)
-            if intention is Intention.SHOOT:
+            if intention is Intention.USE_ABILITY:
                 self.shoot(scene)
             elif intention in {
                 Intention.STEP_NORTH,
@@ -76,7 +76,7 @@ class RangedAttackActor(Brain):
 
 
 KEY_ACTION_MAP = {
-    tcod.event.K_f: Intention.SHOOT,
+    tcod.event.K_SPACE: Intention.USE_ABILITY,
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
     tcod.event.K_RIGHT: Intention.STEP_EAST,
