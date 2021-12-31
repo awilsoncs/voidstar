@@ -57,8 +57,8 @@ class DefendScene(GameScene):
         anchor.add_element(PeasantBar(1, 8))
         anchor.add_element(HordeStatusLabel(1, 9))
         anchor.add_element(HordelingBar(1, 10))
-        anchor.add_element(MessageBox(1, 11, 23, 14, self.messages))
-        anchor.add_space(15)
+        anchor.add_element(MessageBox(1, 11, 23, 16, self.messages))
+        anchor.add_space(16)
 
         anchor.add_element(HelpTab(1, 27))
 
