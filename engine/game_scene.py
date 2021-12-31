@@ -1,4 +1,7 @@
+from typing import final
+
 from engine.component_manager import ComponentManager
+from engine.sound.sound_controller import SoundController
 from gui.gui import Gui
 from gui.gui_element import GuiElement
 from gui.popup_message import PopupMessage
@@ -7,12 +10,12 @@ from gui.popup_message import PopupMessage
 class GameScene:
     """Provide the controller behavior of the SceneController."""
 
-    def __init__(self, debug=False):
+    def __init__(self):
         self.gui_elements = []
         self.cm: ComponentManager = None
         self.controller = None
         self.gui = None
-        self.debug = debug
+        self.sound = None
 
     def add_gui_element(self, element: GuiElement):
         if element.single_shot:
@@ -50,15 +53,19 @@ class GameScene:
     def on_unload(self):
         pass
 
-    def prepare(
+    @final
+    def load(
         self,
         controller: 'GameSceneController',
         cm: ComponentManager,
-        gui: Gui
+        gui: Gui,
+        sound: SoundController
     ):
         self.controller = controller
         self.cm = cm
         self.gui = gui
+        self.sound = sound
+        self.on_load()
 
     def pop(self):
         self.controller.pop_scene()

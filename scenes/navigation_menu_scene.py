@@ -42,3 +42,6 @@ class NavigationMenuScene(GameScene):
         def out_fn():
             self.controller.push_scene(scene)
         return out_fn
+
+    def on_load(self):
+        self.sound.play('theme')

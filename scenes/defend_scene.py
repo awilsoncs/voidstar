@@ -6,6 +6,8 @@ import settings
 from components import clear_components
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.game_start_listeners.start_game import StartGame
+from components.sound_events.battle_music import BattleMusic
+from components.sound_events.start_music import StartMusic
 from content.physics_controller import make_physics_controller
 from content.utilities import make_calendar
 from content.world_builder import make_world_build
@@ -26,8 +28,8 @@ from systems import act, death, \
 
 
 class DefendScene(GameScene):
-    def __init__(self, debug=True):
-        super().__init__(debug)
+    def __init__(self):
+        super().__init__()
         self.player = PLAYER_ID
 
         # track tiles the player has seen
@@ -73,6 +75,8 @@ class DefendScene(GameScene):
         self.cm.add(*make_world_build()[1])
         self.cm.add(*make_calendar()[1])
         self.cm.add(*make_physics_controller()[1])
+        self.cm.add(StartMusic(entity=self.player))
+        self.cm.add(BattleMusic(entity=self.player))
         self.cm.add(StartGame(entity=self.player))
 
     @timed(100, __name__)

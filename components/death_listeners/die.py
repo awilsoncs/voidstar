@@ -2,6 +2,7 @@ import logging
 from dataclasses import dataclass
 from typing import List
 
+from components import Entity
 from components.actors.energy_actor import EnergyActor
 from components.death_listeners.death_listener import DeathListener
 from engine.core import log_debug
