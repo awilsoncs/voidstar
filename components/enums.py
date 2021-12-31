@@ -21,6 +21,7 @@ class Intention(Enum):
     STEP_NORTH_WEST = auto()
     DALLY = auto()
     SHOW_DEBUG_SCREEN = auto()
+    SHOW_HELP = auto()
 
 
 class ControlMode(Enum):

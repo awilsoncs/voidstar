@@ -4,10 +4,10 @@ from dataclasses import dataclass
 import tcod
 
 from components import Coordinates
-from components.abilities.ability import Ability
 from components.ability_tracker import AbilityTracker
 from components.enums import Intention
 from components.brains.brain import Brain
+from components.events.show_help_dialogue import ShowHelpDialogue
 from components.states.dizzy_state import DizzyState
 from content.states import confused_animation
 from engine import core
@@ -46,6 +46,8 @@ class PlayerBrain(Brain):
             elif intention is Intention.USE_ABILITY:
                 ability = tracker.get_current_ability(scene)
                 ability.apply(scene, self.id)
+            elif intention is Intention.SHOW_HELP:
+                scene.cm.add(ShowHelpDialogue(entity=self.entity))
             elif intention is None:
                 logging.debug(f"EID#{self.entity}::PlayerActor found no useable intention")
                 return
@@ -63,6 +65,7 @@ KEY_ACTION_MAP = {
     tcod.event.K_e: Intention.NEXT_ABILITY,
     tcod.event.K_q: Intention.PREVIOUS_ABILITY,
     tcod.event.K_SPACE: Intention.USE_ABILITY,
+    tcod.event.K_h: Intention.SHOW_HELP,
 
     tcod.event.K_UP: Intention.STEP_NORTH,
     tcod.event.K_DOWN: Intention.STEP_SOUTH,
