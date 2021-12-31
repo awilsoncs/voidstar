@@ -36,6 +36,7 @@ class PlayerDeadBrain(Brain):
                 ability.apply(scene, self.id)
             elif intention is None:
                 logging.debug(f"EID#{self.entity}::PlayerDeadActor found no useable intention")
+                scene.warn("You urge your lifeless corpse to action, without much success.")
                 return
 
     def _handle_confused(self, scene):
