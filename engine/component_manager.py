@@ -87,6 +87,9 @@ class ComponentManager(object):
 
         Does not delete any references to the entity or its components.
         """
+        if not isinstance(entity, int):
+            raise ValueError(f"Cannot delete entity {entity}. Did you mean delete_component?")
+
         logging.debug(f"Deleting entity {entity}")
         components = self.get_entity(entity)
 
