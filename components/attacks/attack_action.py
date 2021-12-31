@@ -22,7 +22,7 @@ class AttackAction(EnergyActor):
         this_entity = scene.cm.get_one(Entity, entity=self.entity)
         target_entity = scene.cm.get_one(Entity, entity=self.target)
 
-        scene.message(f"{this_entity.name} dealt {self.damage} dmg to {target_entity.name}!", color=palettes.BLOOD)
+        scene.warn(f"{this_entity.name} dealt {self.damage} dmg to {target_entity.name}!", color=palettes.BLOOD)
 
         logging.info(f"EID#{self.entity}::AttackAction dealing {self.damage} dmg to {self.target}")
         owner = scene.cm.get_one(Owner, entity=self.target)

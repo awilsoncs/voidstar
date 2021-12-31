@@ -26,6 +26,7 @@ class Ability(Component, ABC):
         self.use(scene, dispatcher)
 
     def _handle_no_money(self, scene):
+        scene.warn("You can't afford to use that ability.")
         player_coords = scene.cm.get_one(Coordinates, entity=self.entity)
         confused_anim = no_money_animation(player_coords.x, player_coords.y)
         scene.cm.add(*confused_anim[1])

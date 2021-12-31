@@ -3,7 +3,6 @@ import random
 import settings
 from components import Entity, Appearance, Coordinates
 from components.delete_listeners.deleter import Deleter
-from components.brains.player_dead_actor import PlayerDeadActor
 from components.tags.corpse_tag import CorpseTag
 from engine import palettes, core
 from engine.constants import PRIORITY_LOW
@@ -48,16 +47,3 @@ def make_blood_splatter(count, x, y, color):
     return pools
 
 
-def make_player_corpse(x, y):
-    """Create a corpse with some remaining agency."""
-    entity_id = core.get_id()
-
-    return (
-        entity_id,
-        [
-            Entity(id=entity_id, entity=entity_id, name='player corpse'),
-            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOW),
-            Appearance(entity=entity_id, symbol='%', color=palettes.BLOOD, bg_color=palettes.BACKGROUND),
-            PlayerDeadActor(entity=entity_id),
-        ]
-    )

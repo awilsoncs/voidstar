@@ -1,9 +1,10 @@
+import logging
 from dataclasses import dataclass
 from typing import List
 
 import tcod
 
-from components import Coordinates
+from components import Coordinates, Entity
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.death_listeners.die import Die
@@ -11,7 +12,7 @@ from components.enums import Intention
 from components.Sellable import Sellable
 from components.brains.brain import Brain
 from content.terrain.dirt import make_dirt
-from engine import constants, core
+from engine import constants, core, palettes
 from engine.types import EntityId
 
 
@@ -44,10 +45,16 @@ class SellThingActor(Brain):
         hole_y = y+direction[1]
         sellables = _get_sellables(scene, (hole_x, hole_y))
         if sellables:
-            assert len(sellables) == 1, "found more than one diggable on a tile"
+            assert len(sellables) == 1, "found more than one sellable on a tile"
             entity = sellables.pop()
             scene.cm.add(Die(entity=entity))
             sellable: Sellable = scene.cm.get_one(Sellable, entity=entity)
+            entity_component = scene.cm.get_one(Entity, entity=entity)
+            if not entity_component:
+                logging.warning(f"EID#{self.entity}::SellThingActor found a sellable without an entity: {entity}")
+                logging.warning(f"EID#{self.entity}::SellThingActor {scene.cm.get_entity(entity)}")
+            scene.message(f"You sold a {entity_component.name} for {sellable.value}c!", color=palettes.GOLD)
+
             scene.gold += sellable.value
             dirt = make_dirt(hole_x, hole_y)
             scene.cm.add(*dirt[1])

@@ -4,7 +4,7 @@ from typing import List
 import tcod
 
 import settings
-from components import Coordinates
+from components import Coordinates, Entity
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.death_listeners.die import Die
@@ -36,7 +36,7 @@ class DigHoleActor(Brain):
             elif intention is Intention.BACK:
                 self.back_out(scene)
 
-    def _dig_hole(self, scene, direction, old_actor=None):
+    def _dig_hole(self, scene, direction):
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         x = coords.x
         y = coords.y
@@ -56,6 +56,9 @@ class DigHoleActor(Brain):
                     # there's a dirt here, skip straight to digging the new hole
                     self._apply_dig_hole(hole_x, hole_y, scene)
                     return
+                else:
+                    entity = scene.cm.get_one(Entity, entity=entity)
+                    scene.message(f"You dug up {entity.name}.")
 
                 dirt = make_dirt(hole_x, hole_y)
                 scene.cm.add(*dirt[1])
@@ -65,6 +68,7 @@ class DigHoleActor(Brain):
             self.back_out(scene)
 
     def _apply_dig_hole(self, hole_x, hole_y, scene):
+        scene.message("You dug a deep hole.")
         hole = make_hole(hole_x, hole_y)
         scene.cm.add(*hole[1])
         scene.gold -= 2

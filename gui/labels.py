@@ -94,6 +94,8 @@ class AbilityLabel(GuiElement):
         panel.print(self.x, self.y, f'{self.value}', fg=palettes.WHITE, bg=palettes.BACKGROUND)
 
     def update(self, scene):
-        ability_tracker = scene.cm.get_one(AbilityTracker, entity=scene.player)
+        ability_tracker = scene.cm.get(AbilityTracker)
+        if ability_tracker:
+            ability_tracker = ability_tracker[0]
         ability = ability_tracker.get_current_ability(scene)
         self.value = f'{ability.ability_title} - {ability.use_cost}c'

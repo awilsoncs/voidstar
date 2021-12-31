@@ -44,7 +44,8 @@ class PlayerBrain(Brain):
             elif intention is Intention.PREVIOUS_ABILITY:
                 tracker.decrement(scene)
             elif intention is Intention.USE_ABILITY:
-                tracker.get_current_ability(scene).apply(scene, self.id)
+                ability = tracker.get_current_ability(scene)
+                ability.apply(scene, self.id)
             elif intention is None:
                 logging.debug(f"EID#{self.entity}::PlayerActor found no useable intention")
                 return

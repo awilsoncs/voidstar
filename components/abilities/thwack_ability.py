@@ -40,6 +40,7 @@ class ThwackAbility(Ability, EnergyActor):
             if self.count > 0:
                 scene.cm.add(*thwack_animation(self.entity, thwacker_coords.x, thwacker_coords.y)[1])
             else:
+                scene.warn("You thwacked yourself dizzy!")
                 scene.cm.add(*thwack_dizzy_animation(self.entity, thwacker_coords.x, thwacker_coords.y)[1])
         brain = scene.cm.get_component_by_id(dispatcher)
         brain.pass_turn()

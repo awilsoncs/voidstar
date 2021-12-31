@@ -90,3 +90,6 @@ class DefendScene(GameScene):
         if len(self.messages) > 20:
             self.messages.pop(0)
         self.messages.append(Message(f" {text}", color=color))
+
+    def warn(self, text: str):
+        self.message(text, color=palettes.HORDELING)

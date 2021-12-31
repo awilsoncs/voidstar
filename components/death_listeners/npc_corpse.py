@@ -5,7 +5,6 @@ from components import Entity, Coordinates
 from components.death_listeners.death_listener import DeathListener
 from content import corpses
 from engine import palettes
-from engine.component import Component
 
 
 @dataclass
