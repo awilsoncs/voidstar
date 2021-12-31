@@ -35,7 +35,8 @@ def create_options_file():
         'rock-field-min': 2,
         'rock-field-max': 2,
         'rocks-proliferation': .075,
-        'torch-radius': -1
+        'torch-radius': -1,
+        'music-enabled': True
     }
     with open(get_relative_path('options.yaml'), mode='w+') as file:
         yaml.dump(option_data_base, file)
@@ -60,6 +61,7 @@ CHARACTER_NAME = option_data['character-name']
 SPAWN_MIN = option_data['spawn-min']
 SPAWN_MAX = option_data['spawn-max']
 TORCH_RADIUS = option_data['torch-radius']
+MUSIC_ENABLED = option_data['music-enabled']
 
 # Nonconfigurable options
 FONT = resource_path('tiles.png')
