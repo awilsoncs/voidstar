@@ -18,12 +18,15 @@ class DefaultSoundController(SoundController):
         if not settings.MUSIC_ENABLED:
             logging.debug("DefaultSoundController: Music is disabled in settings.")
             return
-        mixer.music.load(tracks[track])
+
+        resource = settings.resource_path(tracks[track])
+
+        mixer.music.load(resource)
         mixer.music.play(fade_ms=2000)
 
 
 tracks = {
-    "theme": "./theme.ogg",
-    "town": "./town.ogg",
-    "battle": "./battle.ogg"
+    "theme": "./resources/theme.ogg",
+    "town": "./resources/town.ogg",
+    "battle": "./resources/battle.ogg"
 }

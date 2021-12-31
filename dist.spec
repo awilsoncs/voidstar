@@ -8,7 +8,7 @@ a = Analysis(
     ['hordeRL.py'],
     pathex=[],
     binaries=[],
-    datas=[('./tiles.png', '.')],
+    datas=[('resources', 'resources')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

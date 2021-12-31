@@ -110,7 +110,7 @@ HORDELING = from_hex(option_data['color_hordeling'])
 BLOOD = from_hex(option_data['color_blood'])
 
 # Nonconfigurable options
-FONT = resource_path('tiles.png')
+FONT = resource_path('resources/tiles.png')
 
 # actual size of the window
 SCREEN_WIDTH = 60
