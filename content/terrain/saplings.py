@@ -14,7 +14,7 @@ def make_sapling(x, y):
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='tree', static=True),
+            Entity(id=entity_id, entity=entity_id, name='sapling', static=True),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_MEDIUM),
             Attributes(entity=entity_id, hp=2, max_hp=2),
             Corpse(entity=entity_id, symbol="%", color=palettes.FOILAGE_C),
@@ -23,6 +23,6 @@ def make_sapling(x, y):
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             GrowInSpring(entity=entity_id),
             PathfinderCost(entity=entity_id, cost=10),
-            Sellable(entity=entity_id, value=0),
+            Sellable(entity=entity_id, value=1),
         ]
     )
