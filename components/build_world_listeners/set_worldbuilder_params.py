@@ -3,9 +3,8 @@ from dataclasses import dataclass
 
 import settings
 from components.build_world_listeners.build_world_listeners import BuildWorldListener
-from components.build_world_listeners.world_parameters import WorldParameters, get_plains_params, get_forest_params, \
-    get_mountain_params, get_swamp_params
-from engine import core
+from components.build_world_listeners.world_parameters import get_plains_params, get_forest_params, \
+    get_mountain_params, get_swamp_params, get_tundra_params
 from gui.easy_menu import EasyMenu
 
 
@@ -20,7 +19,8 @@ class SetWorldParameters(BuildWorldListener):
                     "Plains": self.get_settings(scene, get_plains_params),
                     "Forest": self.get_settings(scene, get_forest_params),
                     "Mountains": self.get_settings(scene, get_mountain_params),
-                    "Swamp": self.get_settings(scene, get_swamp_params)
+                    "Swamp": self.get_settings(scene, get_swamp_params),
+                    "Tundra": self.get_settings(scene, get_tundra_params)
                 },
                 settings.INVENTORY_WIDTH,
             )

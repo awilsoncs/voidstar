@@ -30,4 +30,9 @@ class UpdateSenses(MoveListener, GameStartListener, TerrainChangedListener, Atta
         for material in materials:
             coords = scene.cm.get_one(Coordinates, entity=material.entity)
             transparency[coords.x, coords.y] = False
-            scene.visibility_map[:] = tcod.map.compute_fov(transparency, (mob.x, mob.y))
+            scene.visibility_map[:] = tcod.map.compute_fov(
+                transparency,
+                (mob.x, mob.y),
+                light_walls=True,
+                radius=settings.TORCH_RADIUS
+            )

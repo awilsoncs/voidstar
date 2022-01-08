@@ -5,37 +5,26 @@ from components import Coordinates
 from components.actors.calendar_actor import Calendar
 from components.actors.energy_actor import EnergyActor
 from components.attack_start_listeners.attack_start_actor import AttackStartListener
-from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.ice_tag import IceTag
 from components.tags.water_tag import WaterTag
+from components.weather.weather import Weather
 from content.terrain.ice import make_ice
 from content.terrain.water import make_water
 from engine import core
 
 
 @dataclass
-class FreezeWater(EnergyActor, SeasonResetListener, AttackStartListener):
+class FreezeWater(EnergyActor, AttackStartListener):
     energy_cost: int = EnergyActor.HALF_HOUR
-    temperature: int = 10
-
-    def on_season_reset(self, scene, season):
-        if season == 'Winter':
-            self.temperature = -5
-        elif season == 'Spring':
-            self.temperature = random.randint(1, 3)
-        elif season == 'Summer':
-            self.temperature = 10
-        elif season == 'Fall':
-            self.temperature = random.randint(1, 3)
-        else:
-            raise ValueError(f"EID#{self.entity}::FreezeWater.on_season_reset received bad season: {season}")
 
     def act(self, scene) -> None:
-        if self.temperature < 0:
-            for _ in range(self.temperature * -1):
+        weather = scene.cm.get_one(Weather, entity=core.get_id("calendar"))
+
+        if weather.temperature < 0:
+            for _ in range(weather.temperature * -1):
                 self.freeze_one(scene)
         else:
-            for _ in range(self.temperature):
+            for _ in range(weather.temperature):
                 self.thaw_one(scene)
         self.pass_turn()
 

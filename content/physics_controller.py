@@ -8,6 +8,6 @@ def make_physics_controller():
     return (
         entity_id,
         [
-            FloodHolesSystem(entity=entity_id)
+            FloodHolesSystem(entity=entity_id),
         ]
     )

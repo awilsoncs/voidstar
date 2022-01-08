@@ -14,7 +14,7 @@ from engine.constants import PRIORITY_LOWEST
 
 def make_rock(x, y):
     entity_id = core.get_id()
-    appearance = "\"" if random.random() < .5 else "'"
+    appearance = random.choice(["%", "\"", "'", "."])
     entity: Tuple[int, List[Component]] = (
         entity_id,
         [
