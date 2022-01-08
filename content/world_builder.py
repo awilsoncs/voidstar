@@ -9,6 +9,7 @@ from components.build_world_listeners.place_copses import PlaceTrees
 from components.build_world_listeners.place_river import PlaceRiver
 from components.build_world_listeners.place_roads import PlaceRoads
 from components.build_world_listeners.place_rocks import PlaceRocks
+from components.build_world_listeners.set_worldbuilder_params import SetWorldParameters
 from engine import core
 
 
@@ -19,6 +20,7 @@ def make_world_build():
         [
             Entity(id=entity_id, entity=entity_id, name="Worldbuilder"),
             BuildWorld(entity=entity_id),
+            SetWorldParameters(entity=entity_id),
             AddPlayerStep(entity=entity_id),
             PlaceMapBoundary(entity=entity_id),
             PlaceLakes(entity=entity_id),
