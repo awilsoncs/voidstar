@@ -13,7 +13,7 @@ from components.diggable import Diggable
 from components.brains.brain import Brain
 from content.terrain.dirt import make_dirt
 from content.terrain.hole import make_hole
-from engine import constants, core
+from engine import constants, core, palettes
 
 
 @dataclass
@@ -43,9 +43,12 @@ class DigHoleActor(Brain):
         direction = STEP_VECTORS[direction]
         hole_x = x+direction[0]
         hole_y = y+direction[1]
-        if _is_empty(scene, hole_x, hole_y) and _in_bounds(hole_x, hole_y):
+        if not _in_bounds(hole_x, hole_y):
+            scene.message("You can't build outside of the town.", color=palettes.WHITE)
+            self.back_out(scene)
+        elif _is_empty(scene, hole_x, hole_y):
             self._apply_dig_hole(hole_x, hole_y, scene)
-        elif _in_bounds(hole_x, hole_y):
+        else:
             diggable_entities = _get_diggables(scene, hole_x, hole_y)
             if diggable_entities:
                 scene.gold -= 2
@@ -64,8 +67,8 @@ class DigHoleActor(Brain):
                 scene.cm.add(*dirt[1])
                 old_actor = self.back_out(scene)
                 old_actor.pass_turn()
-        else:
-            self.back_out(scene)
+            else:
+                self.back_out(scene)
 
     def _apply_dig_hole(self, hole_x, hole_y, scene):
         scene.message("You dug a deep hole.")
@@ -85,8 +88,8 @@ class DigHoleActor(Brain):
 
 
 def _in_bounds(x, y):
-    in_x_bounds = 2 < x < settings.MAP_WIDTH - 2
-    in_y_bounds = 2 < y < settings.MAP_HEIGHT - 2
+    in_x_bounds = 0 < x < settings.MAP_WIDTH - 1
+    in_y_bounds = 0 < y < settings.MAP_HEIGHT - 1
     return in_y_bounds and in_x_bounds
 
 
