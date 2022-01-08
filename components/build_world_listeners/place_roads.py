@@ -23,7 +23,7 @@ def get_town_center(house_coords, scene):
 
 def connect_houses_to_road(house_coords, scene):
     for coord in house_coords:
-        connect_point_to_road_network(scene, coord.position, trim_start=True)
+        connect_point_to_road_network(scene, coord.position, trim_start=2)
 
 
 def add_town_center(house_coords, scene):

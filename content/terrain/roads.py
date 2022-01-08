@@ -29,7 +29,7 @@ def make_road(x, y):
     return entity
 
 
-def connect_point_to_road_network(scene, start: Tuple[int, int], trim_start: bool = False):
+def connect_point_to_road_network(scene, start: Tuple[int, int], trim_start: int = 0):
     road_coords = scene.cm.get(RoadMarker, project=lambda rm: (rm.entity, 100))
     cost_map = SimplexCostMapper().get_cost_map(scene)
     cost_map += RoadCostMapper().get_cost_map(scene)
@@ -38,7 +38,7 @@ def connect_point_to_road_network(scene, start: Tuple[int, int], trim_start: boo
     _draw_road(scene, start, best_point, cost_map, trim_start=trim_start)
 
 
-def _draw_road(scene, start: Tuple[int, int], end: Tuple[int, int], cost_map, trim_start=False):
+def _draw_road(scene, start: Tuple[int, int], end: Tuple[int, int], cost_map, trim_start: int=0):
     for node in _road_between(cost_map, start, end, trim_start=trim_start):
         coords = scene.cm.get(Coordinates, query=lambda c: scene.cm.get_one(RoadMarker, entity=c.entity))
         if coords and coords[0].x == node[0] and coords[0].y == node[1]:
@@ -53,15 +53,13 @@ def _road_between(
         cost_map,
         start: Tuple[int, int],
         end: Tuple[int, int],
-        trim_start=False
+        trim_start: int = 0
 ) -> Iterator[Tuple[int, int]]:
     graph = tcod.path.SimpleGraph(cost=cost_map, cardinal=2, diagonal=0)
     pf = tcod.path.Pathfinder(graph)
     pf.add_root(start)
 
     # In the case of houses, need to start one after the normal start point
-    trim = 2 if trim_start else 1
-
-    path: List[Tuple[int, int]] = pf.path_to(end).tolist()[trim:-1]
+    path: List[Tuple[int, int]] = pf.path_to(end).tolist()[trim_start:-1]
     for node in path:
         yield node
