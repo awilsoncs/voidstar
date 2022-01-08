@@ -180,6 +180,8 @@ def _apply_post_move_factors(coords, entity, scene):
     if easy_terrain and not haste:
         scene.cm.add(Haste(entity=entity))
     elif difficult_terrain and not easy_terrain:
+        if entity == scene.player:
+            scene.message("You stumbled over the terrain.")
         scene.cm.add(Hindered(entity=entity))
 
 
