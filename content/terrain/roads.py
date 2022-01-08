@@ -31,8 +31,7 @@ def make_road(x, y):
 
 def connect_point_to_road_network(scene, start: Tuple[int, int], trim_start: int = 0):
     road_coords = scene.cm.get(RoadMarker, project=lambda rm: (rm.entity, 100))
-    cost_map = SimplexCostMapper().get_cost_map(scene)
-    cost_map += RoadCostMapper().get_cost_map(scene)
+    cost_map = RoadCostMapper().get_cost_map(scene)
     best_entity: int = get_new_target(scene, cost_map, start, road_coords)
     best_point: Tuple[int, int] = scene.cm.get_one(Coordinates, entity=best_entity).position
     _draw_road(scene, start, best_point, cost_map, trim_start=trim_start)

@@ -24,8 +24,8 @@ class PlaceLakes(BuildWorldListener):
         world_settings = scene.cm.get_one(WorldParameters, entity=scene.player)
 
         for _ in range(world_settings.lakes):
-            x = random.randint(5, settings.MAP_WIDTH - 5)
-            y = random.randint(5, settings.MAP_HEIGHT - 5)
+            x = random.randint(0, settings.MAP_WIDTH - 1)
+            y = random.randint(0, settings.MAP_HEIGHT - 1)
             coords = {(coord.x, coord.y) for coord in scene.cm.get(Coordinates)}
             if (x, y) not in coords:
                 self.spawn_lake(scene, x, y)
@@ -44,7 +44,7 @@ class PlaceLakes(BuildWorldListener):
                 for _x, _y in get_3_by_3_box(working_x, working_y)
                 if (
                         random.random() <= world_settings.lake_proliferation
-                        and 3 < _x < settings.MAP_WIDTH - 3
-                        and 3 < _y < settings.MAP_HEIGHT - 3
+                        and 0 < _x < settings.MAP_WIDTH
+                        and 0 < _y < settings.MAP_HEIGHT
                 )
             ]
