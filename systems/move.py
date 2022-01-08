@@ -1,6 +1,7 @@
 import logging
 from typing import Tuple
 
+import settings
 from components import Senses
 from components.actors.actor import Actor
 from components.attacks.attack import Attack
@@ -12,6 +13,7 @@ from components.material import Material
 from components.move import Move
 from components.move_listeners.move_listener import MoveListener
 from components.states.move_cost_affectors import Hindered, DifficultTerrain, EasyTerrain, Haste
+from engine import palettes
 from systems.utilities import get_blocking_object
 
 
@@ -105,10 +107,23 @@ def can_step(scene, entity, step_action) -> bool:
     entity_coords = scene.cm.get_one(Coordinates, entity)
     target_x = entity_coords.x + step_action[0]
     target_y = entity_coords.y + step_action[1]
+
+    if not in_bounds((target_x, target_y)):
+        if entity == scene.player:
+            scene.message("You shouldn't leave the village.", color=palettes.WHITE)
+        return False
+
     blocking_object = get_blocking_object(scene.cm, target_x, target_y)
 
     entity_material = scene.cm.get_one(Material, entity)
     return not (entity_material and blocking_object)
+
+
+def in_bounds(point):
+    return (
+        point[0] in range(settings.MAP_WIDTH)
+        and point[1] in range(settings.MAP_HEIGHT)
+    )
 
 
 def dirty_senses(scene, entity):

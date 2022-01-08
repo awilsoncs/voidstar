@@ -13,6 +13,8 @@ DEFAULT_TEMPERATURE_MODIFIER: int = 0
 
 @dataclass
 class WorldParameters(Component):
+    biome: str = 'Plains'
+
     lakes: int = DEFAULT_LAKES
     lake_proliferation: float = DEFAULT_LAKE_PROLIFERATION
 
@@ -31,6 +33,7 @@ def get_plains_params(entity):
 
 def get_forest_params(entity):
     return WorldParameters(
+        biome='Forest',
         entity=entity,
         copse=DEFAULT_COPSE*20
     )
@@ -39,6 +42,7 @@ def get_forest_params(entity):
 def get_mountain_params(entity):
     return WorldParameters(
         entity=entity,
+        biome='Mountain',
         copse=DEFAULT_COPSE//2,
         copse_proliferation=DEFAULT_COPSE_PROLIFERATION/2,
         rock_fields=DEFAULT_ROCKS*40,
@@ -51,6 +55,7 @@ def get_mountain_params(entity):
 def get_swamp_params(entity):
     return WorldParameters(
         entity=entity,
+        biome='Swamp',
         copse=DEFAULT_COPSE*10,
         copse_proliferation=DEFAULT_COPSE_PROLIFERATION/2,
         lakes=DEFAULT_LAKES*100,
@@ -63,6 +68,7 @@ def get_swamp_params(entity):
 def get_tundra_params(entity):
     return WorldParameters(
         entity=entity,
+        biome='Tundra',
         copse=0,
         rock_fields=DEFAULT_ROCKS*10,
         rocks_proliferation=DEFAULT_ROCKS_PROLIFERATION*2,
