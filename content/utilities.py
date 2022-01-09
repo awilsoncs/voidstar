@@ -29,10 +29,10 @@ def make_calendar():
             AddFarmstead(entity=entity_id),
             MovePeasantsOut(entity=entity_id),
             MovePeasantsIn(entity=entity_id),
-            SpawnSaplingInSpring(entity=entity_id),
             SnowFall(entity=entity_id),
             CropsDieInWinter(entity=entity_id),
             FreezeWater(entity=entity_id),
-            Weather(entity=entity_id)
+            Weather(entity=entity_id),
+            SpawnSaplingInSpring(entity=entity_id)
         ]
     ]

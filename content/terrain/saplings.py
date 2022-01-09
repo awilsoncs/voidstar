@@ -3,7 +3,7 @@ from components.sellable import Sellable
 from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction
 from components.material import Material
-from components.season_reset_listeners.grow_in_spring import GrowInSpring
+from components.season_reset_listeners.grow_in_spring import GrowIntoTree
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
@@ -21,7 +21,7 @@ def make_sapling(x, y):
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Appearance(entity=entity_id, symbol='+', color=palettes.FOILAGE_C, bg_color=palettes.BACKGROUND),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
-            GrowInSpring(entity=entity_id),
+            GrowIntoTree(entity=entity_id),
             PathfinderCost(entity=entity_id, cost=10),
             Sellable(entity=entity_id, value=1),
         ]
