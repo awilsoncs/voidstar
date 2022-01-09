@@ -139,7 +139,9 @@ class ComponentManager(object):
             self.delete_component(component)
 
     def stash_component(self, cid):
+        logging.debug(f"System::ComponentManager attempting to stash component {cid}")
         component = self.get_component_by_id(cid)
+        logging.debug(f"System::ComponentManager stashing component {component}")
         self.stashed_components[cid] = component
         self.delete_component(component)
 

@@ -6,6 +6,7 @@ from components import Coordinates
 from components.actions.attack_action import AttackAction
 from components.attacks.attack import Attack
 from components.brains.brain import Brain
+from components.brains.sleeping_brain import SleepingBrain
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.pathfinding.cost_mapper import CostMapper
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
@@ -82,6 +83,7 @@ class DefaultActiveActor(Brain):
             )[1]
         )
         self.pass_turn()
+        self.sleep(scene)
 
     def is_target_in_range(self, scene) -> bool:
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
@@ -105,3 +107,9 @@ class DefaultActiveActor(Brain):
         else:
             logging.warning(f"EID#{self.entity}::DefaultActiveActor found no valid path")
             return None
+
+    def sleep(self, scene):
+        logging.debug(f"EID#{self.entity}::DefaultActiveActor falling asleep")
+        new_controller = SleepingBrain(entity=self.entity, old_actor=self.id)
+        scene.cm.stash_component(self.id)
+        scene.cm.add(new_controller)

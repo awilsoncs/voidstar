@@ -40,6 +40,7 @@ class ShootAbility(SeasonResetListener, Ability):
         blinker = AnimationBlinker(entity=target.entity)
         scene.cm.stash_component(dispatcher)
         scene.cm.add(new_controller, blinker)
+        # todo why are we removing gold in the ability? You may have declined to shoot.
         scene.gold -= 5
 
     def _handle_confused(self, scene):

@@ -4,16 +4,16 @@ from engine import core, palettes
 from engine.constants import PRIORITY_HIGH
 
 
-def confused_animation(x, y):
+def floaty_animation(x, y, symbol, color, name):
     entity_id = core.get_id()
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='confused_anim'),
+            Entity(id=entity_id, entity=entity_id, name=name),
             Appearance(
                 entity=entity_id,
-                symbol='?',
-                color=palettes.LIGHT_WATER,
+                symbol=symbol,
+                color=color,
                 bg_color=palettes.BACKGROUND,
                 render_mode=Appearance.RenderMode.HIGH_VEE
             ),
@@ -21,79 +21,23 @@ def confused_animation(x, y):
             AnimationFloat(entity=entity_id, duration=5),
         ]
     )
+
+
+def confused_animation(x, y):
+    return floaty_animation(x, y, '?', palettes.LIGHT_WATER, 'confused_animation')
 
 
 def no_money_animation(x, y):
-    entity_id = core.get_id()
-    return (
-        entity_id,
-        [
-            Entity(id=entity_id, entity=entity_id, name='no_money_anim'),
-            Appearance(
-                entity=entity_id,
-                symbol='$',
-                color=palettes.FRESH_BLOOD,
-                bg_color=palettes.BACKGROUND,
-                render_mode=Appearance.RenderMode.HIGH_VEE
-            ),
-            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH, buildable=True),
-            AnimationFloat(entity=entity_id, duration=5),
-        ]
-    )
+    return floaty_animation(x, y, '$', palettes.FRESH_BLOOD, 'no_money_animation')
 
 
 def help_animation(x, y):
-    entity_id = core.get_id()
-    return (
-        entity_id,
-        [
-            Entity(id=entity_id, entity=entity_id, name='help_anim'),
-            Appearance(
-                entity=entity_id,
-                symbol='!',
-                color=palettes.HORDELING,
-                bg_color=palettes.BACKGROUND,
-                render_mode=Appearance.RenderMode.HIGH_VEE
-            ),
-            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH, buildable=True),
-            AnimationFloat(entity=entity_id, duration=5),
-        ]
-    )
+    return floaty_animation(x, y, '!', palettes.FRESH_BLOOD, 'help_animation')
 
 
 def knockback_animation(x, y):
-    entity_id = core.get_id()
-    return (
-        entity_id,
-        [
-            Entity(id=entity_id, entity=entity_id, name='knockback_anim'),
-            Appearance(
-                entity=entity_id,
-                symbol='x',
-                color=palettes.GOLD,
-                bg_color=palettes.BACKGROUND,
-                render_mode=Appearance.RenderMode.HIGH_VEE
-            ),
-            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH, buildable=True),
-            AnimationFloat(entity=entity_id, duration=5),
-        ]
-    )
+    return floaty_animation(x, y, '*', palettes.GOLD, 'knockback_animation')
 
 
-def cant_shoot_animation(x, y):
-    entity_id = core.get_id()
-    return (
-        entity_id,
-        [
-            Entity(id=entity_id, entity=entity_id, name='cant_shoot_anim'),
-            Appearance(
-                entity=entity_id,
-                symbol=')',
-                color=palettes.LIGHT_WATER,
-                bg_color=palettes.BACKGROUND,
-                render_mode=Appearance.RenderMode.HIGH_VEE
-            ),
-            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH, buildable=True),
-            AnimationFloat(entity=entity_id, duration=5),
-        ]
-    )
+def sleep_animation(x, y):
+    return floaty_animation(x, y, 'z', palettes.LIGHT_WATER, 'sleep_animation')
