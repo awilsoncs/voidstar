@@ -82,7 +82,7 @@ class DefendScene(GameScene):
     @timed(100, __name__)
     def update(self):
         act.run(self)
-        death.run(self)
+        #death.run(self)
         move.run(self)
         pickup_gold.run(self)
         peasant_dead_check.run(self)

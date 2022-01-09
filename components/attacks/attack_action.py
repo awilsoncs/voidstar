@@ -6,6 +6,7 @@ from components import Coordinates, Attributes, Entity
 from components.actors.energy_actor import EnergyActor
 from components.attacks.attack_effects.attack_effect import AttackEffect
 from components.cry_for_help import CryForHelp
+from components.death_listeners.die import Die
 from components.house_structure import HouseStructure
 from components.relationships.owner import Owner
 from content.states import help_animation
@@ -59,3 +60,5 @@ def _handle_entity_damage(scene, target, damage):
     if target_attributes:
         target_attributes.hp -= damage
         target_attributes.hp = max(0, target_attributes.hp)
+        if target_attributes.hp <= 0:
+            scene.cm.add(Die(entity=target_attributes.entity))
