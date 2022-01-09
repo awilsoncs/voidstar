@@ -7,19 +7,18 @@ import settings
 from components import Coordinates, Entity
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
+from components.brains.temporary_brain import TemporaryBrain
 from components.death_listeners.die import Die
 from components.enums import Intention
 from components.diggable import Diggable
-from components.brains.brain import Brain
 from content.terrain.dirt import make_dirt
 from content.terrain.hole import make_hole
 from engine import constants, core, palettes
 
 
 @dataclass
-class DigHoleActor(Brain):
+class DigHoleActor(TemporaryBrain):
     energy_cost: int = EnergyActor.INSTANT
-    old_actor: int = constants.INVALID
 
     def act(self, scene) -> None:
         key_event = core.get_key_event()
@@ -77,14 +76,6 @@ class DigHoleActor(Brain):
         scene.gold -= 2
         old_actor = self.back_out(scene)
         old_actor.pass_turn()
-
-    def back_out(self, scene):
-        old_actor = scene.cm.unstash_component(self.old_actor)
-        blinker = scene.cm.get_one(AnimationBlinker, entity=self.entity)
-        blinker.stop(scene)
-        scene.cm.delete_component(blinker)
-        scene.cm.delete_component(self)
-        return old_actor
 
 
 def _in_bounds(x, y):

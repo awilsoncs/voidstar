@@ -1,10 +1,6 @@
-import logging
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from components import Coordinates
-from components.attacks.attack_action import AttackAction
-from content.attacks import stab
 from engine.component import Component
 
 

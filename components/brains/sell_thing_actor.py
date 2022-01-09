@@ -7,6 +7,7 @@ import tcod
 from components import Coordinates, Entity
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
+from components.brains.temporary_brain import TemporaryBrain
 from components.death_listeners.die import Die
 from components.enums import Intention
 from components.Sellable import Sellable
@@ -17,9 +18,8 @@ from engine.types import EntityId
 
 
 @dataclass
-class SellThingActor(Brain):
+class SellThingActor(TemporaryBrain):
     energy_cost: int = EnergyActor.INSTANT
-    old_actor: int = constants.INVALID
 
     def act(self, scene) -> None:
         key_event = core.get_key_event()
@@ -62,14 +62,6 @@ class SellThingActor(Brain):
             old_actor.pass_turn()
         else:
             self.back_out(scene)
-
-    def back_out(self, scene):
-        old_actor = scene.cm.unstash_component(self.old_actor)
-        blinker = scene.cm.get_one(AnimationBlinker, entity=self.entity)
-        blinker.stop(scene)
-        scene.cm.delete_component(blinker)
-        scene.cm.delete_component(self)
-        return old_actor
 
 
 def _get_sellables(scene, point) -> List[EntityId]:

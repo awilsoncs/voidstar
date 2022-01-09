@@ -7,6 +7,7 @@ import tcod
 from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
+from components.brains.temporary_brain import TemporaryBrain
 from components.enums import Intention
 from components.brains.brain import Brain
 from engine import constants, core
@@ -14,9 +15,8 @@ from engine.component import Component
 
 
 @dataclass
-class PlaceThingActor(Brain, ABC):
+class PlaceThingActor(TemporaryBrain, ABC):
     energy_cost: int = EnergyActor.INSTANT
-    old_actor: int = constants.INVALID
     gold_cost: int = constants.INVALID
 
     def act(self, scene) -> None:
@@ -53,14 +53,6 @@ class PlaceThingActor(Brain, ABC):
             old_actor.pass_turn()
         else:
             self.back_out(scene)
-
-    def back_out(self, scene):
-        old_actor = scene.cm.unstash_component(self.old_actor)
-        blinker = scene.cm.get_one(AnimationBlinker, entity=self.entity)
-        blinker.stop(scene)
-        scene.cm.delete_component(blinker)
-        scene.cm.delete_component(self)
-        return old_actor
 
 
 def is_buildable(scene, x, y):

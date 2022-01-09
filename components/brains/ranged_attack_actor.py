@@ -2,20 +2,19 @@ from dataclasses import dataclass
 
 import tcod
 
-from components.attacks.attack_action import AttackAction
+from components.actions.attack_action import AttackAction
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
+from components.brains.temporary_brain import TemporaryBrain
 from components.enums import Intention
-from components.brains.brain import Brain
 from components.tags.hordeling_tag import HordelingTag
 from engine import core, constants
 from engine.utilities import is_visible
 
 
 @dataclass
-class RangedAttackActor(Brain):
+class RangedAttackActor(TemporaryBrain):
     energy_cost: int = EnergyActor.INSTANT
-    old_actor: int = constants.INVALID
     target: int = 0
     shoot_ability: int = constants.INVALID
 

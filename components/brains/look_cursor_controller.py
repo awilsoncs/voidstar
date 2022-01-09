@@ -5,15 +5,14 @@ import tcod
 import settings
 from components import Coordinates, Entity
 from components.actors.energy_actor import EnergyActor
+from components.brains.temporary_brain import TemporaryBrain
 from components.enums import Intention
-from components.brains.brain import Brain
 from engine import constants, core
 
 
 @dataclass
-class LookCursorController(Brain):
+class LookCursorController(TemporaryBrain):
     energy_cost: int = EnergyActor.INSTANT
-    old_actor: int = constants.INVALID
     cursor: int = constants.INVALID
 
     def act(self, scene) -> None:
@@ -64,11 +63,6 @@ class LookCursorController(Brain):
             cursor_coords.x -= direction[0]
         if 0 > cursor_coords.y or cursor_coords.y >= settings.MAP_HEIGHT:
             cursor_coords.y -= direction[1]
-
-    def back_out(self, scene):
-        old_actor = scene.cm.unstash_component(self.old_actor)
-        scene.cm.delete_component(self)
-        return old_actor
 
 
 KEY_ACTION_MAP = {
