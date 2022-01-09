@@ -90,7 +90,7 @@ class ComponentManager(object):
         if not isinstance(entity, int):
             raise ValueError(f"Cannot delete entity {entity}. Did you mean delete_component?")
 
-        logging.debug(f"Deleting entity {entity}")
+        logging.debug(f"System::ComponentManager deleting entity {entity}")
         components = self.get_entity(entity)
 
         for _, component_list in components.items():
@@ -116,7 +116,7 @@ class ComponentManager(object):
 
         Does not delete any references to the component.
         """
-        logging.debug(f"Deleting component {component}")
+        logging.debug(f"System::ComponentManager deleting component {component}")
         if not component:
             raise ValueError("Cannot delete None.")
         entity = component.entity
