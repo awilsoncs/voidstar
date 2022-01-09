@@ -1,7 +1,7 @@
 import random
 
 from components import Entity, Coordinates, Appearance, Attributes
-from components.Sellable import Sellable
+from components.sellable import Sellable
 from components.brains.default_active_actor import DefaultActiveActor
 from components.attacks.standard_attack import StandardAttack
 from components.brains.stationary_attack_actor import StationaryAttackActor

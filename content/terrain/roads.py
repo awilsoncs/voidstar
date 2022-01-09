@@ -3,7 +3,7 @@ from typing import Tuple, List, Iterator
 import tcod.path
 
 from components import Entity, Appearance, Coordinates
-from components.Sellable import Sellable
+from components.sellable import Sellable
 from components.pathfinding.road_cost_mapper import RoadCostMapper
 from components.pathfinding.simplex_cost_mapper import SimplexCostMapper
 from components.pathfinding.target_selection import get_new_target

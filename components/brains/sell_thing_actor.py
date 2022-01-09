@@ -10,7 +10,7 @@ from components.animation_effects.blinker import AnimationBlinker
 from components.brains.temporary_brain import TemporaryBrain
 from components.death_listeners.die import Die
 from components.enums import Intention
-from components.Sellable import Sellable
+from components.sellable import Sellable
 from components.brains.brain import Brain
 from content.terrain.dirt import make_dirt
 from engine import constants, core, palettes

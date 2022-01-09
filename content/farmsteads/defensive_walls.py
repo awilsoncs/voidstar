@@ -1,5 +1,5 @@
 from components import Entity, Appearance, Coordinates, Attributes
-from components.Sellable import Sellable
+from components.sellable import Sellable
 from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction
 from components.material import Material
