@@ -2,11 +2,14 @@ import logging
 from dataclasses import dataclass
 from typing import Optional
 
-from components import Coordinates
+from components import Coordinates, Entity
 from components.actions.attack_action import AttackAction
+from components.animation_effects.blinker import AnimationBlinker
 from components.attacks.attack import Attack
 from components.brains.brain import Brain
 from components.brains.sleeping_brain import SleepingBrain
+from components.death_listeners.die import Die
+from components.edible import Edible
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.pathfinding.cost_mapper import CostMapper
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
@@ -15,7 +18,7 @@ from components.pathfinding.target_evaluation.hordeling_target_evaluator import 
 from components.pathfinding.target_evaluation.target_evaluator import TargetEvaluator
 from components.pathfinding.target_selection import get_new_target
 from content.attacks import stab
-from engine import constants
+from engine import constants, palettes
 from engine.core import log_debug
 from components.actors import VECTOR_STEP_MAP
 
@@ -45,7 +48,10 @@ class DefaultActiveActor(Brain):
         self.target = get_new_target(scene, self.cost_map, (coords.x, coords.y), entity_values)
 
         if self.is_target_in_range(scene):
-            self.attack_target(scene)
+            if self.should_eat(scene):
+                self.eat_target(scene)
+            else:
+                self.attack_target(scene)
         else:
             self.move_towards_target(scene)
 
@@ -58,12 +64,32 @@ class DefaultActiveActor(Brain):
             return NormalCostMapper(entity=self.entity).get_cost_map(scene)
 
     def move_towards_target(self, scene):
+        logging.debug(f"EID#{self.entity}::DefaultActiveActor stepping towards target {self.target}")
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         next_step_node = self.get_next_step(scene)
         next_step = (next_step_node[0] - coords.x, next_step_node[1] - coords.y)
         self.intention = VECTOR_STEP_MAP[next_step]
 
+    def should_eat(self, scene):
+        logging.debug(f"EID#{self.entity}::DefaultActiveActor checking for edibility of {self.target}")
+        edible = scene.cm.get_one(Edible, entity=self.target)
+        return edible is not None
+
+    def eat_target(self, scene):
+        logging.debug(f"EID#{self.entity}::DefaultActiveActor eating target {self.target}")
+        scene.cm.add(Die(entity=self.target))
+
+        this_entity = scene.cm.get_one(Entity, entity=self.entity)
+        target_entity = scene.cm.get_one(Entity, entity=self.target)
+        scene.warn(f"{this_entity.name} ate a {target_entity.name}!")
+        edible = scene.cm.get_one(Edible, entity=self.target)
+
+        self.sleep(scene, edible.sleep_for)
+        self.pass_turn()
+
     def attack_target(self, scene):
+        logging.debug(f"EID#{self.entity}::DefaultActiveActor attacking target {self.target}")
+
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         target = scene.cm.get_one(Coordinates, entity=self.target)
         facing = coords.direction_towards(target)
@@ -83,7 +109,6 @@ class DefaultActiveActor(Brain):
             )[1]
         )
         self.pass_turn()
-        self.sleep(scene)
 
     def is_target_in_range(self, scene) -> bool:
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
@@ -108,8 +133,14 @@ class DefaultActiveActor(Brain):
             logging.warning(f"EID#{self.entity}::DefaultActiveActor found no valid path")
             return None
 
-    def sleep(self, scene):
+    def sleep(self, scene, sleep_for):
         logging.debug(f"EID#{self.entity}::DefaultActiveActor falling asleep")
-        new_controller = SleepingBrain(entity=self.entity, old_actor=self.id)
+        new_controller = SleepingBrain(entity=self.entity, old_actor=self.id, turns=sleep_for)
+        blinker = AnimationBlinker(
+            entity=self.entity,
+            new_symbol='z',
+            new_color=palettes.LIGHT_WATER,
+            timer_delay=500
+        )
         scene.cm.stash_component(self.id)
-        scene.cm.add(new_controller)
+        scene.cm.add(new_controller, blinker)
