@@ -14,7 +14,7 @@ class Corpse(DeathListener):
     bg_color: tuple = palettes.BACKGROUND
 
     def on_die(self, scene):
-        logging.info(f"Eid{self.entity}:Corpse spawned a corpse")
+        logging.info(f"EID#{self.entity}:Corpse spawned a corpse")
         entity_obj = scene.cm.get_one(Entity, entity=self.entity)
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
 
