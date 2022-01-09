@@ -5,6 +5,7 @@ from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.brains.temporary_brain import TemporaryBrain
+from components.stomach import Stomach
 from content.states import sleep_animation
 from engine.core import log_debug
 
@@ -25,6 +26,11 @@ class SleepingBrain(TemporaryBrain):
             if blinker:
                 blinker.stop(scene)
                 scene.cm.delete_component(blinker)
+            stomach = scene.cm.get_one(Stomach, entity=self.entity)
+            if stomach:
+                stomach.clear(scene)
+
             self.back_out(scene)
+
         else:
             self.turns -= 1

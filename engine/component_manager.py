@@ -17,6 +17,9 @@ class ComponentManager(object):
         self.component_types: List[ComponentType] = []
         self.stashed_components: Dict[int, Component] = {}
 
+        # A mapping from the entity id to the related stashed components
+        self.stashed_entities: Dict[int, Set[int]] = {}
+
     # properties
     @property
     def entities(self) -> Set[int]:
@@ -138,7 +141,9 @@ class ComponentManager(object):
         for component in components_to_delete:
             self.delete_component(component)
 
+    # stashing
     def stash_component(self, cid):
+        # todo can leak stashed components if the managing entity is destroyed before the stash is recalled
         logging.debug(f"System::ComponentManager attempting to stash component {cid}")
         component = self.get_component_by_id(cid)
         logging.debug(f"System::ComponentManager stashing component {component}")
@@ -146,10 +151,42 @@ class ComponentManager(object):
         self.delete_component(component)
 
     def unstash_component(self, cid):
+        logging.debug(f"System::ComponentManager attempting to unstash component {cid}")
         component = self.stashed_components[cid]
         self.add(component)
         del self.stashed_components[cid]
         return component
+
+    def stash_entity(self, eid):
+        """Move an entire entity to the stash."""
+        logging.debug(f"System::ComponentManager attempting to stash entity {eid}")
+        components = self.get_entity(eid)
+
+        component_ids = set()
+
+        for _, component_list in components.items():
+            for component in component_list:
+                component_ids.add(component.id)
+                self.stash_component(component.id)
+
+        self.stashed_entities[eid] = component_ids
+        logging.debug(f"System::ComponentManager completed stash {component_ids}")
+
+    def unstash_entity(self, eid):
+        logging.debug(f"System::ComponentManager attempting to unstash entity {eid}")
+        component_ids = list(self.stashed_entities[eid])
+        for component_id in component_ids:
+            self.unstash_component(component_id)
+
+        del self.stashed_entities[eid]
+        logging.debug(f"System::ComponentManager completed unstash")
+
+    def drop_stashed_entity(self, eid):
+        """Forget about a stashed entity."""
+        logging.debug(f"System::ComponentManager attempting to drop stashed entity {eid}")
+        self.unstash_entity(eid)
+        self.delete(eid)
+        logging.debug(f"System::ComponentManager completed stash drop")
 
     # private methods
     def _add(self, component: Component) -> None:

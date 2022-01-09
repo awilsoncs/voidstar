@@ -4,6 +4,7 @@ from typing import Optional
 
 from components import Coordinates, Entity
 from components.actions.attack_action import AttackAction
+from components.actions.eat_action import EatAction
 from components.animation_effects.blinker import AnimationBlinker
 from components.attacks.attack import Attack
 from components.brains.brain import Brain
@@ -77,11 +78,7 @@ class DefaultActiveActor(Brain):
 
     def eat_target(self, scene):
         logging.debug(f"EID#{self.entity}::DefaultActiveActor eating target {self.target}")
-        scene.cm.add(Die(entity=self.target))
-
-        this_entity = scene.cm.get_one(Entity, entity=self.entity)
-        target_entity = scene.cm.get_one(Entity, entity=self.target)
-        scene.warn(f"{this_entity.name} ate a {target_entity.name}!")
+        scene.cm.add(EatAction(entity=self.entity, target=self.target))
         edible = scene.cm.get_one(Edible, entity=self.target)
 
         self.sleep(scene, edible.sleep_for)
