@@ -7,4 +7,4 @@ from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 @dataclass
 class DieOnSeasonReset(SeasonResetListener):
     def on_season_reset(self, scene, season):
-        scene.cm.add(Die(entity=self.entity))
+        scene.cm.add(Die(entity=self.entity, killer=self.entity))

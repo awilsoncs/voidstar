@@ -23,5 +23,5 @@ class WrathEffect(EnergyActor):
         logging.debug("Obliterating hordelings")
         hordelings = [h.entity for h in scene.cm.get(HordelingTag)]
         for hordeling in hordelings:
-            scene.cm.add(Die(entity=hordeling))
+            scene.cm.add(Die(entity=hordeling, killer=scene.player))
         scene.cm.delete_component(self)

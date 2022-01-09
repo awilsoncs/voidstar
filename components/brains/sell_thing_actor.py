@@ -47,7 +47,7 @@ class SellThingActor(Brain):
         if sellables:
             assert len(sellables) == 1, "found more than one sellable on a tile"
             entity = sellables.pop()
-            scene.cm.add(Die(entity=entity))
+            scene.cm.add(Die(entity=entity, killer=self.entity))
             sellable: Sellable = scene.cm.get_one(Sellable, entity=entity)
             entity_component = scene.cm.get_one(Entity, entity=entity)
             if not entity_component:

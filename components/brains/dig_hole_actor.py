@@ -53,7 +53,7 @@ class DigHoleActor(Brain):
             if diggable_entities:
                 scene.gold -= 2
                 entity = diggable_entities.pop()
-                scene.cm.add(Die(entity=entity))
+                scene.cm.add(Die(entity=entity, killer=self.entity))
                 diggable = scene.cm.get_one(Diggable, entity=entity)
                 if diggable.is_free:
                     # there's a dirt here, skip straight to digging the new hole

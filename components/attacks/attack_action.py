@@ -34,12 +34,12 @@ class AttackAction(EnergyActor):
             house_structure = None
 
         if house_structure:
-            _handle_house_damage(scene, house_structure, self.damage)
+            self._handle_house_damage(scene, house_structure, self.damage)
         else:
             attack_effects: List[AttackEffect] = scene.cm.get_all(AttackEffect, entity=self.entity)
             for attack_effect in attack_effects:
                 attack_effect.apply(scene, self.entity, self.target)
-            _handle_entity_damage(scene, self.target, self.damage)
+            self._handle_entity_damage(scene, self.target, self.damage)
 
         cry_for_help = scene.cm.get_one(CryForHelp, entity=self.target)
         if cry_for_help:
@@ -49,16 +49,15 @@ class AttackAction(EnergyActor):
 
         scene.cm.delete_components(AttackAction)
 
+    def _handle_house_damage(self, scene, house_structure, damage):
+        for entity in house_structure.get_all():
+            self._handle_entity_damage(scene, entity, damage)
 
-def _handle_house_damage(scene, house_structure, damage):
-    for entity in house_structure.get_all():
-        _handle_entity_damage(scene, entity, damage)
-
-
-def _handle_entity_damage(scene, target, damage):
-    target_attributes = scene.cm.get_one(Attributes, entity=target)
-    if target_attributes:
-        target_attributes.hp -= damage
-        target_attributes.hp = max(0, target_attributes.hp)
-        if target_attributes.hp <= 0:
-            scene.cm.add(Die(entity=target_attributes.entity))
+    def _handle_entity_damage(self, scene, target, damage):
+        target_attributes = scene.cm.get_one(Attributes, entity=target)
+        if target_attributes:
+            target_attributes.hp -= damage
+            target_attributes.hp = max(0, target_attributes.hp)
+            if target_attributes.hp <= 0:
+                logging.debug(f"EID#{self.entity}::AttackAction applying Die effect")
+                scene.cm.add(Die(entity=target_attributes.entity, killer=self.entity))
