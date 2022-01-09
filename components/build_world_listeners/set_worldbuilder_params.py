@@ -16,11 +16,11 @@ class SetWorldParameters(BuildWorldListener):
             EasyMenu(
                 "Which region?",
                 {
-                    "Plains": self.get_settings(scene, get_plains_params),
-                    "Forest": self.get_settings(scene, get_forest_params),
-                    "Mountains": self.get_settings(scene, get_mountain_params),
-                    "Swamp": self.get_settings(scene, get_swamp_params),
-                    "Tundra": self.get_settings(scene, get_tundra_params)
+                    "Plains (Easy)": self.get_settings(scene, get_plains_params),
+                    "Forest (Moderate)": self.get_settings(scene, get_forest_params),
+                    "Mountains (Hard)": self.get_settings(scene, get_mountain_params),
+                    "Swamp (Hard)": self.get_settings(scene, get_swamp_params),
+                    "Tundra (Brutal)": self.get_settings(scene, get_tundra_params)
                 },
                 settings.INVENTORY_WIDTH,
             )
