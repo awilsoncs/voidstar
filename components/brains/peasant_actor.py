@@ -15,11 +15,11 @@ from engine.core import log_debug
 
 @dataclass
 class PeasantActor(Brain):
-    class State(Enum):
-        UNKNOWN = auto()
-        FARMING = auto()
-        HIDING = auto()
-        WANDERING = auto()
+    class State(str, Enum):
+        UNKNOWN = 'UNKNOWN'
+        FARMING = 'FARMING'
+        HIDING = 'HIDING'
+        WANDERING = 'WANDERING'
 
     state: State = State.UNKNOWN
     can_animate: bool = True

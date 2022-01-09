@@ -188,6 +188,11 @@ class ComponentManager(object):
         self.delete(eid)
         logging.debug(f"System::ComponentManager completed stash drop")
 
+    # serialization functions
+    def list_all(self):
+        components = set(self.components_by_id.items())
+        return list(components)
+
     # private methods
     def _add(self, component: Component) -> None:
         """Add a component to the db."""

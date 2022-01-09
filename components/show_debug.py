@@ -8,11 +8,11 @@ from components.abilities.build_wall_ability import BuildWallAbility
 from components.actors.energy_actor import EnergyActor
 from components.brains.default_active_actor import DefaultActiveActor
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
+from components.save_game import SaveGame
 from components.wrath_effect import WrathEffect
 from content.farmsteads.houses import place_farmstead
 from content.terrain.roads import connect_point_to_road_network
 from gui.easy_menu import EasyMenu
-
 
 @dataclass
 class ShowDebug(EnergyActor):
@@ -31,7 +31,8 @@ class ShowDebug(EnergyActor):
                     "teleport to": get_teleport_to(scene),
                     "toggle ability": get_toggle_masonry(scene),
                     "toggle pathing": get_pathfinding_for(scene),
-                    "spawn a home": get_spawn_home(scene)
+                    "spawn a home": get_spawn_home(scene),
+                    "dump game state": get_dump_game(scene)
                 },
                 settings.INVENTORY_WIDTH,
             )
@@ -192,4 +193,10 @@ def get_spawn_home(scene):
         farmstead_id = place_farmstead(scene)
         farmstead_point = scene.cm.get_one(Coordinates, entity=farmstead_id).position
         connect_point_to_road_network(scene, farmstead_point, trim_start=True)
+    return out_fn
+
+
+def get_dump_game(scene):
+    def out_fn():
+        scene.cm.add(SaveGame(entity=scene.player))
     return out_fn

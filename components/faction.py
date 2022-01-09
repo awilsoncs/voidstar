@@ -7,7 +7,7 @@ from engine.component import Component
 @dataclass
 class Faction(Component):
 
-    class Options(enum.Enum):
+    class Options(str, enum.Enum):
         NONE = 'none'
         MONSTER = 'monster'
         PEASANT = 'peasant'

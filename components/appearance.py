@@ -8,10 +8,10 @@ from engine import palettes
 @dataclass
 class Appearance(Component):
     """Define an entity's base appearance."""
-    class RenderMode(Enum):
-        NORMAL = auto()
-        HIGH_VEE = auto()
-        STEALTHY = auto()
+    class RenderMode(str, Enum):
+        NORMAL = 'NORMAL'
+        HIGH_VEE = 'HIGH_VEE'
+        STEALTHY = 'STEALTHY'
 
     symbol: str = ' '
     color: tuple = palettes.WHITE
