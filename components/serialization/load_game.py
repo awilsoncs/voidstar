@@ -11,9 +11,10 @@ class LoadGame(EnergyActor):
     energy_cost: int = EnergyActor.INSTANT
 
     def act(self, scene) -> None:
+        scene.cm.delete_component(self)
+
         start = core.time_ms()
         logging.info(f"EID#{self.entity}::LoadGame attempting to read game")
-        scene.cm.delete_component(self)
         data = serialization.load('./game_save.json')
         scene.cm.from_list(data)
         end = core.time_ms()

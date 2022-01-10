@@ -2,6 +2,7 @@ import tcod
 
 from components.ability_tracker import AbilityTracker
 from components.actors.calendar_actor import Calendar
+from components.build_world_listeners.world_parameters import WorldParameters
 from components.states.move_cost_affectors import Hindered, Haste
 from engine import palettes, core, PLAYER_ID
 from gui.gui_element import GuiElement
@@ -99,3 +100,18 @@ class AbilityLabel(GuiElement):
             ability_tracker = ability_tracker[0]
         ability = ability_tracker.get_current_ability(scene)
         self.value = f'{ability.ability_title} - {ability.use_cost}c'
+
+
+class VillageNameLabel(GuiElement):
+    def __init__(self, x, y):
+        super().__init__(x, y, name='village-name-label')
+        self.value = "Village"
+
+    def render(self, panel: tcod.console.Console) -> None:
+        panel.print(self.x, self.y, self.value, fg=palettes.WHITE, bg=palettes.BACKGROUND)
+
+    def update(self, scene):
+        params = scene.cm.get(WorldParameters)
+        if params:
+            params = params[0]
+        self.value = params.world_name

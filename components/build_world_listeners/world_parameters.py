@@ -26,6 +26,11 @@ class WorldParameters(Component):
 
     temperature_modifier: int = DEFAULT_TEMPERATURE_MODIFIER
 
+    world_name: str = ''
+
+    def get_file_name(self):
+        return self.world_name.replace(" ", "-")
+
 
 def get_plains_params(entity):
     return WorldParameters(entity=entity)

@@ -1,7 +1,7 @@
 import tracery
 
 rules = {
-    'origin': '0#first##second#',
+    'origin': '#first##second#',
     'first': [
         'Spur',
         'Churl',
