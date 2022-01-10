@@ -2,6 +2,7 @@ import logging
 from collections import defaultdict
 from typing import Set, Dict, List, Iterable, Generic, Type, Callable
 
+import components
 from engine import constants
 from engine.component import Component
 from engine.core import get_id, log_debug
@@ -189,9 +190,21 @@ class ComponentManager(object):
         logging.debug(f"System::ComponentManager completed stash drop")
 
     # serialization functions
-    def list_all(self):
-        components = set(self.components_by_id.items())
-        return list(components)
+    def get_serial_form(self):
+        return {
+            "active_components": self.components_by_id,
+            "stashed_entities": self.stashed_entities,
+            "stashed_components": self.stashed_components
+        }
+
+    def from_data(self, loaded_data):
+        active_components = [v for k, v in loaded_data["active_components"].items()]
+        for _, obj in [item for item in self.components_by_id.items()]:
+            self.delete_component(obj)
+        self.add(*active_components)
+
+        self.stashed_entities = loaded_data["stashed_entities"]
+        self.stashed_components = loaded_data["stashed_components"]
 
     # private methods
     def _add(self, component: Component) -> None:
@@ -204,8 +217,3 @@ class ComponentManager(object):
             self.components[component_class].append(component)
         self.components_by_id[component.id] = component
 
-    def from_list(self, components):
-        for _, obj in [item for item in self.components_by_id.items()]:
-            self.delete_component(obj)
-
-        self.add(*components)

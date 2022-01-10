@@ -17,7 +17,7 @@ class SaveGame(EnergyActor):
 
         logging.info(f"EID#{self.entity}::SaveGame attempting to save game")
         params = scene.cm.get_one(WorldParameters, entity=scene.player)
-        serialization.save(scene.cm.components_by_id, f"./{params.get_file_name()}.world")
+        serialization.save(scene.cm.get_serial_form(), f"./{params.get_file_name()}.world")
         logging.info(f"EID#{self.entity}::SaveGame save complete")
         scene.message("Game saved.", color=palettes.LIGHT_WATER)
 

@@ -7,9 +7,11 @@ from pathlib import Path
 from pkgutil import walk_packages
 
 from engine import core
+from engine.component import Component
 
 
 class EnhancedJSONEncoder(json.JSONEncoder):
+    """Provide a dataclass encoder."""
     def default(self, o):
         if dataclasses.is_dataclass(o):
             data = dataclasses.asdict(o)
@@ -22,7 +24,7 @@ def save(components, file):
     # we don't want this object to get caught in the save game
     save_info = {
         "info": {
-            "object_count": len(components)
+            "object_count": len(components["active_components"])
         },
         "named_ids": core.get_named_ids(),
         "objects": components
@@ -35,6 +37,48 @@ def save(components, file):
 
 def load(file):
     # iterate through the modules in the current package
+    loadable_classes = _gather_loadable_classes()
+
+    with open(file, 'r') as f:
+        data = json.load(f)
+
+    core.set_named_ids(data["named_ids"])
+
+    active_components = _load_from_data(data["objects"]["active_components"], loadable_classes)
+    expected_count = data["info"]["object_count"]
+    real_count = len(active_components)
+    if real_count != expected_count:
+        logging.warning(f"Mismatched objects on load expected {expected_count}, found {real_count}")
+
+    stashed_components = _load_from_data(data["objects"]["stashed_components"], loadable_classes)
+
+    loaded_data = {
+        "active_components": active_components,
+        "stashed_components": stashed_components,
+        "stashed_entities": data["objects"]["stashed_entities"]
+    }
+    return loaded_data
+
+
+def _load_from_data(data, loadable_classes):
+    """Load a set of data from loadable classes."""
+    active_components = {}
+    for key, obj in data.items():
+        obj_class = obj["class"]
+        if obj_class not in loadable_classes:
+            raise ValueError(f"class not found: {obj_class}")
+        else:
+            del obj["class"]
+            clz = loadable_classes[obj_class]
+            active_components[key] = clz(**obj)
+    return active_components
+
+
+def _gather_loadable_classes():
+    """Read the components directory to discover loadable components."""
+    loadable_classes = {}
+
+    # ignore this mess
     package_dir = Path(__file__).resolve().parent.parent.parent
     for (_, module_name, _) in walk_packages([package_dir]):
 
@@ -43,34 +87,7 @@ def load(file):
         for attribute_name in dir(module):
             attribute = getattr(module, attribute_name)
 
-            if isclass(attribute):
+            if isclass(attribute) and issubclass(attribute, Component):
                 # Add the class to this package's variables
-                globals()[attribute_name] = attribute
-
-    with open(file, 'r') as f:
-        data = json.load(f)
-
-    core.set_named_ids(data["named_ids"])
-
-    components = []
-
-    for _, obj in data["objects"].items():
-        obj_class = obj["class"]
-        if obj_class not in globals():
-            raise ValueError(f"save game class not found: {obj_class}")
-        else:
-            del obj["class"]
-            clz = globals()[obj_class]
-            components.append(clz(**obj))
-
-    expected_count = data["info"]["object_count"]
-    real_count = len(components)
-
-    if real_count != expected_count:
-        logging.warning(f"Mismatched objects on load expected {expected_count}, found {real_count}")
-    return components
-
-
-def _try_load_object(object):
-    cls = object["class"]
-    return object
+                loadable_classes[attribute_name] = attribute
+    return loadable_classes
