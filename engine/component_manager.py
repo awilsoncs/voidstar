@@ -196,7 +196,6 @@ class ComponentManager(object):
     # private methods
     def _add(self, component: Component) -> None:
         """Add a component to the db."""
-        component.id = get_id()
         entity = component.entity
         assert entity != constants.INVALID, f"Invalid entity id! {component}. Did you forget to set the owning entity?"
         component_classes = type(component).mro()
@@ -204,3 +203,9 @@ class ComponentManager(object):
             self.components_by_entity[entity][component_class].append(component)
             self.components[component_class].append(component)
         self.components_by_id[component.id] = component
+
+    def from_list(self, components):
+        for _, obj in [item for item in self.components_by_id.items()]:
+            self.delete_component(obj)
+
+        self.add(*components)

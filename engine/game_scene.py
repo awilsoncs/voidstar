@@ -12,7 +12,7 @@ class GameScene:
 
     def __init__(self):
         self.gui_elements = []
-        self.cm: ComponentManager = None
+        self.cm: ComponentManager = ComponentManager()
         self.controller = None
         self.gui = None
         self.sound = None

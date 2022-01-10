@@ -67,7 +67,7 @@ class PlayWindow(GuiElement):
             appearance = self.cm.get_one(Appearance, entity=coord.entity)
             if appearance:
                 appearance_tile = appearance.to_tile()
-                if appearance.render_mode is Appearance.RenderMode.NORMAL:
+                if appearance.render_mode == Appearance.RenderMode.NORMAL:
                     hidden_tile = (
                         appearance_tile[0],
                         (*palettes.SHADOW, 255),
@@ -76,9 +76,9 @@ class PlayWindow(GuiElement):
 
                     self.console.rgba[coord.x, coord.y] = appearance_tile
                     self.memory_console.rgba[coord.x, coord.y] = hidden_tile
-                elif appearance.render_mode is Appearance.RenderMode.STEALTHY:
+                elif appearance.render_mode == Appearance.RenderMode.STEALTHY:
                     self.console.rgba[coord.x, coord.y] = appearance_tile
-                elif appearance.render_mode is Appearance.RenderMode.HIGH_VEE:
+                elif appearance.render_mode == Appearance.RenderMode.HIGH_VEE:
                     color = appearance.color
                     hidden_tile = (
                         appearance_tile[0],
@@ -88,6 +88,8 @@ class PlayWindow(GuiElement):
 
                     self.console.rgba[coord.x, coord.y] = appearance_tile
                     self.memory_console.rgba[coord.x, coord.y] = hidden_tile
+                else:
+                    raise ValueError(f"Unrecognized render mode {appearance.render_mode}")
 
         buffer = np.where(
             self.visibility_map,

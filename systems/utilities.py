@@ -42,7 +42,7 @@ def get_enemies(scene, entity):
     if not entity_faction:
         # entities without a faction cannot have enemies
         return []
-    return [f.entity for f in scene.cm.get(Faction) if f.faction is not entity_faction.faction]
+    return [f.entity for f in scene.cm.get(Faction) if f.faction != entity_faction.faction]
 
 
 def get_enemies_in_range(scene, entity, min_range=0, max_range=1000):

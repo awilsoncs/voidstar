@@ -20,6 +20,9 @@ class FreezeWater(EnergyActor, AttackStartListener):
     def act(self, scene) -> None:
         weather = scene.cm.get_one(Weather, entity=core.get_id("calendar"))
 
+        if not weather:
+            return
+
         if weather.temperature < 0:
             for _ in range(weather.temperature * -1):
                 self.freeze_one(scene)

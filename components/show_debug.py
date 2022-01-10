@@ -8,7 +8,8 @@ from components.abilities.build_wall_ability import BuildWallAbility
 from components.actors.energy_actor import EnergyActor
 from components.brains.default_active_actor import DefaultActiveActor
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
-from components.save_game import SaveGame
+from components.serialization.load_game import LoadGame
+from components.serialization.save_game import SaveGame
 from components.wrath_effect import WrathEffect
 from content.farmsteads.houses import place_farmstead
 from content.terrain.roads import connect_point_to_road_network
@@ -32,7 +33,8 @@ class ShowDebug(EnergyActor):
                     "toggle ability": get_toggle_masonry(scene),
                     "toggle pathing": get_pathfinding_for(scene),
                     "spawn a home": get_spawn_home(scene),
-                    "dump game state": get_dump_game(scene)
+                    "dump game state": get_dump_game(scene),
+                    "read game state": get_read_game(scene)
                 },
                 settings.INVENTORY_WIDTH,
             )
@@ -62,9 +64,14 @@ def get_examine_object(scene, entity):
         entity_component = entity_blob[Entity][0]
         print(f'Debug Show Item: {entity_component.name}')
 
+        components = []
+
         for _, values in entity_blob.items():
             for component in values:
-                print(f'\t{component}')
+                if component not in components:
+                    components.append(component)
+        for component in components:
+            print(f'\t{component}')
 
     return out_fn
 
@@ -199,4 +206,10 @@ def get_spawn_home(scene):
 def get_dump_game(scene):
     def out_fn():
         scene.cm.add(SaveGame(entity=scene.player))
+    return out_fn
+
+
+def get_read_game(scene):
+    def out_fn():
+        scene.cm.add(LoadGame(entity=scene.player))
     return out_fn

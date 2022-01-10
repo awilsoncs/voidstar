@@ -11,6 +11,8 @@ class SnowFall(EnergyActor):
 
     def act(self, scene) -> None:
         weather = scene.cm.get_one(Weather, entity=core.get_id("calendar"))
+        if not weather:
+            return
 
         if weather.temperature < 5:
             for _ in range(-1 * (weather.temperature - 10)):
