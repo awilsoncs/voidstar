@@ -11,7 +11,7 @@ from engine import core, palettes
 from engine.constants import PRIORITY_LOWEST
 
 
-def make_water(x, y):
+def make_water(x, y, rapidness=5000):
     entity_id = core.get_id()
     return (
         entity_id,
@@ -28,7 +28,8 @@ def make_water(x, y):
                 entity=entity_id,
                 new_symbol='~',
                 new_color=palettes.WATER,
-                new_bg_color=palettes.BACKGROUND
+                new_bg_color=palettes.BACKGROUND,
+                timer_delay=rapidness
             ),
             WaterTag(entity=entity_id)
         ]

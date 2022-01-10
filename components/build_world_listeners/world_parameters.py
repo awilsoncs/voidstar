@@ -11,6 +11,7 @@ DEFAULT_ROCKS_PROLIFERATION: float = 0.075
 DEFAULT_FLOWERS: int = 10
 DEFAULT_FLOWER_PROLIFERATION: float = 0.1
 DEFAULT_TEMPERATURE_MODIFIER: int = 0
+DEFAULT_RIVER_RAPIDS: int = 5000
 
 
 @dataclass
@@ -32,6 +33,7 @@ class WorldParameters(Component):
     temperature_modifier: int = DEFAULT_TEMPERATURE_MODIFIER
 
     is_water_swampy: bool = False
+    river_rapids: int = DEFAULT_RIVER_RAPIDS
 
     world_name: str = ''
 
@@ -62,7 +64,8 @@ def get_mountain_params(entity):
         rock_fields=DEFAULT_ROCKS*40,
         rocks_proliferation=DEFAULT_ROCKS_PROLIFERATION*2,
         lakes=0,
-        temperature_modifier=DEFAULT_TEMPERATURE_MODIFIER-5
+        temperature_modifier=DEFAULT_TEMPERATURE_MODIFIER-5,
+        river_rapids=DEFAULT_RIVER_RAPIDS//5
     )
 
 
