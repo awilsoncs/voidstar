@@ -39,20 +39,21 @@ class PlayerBrain(Brain):
             logging.debug(f"EID#{self.entity}::PlayerActor translated {key_event} -> {intention}")
 
             tracker = scene.cm.get_one(AbilityTracker, entity=self.entity)
-            if intention is Intention.NEXT_ABILITY:
+            if intention == Intention.NEXT_ABILITY:
                 tracker.increment(scene)
-            elif intention is Intention.PREVIOUS_ABILITY:
+            elif intention == Intention.PREVIOUS_ABILITY:
                 tracker.decrement(scene)
-            elif intention is Intention.USE_ABILITY:
+            elif intention == Intention.USE_ABILITY:
                 ability = tracker.get_current_ability(scene)
                 ability.apply(scene, self.id)
-            elif intention is Intention.SHOW_HELP:
+            elif intention == Intention.SHOW_HELP:
                 scene.cm.add(ShowHelpDialogue(entity=self.entity))
             elif intention is None:
                 logging.debug(f"EID#{self.entity}::PlayerActor found no useable intention")
                 return
             else:
-                logging.debug(f"EID#{self.entity}::PlayerActor deferred intention (usually for movement intentions)")
+                logging.debug(f"EID#{self.entity}::PlayerActor deferred intention {intention} "
+                              f"(usually for movement intentions)")
                 self.intention = intention
 
     def _handle_confused(self, scene):

@@ -1,5 +1,6 @@
 import dataclasses
 import json
+import logging
 from importlib import import_module
 from inspect import isclass
 from pathlib import Path
@@ -56,6 +57,12 @@ def load(file):
             del obj["class"]
             clz = globals()[obj_class]
             components.append(clz(**obj))
+
+    expected_count = data["info"]["object_count"]
+    real_count = len(components)
+
+    if real_count != expected_count:
+        logging.warning(f"Mismatched objects on load expected {expected_count}, found {real_count}")
     return components
 
 

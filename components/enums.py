@@ -2,26 +2,26 @@ from enum import auto, Enum
 
 
 class Intention(Enum):
-    NONE = auto()
+    NONE = 'none'
 
-    BACK = auto()
+    BACK = 'back'
 
     # Actions
-    NEXT_ABILITY = auto()
-    PREVIOUS_ABILITY = auto()
-    USE_ABILITY = auto()
+    NEXT_ABILITY = 'next_ability'
+    PREVIOUS_ABILITY = 'previous_ability'
+    USE_ABILITY = 'use_ability'
 
-    STEP_NORTH = auto()
-    STEP_EAST = auto()
-    STEP_WEST = auto()
-    STEP_SOUTH = auto()
-    STEP_SOUTH_EAST = auto()
-    STEP_SOUTH_WEST = auto()
-    STEP_NORTH_EAST = auto()
-    STEP_NORTH_WEST = auto()
-    DALLY = auto()
-    SHOW_DEBUG_SCREEN = auto()
-    SHOW_HELP = auto()
+    STEP_NORTH = 'step_north'
+    STEP_EAST = 'step_east'
+    STEP_WEST = 'step_west'
+    STEP_SOUTH = 'step_south'
+    STEP_SOUTH_EAST = 'step_south_east'
+    STEP_SOUTH_WEST = 'step_south_west'
+    STEP_NORTH_EAST = 'step_north_east'
+    STEP_NORTH_WEST = 'step_north_west'
+    DALLY = 'dally'
+    SHOW_DEBUG_SCREEN = 'show_debug'
+    SHOW_HELP = 'show_help'
 
 
 class ControlMode(Enum):
