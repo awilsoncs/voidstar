@@ -9,6 +9,7 @@ from components.pathfinding.simplex_cost_mapper import SimplexCostMapper
 from components.pathfinding.target_selection import get_new_target
 from components.states.move_cost_affectors import EasyTerrain
 from components.tags.road_marker import RoadMarker
+from components.tags.water_tag import WaterTag
 from engine import core, palettes
 from engine.component import Component
 from engine.constants import PRIORITY_LOWEST
@@ -21,6 +22,21 @@ def make_road(x, y):
         [
             Entity(id=entity_id, entity=entity_id, name='road', static=True),
             Appearance(entity=entity_id, symbol='.', color=palettes.GOLD, bg_color=palettes.BACKGROUND),
+            Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST),
+            EasyTerrain(entity=entity_id),
+            RoadMarker(entity=entity_id)
+        ]
+    )
+    return entity
+
+
+def make_bridge(x, y):
+    entity_id = core.get_id()
+    entity: Tuple[int, List[Component]] = (
+        entity_id,
+        [
+            Entity(id=entity_id, entity=entity_id, name='road', static=True),
+            Appearance(entity=entity_id, symbol='=', color=palettes.WOOD, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST),
             EasyTerrain(entity=entity_id),
             RoadMarker(entity=entity_id)
@@ -43,9 +59,14 @@ def _draw_road(scene, start: Tuple[int, int], end: Tuple[int, int], cost_map, tr
         if coords and coords[0].x == node[0] and coords[0].y == node[1]:
             break
         other_coords = scene.cm.get(Coordinates, query=lambda c: list(c.position) == node, project=lambda c: c.entity)
+        is_water = False
         for other in other_coords:
+            is_water = scene.cm.get_one(WaterTag, entity=other)
             scene.cm.delete(other)
-        scene.cm.add(*make_road(node[0], node[1])[1])
+        if is_water:
+            scene.cm.add(*make_bridge(node[0], node[1])[1])
+        else:
+            scene.cm.add(*make_road(node[0], node[1])[1])
 
 
 def _road_between(
