@@ -4,15 +4,19 @@ import random
 
 from components.actors.energy_actor import EnergyActor
 from components.build_world_listeners.world_parameters import WorldParameters
+from components.daily_events.new_day_listener import NewDayListener
 from components.game_start_listeners.game_start_listener import GameStartListener
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 
 
 @dataclass
-class Weather(EnergyActor, GameStartListener, SeasonResetListener):
+class Weather(NewDayListener, GameStartListener, SeasonResetListener):
     temperature: int = 20
     seasonal_norm: int = 20
     energy_cost: int = EnergyActor.DAILY
+
+    def on_new_day(self, scene, day):
+        self.set_temperature()
 
     def on_game_start(self, scene):
         self.set_seasonal_norm(scene, "Spring")
@@ -30,13 +34,16 @@ class Weather(EnergyActor, GameStartListener, SeasonResetListener):
         self.seasonal_norm = seasonal_temps[season]
         world_params = scene.cm.get_one(WorldParameters, entity=scene.player)
         self.seasonal_norm += world_params.temperature_modifier
-        logging.info(f"EID#{self.entity}::Weather.on_season_reset set normal temp {self.seasonal_norm}")
+        logging.info(f"EID#{self.entity}::Weather set normal temp {self.seasonal_norm}")
+        old_temp = self.temperature
         self.set_temperature()
+
+        if old_temp > 0 > self.temperature:
+            scene.message("It is freezing outside.")
+        elif old_temp < 0 < self.temperature:
+            scene.message("The weather warmed up.")
+
 
     def set_temperature(self):
         self.temperature = self.seasonal_norm + random.randint(-10, 10)
-        logging.info(f"EID#{self.entity}::Weather.act set daily temp {self.temperature}")
-
-    def act(self, scene):
-        self.set_temperature()
-        self.pass_turn()
+        logging.info(f"EID#{self.entity}::Weather set daily temp {self.temperature}")

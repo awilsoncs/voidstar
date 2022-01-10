@@ -23,6 +23,7 @@ from components.faction import Faction
 from components.material import Material
 from components.move import Move
 from components.season_reset_listeners.move_player_to_town_center import MovePlayerToTownCenter
+from components.season_reset_listeners.save_on_season import SaveOnSeasonReset
 from components.target_value import PLAYER, TargetValue
 from engine import PLAYER_ID, palettes
 
@@ -62,6 +63,7 @@ def make_player(x, y):
             SellAbility(entity=entity_id),
             PlaceCowAbility(entity=entity_id),
             HireKnightAbility(entity=entity_id),
-            PlaceHaunchAbility(entity=entity_id)
+            PlaceHaunchAbility(entity=entity_id),
+            SaveOnSeasonReset(entity=entity_id)
         ]
     )

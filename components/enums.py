@@ -1,7 +1,7 @@
-from enum import auto, Enum
+from enum import Enum
 
 
-class Intention(Enum):
+class Intention(str, Enum):
     NONE = 'none'
 
     BACK = 'back'
@@ -24,7 +24,7 @@ class Intention(Enum):
     SHOW_HELP = 'show_help'
 
 
-class ControlMode(Enum):
+class ControlMode(str, Enum):
     MONSTER = 'monster'
     PLAYER = 'player'
     CURSOR = 'cursor'
@@ -34,7 +34,7 @@ class ControlMode(Enum):
     CALENDER = 'calendar'
 
 
-class FactionType(Enum):
+class FactionType(str, Enum):
     NONE = 'none'
     MONSTER = 'monster'
     PEASANT = 'peasant'

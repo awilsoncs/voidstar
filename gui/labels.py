@@ -4,6 +4,7 @@ from components.ability_tracker import AbilityTracker
 from components.actors.calendar_actor import Calendar
 from components.build_world_listeners.world_parameters import WorldParameters
 from components.states.move_cost_affectors import Hindered, Haste
+from components.weather.weather import Weather
 from engine import palettes, core, PLAYER_ID
 from gui.gui_element import GuiElement
 
@@ -43,8 +44,8 @@ class CalendarLabel(GuiElement):
 
     def update(self, scene):
         calendar = scene.cm.get_one(Calendar, entity=core.get_id('calendar'))
-        if calendar:
-            self.value = calendar.get_timecode()
+        timecode = calendar.get_timecode()
+        self.value = f"{timecode}"
 
     def render(self, panel):
         """Draw the bar onto the panel"""
@@ -114,4 +115,4 @@ class VillageNameLabel(GuiElement):
         params = scene.cm.get(WorldParameters)
         if params:
             params = params[0]
-        self.value = params.world_name
+        self.value = f"{params.world_name}"
