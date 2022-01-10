@@ -9,13 +9,28 @@ rules = {
         'Gale',
         'River',
         'Ton',
-        'Gil'
+        'Gil',
+        'Hel',
+        'Bur',
+        'Turl',
+        'Fon',
+        'Fil',
+        'Til',
+        'Shim',
+        'To',
+        'Cod',
+        'Lin'
     ],
     'second': [
         'burg',
         'ham',
         'ton',
-        'hill'
+        'hill',
+        'shim',
+        'cod',
+        'ling',
+        'mont',
+        'bog'
     ]
 }
 

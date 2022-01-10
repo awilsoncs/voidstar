@@ -2,6 +2,7 @@ import logging
 from dataclasses import dataclass
 
 from components.actors.energy_actor import EnergyActor
+from components.build_world_listeners.world_parameters import WorldParameters
 from engine import palettes
 from engine.serialization import serialization
 
@@ -13,8 +14,10 @@ class SaveGame(EnergyActor):
     def act(self, scene) -> None:
         logging.info(f"EID#{self.entity}::SaveGame attempting to save game")
         # we don't want this object to get caught in the save game
+
+        params = scene.cm.get_one(WorldParameters, entity=scene.player)
         scene.cm.delete_component(self)
-        serialization.save(scene.cm.components_by_id, './game_save.json')
+        serialization.save(scene.cm.components_by_id, f"./{params.get_file_name()}.world")
         logging.info(f"EID#{self.entity}::SaveGame save complete")
         scene.message("Game saved.", color=palettes.LIGHT_WATER)
 
