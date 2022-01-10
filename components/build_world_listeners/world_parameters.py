@@ -9,7 +9,7 @@ DEFAULT_COPSE_PROLIFERATION: float = 0.05
 DEFAULT_ROCKS: int = 2
 DEFAULT_ROCKS_PROLIFERATION: float = 0.075
 DEFAULT_FLOWERS: int = 10
-DEFAULT_FLOWER_PROLIFERATION: float = 0.05
+DEFAULT_FLOWER_PROLIFERATION: float = 0.1
 DEFAULT_TEMPERATURE_MODIFIER: int = 0
 
 
@@ -26,8 +26,8 @@ class WorldParameters(Component):
     rock_fields: int = DEFAULT_ROCKS
     rocks_proliferation: float = DEFAULT_ROCKS_PROLIFERATION
 
-    flower_fields: int = DEFAULT_ROCKS
-    flower_proliferation: float = DEFAULT_ROCKS_PROLIFERATION
+    flower_fields: int = DEFAULT_FLOWERS
+    flower_proliferation: float = DEFAULT_FLOWER_PROLIFERATION
 
     temperature_modifier: int = DEFAULT_TEMPERATURE_MODIFIER
 

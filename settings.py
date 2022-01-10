@@ -23,19 +23,9 @@ def get_relative_path(relative_path):
 
 def create_options_file():
     option_data_base = {
-        'grass-density': 2,
-        'lakes-min': 1,
-        'lakes-max': 1,
-        'lake-proliferation': .2,
-        'copse-min': 5,
-        'copse-max': 5,
-        'copse-proliferation': .05,
+        'autosave-enabled': True,
         'character-name': 'Sir Cameron',
-        'spawn-min': 1,
-        'spawn-max': 1,
-        'rock-field-min': 2,
-        'rock-field-max': 2,
-        'rocks-proliferation': .075,
+        'grass-density': 2,
         'torch-radius': -1,
         'music-enabled': True,
         'color_background': '000000',
@@ -70,16 +60,9 @@ except FileNotFoundError:
     option_data = create_options_file()
 
 
+AUTOSAVE = option_data['autosave-enabled']
 GRASS_DENSITY = option_data['grass-density']
-LAKES_MIN = option_data['lakes-min']
-LAKES_MAX = option_data['lakes-max']
-LAKE_PROLIFERATION = option_data['lake-proliferation']
-COPSE_MIN = option_data['copse-min']
-COPSE_MAX = option_data['copse-max']
-COPSE_PROLIFERATION = option_data['copse-proliferation']
 CHARACTER_NAME = option_data['character-name']
-SPAWN_MIN = option_data['spawn-min']
-SPAWN_MAX = option_data['spawn-max']
 TORCH_RADIUS = option_data['torch-radius']
 MUSIC_ENABLED = option_data['music-enabled']
 
