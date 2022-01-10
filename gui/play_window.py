@@ -105,9 +105,11 @@ class PlayWindow(GuiElement):
             for x in range(MAP_WIDTH):
                 grass_color = palettes.GRASS
 
-                symbol = ord(random.choice(
-                    (['.', ',', '"', '\''] * settings.GRASS_DENSITY) + ([' '] * 20)
-                ))
+                if random.random() < settings.GRASS_DENSITY:
+                    symbol = ord(random.choice(['.', ',', '"', '\'']))
+                else:
+                    symbol = ord(' ')
+
                 self.terrain_console.tiles[x, y] = (
                     symbol,
                     (*grass_color, 255),
@@ -126,9 +128,10 @@ class PlayWindow(GuiElement):
             return
         x, y = random.choice(list(unsnowed))
 
-        symbol = ord(random.choice(
-            (['.', ',', '"', '\''] * settings.GRASS_DENSITY) + ([' '] * 40)
-        ))
+        if random.random() < settings.GRASS_DENSITY / 2:
+            symbol = ord(random.choice(['.', ',', '"', '\'']))
+        else:
+            symbol = ord(' ')
 
         self.terrain_console.tiles[x, y] = (
             symbol,
@@ -146,11 +149,15 @@ class PlayWindow(GuiElement):
     def add_grass(self):
         if not self.snowy:
             return
+
         snowy_tiles = list(self.snowy)
         x, y = random.choice(snowy_tiles)
-        symbol = ord(random.choice(
-            (['.', ',', '"', '\''] * settings.GRASS_DENSITY) + ([' '] * 20)
-        ))
+        self.snowy.remove((x, y))
+
+        if random.random() < settings.GRASS_DENSITY:
+            symbol = ord(random.choice(['.', ',', '"', '\'']))
+        else:
+            symbol = ord(' ')
 
         self.terrain_console.tiles[x, y] = (
             symbol,
@@ -163,6 +170,6 @@ class PlayWindow(GuiElement):
             (*palettes.SHADOW, 255),
             (*palettes.BACKGROUND, 255)
         )
-        self.snowy.remove((x, y))
+
 
 

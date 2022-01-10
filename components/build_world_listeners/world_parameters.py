@@ -31,6 +31,8 @@ class WorldParameters(Component):
 
     temperature_modifier: int = DEFAULT_TEMPERATURE_MODIFIER
 
+    is_water_swampy: bool = False
+
     world_name: str = ''
 
     def get_file_name(self):
@@ -73,7 +75,8 @@ def get_swamp_params(entity):
         lakes=DEFAULT_LAKES*100,
         lake_proliferation=DEFAULT_LAKE_PROLIFERATION/2,
         rocks_proliferation=0,
-        temperature_modifier=DEFAULT_TEMPERATURE_MODIFIER + 5
+        temperature_modifier=DEFAULT_TEMPERATURE_MODIFIER + 5,
+        is_water_swampy=True
     )
 
 
@@ -86,5 +89,6 @@ def get_tundra_params(entity):
         rocks_proliferation=DEFAULT_ROCKS_PROLIFERATION*2,
         lakes=DEFAULT_LAKES*100,
         lake_proliferation=DEFAULT_LAKE_PROLIFERATION/2,
-        temperature_modifier=DEFAULT_TEMPERATURE_MODIFIER-20
+        temperature_modifier=DEFAULT_TEMPERATURE_MODIFIER-20,
+        is_water_swampy=True
     )

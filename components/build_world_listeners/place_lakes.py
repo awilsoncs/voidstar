@@ -6,14 +6,14 @@ import settings
 from components import Coordinates
 from components.build_world_listeners.build_world_listeners import BuildWorldListener
 from components.build_world_listeners.world_parameters import WorldParameters
-from content.terrain.water import make_water
+from content.terrain.water import make_water, make_swampy_water
 from engine.utilities import get_3_by_3_box
 
 
-def add_water(scene, x: int, y: int) -> None:
+def add_water(scene, x: int, y: int, painter) -> None:
     coords = {(coord.x, coord.y) for coord in scene.cm.get(Coordinates)}
     if (x, y) not in coords:
-        water = make_water(x, y)
+        water = painter(x, y)
         scene.cm.add(*water[1])
 
 
@@ -34,10 +34,14 @@ class PlaceLakes(BuildWorldListener):
         working_set = [(x, y)]
         maximum = 50
         world_settings = scene.cm.get_one(WorldParameters, entity=scene.player)
+        if world_settings.is_water_swampy:
+            water_painter = make_swampy_water
+        else:
+            water_painter = make_water
 
         while working_set and maximum > 0:
             working_x, working_y = working_set.pop(0)
-            add_water(scene, working_x, working_y)
+            add_water(scene, working_x, working_y, water_painter)
             maximum -= 1
             working_set += [
                 (_x, _y)

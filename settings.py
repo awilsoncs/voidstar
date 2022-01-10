@@ -25,7 +25,7 @@ def create_options_file():
     option_data_base = {
         'autosave-enabled': True,
         'character-name': 'Sir Cameron',
-        'grass-density': 2,
+        'grass-density': 1,
         'torch-radius': -1,
         'music-enabled': True,
         'color_background': '000000',
