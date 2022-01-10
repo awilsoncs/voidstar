@@ -8,6 +8,8 @@ DEFAULT_COPSE: int = 10
 DEFAULT_COPSE_PROLIFERATION: float = 0.05
 DEFAULT_ROCKS: int = 2
 DEFAULT_ROCKS_PROLIFERATION: float = 0.075
+DEFAULT_FLOWERS: int = 10
+DEFAULT_FLOWER_PROLIFERATION: float = 0.05
 DEFAULT_TEMPERATURE_MODIFIER: int = 0
 
 
@@ -23,6 +25,9 @@ class WorldParameters(Component):
 
     rock_fields: int = DEFAULT_ROCKS
     rocks_proliferation: float = DEFAULT_ROCKS_PROLIFERATION
+
+    flower_fields: int = DEFAULT_ROCKS
+    flower_proliferation: float = DEFAULT_ROCKS_PROLIFERATION
 
     temperature_modifier: int = DEFAULT_TEMPERATURE_MODIFIER
 
@@ -40,7 +45,9 @@ def get_forest_params(entity):
     return WorldParameters(
         biome='Forest',
         entity=entity,
-        copse=DEFAULT_COPSE*20
+        copse=DEFAULT_COPSE*20,
+        flower_fields=DEFAULT_FLOWERS//2,
+        flower_proliferation=DEFAULT_FLOWER_PROLIFERATION/2
     )
 
 

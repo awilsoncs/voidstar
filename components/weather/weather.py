@@ -43,7 +43,6 @@ class Weather(NewDayListener, GameStartListener, SeasonResetListener):
         elif old_temp < 0 < self.temperature:
             scene.message("The weather warmed up.")
 
-
     def set_temperature(self):
         self.temperature = self.seasonal_norm + random.randint(-10, 10)
         logging.info(f"EID#{self.entity}::Weather set daily temp {self.temperature}")

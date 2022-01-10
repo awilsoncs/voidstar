@@ -2,6 +2,7 @@ from components import Entity
 from components.build_world_listeners.add_player_step import AddPlayerStep
 from components.build_world_listeners.build_world import BuildWorld
 from components.build_world_listeners.delete_world_builder import DeleteWorldBuilder
+from components.build_world_listeners.place_flowers import PlaceFlowers
 from components.build_world_listeners.place_lakes import PlaceLakes
 from components.build_world_listeners.place_peasants import PlacePeasants
 from components.build_world_listeners.place_copses import PlaceTrees
@@ -28,6 +29,7 @@ def make_world_build():
             PlaceRoads(entity=entity_id),
             PlaceTrees(entity=entity_id),
             PlaceRocks(entity=entity_id),
+            PlaceFlowers(entity=entity_id),
             SetWorldName(entity=entity_id),
             DeleteWorldBuilder(entity=entity_id)
         ]
