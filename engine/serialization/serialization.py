@@ -6,6 +6,8 @@ from inspect import isclass
 from pathlib import Path
 from pkgutil import walk_packages
 
+from engine import core
+
 
 class EnhancedJSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -22,6 +24,7 @@ def save(components, file):
         "info": {
             "object_count": len(components)
         },
+        "named_ids": core.get_named_ids(),
         "objects": components
     }
 
@@ -46,6 +49,8 @@ def load(file):
 
     with open(file, 'r') as f:
         data = json.load(f)
+
+    core.set_named_ids(data["named_ids"])
 
     components = []
 

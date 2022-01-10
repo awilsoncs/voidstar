@@ -44,6 +44,16 @@ ID_SEQ = 100
 NAME_ID_MAP = {}
 
 
+def get_named_ids():
+    return NAME_ID_MAP
+
+
+def set_named_ids(new_mapping):
+    global NAME_ID_MAP
+    logging.info("Core::set_named_ids id mapping loaded")
+    NAME_ID_MAP = new_mapping
+
+
 def time_ms():
     return int(perf_counter_ns() / 1000000)
 

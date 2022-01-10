@@ -6,6 +6,7 @@ import settings
 from components import clear_components
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.game_start_listeners.start_game import StartGame
+from components.serialization.load_game import LoadGame
 from components.sound_events.battle_music import BattleMusic
 from components.sound_events.start_music import StartMusic
 from content.physics_controller import make_physics_controller
@@ -22,13 +23,13 @@ from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SpeedL
 from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
-from systems import act, death, \
+from systems import act, \
     pickup_gold, \
     move, control_turns, quit, peasant_dead_check
 
 
 class DefendScene(GameScene):
-    def __init__(self):
+    def __init__(self, from_file=''):
         super().__init__()
         self.player = PLAYER_ID
 
@@ -69,20 +70,24 @@ class DefendScene(GameScene):
 
         self.gold = 0
 
+        self.from_file = from_file
+
     def on_load(self):
         self.cm = ComponentManager()
         self.play_window.cm = self.cm
-        self.cm.add(*make_world_build()[1])
-        self.cm.add(*make_calendar()[1])
-        self.cm.add(*make_physics_controller()[1])
-        self.cm.add(StartMusic(entity=self.player))
-        self.cm.add(BattleMusic(entity=self.player))
+        if self.from_file:
+            self.cm.add(LoadGame(entity=self.player, file_name=self.from_file))
+        else:
+            self.cm.add(*make_world_build()[1])
+            self.cm.add(*make_calendar()[1])
+            self.cm.add(*make_physics_controller()[1])
+            self.cm.add(StartMusic(entity=self.player))
+            self.cm.add(BattleMusic(entity=self.player))
         self.cm.add(StartGame(entity=self.player))
 
     @timed(100, __name__)
     def update(self):
         act.run(self)
-        #death.run(self)
         move.run(self)
         pickup_gold.run(self)
         peasant_dead_check.run(self)
