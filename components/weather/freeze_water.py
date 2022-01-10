@@ -10,8 +10,7 @@ from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.ice_tag import IceTag
 from components.tags.water_tag import WaterTag
 from components.weather.weather import Weather
-from content.terrain.ice import make_ice
-from content.terrain.water import make_water
+from content.terrain.water import make_water, freeze, thaw
 from engine import core
 
 
@@ -50,12 +49,7 @@ class FreezeWater(EnergyActor, AttackStartListener, SeasonResetListener):
 
         to_freeze = waters[:n]
         for water in to_freeze:
-            self.freeze(scene, water)
-
-    def freeze(self, scene, to_freeze):
-        coords = scene.cm.get_one(Coordinates, entity=to_freeze)
-        scene.cm.add(*make_ice(coords.x, coords.y)[1])
-        scene.cm.delete(to_freeze)
+            freeze(scene, water)
 
     def thaw_n(self, scene, n):
         logging.debug(f"EID#{self.entity}::FreezeWater thawing {n}")
@@ -68,9 +62,5 @@ class FreezeWater(EnergyActor, AttackStartListener, SeasonResetListener):
 
         to_thaw = ices[:n]
         for ice in to_thaw:
-            self.thaw(scene, ice)
+            thaw(scene, ice)
 
-    def thaw(self, scene, to_thaw):
-        coords = scene.cm.get_one(Coordinates, entity=to_thaw)
-        scene.cm.add(*make_water(coords.x, coords.y)[1])
-        scene.cm.delete(to_thaw)

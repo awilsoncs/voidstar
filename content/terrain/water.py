@@ -5,6 +5,7 @@ from components.flooder import Flooder
 from components.material import Material
 from components.states.move_cost_affectors import DifficultTerrain
 from components.pathfinder_cost import PathfinderCost
+from components.tags.ice_tag import IceTag
 from components.tags.water_tag import WaterTag
 from engine import core, palettes
 from engine.constants import PRIORITY_LOWEST
@@ -57,3 +58,41 @@ def make_swampy_water(x, y):
             WaterTag(entity=entity_id)
         ]
     )
+
+
+def freeze(scene, eid):
+    entity = scene.cm.get_one(Entity, entity=eid)
+    entity.name = 'ice'
+
+    appearance = scene.cm.get_one(Appearance, entity=eid)
+    appearance.symbol = '░'
+
+    material = scene.cm.get_one(Material, entity=eid)
+    material.blocks = False
+
+    ice_tag = IceTag(entity=eid)
+
+    for component_type in [WaterTag, Flooder, DifficultTerrain, PathfinderCost, RandomizedBlinker]:
+        component = scene.cm.get_one(component_type, entity=eid)
+        ice_tag.frozen_components.append(component.id)
+        scene.cm.stash_component(component.id)
+
+    scene.cm.add(IceTag(entity=eid))
+
+
+def thaw(scene, eid):
+    entity = scene.cm.get_one(Entity, entity=eid)
+    entity.name = 'water'
+
+    appearance = scene.cm.get_one(Appearance, entity=eid)
+    appearance.symbol = '~'
+
+    material = scene.cm.get_one(Material, entity=eid)
+    material.blocks = True
+
+    ice_tag = scene.cm.get_one(IceTag, entity=eid)
+
+    for cid in ice_tag.frozen_components:
+        scene.cm.unstash_component(cid)
+
+    scene.cm.delete_component(ice_tag)
