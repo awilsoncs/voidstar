@@ -58,7 +58,7 @@ def make_tree(x, y):
             Material(entity=entity_id, blocks=True, blocks_sight=True),
             TreeTag(entity=entity_id),
             TerrainChangedOnDeath(entity=entity_id),
-            Sellable(entity=entity_id, value=5),
+            Sellable(entity=entity_id, value=2),
             PathfinderCost(entity=entity_id, cost=20),
             TreeCutOnDeath(entity=entity_id)
         ]
