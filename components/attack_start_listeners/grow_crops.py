@@ -1,6 +1,7 @@
 import logging
 import random
 from dataclasses import dataclass
+from typing import Tuple
 
 from components import Coordinates
 from components.actors.calendar_actor import Calendar
@@ -8,11 +9,12 @@ from components.attack_start_listeners.attack_start_actor import AttackStartList
 from components.relationships.farmed_by import FarmedBy
 from components.tags.crop_info import CropInfo
 from content.farmsteads.crops import make_crops
-from engine import core
+from engine import core, palettes
 
 
 @dataclass
 class GrowCrops(AttackStartListener):
+    crop_color: Tuple = palettes.FIRE
 
     def on_attack_start(self, scene):
         calendar = scene.cm.get_one(Calendar, entity=core.get_id("calendar"))
@@ -32,4 +34,4 @@ class GrowCrops(AttackStartListener):
         farmer = farmed_by.farmer
 
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
-        scene.cm.add(*make_crops(coords.x, coords.y, farmer, self.entity)[1])
+        scene.cm.add(*make_crops(coords.x, coords.y, farmer, self.entity, self.crop_color)[1])
