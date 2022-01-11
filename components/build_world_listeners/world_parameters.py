@@ -12,8 +12,7 @@ DEFAULT_FLOWERS: int = 10
 DEFAULT_FLOWER_PROLIFERATION: float = 0.1
 DEFAULT_TEMPERATURE_MODIFIER: int = 0
 DEFAULT_RIVER_RAPIDS: int = 5000
-DEFAULT_WORLD_DISPOSITION: int = 25
-
+DEFAULT_TREE_CUT_ANGER: int = 1
 
 @dataclass
 class WorldParameters(Component):
@@ -36,6 +35,9 @@ class WorldParameters(Component):
     is_water_swampy: bool = False
     river_rapids: int = DEFAULT_RIVER_RAPIDS
 
+    # how much cutting a tree angers the nature spirit
+    tree_cut_anger: int = DEFAULT_TREE_CUT_ANGER
+
     world_name: str = ''
 
     def get_file_name(self):
@@ -52,7 +54,8 @@ def get_forest_params(entity):
         entity=entity,
         copse=DEFAULT_COPSE*20,
         flower_fields=DEFAULT_FLOWERS//2,
-        flower_proliferation=DEFAULT_FLOWER_PROLIFERATION/2
+        flower_proliferation=DEFAULT_FLOWER_PROLIFERATION/2,
+        tree_cut_anger=DEFAULT_TREE_CUT_ANGER*2
     )
 
 
