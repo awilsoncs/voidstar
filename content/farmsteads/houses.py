@@ -9,7 +9,7 @@ from content.allies.peasants import make_peasant
 from content.farmsteads.farms import make_farm_plot
 from content.farmsteads.floorboard import make_floorboard
 from content.farmsteads.walls import make_wall
-from engine import core, constants
+from engine import core, constants, palettes
 from engine.types import ComplexEntity, EntityId
 from engine.utilities import get_box, get_3_by_3_square
 
@@ -105,8 +105,10 @@ def _add_house(scene, x, y) -> EntityId:
     if finalized_plot:
         peasant = house[-1][-1]
         peasant_id = peasant[0]
+
+        crop_color = random.choice([palettes.FIRE, palettes.FOILAGE_C, palettes.FRESH_BLOOD, palettes.GOLD])
         for point in finalized_plot:
-            plot = make_farm_plot(point[0], point[1], peasant_id)
+            plot = make_farm_plot(point[0], point[1], peasant_id, crop_color)
             scene.cm.add(*plot[1])
     return house[0]
 

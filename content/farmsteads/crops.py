@@ -17,7 +17,7 @@ crops_description = "A valuable crop. They're easy pickens for the hordelings, "
                     "but they will sell for 5 gold at the end of the season- if you protect them."
 
 
-def make_crops(x, y, farmer, field_id) -> Entity:
+def make_crops(x, y, farmer, field_id, color=palettes.FIRE) -> Entity:
     entity_id = core.get_id()
     components: List[Component] = [
         Entity(
@@ -27,7 +27,7 @@ def make_crops(x, y, farmer, field_id) -> Entity:
             description=crops_description
         ),
         Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOW),
-        Appearance(entity=entity_id, symbol='δ', color=palettes.FIRE, bg_color=palettes.BACKGROUND),
+        Appearance(entity=entity_id, symbol='δ', color=color, bg_color=palettes.BACKGROUND),
         FarmedBy(entity=entity_id, farmer=farmer),
         CropInfo(entity=entity_id, field_id=field_id, farmer_id=farmer),
         TaxValue(entity=entity_id, value=TaxValue.CROPS),
@@ -35,6 +35,6 @@ def make_crops(x, y, farmer, field_id) -> Entity:
         Faction(entity=entity_id, faction=Faction.Options.PEASANT),
         Attributes(entity=entity_id, hp=3, max_hp=3),
         Edible(entity=entity_id, sleep_for=3),
-        Corpse(entity=entity_id, color=palettes.FIRE)
+        Corpse(entity=entity_id, color=color)
     ]
     return entity_id, components
