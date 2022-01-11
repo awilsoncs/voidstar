@@ -1,7 +1,7 @@
 import logging
 import random
 from dataclasses import dataclass
-from enum import auto, Enum
+from enum import Enum
 from typing import List, Tuple
 
 from components import Coordinates

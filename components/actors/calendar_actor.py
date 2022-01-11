@@ -7,6 +7,7 @@ from components.attack_start_listeners.start_attack import StartAttack
 from components.daily_events.new_day_event import NewDayBegan
 from components.season_reset_listeners.reset_season import ResetSeason
 from components.tags.hordeling_tag import HordelingTag
+from components.world_beauty import WorldBeauty
 from content.spawners.hordeling_spawner_spawner import hordeling_spawner
 
 MAX_HOUR = 23
@@ -64,7 +65,9 @@ class Calendar(EnergyActor):
 
     def _start_attack(self, scene):
         scene.popup_message("The Horde has arrived. Prepare to defend the village!")
-        scene.cm.add(*hordeling_spawner(waves=self.round)[1])
+        spirits_wrath = scene.cm.get_one(WorldBeauty, entity=scene.player).spirits_wrath
+
+        scene.cm.add(*hordeling_spawner(waves=self.round+spirits_wrath)[1])
         scene.cm.add(StartAttack(entity=scene.player))
         self.is_recharging = False
         self.status = "Under attack!"

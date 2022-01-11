@@ -6,6 +6,7 @@ from components.faction import Faction
 from components.material import Material
 from components.tags.tree_tag import TreeTag
 from components.pathfinder_cost import PathfinderCost
+from components.tree_cut_listeners.tree_cut_on_die import TreeCutOnDeath
 from engine import core, palettes
 from engine.constants import PRIORITY_MEDIUM
 
@@ -58,6 +59,7 @@ def make_tree(x, y):
             TreeTag(entity=entity_id),
             TerrainChangedOnDeath(entity=entity_id),
             Sellable(entity=entity_id, value=5),
-            PathfinderCost(entity=entity_id, cost=20)
+            PathfinderCost(entity=entity_id, cost=20),
+            TreeCutOnDeath(entity=entity_id)
         ]
     )

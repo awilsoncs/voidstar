@@ -1,3 +1,5 @@
+import random
+
 from components import Entity, Appearance, Coordinates
 from components.animation_effects.randomized_blinker import RandomizedBlinker
 from components.diggable import Diggable
@@ -13,11 +15,12 @@ from engine.constants import PRIORITY_LOWEST
 
 def make_water(x, y, rapidness=5000):
     entity_id = core.get_id()
+    water_color = random.choice([palettes.LIGHT_WATER, palettes.WATER])
     return (
         entity_id,
         [
             Entity(id=entity_id, entity=entity_id, name='water', static=True),
-            Appearance(entity=entity_id, symbol='~', color=palettes.LIGHT_WATER, bg_color=palettes.BACKGROUND),
+            Appearance(entity=entity_id, symbol='~', color=water_color, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             DifficultTerrain(entity=entity_id),
@@ -29,7 +32,8 @@ def make_water(x, y, rapidness=5000):
                 new_symbol='~',
                 new_color=palettes.WATER,
                 new_bg_color=palettes.BACKGROUND,
-                timer_delay=rapidness
+                timer_delay=rapidness,
+                next_update=core.time_ms()+random.randint(0, rapidness)
             ),
             WaterTag(entity=entity_id)
         ]
@@ -38,11 +42,12 @@ def make_water(x, y, rapidness=5000):
 
 def make_swampy_water(x, y):
     entity_id = core.get_id()
+    water_color = random.choice([palettes.GRASS, palettes.WATER])
     return (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='water', static=True),
-            Appearance(entity=entity_id, symbol='~', color=palettes.WATER, bg_color=palettes.BACKGROUND),
+            Entity(id=entity_id, entity=entity_id, name='swampy water', static=True),
+            Appearance(entity=entity_id, symbol='~', color=water_color, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             DifficultTerrain(entity=entity_id),
@@ -54,7 +59,8 @@ def make_swampy_water(x, y):
                 new_symbol='~',
                 new_color=palettes.GRASS,
                 new_bg_color=palettes.BACKGROUND,
-                timer_delay=20000
+                timer_delay=20000,
+                next_update=core.time_ms()+random.randint(0, 20000)
             ),
             WaterTag(entity=entity_id)
         ]
@@ -63,7 +69,10 @@ def make_swampy_water(x, y):
 
 def freeze(scene, eid):
     entity = scene.cm.get_one(Entity, entity=eid)
-    entity.name = 'ice'
+    if 'swampy' in entity.name:
+        entity.name = 'gross ice'
+    else:
+        entity.name = 'ice'
 
     appearance = scene.cm.get_one(Appearance, entity=eid)
     appearance.symbol = '░'
@@ -83,7 +92,10 @@ def freeze(scene, eid):
 
 def thaw(scene, eid):
     entity = scene.cm.get_one(Entity, entity=eid)
-    entity.name = 'water'
+    if 'gross' in entity.name:
+        entity.name = 'swampy water'
+    else:
+        entity.name = 'water'
 
     appearance = scene.cm.get_one(Appearance, entity=eid)
     appearance.symbol = '~'

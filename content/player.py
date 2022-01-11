@@ -25,6 +25,7 @@ from components.move import Move
 from components.season_reset_listeners.move_player_to_town_center import MovePlayerToTownCenter
 from components.season_reset_listeners.save_on_season import SaveOnSeasonReset
 from components.target_value import PLAYER, TargetValue
+from components.world_beauty import WorldBeauty
 from engine import PLAYER_ID, palettes
 
 
@@ -64,6 +65,7 @@ def make_player(x, y):
             PlaceCowAbility(entity=entity_id),
             HireKnightAbility(entity=entity_id),
             PlaceHaunchAbility(entity=entity_id),
-            SaveOnSeasonReset(entity=entity_id)
+            SaveOnSeasonReset(entity=entity_id),
+            WorldBeauty(entity=entity_id)
         ]
     )
