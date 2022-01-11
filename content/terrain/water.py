@@ -87,7 +87,7 @@ def freeze(scene, eid):
         ice_tag.frozen_components.append(component.id)
         scene.cm.stash_component(component.id)
 
-    scene.cm.add(IceTag(entity=eid))
+    scene.cm.add(ice_tag)
 
 
 def thaw(scene, eid):
