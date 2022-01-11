@@ -14,7 +14,7 @@ class RoadCostMapper(CostMapper):
             if scene.cm.get_one(Attributes, entity=coord.entity):
                 cost[coord.x, coord.y] = 10000
             elif scene.cm.get_one(WaterTag, entity=coord.entity):
-                cost[coord.x, coord.y] += 10
+                cost[coord.x, coord.y] += 2
             else:
                 cost[coord.x, coord.y] += 1000
         return cost
