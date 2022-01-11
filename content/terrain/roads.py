@@ -35,7 +35,7 @@ def make_bridge(x, y):
     entity: Tuple[int, List[Component]] = (
         entity_id,
         [
-            Entity(id=entity_id, entity=entity_id, name='road', static=True),
+            Entity(id=entity_id, entity=entity_id, name='bridge', static=True),
             Appearance(entity=entity_id, symbol='=', color=palettes.WOOD, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOWEST),
             EasyTerrain(entity=entity_id),
