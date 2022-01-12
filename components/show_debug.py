@@ -10,6 +10,7 @@ from components.brains.brain import Brain
 from components.brains.painters.create_gold_actor import PlaceGoldController
 from components.brains.painters.create_hordeling_actor import PlaceHordelingController
 from components.brains.default_active_actor import DefaultActiveActor
+from components.death_listeners.die import Die
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.serialization.load_game import LoadGame
 from components.serialization.save_game import SaveGame
@@ -132,10 +133,7 @@ def get_rich(scene):
 
 def get_suicide(scene):
     def out_fn():
-        health = scene.cm.get_one(Attributes, entity=engine.constants.PLAYER_ID)
-        if health:
-            health.hp = 0
-
+        scene.cm.add(Die(entity=scene.player))
     return out_fn
 
 

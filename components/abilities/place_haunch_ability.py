@@ -2,9 +2,7 @@ from collections import Callable
 from dataclasses import dataclass
 
 from components.abilities.control_mode_ability import ControlModeAbility
-from components.brains.hire_knight_brain import HireKnightActor
-from components.brains.place_haunch_actor import PlaceHaunchActor
-from components.enums import Intention
+from components.brains.ability_actors.place_haunch_actor import PlaceHaunchActor
 from engine import palettes
 
 

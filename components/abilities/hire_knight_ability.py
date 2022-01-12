@@ -2,7 +2,7 @@ from collections import Callable
 from dataclasses import dataclass
 
 from components.abilities.control_mode_ability import ControlModeAbility
-from components.brains.hire_knight_brain import HireKnightActor
+from components.brains.ability_actors.hire_knight_brain import HireKnightActor
 from engine import palettes
 
 

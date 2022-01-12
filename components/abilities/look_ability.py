@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from components import Coordinates
 from components.abilities.ability import Ability
-from components.brains.look_cursor_controller import LookCursorController
+from components.brains.ability_actors.look_cursor_controller import LookCursorController
 from content.cursor import make_cursor
 
 

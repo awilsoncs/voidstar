@@ -2,7 +2,7 @@ from collections import Callable
 from dataclasses import dataclass
 
 from components.abilities.control_mode_ability import ControlModeAbility
-from components.brains.plant_sapling_actor import PlaceSaplingActor
+from components.brains.ability_actors.plant_sapling_actor import PlaceSaplingActor
 from engine import palettes
 
 

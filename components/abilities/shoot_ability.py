@@ -3,8 +3,7 @@ from dataclasses import dataclass
 from components import Coordinates
 from components.abilities.ability import Ability
 from components.animation_effects.blinker import AnimationBlinker
-from components.brains.ranged_attack_actor import RangedAttackActor
-from components.enums import Intention
+from components.brains.ability_actors.ranged_attack_actor import RangedAttackActor
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.hordeling_tag import HordelingTag
 from content.states import confused_animation

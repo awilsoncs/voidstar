@@ -2,7 +2,7 @@ from collections import Callable
 from dataclasses import dataclass
 
 from components.abilities.control_mode_ability import ControlModeAbility
-from components.brains.place_cow_actor import PlaceCowActor
+from components.brains.ability_actors.place_cow_actor import PlaceCowActor
 from engine import palettes
 
 

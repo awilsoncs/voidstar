@@ -3,13 +3,11 @@ from dataclasses import dataclass
 import random
 
 from components import Coordinates
-from components.actors.calendar_actor import Calendar
-from components.brains.place_thing_actor import is_buildable
+from components.brains.ability_actors.place_thing_actor import is_buildable
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.tree_tag import TreeTag
 from components.weather.weather import Weather
 from content.terrain.saplings import make_sapling
-from engine import core
 from engine.utilities import get_3_by_3_box
 
 

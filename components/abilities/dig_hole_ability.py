@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Callable
 
 from components.abilities.control_mode_ability import ControlModeAbility
-from components.brains.dig_hole_actor import DigHoleActor
+from components.brains.ability_actors.dig_hole_actor import DigHoleActor
 from engine import palettes
 
 

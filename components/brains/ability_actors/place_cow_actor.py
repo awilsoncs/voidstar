@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from components import Entity
-from components.brains.place_thing_actor import PlaceThingActor
+from components.brains.ability_actors.place_thing_actor import PlaceThingActor
 from content.cows import make_cow
 
 

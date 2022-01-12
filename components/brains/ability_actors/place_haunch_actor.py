@@ -1,11 +1,8 @@
 from dataclasses import dataclass
-from typing import Tuple, List
 
 from components import Entity
-from components.brains.place_thing_actor import PlaceThingActor
-from content.farmsteads.defensive_walls import make_fence
+from components.brains.ability_actors.place_thing_actor import PlaceThingActor
 from content.haunch import make_haunch
-from engine.component import Component
 
 
 @dataclass
