@@ -9,10 +9,11 @@ from components.game_start_listeners.start_game import StartGame
 from components.serialization.load_game import LoadGame
 from components.sound_events.battle_music import BattleMusic
 from components.sound_events.start_music import StartMusic
+from components.world_beauty import WorldBeauty
 from content.physics_controller import make_physics_controller
 from content.utilities import make_calendar
 from content.world_builder import make_world_build
-from engine import GameScene, palettes
+from engine import GameScene, palettes, core
 from engine.component_manager import ComponentManager
 from engine.constants import PLAYER_ID
 from engine.core import timed
@@ -83,6 +84,7 @@ class DefendScene(GameScene):
             self.cm.add(*make_physics_controller()[1])
             self.cm.add(StartMusic(entity=self.player))
             self.cm.add(BattleMusic(entity=self.player))
+            self.cm.add(WorldBeauty(entity=core.get_id("world")))
         self.cm.add(StartGame(entity=self.player))
 
     @timed(100, __name__)

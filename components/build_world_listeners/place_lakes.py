@@ -7,6 +7,7 @@ from components import Coordinates
 from components.build_world_listeners.build_world_listeners import BuildWorldListener
 from components.build_world_listeners.world_parameters import WorldParameters
 from content.terrain.water import make_water, make_swampy_water
+from engine import core
 from engine.utilities import get_3_by_3_box
 
 
@@ -21,7 +22,7 @@ def add_water(scene, x: int, y: int, painter, rapidness) -> None:
 class PlaceLakes(BuildWorldListener):
     def on_build_world(self, scene):
         logging.info(f"EID#{self.entity}::PlaceLakes placing lakes in town")
-        world_settings = scene.cm.get_one(WorldParameters, entity=scene.player)
+        world_settings = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
 
         for _ in range(world_settings.lakes):
             x = random.randint(0, settings.MAP_WIDTH - 1)
@@ -33,7 +34,7 @@ class PlaceLakes(BuildWorldListener):
     def spawn_lake(self, scene, x: int, y: int) -> None:
         working_set = [(x, y)]
         maximum = 50
-        world_settings = scene.cm.get_one(WorldParameters, entity=scene.player)
+        world_settings = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
         if world_settings.is_water_swampy:
             water_painter = make_swampy_water
         else:

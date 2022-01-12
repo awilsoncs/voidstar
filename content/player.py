@@ -69,7 +69,6 @@ def make_player(x, y):
             HireKnightAbility(entity=entity_id),
             PlaceHaunchAbility(entity=entity_id),
             SaveOnSeasonReset(entity=entity_id),
-            WorldBeauty(entity=entity_id),
             PickupGoldOnStep(entity=entity_id),
             DrainOnStepOnWater(entity=entity_id),
             HealOnDally(entity=entity_id)

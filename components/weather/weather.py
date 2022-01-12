@@ -7,6 +7,7 @@ from components.build_world_listeners.world_parameters import WorldParameters
 from components.daily_events.new_day_listener import NewDayListener
 from components.game_start_listeners.game_start_listener import GameStartListener
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
+from engine import core
 
 
 @dataclass
@@ -32,7 +33,7 @@ class Weather(NewDayListener, GameStartListener, SeasonResetListener):
             "Winter": -5
         }
         self.seasonal_norm = seasonal_temps[season]
-        world_params = scene.cm.get_one(WorldParameters, entity=scene.player)
+        world_params = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
         self.seasonal_norm += world_params.temperature_modifier
         logging.info(f"EID#{self.entity}::Weather set normal temp {self.seasonal_norm}")
         old_temp = self.temperature

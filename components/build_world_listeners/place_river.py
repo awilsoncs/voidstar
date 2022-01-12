@@ -7,6 +7,7 @@ from components.build_world_listeners.world_parameters import WorldParameters
 from components.pathfinding.pathfinder import Pathfinder
 from components.pathfinding.simplex_cost_mapper import SimplexCostMapper
 from content.terrain.water import make_water
+from engine import core
 
 
 class PlaceRiver(BuildWorldListener):
@@ -21,5 +22,5 @@ class PlaceRiver(BuildWorldListener):
             logging.warning(f"EID#{self.entity}::PlaceRiver could not find a path for river")
         for x, y in river:
             logging.info(f"EID#{self.entity}::PlaceRiver placing water ({x}, {y})")
-            params = scene.cm.get_one(WorldParameters, entity=scene.player)
+            params = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
             scene.cm.add(*make_water(x, y, rapidness=params.river_rapids)[1])

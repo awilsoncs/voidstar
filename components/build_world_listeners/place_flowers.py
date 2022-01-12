@@ -7,7 +7,7 @@ from components import Coordinates
 from components.build_world_listeners.build_world_listeners import BuildWorldListener
 from components.build_world_listeners.world_parameters import WorldParameters
 from content.terrain.flower import make_flower
-from engine import palettes
+from engine import palettes, core
 from engine.utilities import get_3_by_3_box
 
 
@@ -24,7 +24,7 @@ class PlaceFlowers(BuildWorldListener):
 
     def on_build_world(self, scene):
         logging.info(f"EID#{self.entity}::PlaceFlowers placing flower fields...")
-        world_settings = scene.cm.get_one(WorldParameters, entity=scene.player)
+        world_settings = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
         self.color = random.choice([palettes.WHITE, palettes.WATER, palettes.FRESH_BLOOD, palettes.FIRE, palettes.GOLD])
         for _ in range(world_settings.flower_fields):
             x = random.randint(0, settings.MAP_WIDTH - 1)
@@ -34,7 +34,7 @@ class PlaceFlowers(BuildWorldListener):
                 self.add_flower_field(scene, x, y)
 
     def add_flower_field(self, scene, x: int, y: int) -> None:
-        world_settings = scene.cm.get_one(WorldParameters, entity=scene.player)
+        world_settings = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
         working_set = [(x, y)]
         maximum = 10
         while working_set and maximum > 0:

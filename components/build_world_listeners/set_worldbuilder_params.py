@@ -6,6 +6,7 @@ import settings
 from components.build_world_listeners.build_world_listeners import BuildWorldListener
 from components.build_world_listeners.world_parameters import get_plains_params, get_forest_params, \
     get_mountain_params, get_swamp_params, get_tundra_params
+from engine import core
 from gui.easy_menu import EasyMenu
 
 
@@ -34,7 +35,7 @@ class SetWorldParameters(BuildWorldListener):
 
     def get_settings(self, scene, factory):
         def out_fn():
-            params = factory(scene.player)
+            params = factory(core.get_id("world"))
             random.seed(params.world_seed)
             scene.cm.add(params)
         return out_fn
