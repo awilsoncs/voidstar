@@ -89,7 +89,6 @@ class DefendScene(GameScene):
     def update(self):
         act.run(self)
         move.run(self)
-        # pickup_gold.run(self)
         peasant_dead_check.run(self)
         clear_components.of_type(ChargeAbilityEvent, self)
         control_turns.run(self)
