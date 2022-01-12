@@ -10,10 +10,10 @@ from content.terrain.water import make_water, make_swampy_water
 from engine.utilities import get_3_by_3_box
 
 
-def add_water(scene, x: int, y: int, painter) -> None:
+def add_water(scene, x: int, y: int, painter, rapidness) -> None:
     coords = {(coord.x, coord.y) for coord in scene.cm.get(Coordinates)}
     if (x, y) not in coords:
-        water = painter(x, y)
+        water = painter(x, y, rapidness)
         scene.cm.add(*water[1])
 
 
@@ -41,7 +41,7 @@ class PlaceLakes(BuildWorldListener):
 
         while working_set and maximum > 0:
             working_x, working_y = working_set.pop(0)
-            add_water(scene, working_x, working_y, water_painter)
+            add_water(scene, working_x, working_y, water_painter, world_settings.river_rapids)
             maximum -= 1
             working_set += [
                 (_x, _y)

@@ -40,7 +40,7 @@ def make_water(x, y, rapidness=5000):
     )
 
 
-def make_swampy_water(x, y):
+def make_swampy_water(x, y, rapidness):
     entity_id = core.get_id()
     water_color = random.choice([palettes.GRASS, palettes.WATER])
     return (
@@ -59,8 +59,8 @@ def make_swampy_water(x, y):
                 new_symbol='~',
                 new_color=palettes.GRASS,
                 new_bg_color=palettes.BACKGROUND,
-                timer_delay=20000,
-                next_update=core.time_ms()+random.randint(0, 20000)
+                timer_delay=rapidness*4,
+                next_update=core.time_ms()+random.randint(0, rapidness*4)
             ),
             WaterTag(entity=entity_id)
         ]
