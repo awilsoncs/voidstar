@@ -1,16 +1,19 @@
 import logging
+import random
 from dataclasses import dataclass
 from typing import Optional
 
 from components import Coordinates, Entity
 from components.actions.attack_action import AttackAction
 from components.actions.eat_action import EatAction
+from components.actions.tunnel_to_point import TunnelToPoint
 from components.animation_effects.blinker import AnimationBlinker
 from components.attacks.attack import Attack
 from components.brains.brain import Brain
 from components.brains.sleeping_brain import SleepingBrain
 from components.death_listeners.die import Die
 from components.edible import Edible
+from components.enums import Intention
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.pathfinding.cost_mapper import CostMapper
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
@@ -19,7 +22,8 @@ from components.pathfinding.target_evaluation.hordeling_target_evaluator import 
 from components.pathfinding.target_evaluation.target_evaluator import TargetEvaluator
 from components.pathfinding.target_selection import get_new_target
 from content.attacks import stab
-from engine import constants, palettes
+from content.terrain import roads
+from engine import constants, palettes, utilities
 from engine.core import log_debug
 from components.actors import VECTOR_STEP_MAP
 
@@ -68,8 +72,18 @@ class DefaultActiveActor(Brain):
         logging.debug(f"EID#{self.entity}::DefaultActiveActor stepping towards target {self.target}")
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         next_step_node = self.get_next_step(scene)
-        next_step = (next_step_node[0] - coords.x, next_step_node[1] - coords.y)
-        self.intention = VECTOR_STEP_MAP[next_step]
+        if next_step_node is None:
+            logging.debug(f"EID#{self.entity}::DefaultActiveActor can't find a natural path")
+            tunnel_target = self._get_emergency_step(scene)
+            if tunnel_target:
+                scene.cm.add(TunnelToPoint(entity=self.entity, point=tunnel_target))
+            else:
+                logging.warning(f"EID#{self.entity}::DefaultActiveActor can't find a safe place to tunnel to")
+                scene.cm.add(Die(entity=self.entity))
+            self.pass_turn()
+        else:
+            next_step = (next_step_node[0] - coords.x, next_step_node[1] - coords.y)
+            self.intention = VECTOR_STEP_MAP[next_step]
 
     def should_eat(self, scene):
         logging.debug(f"EID#{self.entity}::DefaultActiveActor checking for edibility of {self.target}")
@@ -113,22 +127,34 @@ class DefaultActiveActor(Brain):
         return coords.distance_from(target) < 2
 
     def get_next_step(self, scene):
+        """Get the next step towards my target."""
         self_coords = scene.cm.get_one(Coordinates, entity=self.entity)
         target_coords = scene.cm.get_one(Coordinates, entity=self.target)
         path = Pathfinder().get_path(self.cost_map, self_coords.position, target_coords.position)
 
         breadcrumb_tracker = scene.cm.get_one(BreadcrumbTracker, entity=self.entity)
         if breadcrumb_tracker:
-
             breadcrumb_tracker.add_breadcrumbs(scene, path)
 
         path = [p for p in path]
 
-        if path:
-            return path[1]
-        else:
-            logging.warning(f"EID#{self.entity}::DefaultActiveActor found no valid path")
+        if len(path) <= 1:
             return None
+        return path[1]
+
+    def _get_emergency_step(self, scene):
+        """Search for a point to tunnel to."""
+        logging.debug(f"EID#{self.entity}::DefaultActiveActor searching for emergency step for tunnel")
+
+        coords = set(scene.cm.get(Coordinates, project=lambda c: c.position))
+        open_positions = list(utilities.get_all_positions() - coords)
+        random.shuffle(open_positions)
+        found = None
+        while open_positions and not found:
+            target = open_positions.pop()
+            if roads.can_connect_to_road(scene, target):
+                found = target
+        return found
 
     def sleep(self, scene, sleep_for):
         logging.debug(f"EID#{self.entity}::DefaultActiveActor falling asleep")

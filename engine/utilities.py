@@ -1,6 +1,7 @@
 import math
 from itertools import product
 
+import settings
 from components import Coordinates
 
 
@@ -55,3 +56,12 @@ def get_box(start_loc, end_loc):
 def is_visible(scene, entity: int):
     coords = scene.cm.get_one(Coordinates, entity=entity)
     return coords and scene.visibility_map[coords.x, coords.y]
+
+
+def get_all_positions():
+    return {
+        p for p in product(
+            range(0, settings.MAP_WIDTH),
+            range(0, settings.MAP_HEIGHT)
+        )
+    }

@@ -45,6 +45,17 @@ def make_bridge(x, y):
     return entity
 
 
+def can_connect_to_road(scene, start: Tuple[int, int]) -> bool:
+    road_coords = scene.cm.get(RoadMarker, project=lambda rm: (rm.entity, 100))
+    cost_map = RoadCostMapper().get_cost_map(scene)
+    best_entity: int = get_new_target(scene, cost_map, start, road_coords)
+    best_point: Tuple[int, int] = scene.cm.get_one(Coordinates, entity=best_entity).position
+    if _road_between(cost_map, start, best_point):
+        return True
+    else:
+        return False
+
+
 def connect_point_to_road_network(scene, start: Tuple[int, int], trim_start: int = 0):
     road_coords = scene.cm.get(RoadMarker, project=lambda rm: (rm.entity, 100))
     cost_map = RoadCostMapper().get_cost_map(scene)
@@ -80,6 +91,4 @@ def _road_between(
     pf.add_root(start)
 
     # In the case of houses, need to start one after the normal start point
-    path: List[Tuple[int, int]] = pf.path_to(end).tolist()[trim_start:-1]
-    for node in path:
-        yield node
+    return pf.path_to(end).tolist()[trim_start:-1]
