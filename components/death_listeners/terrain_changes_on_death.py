@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from components.death_listeners.death_listener import DeathListener
+from components.events.die_events import DeathListener
 from components.terrain_changed_listeners.terrain_changed_event import TerrainChangedEvent
 
 

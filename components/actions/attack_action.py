@@ -1,16 +1,15 @@
-import logging
 from dataclasses import dataclass
-from typing import List, Tuple, Optional
+from typing import List
 
 from components import Coordinates, Attributes, Entity
 from components.actors.energy_actor import EnergyActor
 from components.attacks.attack_effects.attack_effect import AttackEffect
 from components.cry_for_help import CryForHelp
-from components.death_listeners.die import Die
+from components.events.die_events import Die
 from components.house_structure import HouseStructure
 from components.relationships.owner import Owner
 from content.states import help_animation
-from engine import constants, palettes
+from engine import constants
 
 
 @dataclass

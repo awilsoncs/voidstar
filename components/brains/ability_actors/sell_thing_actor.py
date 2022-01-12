@@ -1,4 +1,3 @@
-import logging
 from dataclasses import dataclass
 from typing import List
 
@@ -7,7 +6,7 @@ import tcod
 from components import Coordinates, Entity
 from components.actors.energy_actor import EnergyActor
 from components.brains.temporary_brain import TemporaryBrain
-from components.death_listeners.die import Die
+from components.events.die_events import Die
 from components.enums import Intention
 from components.sellable import Sellable
 from content.terrain.dirt import make_dirt

@@ -7,7 +7,7 @@ import settings
 from components import Coordinates, Entity
 from components.actors.energy_actor import EnergyActor
 from components.brains.temporary_brain import TemporaryBrain
-from components.death_listeners.die import Die
+from components.events.die_events import Die
 from components.enums import Intention
 from components.diggable import Diggable
 from content.terrain.dirt import make_dirt

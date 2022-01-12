@@ -1,5 +1,5 @@
 from components import Attributes
-from components.death_listeners.die import Die
+from components.events.die_events import Die
 
 
 def run(scene):

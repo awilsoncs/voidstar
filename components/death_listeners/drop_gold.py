@@ -1,8 +1,7 @@
-import logging
 from dataclasses import dataclass
 
 from components import Coordinates
-from components.death_listeners.death_listener import DeathListener
+from components.events.die_events import DeathListener
 from content.getables.gold import make_gold_nugget
 
 

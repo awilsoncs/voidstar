@@ -1,9 +1,7 @@
-import logging
 from dataclasses import dataclass
 
 from components import Entity, Coordinates
-from components.death_listeners.death_listener import DeathListener
-from components.death_listeners.die import Die
+from components.events.die_events import DeathListener
 from content import corpses
 from engine import palettes
 

@@ -1,5 +1,3 @@
-import logging
-import random
 from dataclasses import dataclass
 from typing import Tuple
 

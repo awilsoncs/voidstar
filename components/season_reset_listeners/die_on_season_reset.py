@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from components.death_listeners.die import Die
+from components.events.die_events import Die
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 
 

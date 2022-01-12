@@ -10,7 +10,7 @@ from components.brains.brain import Brain
 from components.brains.painters.create_gold_actor import PlaceGoldController
 from components.brains.painters.create_hordeling_actor import PlaceHordelingController
 from components.brains.default_active_actor import DefaultActiveActor
-from components.death_listeners.die import Die
+from components.events.die_events import Die
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.serialization.load_game import LoadGame
 from components.serialization.save_game import SaveGame

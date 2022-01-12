@@ -1,9 +1,8 @@
-import logging
 import random
 from dataclasses import dataclass
 from typing import Optional
 
-from components import Coordinates, Entity
+from components import Coordinates
 from components.actions.attack_action import AttackAction
 from components.actions.eat_action import EatAction
 from components.actions.tunnel_to_point import TunnelToPoint
@@ -11,7 +10,7 @@ from components.animation_effects.blinker import AnimationBlinker
 from components.attacks.attack import Attack
 from components.brains.brain import Brain
 from components.brains.sleeping_brain import SleepingBrain
-from components.death_listeners.die import Die
+from components.events.die_events import Die
 from components.edible import Edible
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.pathfinding.cost_mapper import CostMapper

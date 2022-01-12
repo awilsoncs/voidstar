@@ -1,7 +1,6 @@
-import logging
 from dataclasses import dataclass
 
-from components.death_listeners.death_listener import DeathListener
+from components.events.die_events import DeathListener
 from components.house_structure import HouseStructure
 from engine import constants
 

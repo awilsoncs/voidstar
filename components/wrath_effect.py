@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_spawner import HordelingSpawner
-from components.death_listeners.die import Die
+from components.events.die_events import Die
 from components.tags.hordeling_tag import HordelingTag
 
 

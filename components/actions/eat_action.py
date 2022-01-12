@@ -1,9 +1,8 @@
-import logging
 from dataclasses import dataclass
 
 from components import Entity
 from components.actors.energy_actor import EnergyActor
-from components.death_listeners.die import Die
+from components.events.die_events import Die
 from components.stomach import Stomach
 from components.tags.peasant_tag import PeasantTag
 from engine import constants
