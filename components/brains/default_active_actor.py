@@ -13,7 +13,6 @@ from components.brains.brain import Brain
 from components.brains.sleeping_brain import SleepingBrain
 from components.death_listeners.die import Die
 from components.edible import Edible
-from components.enums import Intention
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.pathfinding.cost_mapper import CostMapper
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
