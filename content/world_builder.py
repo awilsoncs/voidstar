@@ -1,16 +1,16 @@
 from components import Entity
-from components.build_world_listeners.add_player_step import AddPlayerStep
 from components.events.build_world_events import BuildWorld
-from components.build_world_listeners.delete_world_builder import DeleteWorldBuilder
-from components.build_world_listeners.place_flowers import PlaceFlowers
-from components.build_world_listeners.place_lakes import PlaceLakes
-from components.build_world_listeners.place_peasants import PlacePeasants
-from components.build_world_listeners.place_copses import PlaceTrees
-from components.build_world_listeners.place_river import PlaceRiver
-from components.build_world_listeners.place_roads import PlaceRoads
-from components.build_world_listeners.place_rocks import PlaceRocks
-from components.build_world_listeners.set_world_name import SetWorldName
-from components.build_world_listeners.set_worldbuilder_params import SetWorldParameters
+from components.world_building.add_player_step import AddPlayerStep
+from components.world_building.delete_world_builder import DeleteWorldBuilder
+from components.world_building.place_copses import PlaceTrees
+from components.world_building.place_flowers import PlaceFlowers
+from components.world_building.place_lakes import PlaceLakes
+from components.world_building.place_peasants import PlacePeasants
+from components.world_building.place_river import PlaceRiver
+from components.world_building.place_roads import PlaceRoads
+from components.world_building.place_rocks import PlaceRocks
+from components.world_building.set_world_name import SetWorldName
+from components.world_building.set_worldbuilder_params import SetWorldParameters
 from engine import core
 
 

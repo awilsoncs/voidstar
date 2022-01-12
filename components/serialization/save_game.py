@@ -1,8 +1,7 @@
-import logging
 from dataclasses import dataclass
 
 from components.actors.energy_actor import EnergyActor
-from components.build_world_listeners.world_parameters import WorldParameters
+from components.world_building.world_parameters import WorldParameters
 from engine import palettes, core
 from engine.serialization import serialization
 

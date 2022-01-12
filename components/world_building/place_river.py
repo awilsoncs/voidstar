@@ -2,9 +2,9 @@ import random
 
 import settings
 from components.events.build_world_events import BuildWorldListener
-from components.build_world_listeners.world_parameters import WorldParameters
 from components.pathfinding.pathfinder import Pathfinder
 from components.pathfinding.simplex_cost_mapper import SimplexCostMapper
+from components.world_building.world_parameters import WorldParameters
 from content.terrain.water import make_water
 from engine import core
 

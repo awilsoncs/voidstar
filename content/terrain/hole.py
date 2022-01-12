@@ -1,7 +1,7 @@
 from components import Entity, Appearance, Coordinates
 from components.diggable import Diggable
+from components.events.hole_dug_events import HoleDug
 from components.floodable import Floodable
-from components.events.hole_dug_events import HoleDugEvent
 from components.material import Material
 from components.states.move_cost_affectors import DifficultTerrain
 from components.pathfinder_cost import PathfinderCost
@@ -21,7 +21,7 @@ def make_hole(x, y):
             Diggable(entity=entity_id),
             Floodable(entity=entity_id),
             DifficultTerrain(entity=entity_id),
-            HoleDugEvent(entity=entity_id),
+            HoleDug(entity=entity_id),
             PathfinderCost(entity=entity_id, cost=4)
         ]
     )

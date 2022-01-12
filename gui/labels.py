@@ -2,9 +2,9 @@ import tcod
 
 from components.ability_tracker import AbilityTracker
 from components.actors.calendar_actor import Calendar
-from components.build_world_listeners.world_parameters import WorldParameters
 from components.states.move_cost_affectors import Hindered, Haste
 from components.weather.weather import Weather
+from components.world_building.world_parameters import WorldParameters
 from engine import palettes, core, PLAYER_ID
 from gui.gui_element import GuiElement
 

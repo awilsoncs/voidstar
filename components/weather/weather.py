@@ -2,10 +2,10 @@ from dataclasses import dataclass
 import random
 
 from components.actors.energy_actor import EnergyActor
-from components.build_world_listeners.world_parameters import WorldParameters
 from components.events.new_day_event import DayBeganListener
 from components.events.start_game_events import GameStartListener
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
+from components.world_building.world_parameters import WorldParameters
 from engine import core
 
 

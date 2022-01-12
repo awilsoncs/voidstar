@@ -4,7 +4,7 @@ from dataclasses import dataclass
 import settings
 from components import Coordinates
 from components.events.build_world_events import BuildWorldListener
-from components.build_world_listeners.world_parameters import WorldParameters
+from components.world_building.world_parameters import WorldParameters
 from content.terrain.rocks import make_rock
 from engine import core
 from engine.utilities import get_3_by_3_box
