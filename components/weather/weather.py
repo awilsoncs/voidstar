@@ -1,17 +1,16 @@
-import logging
 from dataclasses import dataclass
 import random
 
 from components.actors.energy_actor import EnergyActor
 from components.build_world_listeners.world_parameters import WorldParameters
-from components.daily_events.new_day_listener import NewDayListener
+from components.events.new_day_event import DayBeganListener
 from components.game_start_listeners.game_start_listener import GameStartListener
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from engine import core
 
 
 @dataclass
-class Weather(NewDayListener, GameStartListener, SeasonResetListener):
+class Weather(DayBeganListener, GameStartListener, SeasonResetListener):
     temperature: int = 20
     seasonal_norm: int = 20
     energy_cost: int = EnergyActor.DAILY

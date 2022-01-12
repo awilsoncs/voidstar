@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_spawner import HordelingSpawner
 from components.events.attack_started_events import AttackStarted
-from components.daily_events.new_day_event import NewDayBegan
+from components.events.new_day_event import DayBegan
 from components.season_reset_listeners.reset_season import ResetSeason
 from components.tags.hordeling_tag import HordelingTag
 from components.world_beauty import WorldBeauty
@@ -52,11 +52,11 @@ class Calendar(EnergyActor):
         if self.day < 25:
             self.status = "Peacetime"
             self.increment()
-            scene.cm.add(NewDayBegan(entity=self.entity, day=self.day))
+            scene.cm.add(DayBegan(entity=self.entity, day=self.day))
         elif self.day < 30:
             self.status = "Horde approaching..."
             self.increment()
-            scene.cm.add(NewDayBegan(entity=self.entity, day=self.day))
+            scene.cm.add(DayBegan(entity=self.entity, day=self.day))
         else:
             if self.status != "Under attack!":
                 self._start_attack(scene)
@@ -77,7 +77,7 @@ class Calendar(EnergyActor):
         self.round += 1
         self.is_recharging = True
         self.increment()
-        scene.cm.add(NewDayBegan(entity=self.entity))
+        scene.cm.add(DayBegan(entity=self.entity))
         scene.cm.add(ResetSeason(entity=self.entity, season=self.get_season_string()))
 
 
