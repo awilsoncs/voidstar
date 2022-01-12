@@ -1,5 +1,7 @@
-from dataclasses import dataclass
+import time
+from dataclasses import dataclass, field
 
+import settings
 from engine.component import Component
 
 DEFAULT_LAKES: int = 1
@@ -13,6 +15,11 @@ DEFAULT_FLOWER_PROLIFERATION: float = 0.1
 DEFAULT_TEMPERATURE_MODIFIER: int = 0
 DEFAULT_RIVER_RAPIDS: int = 5000
 DEFAULT_TREE_CUT_ANGER: int = 1
+
+
+def get_seed():
+    return time.time_ns() if settings.SEED == "RANDOM" else settings.SEED
+
 
 @dataclass
 class WorldParameters(Component):
@@ -39,6 +46,8 @@ class WorldParameters(Component):
     tree_cut_anger: int = DEFAULT_TREE_CUT_ANGER
 
     world_name: str = ''
+
+    world_seed: int = field(default_factory=get_seed)
 
     def get_file_name(self):
         return self.world_name.replace(" ", "-")

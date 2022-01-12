@@ -25,9 +25,10 @@ def create_options_file():
     option_data_base = {
         'autosave-enabled': True,
         'character-name': 'Sir Cameron',
-        'grass-density': 1,
+        'grass-density': 0.1,
         'torch-radius': -1,
         'music-enabled': True,
+        'world_seed': 'RANDOM',
         'color_background': '000000',
         'color_grass': '1f240a',
         'color_wall_tree':  '39571c',
@@ -65,6 +66,7 @@ GRASS_DENSITY = option_data['grass-density']
 CHARACTER_NAME = option_data['character-name']
 TORCH_RADIUS = option_data['torch-radius']
 MUSIC_ENABLED = option_data['music-enabled']
+SEED = option_data['world_seed']
 
 
 # colors

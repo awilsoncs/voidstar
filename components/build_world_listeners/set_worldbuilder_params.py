@@ -1,4 +1,5 @@
 import logging
+import random
 from dataclasses import dataclass
 
 import settings
@@ -33,5 +34,7 @@ class SetWorldParameters(BuildWorldListener):
 
     def get_settings(self, scene, factory):
         def out_fn():
-            scene.cm.add(factory(scene.player))
+            params = factory(scene.player)
+            random.seed(params.world_seed)
+            scene.cm.add(params)
         return out_fn
