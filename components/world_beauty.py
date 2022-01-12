@@ -14,21 +14,19 @@ class WorldBeauty(TreeCutListener, SeasonResetListener):
     spirits_attitude: int = 10
 
     def on_tree_cut(self, scene):
-        logging.info(f"EID#{self.entity}::WorldBeauty detected tree cut")
+        self._log_info(f"detected tree cut")
         self.trees_cut += 1
         if not self.trees_cut % self.spirits_attitude:
             scene.message("The spirits grow angrier with your cutting.", color=palettes.BLOOD)
             world_params = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
             self.spirits_wrath += 1
             self.spirits_attitude = max(1, self.spirits_attitude - world_params.tree_cut_anger)
-            logging.info(f"EID#{self.entity}::WorldBeauty decreased wrath {self.spirits_wrath} and "
-                         f"attitude {self.spirits_attitude}")
+            self._log_info(f"decreased wrath {self.spirits_wrath} and attitude {self.spirits_attitude}")
 
     def on_season_reset(self, scene, season):
         if season == "Spring":
-            logging.info(f"EID#{self.entity}::WorldBeauty relationship with the spirits improved")
+            self._log_info(f"relationship with the spirits improved")
             self.spirits_attitude += 1
             self.spirits_wrath -= 1
-            logging.info(f"EID#{self.entity}::WorldBeauty improved wrath {self.spirits_wrath} and "
-                         f"attitude {self.spirits_attitude}")
+            self._log_info(f"improved wrath {self.spirits_wrath} and attitude {self.spirits_attitude}")
 

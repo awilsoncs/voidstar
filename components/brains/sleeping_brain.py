@@ -17,7 +17,7 @@ class SleepingBrain(TemporaryBrain):
 
     @log_debug(__name__)
     def act(self, scene):
-        logging.debug(f"EID#{self.entity}::SleepingBrain sleeping one turn")
+        self._log_debug(f"sleeping one turn")
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         scene.cm.add(*sleep_animation(coords.x, coords.y)[1])
         self.pass_turn()

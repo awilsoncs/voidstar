@@ -13,7 +13,7 @@ class HoleDugEvent(EnergyActor):
 
     @log_debug(__name__)
     def act(self, scene):
-        logging.info(f"EID#{self.entity}::HoleDugEvent hole dug")
+        self._log_info(f"hole dug")
         hole_dug_listeners: List[HoleDugListener] = scene.cm.get(HoleDugListener)
         for hole_dug_listener in hole_dug_listeners:
             hole_dug_listener.on_hole_dug(scene, self.entity)

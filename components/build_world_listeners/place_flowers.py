@@ -23,7 +23,7 @@ class PlaceFlowers(BuildWorldListener):
     color = None
 
     def on_build_world(self, scene):
-        logging.info(f"EID#{self.entity}::PlaceFlowers placing flower fields...")
+        self._log_info(f"placing flower fields...")
         world_settings = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
         self.color = random.choice([palettes.WHITE, palettes.WATER, palettes.FRESH_BLOOD, palettes.FIRE, palettes.GOLD])
         for _ in range(world_settings.flower_fields):

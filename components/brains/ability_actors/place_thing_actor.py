@@ -6,10 +6,8 @@ import tcod
 
 from components import Coordinates
 from components.actors.energy_actor import EnergyActor
-from components.animation_effects.blinker import AnimationBlinker
 from components.brains.temporary_brain import TemporaryBrain
 from components.enums import Intention
-from components.brains.brain import Brain
 from engine import constants, core
 from engine.component import Component
 

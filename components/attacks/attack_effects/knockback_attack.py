@@ -8,7 +8,7 @@ from content.states import knockback_animation
 @dataclass
 class KnockbackAttack(AttackEffect):
     def apply(self, scene, source, target):
-        print("Juggernaut knocked back target!")
+        self._log_info("knocked back target")
         source_coords = scene.cm.get_one(Coordinates, entity=source)
         target_coords = scene.cm.get_one(Coordinates, entity=target)
 

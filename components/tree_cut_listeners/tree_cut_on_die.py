@@ -10,5 +10,5 @@ class TreeCutOnDeath(DeathListener):
     """Signal that a tree has been cut down."""
 
     def on_die(self, scene):
-        logging.info(f"EID#{self.entity}::TreeCutOnDeath triggered")
+        self._log_debug(f"triggered")
         scene.cm.add(TreeCutEvent(entity=scene.player))

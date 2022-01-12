@@ -15,5 +15,17 @@ class Component(object):
         pass
 
     def _log_debug(self, message):
-        logging.debug(f"EID#{self.entity}::{self.__class__.__name__}#{self.id} - {message}")
+        logging.debug(self.__msg_format(message))
+
+    def _log_warning(self, message):
+        logging.warning(self.__msg_format(message))
+
+    def _log_info(self, message):
+        logging.info(self.__msg_format(message))
+
+    def _log_error(self, message):
+        logging.error(self.__msg_format(message))
+
+    def __msg_format(self, message):
+        return f"EID#{self.entity}::{self.__class__.__name__}#{self.id} - {message}"
 

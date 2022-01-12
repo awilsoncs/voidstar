@@ -19,6 +19,6 @@ class SaveOnSeasonReset(SeasonResetListener, GameStartListener):
 
     def autosave(self, scene):
         if not settings.AUTOSAVE:
-            logging.info(f"EID#{self.entity}::SaveOnSeasonReset autosave is disabled")
+            self._log_info(f"autosave is disabled")
             return
         scene.cm.add(SaveGame(entity=scene.player))

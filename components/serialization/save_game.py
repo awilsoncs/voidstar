@@ -15,9 +15,9 @@ class SaveGame(EnergyActor):
         # we don't want this object to get caught in the save game
         scene.cm.delete_component(self)
 
-        logging.info(f"EID#{self.entity}::SaveGame attempting to save game")
+        self._log_info(f"attempting to save game")
         params = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
         serialization.save(scene.cm.get_serial_form(), f"./{params.get_file_name()}.world")
-        logging.info(f"EID#{self.entity}::SaveGame save complete")
+        self._log_info(f"save complete")
         scene.message("Game saved.", color=palettes.LIGHT_WATER)
 

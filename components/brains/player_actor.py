@@ -33,10 +33,10 @@ class PlayerBrain(Brain):
     def handle_key_event(self, scene, action_map):
         key_event = core.get_key_event()
         if key_event:
-            logging.debug(f"EID#{self.entity}::PlayerActor received input {key_event}")
+            self._log_debug(f"received input {key_event}")
             key_code = key_event.sym
             intention = action_map.get(key_code, None)
-            logging.debug(f"EID#{self.entity}::PlayerActor translated {key_event} -> {intention}")
+            self._log_debug(f"translated {key_event} -> {intention}")
 
             tracker = scene.cm.get_one(AbilityTracker, entity=self.entity)
             if intention == Intention.NEXT_ABILITY:
@@ -49,11 +49,10 @@ class PlayerBrain(Brain):
             elif intention == Intention.SHOW_HELP:
                 scene.cm.add(ShowHelpDialogue(entity=self.entity))
             elif intention is None:
-                logging.debug(f"EID#{self.entity}::PlayerActor found no useable intention")
+                self._log_debug(f"found no useable intention")
                 return
             else:
-                logging.debug(f"EID#{self.entity}::PlayerActor deferred intention {intention} "
-                              f"(usually for movement intentions)")
+                self._log_debug(f"deferred intention {intention} (usually for movement intentions)")
                 self.intention = intention
 
     def _handle_confused(self, scene):

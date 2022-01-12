@@ -14,13 +14,13 @@ class WrathEffect(EnergyActor):
     energy_cost: int = EnergyActor.INSTANT
 
     def act(self, scene):
-        logging.debug("Wrath triggered")
+        self._log_debug(f"wrath triggered")
         logging.debug("Erasing the origin of evil")
         spawners = scene.cm.get(HordelingSpawner)
         for spawner in spawners:
             scene.cm.delete(spawner.entity)
 
-        logging.debug("Obliterating hordelings")
+        self._log_info(f"Obliterating hordelings")
         hordelings = [h.entity for h in scene.cm.get(HordelingTag)]
         for hordeling in hordelings:
             scene.cm.add(Die(entity=hordeling, killer=scene.player))

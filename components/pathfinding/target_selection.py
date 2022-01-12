@@ -17,7 +17,6 @@ def get_new_target(scene, cost_map, start, entity_values) -> int:
         target_coords = scene.cm.get_one(Coordinates, entity=entity)
         cost_to_reach = float(dist[target_coords.x, target_coords.y]) ** 2
         if cost_to_reach == 0:
-            logging.warning("Entity trying to path to 0 distance point")
             cost_to_reach = 1
         value = float(value) / cost_to_reach
         if value > best[1]:

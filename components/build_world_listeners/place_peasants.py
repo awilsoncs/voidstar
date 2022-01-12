@@ -8,6 +8,6 @@ from content.farmsteads.houses import place_farmstead
 @dataclass
 class PlacePeasants(BuildWorldListener):
     def on_build_world(self, scene):
-        logging.info(f"EID#{self.entity}::PlacePeasants placing farmsteads in town")
+        self._log_info(f"placing farmsteads in town")
         for _ in range(3):
             place_farmstead(scene)

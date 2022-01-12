@@ -17,11 +17,11 @@ class FreezeWater(EnergyActor, AttackStartListener, SeasonResetListener):
     energy_cost: int = EnergyActor.HALF_HOUR
 
     def on_attack_start(self, scene):
-        logging.debug(f"EID#{self.entity}::FreezeWater pausing freezing")
+        self._log_debug(f"pausing freezing")
         self.is_recharging = False
 
     def on_season_reset(self, scene, season):
-        logging.debug(f"EID#{self.entity}::FreezeWater unpausing freezing")
+        self._log_debug(f"unpausing freezing")
         self.is_recharging = True
 
     def act(self, scene) -> None:
@@ -37,7 +37,7 @@ class FreezeWater(EnergyActor, AttackStartListener, SeasonResetListener):
         self.pass_turn()
 
     def freeze_n(self, scene, n):
-        logging.debug(f"EID#{self.entity}::FreezeWater freezing {n}")
+        self._log_debug(f"freezing {n}")
         waters = scene.cm.get(WaterTag, project=lambda wt: wt.entity)
         if not waters:
             return
@@ -50,7 +50,7 @@ class FreezeWater(EnergyActor, AttackStartListener, SeasonResetListener):
             freeze(scene, water)
 
     def thaw_n(self, scene, n):
-        logging.debug(f"EID#{self.entity}::FreezeWater thawing {n}")
+        self._log_debug(f"thawing {n}")
         ices = scene.cm.get(IceTag, project=lambda it: it.entity)
         if not ices:
             return

@@ -7,5 +7,5 @@ from components.build_world_listeners.build_world_listeners import BuildWorldLis
 @dataclass
 class DeleteWorldBuilder(BuildWorldListener):
     def on_build_world(self, scene):
-        logging.info(f"EID#{self.entity}::DeleteWorldBuilder cleaning up world builder")
+        self._log_info(f"cleaning up world builder")
         scene.cm.delete(self.entity)

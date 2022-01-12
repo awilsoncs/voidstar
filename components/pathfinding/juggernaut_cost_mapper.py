@@ -20,9 +20,6 @@ class StraightLineCostMapper(CostMapper):
             if material and material.blocks and not attributes:
                 # You can't bash your way through this one
                 entity = scene.cm.get_one(Entity, entity=point.entity)
-                logging.debug(
-                    f"EID#{self.entity}::StraightLineCostMapper found impassible terrain: "
-                    f"{entity.name} at position {point.position}"
-                )
+                self._log_debug(f"found impassible terrain: {entity.name} at position {point.position}")
                 cost[point.x, point.y] = 0
         return cost

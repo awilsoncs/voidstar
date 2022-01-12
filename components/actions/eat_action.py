@@ -15,11 +15,11 @@ class EatAction(EnergyActor):
     target: int = constants.INVALID
 
     def act(self, scene) -> None:
-        logging.debug(f"EID#{self.entity}::EatAction attempting to eat {self.target}")
+        self._log_debug(f"attempting to eat {self.target}")
         this_entity = scene.cm.get_one(Entity, entity=self.entity)
         target_entity = scene.cm.get_one(Entity, entity=self.target)
         if not target_entity:
-            logging.debug(f"EID#{self.entity}::EatAction attempted to eat {self.target} but it was gone!")
+            self._log_debug(f"attempted to eat {self.target} but it was gone!")
             return
         scene.warn(f"{this_entity.name} ate a {target_entity.name}!")
         if scene.cm.get_one(PeasantTag, entity=self.target):

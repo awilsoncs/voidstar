@@ -62,10 +62,10 @@ class Rebuilder(SeasonResetListener):
         house_structure.is_destroyed = False
 
     def _delete_farms(self, scene):
-        logging.debug(f"Deleting farms for house #{self.entity}")
+        self._log_debug(f"deleting farms for house")
         resident_link: Resident = scene.cm.get_one(Resident, entity=self.entity)
         if not resident_link:
-            logging.warning("House with no historical resident found, should not happen")
+            self._log_warning("House with no historical resident found, should not happen")
             return
         else:
             resident_id = resident_link.resident
@@ -77,5 +77,5 @@ class Rebuilder(SeasonResetListener):
         )
 
         for farm in farms:
-            logging.debug(f"Deleting farm #{farm}")
+            self._log_debug(f"deleting farm #{farm}")
             scene.cm.delete(farm)

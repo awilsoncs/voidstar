@@ -1,7 +1,6 @@
 from calendar import Calendar
 from dataclasses import dataclass
 
-from components import TimedActor
 from components.actors.calendar_actor import Calendar
 from components.actors.energy_actor import EnergyActor
 from components.daily_events.new_day_event import NewDayBegan

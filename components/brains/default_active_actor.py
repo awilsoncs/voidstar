@@ -38,7 +38,7 @@ class DefaultActiveActor(Brain):
 
         target_evaluator = scene.cm.get_one(TargetEvaluator, entity=self.entity)
         if not target_evaluator:
-            logging.warning(f"EID#{self.entity}::DefaultActiveActor missing target evaluator")
+            self._log_warning(f"missing target evaluator")
             target_evaluator = HordelingTargetEvaluator()
 
         entity_values = target_evaluator.get_targets(scene)
@@ -68,16 +68,16 @@ class DefaultActiveActor(Brain):
             return NormalCostMapper(entity=self.entity).get_cost_map(scene)
 
     def move_towards_target(self, scene):
-        logging.debug(f"EID#{self.entity}::DefaultActiveActor stepping towards target {self.target}")
+        self._log_debug(f"stepping towards target {self.target}")
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         next_step_node = self.get_next_step(scene)
         if next_step_node is None:
-            logging.debug(f"EID#{self.entity}::DefaultActiveActor can't find a natural path")
+            self._log_debug("can't find a natural path")
             tunnel_target = self._get_emergency_step(scene)
             if tunnel_target:
                 scene.cm.add(TunnelToPoint(entity=self.entity, point=tunnel_target))
             else:
-                logging.warning(f"EID#{self.entity}::DefaultActiveActor can't find a safe place to tunnel to")
+                self._log_warning(f"can't find a safe place to tunnel to")
                 scene.cm.add(Die(entity=self.entity))
             self.pass_turn()
         else:
@@ -85,12 +85,12 @@ class DefaultActiveActor(Brain):
             self.intention = VECTOR_STEP_MAP[next_step]
 
     def should_eat(self, scene):
-        logging.debug(f"EID#{self.entity}::DefaultActiveActor checking for edibility of {self.target}")
+        self._log_debug(f"checking for edibility of {self.target}")
         edible = scene.cm.get_one(Edible, entity=self.target)
         return edible is not None
 
     def eat_target(self, scene):
-        logging.debug(f"EID#{self.entity}::DefaultActiveActor eating target {self.target}")
+        self._log_debug(f"eating target {self.target}")
         scene.cm.add(EatAction(entity=self.entity, target=self.target))
         edible = scene.cm.get_one(Edible, entity=self.target)
 
@@ -98,7 +98,7 @@ class DefaultActiveActor(Brain):
         self.pass_turn()
 
     def attack_target(self, scene):
-        logging.debug(f"EID#{self.entity}::DefaultActiveActor attacking target {self.target}")
+        self._log_debug(f"attacking target {self.target}")
 
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         target = scene.cm.get_one(Coordinates, entity=self.target)
@@ -143,7 +143,7 @@ class DefaultActiveActor(Brain):
 
     def _get_emergency_step(self, scene):
         """Search for a point to tunnel to."""
-        logging.debug(f"EID#{self.entity}::DefaultActiveActor searching for emergency step for tunnel")
+        self._log_debug("searching for emergency step for tunnel")
 
         coords = set(scene.cm.get(Coordinates, project=lambda c: c.position))
         open_positions = list(utilities.get_all_positions() - coords)
@@ -156,7 +156,7 @@ class DefaultActiveActor(Brain):
         return found
 
     def sleep(self, scene, sleep_for):
-        logging.debug(f"EID#{self.entity}::DefaultActiveActor falling asleep")
+        self._log_debug("falling asleep")
         new_controller = SleepingBrain(entity=self.entity, old_actor=self.id, turns=sleep_for)
         blinker = AnimationBlinker(
             entity=self.entity,

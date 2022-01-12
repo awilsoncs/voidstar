@@ -49,8 +49,7 @@ class SellThingActor(TemporaryBrain):
             sellable: Sellable = scene.cm.get_one(Sellable, entity=entity)
             entity_component = scene.cm.get_one(Entity, entity=entity)
             if not entity_component:
-                logging.warning(f"EID#{self.entity}::SellThingActor found a sellable without an entity: {entity}")
-                logging.warning(f"EID#{self.entity}::SellThingActor {scene.cm.get_entity(entity)}")
+                self._log_warning(f"found a sellable without an entity: {entity}")
             scene.message(f"You sold a {entity_component.name} for {sellable.value}c!", color=palettes.GOLD)
 
             scene.gold += sellable.value

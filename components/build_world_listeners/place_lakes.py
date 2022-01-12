@@ -21,7 +21,7 @@ def add_water(scene, x: int, y: int, painter, rapidness) -> None:
 @dataclass
 class PlaceLakes(BuildWorldListener):
     def on_build_world(self, scene):
-        logging.info(f"EID#{self.entity}::PlaceLakes placing lakes in town")
+        self._log_info(f"placing lakes in town")
         world_settings = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
 
         for _ in range(world_settings.lakes):

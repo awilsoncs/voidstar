@@ -17,7 +17,7 @@ class MovePlayerToTownCenter(GameStartListener, AttackStartListener):
         self.move_player(scene)
 
     def move_player(self, scene):
-        logging.info(f"EID#{self.entity}::MovePlayerToTownCenter moving player to town center")
+        self._log_info(f"moving player to town center")
         flag = scene.cm.get(TownCenterFlag)[0]
         coord = scene.cm.get_one(Coordinates, entity=flag.entity)
         player = scene.cm.get_one(Coordinates, entity=scene.player)

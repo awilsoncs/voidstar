@@ -10,32 +10,28 @@ from engine import core
 from gui.easy_menu import EasyMenu
 
 
+def get_settings(scene, factory):
+    def out_fn():
+        params = factory(core.get_id("world"))
+        random.seed(params.world_seed)
+        scene.cm.add(params)
+    return out_fn
+
+
 @dataclass
 class SetWorldParameters(BuildWorldListener):
     def on_build_world(self, scene):
-        logging.info(f"EID#{self.entity}::SetWorldBuilderParameters setting worldbuilder params")
+        self._log_info(f"setting worldbuilder params")
         scene.gui.add_element(
             EasyMenu(
                 "Which region?",
                 {
-                    "Plains (Easy)": self.get_settings(scene, get_plains_params),
-                    "Forest (Moderate)": self.get_settings(scene, get_forest_params),
-                    "Mountains (Hard)": self.get_settings(scene, get_mountain_params),
-                    "Swamp (Hard)": self.get_settings(scene, get_swamp_params),
-                    "Tundra (Brutal)": self.get_settings(scene, get_tundra_params)
+                    "Plains (Easy)": get_settings(scene, get_plains_params),
+                    "Forest (Moderate)": get_settings(scene, get_forest_params),
+                    "Mountains (Hard)": get_settings(scene, get_mountain_params),
+                    "Swamp (Hard)": get_settings(scene, get_swamp_params),
+                    "Tundra (Brutal)": get_settings(scene, get_tundra_params)
                 },
                 settings.INVENTORY_WIDTH,
             )
         )
-
-    def create_default_params(self, scene):
-        def out_fn():
-            logging.debug(f"EID#{self.entity}::SetWorldBuilderParameters creating default worldbuilder params")
-        return out_fn
-
-    def get_settings(self, scene, factory):
-        def out_fn():
-            params = factory(core.get_id("world"))
-            random.seed(params.world_seed)
-            scene.cm.add(params)
-        return out_fn

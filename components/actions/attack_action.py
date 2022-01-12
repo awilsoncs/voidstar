@@ -25,7 +25,7 @@ class AttackAction(EnergyActor):
 
         scene.warn(f"{this_entity.name} dealt {self.damage} dmg to {target_entity.name}!")
 
-        logging.info(f"EID#{self.entity}::AttackAction dealing {self.damage} dmg to {self.target}")
+        self._log_info(f"dealing {self.damage} dmg to {self.target}")
         owner = scene.cm.get_one(Owner, entity=self.target)
         if owner:
             structures = scene.cm.get(HouseStructure, query=lambda hs: hs.house_id == owner.owner)
@@ -59,5 +59,5 @@ class AttackAction(EnergyActor):
             target_attributes.hp -= damage
             target_attributes.hp = max(0, target_attributes.hp)
             if target_attributes.hp <= 0:
-                logging.debug(f"EID#{self.entity}::AttackAction applying Die effect")
+                self._log_info(f"applying Die effect")
                 scene.cm.add(Die(entity=target_attributes.entity, killer=self.entity))

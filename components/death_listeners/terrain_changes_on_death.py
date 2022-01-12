@@ -1,4 +1,3 @@
-import logging
 from dataclasses import dataclass
 
 from components.death_listeners.death_listener import DeathListener
@@ -10,5 +9,5 @@ class TerrainChangedOnDeath(DeathListener):
     """This entity is a part of the terrain and should notify anything that cares about terrain when it dies."""
 
     def on_die(self, scene):
-        logging.info(f"{self.entity}::TerrainChangedOnDeath triggered")
+        self._log_info("triggering, emitting TerrainChangedEvent")
         scene.cm.add(TerrainChangedEvent(entity=scene.player))

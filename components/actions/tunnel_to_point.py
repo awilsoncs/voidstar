@@ -15,7 +15,7 @@ class TunnelToPoint(EnergyActor):
     point: Tuple[int, int] = (0, 0)
 
     def act(self, scene):
-        logging.info(f"EID#{self.entity}::TunnelToPoint tunnelling to point {self.point}")
+        self._log_info(f"tunnelling to point {self.point}")
         coords = scene.cm.get_one(Coordinates, entity=self.entity)
         coords.x = self.point[0]
         coords.y = self.point[1]

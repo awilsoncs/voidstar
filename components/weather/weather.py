@@ -35,7 +35,7 @@ class Weather(NewDayListener, GameStartListener, SeasonResetListener):
         self.seasonal_norm = seasonal_temps[season]
         world_params = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
         self.seasonal_norm += world_params.temperature_modifier
-        logging.info(f"EID#{self.entity}::Weather set normal temp {self.seasonal_norm}")
+        self._log_info(f"set normal temp {self.seasonal_norm}")
         old_temp = self.temperature
         self.set_temperature()
 
@@ -46,4 +46,4 @@ class Weather(NewDayListener, GameStartListener, SeasonResetListener):
 
     def set_temperature(self):
         self.temperature = self.seasonal_norm + random.randint(-10, 10)
-        logging.info(f"EID#{self.entity}::Weather set daily temp {self.temperature}")
+        self._log_info(f"set daily temp {self.temperature}")

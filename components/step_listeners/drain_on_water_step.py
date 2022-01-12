@@ -10,7 +10,7 @@ class DrainOnStepOnWater(StepListener):
     """Whenever the owning entity takes a step into a gold containing square, pick it up."""
 
     def on_step(self, scene, point):
-        logging.debug(f"EID#{self.entity}::DrainOnStepOnWater checking for water at new location")
+        self._log_debug(f"checking for water at new location")
         for event in scene.cm.get(WaterTag):
             water_coords = scene.cm.get_one(Coordinates, entity=event.entity)
             if water_coords.is_at_point(point):

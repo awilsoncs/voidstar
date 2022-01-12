@@ -28,7 +28,7 @@ class GrowCrops(AttackStartListener):
         if crop_info:
             return
 
-        logging.info(f"EID#{self.entity}::GrowCrops: Growing crops..")
+        self._log_info(f"growing crops")
 
         farmed_by = scene.cm.get_one(FarmedBy, entity=self.entity)
         farmer = farmed_by.farmer

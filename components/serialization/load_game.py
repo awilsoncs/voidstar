@@ -18,11 +18,11 @@ class LoadGame(EnergyActor):
 
     def load_world(self, scene):
         start = core.time_ms()
-        logging.info(f"EID#{self.entity}::LoadGame attempting to read game")
+        self._log_info(f"attempting to read game")
         data = serialization.load(self.file_name)
         scene.cm.from_data(data)
         end = core.time_ms()
-        logging.info(f"EID#{self.entity}::LoadGame loaded {len(data)} objects in {end - start}ms")
+        self._log_info(f"loaded {len(data)} objects in {end - start}ms")
         scene.message("Game loaded.", color=palettes.LIGHT_WATER)
 
 

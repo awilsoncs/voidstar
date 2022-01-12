@@ -21,7 +21,7 @@ def add_tree(scene, x: int, y: int) -> None:
 @dataclass
 class PlaceTrees(BuildWorldListener):
     def on_build_world(self, scene):
-        logging.info(f"EID#{self.entity}::PlaceTrees placing trees in town")
+        self._log_info(f"placing trees in town")
         world_settings = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
 
         for _ in range(world_settings.copse):

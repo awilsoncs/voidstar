@@ -14,7 +14,7 @@ class SiegeAttack(Attack):
     damage: int = 1
 
     def apply_attack(self, scene, target):
-        logging.debug(f"EID#{self.entity}::SiegeAttack applying attack against {target}")
+        self._log_debug(f"applying attack against {target}")
         structure = scene.cm.get_one(Structure, entity=target)
         damage = self.damage * 5 if structure else self.damage
         scene.cm.add(AttackAction(entity=self.entity, target=target, damage=damage))

@@ -12,7 +12,7 @@ class ScheduleRebuild(DeathListener):
     root: int = constants.INVALID
 
     def on_die(self, scene):
-        logging.info(f"{self.entity} scheduled rebuild")
+        self._log_info("scheduled rebuild")
         house_structure = scene.cm.get_one(HouseStructure, entity=self.root)
         if house_structure:
             house_structure.is_destroyed = True

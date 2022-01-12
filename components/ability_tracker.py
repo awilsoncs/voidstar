@@ -11,7 +11,7 @@ class AbilityTracker(AttackStartListener):
     current_ability: int = 0
 
     def on_attack_start(self, scene):
-        self._log_debug(f"resetting ability to 0")
+        self._log_debug("resetting ability to 0")
         self.current_ability = 0
 
     def get_current_ability(self, scene):
@@ -25,11 +25,11 @@ class AbilityTracker(AttackStartListener):
         abilities = scene.cm.get_all(Ability, entity=self.entity)
         self.current_ability = (self.current_ability + 1) % len(abilities)
         ability = abilities[self.current_ability]
-        logging.debug(f"EID#{self.entity}::AbilityTracker increment {self.current_ability} - {ability.ability_title}")
+        self._log_debug(f"increment {self.current_ability} - {ability.ability_title}")
 
     def decrement(self, scene):
         abilities = scene.cm.get_all(Ability, entity=self.entity)
         self.current_ability = (self.current_ability - 1) % len(abilities)
         ability = abilities[self.current_ability]
-        logging.debug(f"EID#{self.entity}::AbilityTracker decrement {self.current_ability} - {ability.ability_title}")
+        self._log_debug(f"decrement {self.current_ability} - {ability.ability_title}")
 
