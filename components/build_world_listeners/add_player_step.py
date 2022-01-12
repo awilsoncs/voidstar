@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 import settings
-from components.build_world_listeners.build_world_listeners import BuildWorldListener
+from components.events.build_world_events import BuildWorldListener
 from content.player import make_player
 
 

@@ -1,10 +1,9 @@
-import logging
 import random
 from dataclasses import dataclass
 
 import settings
 from components import Coordinates
-from components.build_world_listeners.build_world_listeners import BuildWorldListener
+from components.events.build_world_events import BuildWorldListener
 from components.build_world_listeners.world_parameters import WorldParameters
 from content.terrain.water import make_water, make_swampy_water
 from engine import core

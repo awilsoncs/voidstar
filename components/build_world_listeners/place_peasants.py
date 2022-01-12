@@ -1,7 +1,6 @@
-import logging
 from dataclasses import dataclass
 
-from components.build_world_listeners.build_world_listeners import BuildWorldListener
+from components.events.build_world_events import BuildWorldListener
 from content.farmsteads.houses import place_farmstead
 
 

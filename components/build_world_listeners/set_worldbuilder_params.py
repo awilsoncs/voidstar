@@ -1,9 +1,8 @@
-import logging
 import random
 from dataclasses import dataclass
 
 import settings
-from components.build_world_listeners.build_world_listeners import BuildWorldListener
+from components.events.build_world_events import BuildWorldListener
 from components.build_world_listeners.world_parameters import get_plains_params, get_forest_params, \
     get_mountain_params, get_swamp_params, get_tundra_params
 from engine import core

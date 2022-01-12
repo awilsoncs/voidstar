@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import random
 
-from components.build_world_listeners.build_world_listeners import BuildWorldListener
+from components.events.build_world_events import BuildWorldListener
 from components.build_world_listeners.world_parameters import WorldParameters
 from engine import core
 from procgen import town_names

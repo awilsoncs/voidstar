@@ -1,8 +1,7 @@
-import logging
 import random
 
 import settings
-from components.build_world_listeners.build_world_listeners import BuildWorldListener
+from components.events.build_world_events import BuildWorldListener
 from components.build_world_listeners.world_parameters import WorldParameters
 from components.pathfinding.pathfinder import Pathfinder
 from components.pathfinding.simplex_cost_mapper import SimplexCostMapper

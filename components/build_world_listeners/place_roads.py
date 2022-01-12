@@ -1,10 +1,9 @@
-import logging
 import random
 from typing import List
 
 import settings
 from components import Coordinates
-from components.build_world_listeners.build_world_listeners import BuildWorldListener
+from components.events.build_world_events import BuildWorldListener
 from components.house_structure import HouseStructure
 from components.tags.town_center_flag import TownCenterFlag
 from content.terrain.roads import make_road, connect_point_to_road_network

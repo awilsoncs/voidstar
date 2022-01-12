@@ -1,8 +1,7 @@
-import logging
 from dataclasses import dataclass
 
 import settings
-from components.build_world_listeners.build_world_listeners import BuildWorldListener
+from components.events.build_world_events import BuildWorldListener
 from content.terrain.trees import make_wall_tree
 
 

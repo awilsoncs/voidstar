@@ -1,6 +1,6 @@
 from components import Entity
 from components.build_world_listeners.add_player_step import AddPlayerStep
-from components.build_world_listeners.build_world import BuildWorld
+from components.events.build_world_events import BuildWorld
 from components.build_world_listeners.delete_world_builder import DeleteWorldBuilder
 from components.build_world_listeners.place_flowers import PlaceFlowers
 from components.build_world_listeners.place_lakes import PlaceLakes
