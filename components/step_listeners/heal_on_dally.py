@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from components import Attributes
-from components.attack_start_listeners.attack_start_actor import AttackStartListener
+from components.events.attack_started_events import AttackStartListener
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.step_listeners.dally_listener import DallyListener
 from engine import palettes

@@ -3,8 +3,7 @@ from dataclasses import dataclass
 
 from components.abilities.ability import Ability
 from components.abilities.null_ability import NullAbility
-from components.attack_start_listeners.attack_start_actor import AttackStartListener
-from engine.component import Component
+from components.events.attack_started_events import AttackStartListener
 
 
 @dataclass
@@ -12,7 +11,7 @@ class AbilityTracker(AttackStartListener):
     current_ability: int = 0
 
     def on_attack_start(self, scene):
-        logging.debug(f"EID#{self.entity}::AbilityTracker resetting ability to 0")
+        self._log_debug(f"resetting ability to 0")
         self.current_ability = 0
 
     def get_current_ability(self, scene):

@@ -5,7 +5,7 @@ from typing import Tuple
 
 from components import Coordinates
 from components.actors.calendar_actor import Calendar
-from components.attack_start_listeners.attack_start_actor import AttackStartListener
+from components.events.attack_started_events import AttackStartListener
 from components.relationships.farmed_by import FarmedBy
 from components.tags.crop_info import CropInfo
 from content.farmsteads.crops import make_crops

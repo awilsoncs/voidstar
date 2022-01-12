@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
 from components import Coordinates
-from components.attack_start_listeners.attack_start_actor import AttackStartListener
 from components.actions.attack_action import AttackAction
 from components.attacks.attack import Attack
 from components.brains.brain import Brain
+from components.events.attack_started_events import AttackStartListener
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.hordeling_tag import HordelingTag
 from content.attacks import stab

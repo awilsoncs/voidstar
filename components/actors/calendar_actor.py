@@ -2,8 +2,7 @@ from dataclasses import dataclass
 
 from components.actors.energy_actor import EnergyActor
 from components.actors.hordeling_spawner import HordelingSpawner
-from components.actors.hordeling_spawner import HordelingSpawner
-from components.attack_start_listeners.start_attack import StartAttack
+from components.events.attack_started_events import AttackStarted
 from components.daily_events.new_day_event import NewDayBegan
 from components.season_reset_listeners.reset_season import ResetSeason
 from components.tags.hordeling_tag import HordelingTag
@@ -69,7 +68,7 @@ class Calendar(EnergyActor):
         spirits_wrath = scene.cm.get_one(WorldBeauty, entity=core.get_id("world")).spirits_wrath
 
         scene.cm.add(*hordeling_spawner(waves=self.round+spirits_wrath)[1])
-        scene.cm.add(StartAttack(entity=scene.player))
+        scene.cm.add(AttackStarted(entity=scene.player))
         self.is_recharging = False
         self.status = "Under attack!"
 

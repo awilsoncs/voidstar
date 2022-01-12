@@ -2,15 +2,13 @@ import logging
 import random
 from dataclasses import dataclass
 
-from components import Coordinates
-from components.actors.calendar_actor import Calendar
 from components.actors.energy_actor import EnergyActor
-from components.attack_start_listeners.attack_start_actor import AttackStartListener
+from components.events.attack_started_events import AttackStartListener
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.ice_tag import IceTag
 from components.tags.water_tag import WaterTag
 from components.weather.weather import Weather
-from content.terrain.water import make_water, freeze, thaw
+from content.terrain.water import freeze, thaw
 from engine import core
 
 

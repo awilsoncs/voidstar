@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from components import Coordinates
 from components.brains.peasant_actor import PeasantActor
-from components.attack_start_listeners.attack_start_actor import AttackStartListener
+from components.events.attack_started_events import AttackStartListener
 from components.house_structure import HouseStructure
 from components.relationships.residence import Residence
 from components.tags.peasant_tag import PeasantTag

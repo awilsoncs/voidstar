@@ -1,3 +1,4 @@
+import logging
 from dataclasses import dataclass, field
 
 from engine import constants
@@ -12,3 +13,7 @@ class Component(object):
     def on_component_delete(self, cm):
         """Called by the CM when the component is deleted."""
         pass
+
+    def _log_debug(self, message):
+        logging.debug(f"EID#{self.entity}::{self.__class__.__name__}#{self.id} - {message}")
+

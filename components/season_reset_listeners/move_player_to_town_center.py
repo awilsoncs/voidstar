@@ -1,7 +1,7 @@
 import logging
 
 from components import Coordinates
-from components.attack_start_listeners.attack_start_actor import AttackStartListener
+from components.events.attack_started_events import AttackStartListener
 from components.game_start_listeners.game_start_listener import GameStartListener
 from components.tags.town_center_flag import TownCenterFlag
 

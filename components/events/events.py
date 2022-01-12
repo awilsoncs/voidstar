@@ -15,6 +15,7 @@ class Event(EnergyActor):
         self._before_notify(scene)
         listeners = scene.cm.get(self.listener_type())
         for listener in listeners:
+            self._log_debug(f"notifying listener {listener.id}")
             self.notify(scene, listener)
         self._after_notify(scene)
         scene.cm.delete_component(self)
