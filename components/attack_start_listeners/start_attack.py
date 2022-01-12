@@ -1,20 +1,14 @@
-import logging
 from dataclasses import dataclass
 
-from components.actors.energy_actor import EnergyActor
 from components.attack_start_listeners.attack_start_actor import AttackStartListener
-from engine.core import log_debug
+from components.events.events import Event
 
 
 @dataclass
-class StartAttack(EnergyActor):
-    energy_cost: int = EnergyActor.INSTANT
+class StartAttack(Event):
 
-    @log_debug(__name__)
-    def act(self, scene):
-        logging.info("Starting attack...")
-        actors = scene.cm.get(AttackStartListener)
-        for actor in actors:
-            actor.on_attack_start(scene)
+    def listener_type(self):
+        return AttackStartListener
 
-        scene.cm.delete_component(self)
+    def notify(self, scene, listener):
+        listener.on_attack_start(scene)

@@ -1,22 +1,20 @@
-import logging
 from dataclasses import dataclass
-from typing import List, Optional, Tuple
 
-from components.actors.energy_actor import EnergyActor
 from components.death_listeners.death_listener import DeathListener
+from components.events.events import Event
 from engine import constants
-from engine.core import log_debug
 
 
 @dataclass
-class Die(EnergyActor):
-    energy_cost: int = EnergyActor.INSTANT
+class Die(Event):
     killer: int = constants.INVALID
 
-    @log_debug(__name__)
-    def act(self, scene):
-        logging.info(f"EID#{self.entity}::Die entity killed by {self.killer}")
-        death_listeners: List[DeathListener] = scene.cm.get_all(DeathListener, entity=self.entity)
-        for death_listener in death_listeners:
-            death_listener.on_die(scene)
+    def listener_type(self):
+        return DeathListener
+
+    def notify(self, scene, listener):
+        if listener.entity == self.entity:
+            listener.on_die(scene)
+
+    def _after_notify(self, scene):
         scene.cm.delete(self.entity)
