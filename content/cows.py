@@ -26,7 +26,7 @@ def make_cow(x, y) -> Entity:
         TaxValue(entity=entity_id, value=TaxValue.COW),
         TargetValue(entity=entity_id, value=target_value.COW),
         Faction(entity=entity_id, faction=Faction.Options.PEASANT),
-        Edible(entity=entity_id, sleep_for=7),
+        Edible(entity=entity_id, sleep_for=15),
         Attributes(entity=entity_id, hp=5, max_hp=5),
     ]
     return entity_id, components

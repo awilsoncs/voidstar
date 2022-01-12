@@ -40,7 +40,7 @@ def make_peasant(house_id, x, y) -> Entity:
         CryForHelp(entity=entity_id),
         Residence(entity=entity_id, house_id=house_id),
         Move(entity=entity_id),
-        Edible(entity=entity_id, sleep_for=10),
+        Edible(entity=entity_id, sleep_for=20),
         PeasantActor(entity=entity_id)
     ]
     return entity_id, components
