@@ -6,18 +6,18 @@ from components import Coordinates
 from components.attack_start_listeners.attack_start_actor import AttackStartListener
 from components.game_start_listeners.game_start_listener import GameStartListener
 from components.material import Material
-from components.move_listeners.move_listener import MoveListener
+from components.step_listeners.on_step_listener import StepListener
 from components.terrain_changed_listeners.terrain_changed_listener import TerrainChangedListener
 
 
-class UpdateSenses(MoveListener, GameStartListener, TerrainChangedListener, AttackStartListener):
+class UpdateSenses(StepListener, GameStartListener, TerrainChangedListener, AttackStartListener):
     def on_attack_start(self, scene):
         self.refresh_fov(scene)
 
     def on_game_start(self, scene):
         self.refresh_fov(scene)
 
-    def on_move(self, scene):
+    def on_step(self, scene, point):
         self.refresh_fov(scene)
 
     def on_terrain_changed(self, scene):

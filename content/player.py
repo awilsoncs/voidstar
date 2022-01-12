@@ -16,7 +16,7 @@ from components.abilities.thwack_ability import ThwackAbility
 from components.ability_tracker import AbilityTracker
 from components.attacks.standard_attack import StandardAttack
 from components.death_listeners.player_corpse import PlayerCorpse
-from components.move_listeners.update_senses_on_move import UpdateSenses
+from components.step_listeners.update_senses_on_move import UpdateSenses
 from components.options import Options
 from components.brains.player_actor import PlayerBrain
 from components.faction import Faction
@@ -28,7 +28,6 @@ from components.step_listeners.drain_on_water_step import DrainOnStepOnWater
 from components.step_listeners.heal_on_dally import HealOnDally
 from components.step_listeners.pickup_gold import PickupGoldOnStep
 from components.target_value import PLAYER, TargetValue
-from components.world_beauty import WorldBeauty
 from engine import PLAYER_ID, palettes
 
 

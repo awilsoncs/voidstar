@@ -11,7 +11,6 @@ from components.enums import Intention
 from components.faction import Faction
 from components.material import Material
 from components.move import Move
-from components.move_listeners.move_listener import MoveListener
 from components.states.move_cost_affectors import Hindered, DifficultTerrain, EasyTerrain, Haste
 from components.step_listeners.dally_event import DallyEvent
 from components.step_listeners.step_event import StepEvent
@@ -157,10 +156,6 @@ def move(scene, entity: int, vector: Tuple[int, int]):
     coords = scene.cm.get_one(Coordinates, entity=entity)
     if coords:
         move_coords(coords, vector)
-        move_listeners = scene.cm.get(MoveListener)
-        for move_listener in move_listeners:
-            move_listener.on_move(scene)
-
         _apply_post_move_factors(coords, entity, scene)
     scene.cm.add(StepEvent(entity=entity, new_location=(coords.x, coords.y)))
 
