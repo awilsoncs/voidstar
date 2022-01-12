@@ -3,16 +3,16 @@ from dataclasses import dataclass
 import tcod
 
 import settings
-from components import Coordinates, Entity
+from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.brains.temporary_brain import TemporaryBrain
 from components.enums import Intention
-from content.enemies.juvenile import make_juvenile
+from content.getables.gold import make_gold_nugget
 from engine import constants, core
 
 
 @dataclass
-class PlaceHordelingController(TemporaryBrain):
+class PlaceGoldController(TemporaryBrain):
     energy_cost: int = EnergyActor.INSTANT
     cursor: int = constants.INVALID
 
@@ -29,14 +29,14 @@ class PlaceHordelingController(TemporaryBrain):
             }:
                 self._move_cursor(scene, intention)
             if intention is Intention.USE_ABILITY:
-                self._place_hordeling(scene)
+                self._place_gold(scene)
             elif intention is Intention.BACK:
                 scene.cm.delete(self.cursor)
                 self.back_out(scene)
 
-    def _place_hordeling(self, scene):
+    def _place_gold(self, scene):
         coords = scene.cm.get_one(Coordinates, entity=self.cursor)
-        scene.cm.add(*make_juvenile(coords.x, coords.y)[1])
+        scene.cm.add(*make_gold_nugget(coords.x, coords.y)[1])
 
     def _move_cursor(self, scene, intention):
         cursor_coords = scene.cm.get_one(Coordinates, entity=self.cursor)

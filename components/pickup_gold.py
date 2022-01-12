@@ -4,5 +4,5 @@ from engine.component import Component
 
 
 @dataclass
-class PickupGold(Component):
+class GoldPickup(Component):
     amount: int = 10

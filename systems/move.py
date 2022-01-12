@@ -13,6 +13,7 @@ from components.material import Material
 from components.move import Move
 from components.move_listeners.move_listener import MoveListener
 from components.states.move_cost_affectors import Hindered, DifficultTerrain, EasyTerrain, Haste
+from components.step_listeners.step_event import StepEvent
 from engine import palettes
 from systems.utilities import get_blocking_object
 
@@ -154,6 +155,7 @@ def move(scene, entity: int, vector: Tuple[int, int]):
             move_listener.on_move(scene)
 
         _apply_post_move_factors(coords, entity, scene)
+    scene.cm.add(StepEvent(entity=entity, new_location=(coords.x, coords.y)))
 
 
 def _apply_post_move_factors(coords, entity, scene):

@@ -1,11 +1,11 @@
 from components import Coordinates
-from components.pickup_gold import PickupGold
+from components.pickup_gold import GoldPickup
 from engine import PLAYER_ID
 from engine.core import log_debug
 
 
 def run(scene):
-    for event in scene.cm.get(PickupGold):
+    for event in scene.cm.get(GoldPickup):
         pickup_gold(scene, event)
 
 

@@ -7,7 +7,8 @@ from components import Entity, Coordinates, Attributes, Senses
 from components.abilities.build_wall_ability import BuildWallAbility
 from components.actors.energy_actor import EnergyActor
 from components.brains.brain import Brain
-from components.brains.create_hordeling_actor import PlaceHordelingController
+from components.brains.painters.create_gold_actor import PlaceGoldController
+from components.brains.painters.create_hordeling_actor import PlaceHordelingController
 from components.brains.default_active_actor import DefaultActiveActor
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.serialization.load_game import LoadGame
@@ -30,7 +31,8 @@ class ShowDebug(EnergyActor):
                     "examine game objects": get_examine_game_objects(scene),
                     "heal": get_heal(scene),
                     "get rich": get_rich(scene),
-                    "place hordeling": place_hordeling(scene),
+                    "place hordeling": get_painter(scene, PlaceHordelingController),
+                    "place gold": get_painter(scene, PlaceGoldController),
                     "wrath": get_wrath(scene, self.entity),
                     "suicide": get_suicide(scene),
                     "teleport to": get_teleport_to(scene),
@@ -89,13 +91,29 @@ def get_heal(scene):
     return out_fn
 
 
-def place_hordeling(scene):
+def get_painter(scene, painter):
     def out_fn():
         coords = scene.cm.get_one(Coordinates, entity=scene.player)
         cursor = make_cursor(coords.x, coords.y)
         scene.cm.add(*cursor[1])
         player_controller = scene.cm.get_one(Brain, entity=scene.player)
-        new_controller = PlaceHordelingController(
+        new_controller = painter(
+            entity=scene.player,
+            old_actor=player_controller.id,
+            cursor=cursor[0]
+        )
+        scene.cm.stash_component(player_controller.id)
+        scene.cm.add(new_controller)
+    return out_fn
+
+
+def place_gold(scene):
+    def out_fn():
+        coords = scene.cm.get_one(Coordinates, entity=scene.player)
+        cursor = make_cursor(coords.x, coords.y)
+        scene.cm.add(*cursor[1])
+        player_controller = scene.cm.get_one(Brain, entity=scene.player)
+        new_controller = PlaceGoldController(
             entity=scene.player,
             old_actor=player_controller.id,
             cursor=cursor[0]

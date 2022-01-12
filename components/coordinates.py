@@ -44,4 +44,8 @@ class Coordinates(Component):
     def distance_from_point(self, x: int, y: int) -> float:
         return math.sqrt((self.x - x) ** 2 + (self.y - y) ** 2)
 
+    def is_at(self, other: "Coordinates") -> bool:
+        return self.x == other.x and self.y == other.y
 
+    def is_at_point(self, point: Tuple[int, int]) -> bool:
+        return self.x == point[0] and self.y == point[1]
