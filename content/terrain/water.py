@@ -26,7 +26,7 @@ def make_water(x, y, rapidness=5000):
             DifficultTerrain(entity=entity_id),
             Diggable(entity=entity_id),
             Flooder(entity=entity_id),
-            PathfinderCost(entity=entity_id, cost=0),
+            PathfinderCost(entity=entity_id, cost=10),
             RandomizedBlinker(
                 entity=entity_id,
                 new_symbol='~',
@@ -53,7 +53,7 @@ def make_swampy_water(x, y, rapidness):
             DifficultTerrain(entity=entity_id),
             Diggable(entity=entity_id),
             Flooder(entity=entity_id),
-            PathfinderCost(entity=entity_id, cost=0),
+            PathfinderCost(entity=entity_id, cost=10),
             RandomizedBlinker(
                 entity=entity_id,
                 new_symbol='~',

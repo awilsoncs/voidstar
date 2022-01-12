@@ -1,6 +1,6 @@
 import logging
 from dataclasses import dataclass
-from typing import List
+from typing import List, Tuple, Optional
 
 from components import Coordinates, Attributes, Entity
 from components.actors.energy_actor import EnergyActor

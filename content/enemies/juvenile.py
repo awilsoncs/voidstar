@@ -10,6 +10,7 @@ from components.material import Material
 from components.move import Move
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
 from components.pathfinding.target_evaluation.hordeling_target_evaluator import HordelingTargetEvaluator
+from components.step_listeners.drain_on_water_step import DrainOnStepOnWater
 from components.stomach import Stomach
 from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
@@ -35,7 +36,8 @@ def make_juvenile(x, y):
         Move(entity=entity_id),
         PathfinderCost(entity=entity_id, cost=5),
         Stomach(entity=entity_id),
-        HordelingTargetEvaluator(entity=entity_id)
+        HordelingTargetEvaluator(entity=entity_id),
+        DrainOnStepOnWater(entity=entity_id)
     ]
 
     if random.randint(1, 10) == 10:

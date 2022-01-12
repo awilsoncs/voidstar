@@ -13,6 +13,7 @@ from components.material import Material
 from components.move import Move
 from components.move_listeners.move_listener import MoveListener
 from components.states.move_cost_affectors import Hindered, DifficultTerrain, EasyTerrain, Haste
+from components.step_listeners.dally_event import DallyEvent
 from components.step_listeners.step_event import StepEvent
 from engine import palettes
 from systems.utilities import get_blocking_object
@@ -44,6 +45,12 @@ def run(scene):
         # otherwise, move them
         if actor.intention not in STEP_VECTORS:
             print(actor)
+        if actor.intention == Intention.DALLY:
+            scene.cm.add(DallyEvent(entity=entity))
+            actor.intention = Intention.NONE
+            actor.pass_turn()
+            return
+
         step_direction = STEP_VECTORS[actor.intention]
         if can_step(scene, entity, step_direction):
             # do move
