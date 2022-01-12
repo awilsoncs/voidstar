@@ -24,6 +24,7 @@ from components.material import Material
 from components.move import Move
 from components.season_reset_listeners.move_player_to_town_center import MovePlayerToTownCenter
 from components.season_reset_listeners.save_on_season import SaveOnSeasonReset
+from components.step_listeners.drain_on_water_step import DrainOnStepOnWater
 from components.step_listeners.pickup_gold import PickupGoldOnStep
 from components.target_value import PLAYER, TargetValue
 from components.world_beauty import WorldBeauty
@@ -68,6 +69,7 @@ def make_player(x, y):
             PlaceHaunchAbility(entity=entity_id),
             SaveOnSeasonReset(entity=entity_id),
             WorldBeauty(entity=entity_id),
-            PickupGoldOnStep(entity=entity_id)
+            PickupGoldOnStep(entity=entity_id),
+            DrainOnStepOnWater(entity=entity_id)
         ]
     )
