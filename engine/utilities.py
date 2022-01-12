@@ -46,9 +46,9 @@ def get_box(start_loc, end_loc):
         tiles.add((x, start_y))
         tiles.add((x, end_y))
 
-    # for y in range(start_y, end_y+1):
-    #     tiles.add((start_x, y))
-    #     tiles.add((end_x, y))
+    for y in range(start_y+1, end_y):
+        tiles.add((start_x, y))
+        tiles.add((end_x, y))
 
     return tiles
 
