@@ -2,13 +2,11 @@ from dataclasses import dataclass
 from random import choice
 
 from components import Coordinates
-from components.actors.calendar_actor import Calendar
 from components.brains.peasant_actor import PeasantActor
-from components.game_start_listeners.game_start_listener import GameStartListener
+from components.events.start_game_events import GameStartListener
 from components.relationships.farmed_by import FarmedBy
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.peasant_tag import PeasantTag
-from engine import core
 
 moves = [
     (-2, -2), (0, -2), (2, -2),

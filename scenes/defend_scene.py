@@ -5,7 +5,7 @@ import numpy as np
 import settings
 from components import clear_components
 from components.events.chargeabilityevent import ChargeAbilityEvent
-from components.game_start_listeners.start_game import StartGame
+from components.events.start_game_events import StartGame
 from components.serialization.load_game import LoadGame
 from components.sound_events.battle_music import BattleMusic
 from components.sound_events.start_music import StartMusic
@@ -25,7 +25,6 @@ from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
 from systems import act, \
-    pickup_gold, \
     move, control_turns, quit, peasant_dead_check
 
 

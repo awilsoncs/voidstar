@@ -1,6 +1,6 @@
 from components import Entity, Appearance, Coordinates
 from components.animation_effects.path import AnimationPath
-from components.delete_listeners.deleter import Deleter
+from components.events.delete_event import Delete
 from components.relationships.owner import Owner
 from components.path_node import create_path
 from engine import core, palettes
@@ -54,6 +54,6 @@ def stab(owner, x, y):
             Appearance(entity=entity_id, symbol='/', color=palettes.STONE, bg_color=palettes.BACKGROUND),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_HIGH),
             Owner(entity=entity_id, owner=owner),
-            Deleter(entity=entity_id, next_update=core.time_ms() + 125)
+            Delete(entity=entity_id, next_update=core.time_ms() + 125)
         ]
     )

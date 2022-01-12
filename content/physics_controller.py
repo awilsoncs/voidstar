@@ -1,4 +1,4 @@
-from components.hole_dug_listeners.flood_nearby_holes import FloodHolesSystem
+from components.flood_nearby_holes import FloodHolesSystem
 from engine import core
 
 

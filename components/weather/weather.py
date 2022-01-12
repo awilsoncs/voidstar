@@ -4,7 +4,7 @@ import random
 from components.actors.energy_actor import EnergyActor
 from components.build_world_listeners.world_parameters import WorldParameters
 from components.events.new_day_event import DayBeganListener
-from components.game_start_listeners.game_start_listener import GameStartListener
+from components.events.start_game_events import GameStartListener
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from engine import core
 

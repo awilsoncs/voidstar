@@ -1,11 +1,12 @@
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from components.delete_listeners.delete_listener import DeleteListener
 from components.events.events import Event
+from engine.component import Component
 
 
 @dataclass
-class Deleter(Event):
+class Delete(Event):
     """Add this to an entity to have it delete itself after some time."""
     next_update: int = 0
 
@@ -18,3 +19,12 @@ class Deleter(Event):
 
     def _after_notify(self, scene):
         scene.cm.delete(self.entity)
+
+
+@dataclass
+class DeleteListener(Component, ABC):
+    """A world building step."""
+
+    @abstractmethod
+    def on_delete(self, scene):
+        raise NotImplementedError()

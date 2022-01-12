@@ -1,7 +1,8 @@
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 from components.events.events import Event
-from components.game_start_listeners.game_start_listener import GameStartListener
+from engine.component import Component
 
 
 @dataclass
@@ -11,3 +12,9 @@ class StartGame(Event):
 
     def notify(self, scene, listener):
         listener.on_game_start(scene)
+
+
+class GameStartListener(Component, ABC):
+    @abstractmethod
+    def on_game_start(self, scene):
+        raise NotImplementedError()

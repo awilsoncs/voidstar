@@ -4,7 +4,7 @@ from components import Coordinates
 from components.actors.energy_actor import EnergyActor
 from components.floodable import Floodable
 from components.flooder import Flooder
-from components.hole_dug_listeners.hole_dug_listener import HoleDugListener
+from components.events.hole_dug_events import HoleDugListener
 from content.terrain.water import make_water
 
 
@@ -25,7 +25,7 @@ def is_adjacent(scene, first: int, second: int):
 class FloodHolesSystem(EnergyActor, HoleDugListener):
     is_recharging: bool = False
 
-    def on_hole_dug(self, scene, new_hole):
+    def on_hole_dug(self, scene):
         self.is_recharging = True
 
     def act(self, scene) -> None:

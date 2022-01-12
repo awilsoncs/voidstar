@@ -1,8 +1,7 @@
-import logging
 from dataclasses import dataclass
 
 from components.actors.actor import Actor
-from components.delete_listeners.delete_listener import DeleteListener
+from components.events.delete_event import DeleteListener
 from components.relationships.owner import Owner
 
 

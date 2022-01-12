@@ -1,7 +1,7 @@
 from components import Entity, Appearance, Coordinates
 from components.diggable import Diggable
 from components.floodable import Floodable
-from components.hole_dug_listeners.hole_dug_event import HoleDugEvent
+from components.events.hole_dug_events import HoleDugEvent
 from components.material import Material
 from components.states.move_cost_affectors import DifficultTerrain
 from components.pathfinder_cost import PathfinderCost
