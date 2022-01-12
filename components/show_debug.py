@@ -6,11 +6,14 @@ import settings
 from components import Entity, Coordinates, Attributes, Senses
 from components.abilities.build_wall_ability import BuildWallAbility
 from components.actors.energy_actor import EnergyActor
+from components.brains.brain import Brain
+from components.brains.create_hordeling_actor import PlaceHordelingController
 from components.brains.default_active_actor import DefaultActiveActor
 from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.serialization.load_game import LoadGame
 from components.serialization.save_game import SaveGame
 from components.wrath_effect import WrathEffect
+from content.cursor import make_cursor
 from content.farmsteads.houses import place_farmstead
 from content.terrain.roads import connect_point_to_road_network
 from gui.easy_menu import EasyMenu
@@ -27,6 +30,7 @@ class ShowDebug(EnergyActor):
                     "examine game objects": get_examine_game_objects(scene),
                     "heal": get_heal(scene),
                     "get rich": get_rich(scene),
+                    "place hordeling": place_hordeling(scene),
                     "wrath": get_wrath(scene, self.entity),
                     "suicide": get_suicide(scene),
                     "teleport to": get_teleport_to(scene),
@@ -82,6 +86,22 @@ def get_heal(scene):
         if health:
             health.hp = health.max_hp
 
+    return out_fn
+
+
+def place_hordeling(scene):
+    def out_fn():
+        coords = scene.cm.get_one(Coordinates, entity=scene.player)
+        cursor = make_cursor(coords.x, coords.y)
+        scene.cm.add(*cursor[1])
+        player_controller = scene.cm.get_one(Brain, entity=scene.player)
+        new_controller = PlaceHordelingController(
+            entity=scene.player,
+            old_actor=player_controller.id,
+            cursor=cursor[0]
+        )
+        scene.cm.stash_component(player_controller.id)
+        scene.cm.add(new_controller)
     return out_fn
 
 
