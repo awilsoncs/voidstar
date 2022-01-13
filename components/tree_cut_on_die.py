@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from components.events.die_events import DeathListener
-from components.tree_cut_listeners.tree_cut_event import TreeCutEvent
+from components.events.tree_cut_event import TreeCutEvent
 
 
 @dataclass

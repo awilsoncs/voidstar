@@ -1,7 +1,8 @@
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
+from engine.components.component import Component
 from engine.components.events import Event
-from components.terrain_changed_listeners.terrain_changed_listener import TerrainChangedListener
 
 
 @dataclass
@@ -12,3 +13,10 @@ class TerrainChangedEvent(Event):
 
     def notify(self, scene, listener):
         listener.on_terrain_changed(scene)
+
+
+class TerrainChangedListener(Component, ABC):
+
+    @abstractmethod
+    def on_terrain_changed(self, scene):
+        raise NotImplementedError()

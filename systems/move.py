@@ -12,8 +12,8 @@ from components.faction import Faction
 from components.material import Material
 from components.move import Move
 from components.states.move_cost_affectors import Hindered, DifficultTerrain, EasyTerrain, Haste
-from components.step_listeners.dally_event import DallyEvent
-from components.step_listeners.step_event import StepEvent
+from components.events.dally_event import DallyEvent
+from components.events.step_event import StepEvent
 from engine import palettes
 from systems.utilities import get_blocking_object
 

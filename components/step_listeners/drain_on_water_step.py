@@ -1,8 +1,6 @@
-import logging
-
 from components import Coordinates
 from components.actions.attack_action import AttackAction
-from components.step_listeners.on_step_listener import StepListener
+from components.events.step_event import StepListener
 from components.tags.water_tag import WaterTag
 
 

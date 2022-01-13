@@ -2,8 +2,7 @@ from dataclasses import dataclass
 
 from engine.components.energy_actor import EnergyActor
 from components.world_building.world_parameters import WorldParameters
-from engine import palettes, core
-from engine.serialization import serialization
+from engine import palettes, core, serialization
 
 
 @dataclass

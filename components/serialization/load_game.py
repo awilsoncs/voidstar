@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 
 from engine.components.energy_actor import EnergyActor
-from engine import palettes, core
-from engine.serialization import serialization
+from engine import palettes, core, serialization
 
 
 @dataclass

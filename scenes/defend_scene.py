@@ -7,8 +7,8 @@ from components import clear_components
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.events.start_game_events import StartGame
 from components.serialization.load_game import LoadGame
-from components.sound_events.battle_music import BattleMusic
-from components.sound_events.start_music import StartMusic
+from components.sound.battle_music import BattleMusic
+from components.sound.start_music import StartMusic
 from components.world_beauty import WorldBeauty
 from content.physics_controller import make_physics_controller
 from content.utilities import make_calendar

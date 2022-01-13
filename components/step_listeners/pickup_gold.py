@@ -1,8 +1,6 @@
-import logging
-
 from components import Coordinates
 from components.pickup_gold import GoldPickup
-from components.step_listeners.on_step_listener import StepListener
+from components.events.step_event import StepListener
 from engine import palettes
 
 

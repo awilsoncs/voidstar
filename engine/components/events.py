@@ -1,6 +1,7 @@
 from abc import abstractmethod
 from dataclasses import dataclass
 
+from engine import GameScene
 from engine.components.energy_actor import EnergyActor
 from engine.core import log_debug
 
@@ -11,7 +12,7 @@ class Event(EnergyActor):
     energy_cost: int = EnergyActor.INSTANT
 
     @log_debug(__name__)
-    def act(self, scene):
+    def act(self, scene: GameScene) -> None:
         self._before_notify(scene)
         listeners = scene.cm.get(self.listener_type())
         for listener in listeners:
@@ -25,14 +26,14 @@ class Event(EnergyActor):
         raise NotImplementedError("Must subclass Event")
 
     @abstractmethod
-    def notify(self, scene, listener):
+    def notify(self, scene: GameScene, listener) -> None:
         """Notify a listener of the event."""
         raise NotImplementedError("Must subclass Event")
 
-    def _before_notify(self, scene):
+    def _before_notify(self, scene: GameScene) -> None:
         """Define actions to take before listeners have been notified."""
         pass
 
-    def _after_notify(self, scene):
+    def _after_notify(self, scene: GameScene) -> None:
         """Define actions to take after listeners have been notified but before deleting the event."""
         pass

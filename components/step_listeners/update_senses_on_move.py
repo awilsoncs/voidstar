@@ -6,8 +6,8 @@ from components import Coordinates
 from components.events.attack_started_events import AttackStartListener
 from components.events.start_game_events import GameStartListener
 from components.material import Material
-from components.step_listeners.on_step_listener import StepListener
-from components.terrain_changed_listeners.terrain_changed_listener import TerrainChangedListener
+from components.events.step_event import StepListener
+from components.events.terrain_changed_event import TerrainChangedListener
 
 
 class UpdateSenses(StepListener, GameStartListener, TerrainChangedListener, AttackStartListener):
