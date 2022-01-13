@@ -4,8 +4,8 @@ from typing import List
 import tcod
 
 from components import Coordinates
+from components.brains.brain import Brain
 from engine.components.energy_actor import EnergyActor
-from components.brains.temporary_brain import TemporaryBrain
 from components.events.die_events import Die
 from components.enums import Intention
 from components.sellable import Sellable
@@ -16,7 +16,7 @@ from engine.types import EntityId
 
 
 @dataclass
-class SellThingActor(TemporaryBrain):
+class SellThingActor(Brain):
     energy_cost: int = EnergyActor.INSTANT
 
     def act(self, scene) -> None:

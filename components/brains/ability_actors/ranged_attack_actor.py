@@ -3,9 +3,9 @@ from dataclasses import dataclass
 import tcod
 
 from components.actions.attack_action import AttackAction
+from components.brains.brain import Brain
 from engine.components.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
-from components.brains.temporary_brain import TemporaryBrain
 from components.enums import Intention
 from components.tags.hordeling_tag import HordelingTag
 from engine import core, constants
@@ -13,7 +13,7 @@ from engine.utilities import is_visible
 
 
 @dataclass
-class RangedAttackActor(TemporaryBrain):
+class RangedAttackActor(Brain):
     energy_cost: int = EnergyActor.INSTANT
     target: int = 0
     shoot_ability: int = constants.INVALID
@@ -48,7 +48,7 @@ class RangedAttackActor(TemporaryBrain):
         self.back_out(scene)
 
     def back_out(self, scene):
-        old_actor = scene.cm.unstash_component(self.old_actor)
+        old_actor = scene.cm.unstash_component(self.old_brain)
         blinker = scene.cm.get_one(AnimationBlinker, entity=self.target)
         blinker.stop(scene)
         scene.cm.delete_component(blinker)

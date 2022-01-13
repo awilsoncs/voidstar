@@ -1,9 +1,8 @@
 from dataclasses import dataclass
 
 from components import Attributes
-from components.abilities.shoot_ability import ShootAbility
 from components.abilities.thwack_ability import ThwackAbility
-from components.states.dizzy_state import DizzyState
+from components.brains.dizzy_brain import DizzyBrain
 from components.tags.hordeling_tag import HordelingTag
 from components.tags.peasant_tag import PeasantTag
 from engine import palettes, PLAYER_ID
@@ -91,7 +90,7 @@ class Thwackometer(Bar):
 
     def update(self, scene):
         thwack_ability = scene.cm.get_one(ThwackAbility, entity=PLAYER_ID)
-        dizzy = scene.cm.get_one(DizzyState, entity=PLAYER_ID)
+        dizzy = scene.cm.get_one(DizzyBrain, entity=PLAYER_ID)
 
         if not dizzy:
             self.symbol = '/'
@@ -106,5 +105,5 @@ class Thwackometer(Bar):
             self.fg_color = self.dizzy_fg
             self.mg_color = self.dizzy_mg
 
-            self.value = dizzy.duration
+            self.value = dizzy.turns
             self.max_value = 3

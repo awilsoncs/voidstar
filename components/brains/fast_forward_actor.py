@@ -3,13 +3,13 @@ from dataclasses import dataclass
 
 import tcod
 
-from components.brains.temporary_brain import TemporaryBrain
+from components.brains.brain import Brain
 from components.enums import Intention
 from engine import core
 
 
 @dataclass
-class FastForwardBrain(TemporaryBrain):
+class FastForwardBrain(Brain):
     def act(self, scene):
         self.handle_key_event(scene, KEY_ACTION_MAP)
 

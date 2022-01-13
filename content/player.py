@@ -16,17 +16,17 @@ from components.abilities.thwack_ability import ThwackAbility
 from components.ability_tracker import AbilityTracker
 from components.attacks.standard_attack import StandardAttack
 from components.death_listeners.player_corpse import PlayerCorpse
-from components.step_listeners.update_senses_on_move import UpdateSenses
+from components.movement.update_senses_on_move import UpdateSenses
 from components.options import Options
-from components.brains.player_actor import PlayerBrain
+from components.brains.player_brain import PlayerBrain
 from components.faction import Faction
 from components.material import Material
-from components.move import Move
+from components.movement.move import Move
 from components.season_reset_listeners.move_player_to_town_center import MovePlayerToTownCenter
 from components.season_reset_listeners.save_on_season import SaveOnSeasonReset
-from components.step_listeners.drain_on_water_step import DrainOnStepOnWater
-from components.step_listeners.heal_on_dally import HealOnDally
-from components.step_listeners.pickup_gold import PickupGoldOnStep
+from components.movement.drain_on_water_step import DrainOnStepOnWater
+from components.movement.heal_on_dally import HealOnDally
+from components.movement.pickup_gold import PickupGoldOnStep
 from components.target_value import PLAYER, TargetValue
 from engine import PLAYER_ID, palettes
 from engine.components.entity import Entity

@@ -7,7 +7,7 @@ from components.cry_for_help import CryForHelp
 from components.edible import Edible
 from components.faction import Faction
 from components.material import Material
-from components.move import Move
+from components.movement.move import Move
 from components.relationships.residence import Residence
 from components.tags.peasant_tag import PeasantTag
 from components.target_value import PEASANT, TargetValue

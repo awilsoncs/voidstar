@@ -4,15 +4,15 @@ import tcod
 
 import settings
 from components import Coordinates
+from components.brains.brain import Brain
 from engine.components.energy_actor import EnergyActor
-from components.brains.temporary_brain import TemporaryBrain
 from components.enums import Intention
 from engine import constants, core
 from engine.components.entity import Entity
 
 
 @dataclass
-class LookCursorController(TemporaryBrain):
+class LookCursorController(Brain):
     energy_cost: int = EnergyActor.INSTANT
     cursor: int = constants.INVALID
 

@@ -10,7 +10,7 @@ from components.coordinates import Coordinates
 from components.enums import Intention
 from components.faction import Faction
 from components.material import Material
-from components.move import Move
+from components.movement.move import Move
 from components.states.move_cost_affectors import Hindered, DifficultTerrain, EasyTerrain, Haste
 from components.events.dally_event import DallyEvent
 from components.events.step_event import StepEvent

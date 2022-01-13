@@ -5,8 +5,8 @@ import tcod
 
 import settings
 from components import Coordinates
+from components.brains.brain import Brain
 from engine.components.energy_actor import EnergyActor
-from components.brains.temporary_brain import TemporaryBrain
 from components.events.die_events import Die
 from components.enums import Intention
 from components.diggable import Diggable
@@ -17,7 +17,7 @@ from engine.components.entity import Entity
 
 
 @dataclass
-class DigHoleActor(TemporaryBrain):
+class DigHoleActor(Brain):
     energy_cost: int = EnergyActor.INSTANT
 
     def act(self, scene) -> None:

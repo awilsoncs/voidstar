@@ -1,16 +1,16 @@
 from dataclasses import dataclass
 
 from components import Coordinates
+from components.brains.brain import Brain
 from engine.components.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
-from components.brains.temporary_brain import TemporaryBrain
 from components.stomach import Stomach
 from content.states import sleep_animation
 from engine.core import log_debug
 
 
 @dataclass
-class SleepingBrain(TemporaryBrain):
+class SleepingBrain(Brain):
     turns: int = 3
     energy_cost: int = EnergyActor.HOURLY
 

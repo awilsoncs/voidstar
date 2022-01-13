@@ -3,7 +3,7 @@ from typing import Tuple
 import numpy as np
 
 import settings
-from components import clear_components
+from engine.components import clear_components
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.events.start_game_events import StartGame
 from components.serialization.load_game import LoadGame

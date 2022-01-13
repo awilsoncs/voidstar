@@ -1,36 +1,23 @@
-import logging
+import random
 from dataclasses import dataclass
 
 import tcod
 
 from components import Coordinates
 from components.ability_tracker import AbilityTracker
-from components.enums import Intention
 from components.brains.brain import Brain
+from components.enums import Intention
 from components.events.show_help_dialogue import ShowHelpDialogue
-from components.states.dizzy_state import DizzyState
 from content.states import confused_animation
 from engine import core
 
 
 @dataclass
-class PlayerBrain(Brain):
-    def act(self, scene):
-        dizzy = scene.cm.get_one(DizzyState, entity=self.entity)
-        if dizzy:
-            core.get_key_event()
-            if core.time_ms() > dizzy.next_turn:
-                self.intention = Intention.DALLY
-                dizzy.next_turn = core.time_ms() + 500
-                dizzy.duration -= 1
-                coords = scene.cm.get_one(Coordinates, entity=self.entity)
-                scene.cm.add(*confused_animation(coords.x, coords.y)[1])
-                if dizzy.duration <= 0:
-                    scene.cm.delete_component(dizzy)
-        else:
-            self.handle_key_event(scene, KEY_ACTION_MAP)
+class DizzyBrain(Brain):
+    turns: int = 3
 
-    def handle_key_event(self, scene, action_map):
+    def act(self, scene):
+        action_map = KEY_ACTION_MAP
         key_event = core.get_key_event()
         if key_event:
             self._log_debug(f"received input {key_event}")
@@ -52,14 +39,24 @@ class PlayerBrain(Brain):
                 self._log_debug(f"found no useable intention")
                 return
             else:
-                self._log_debug(f"deferred intention {intention} (usually for movement intentions)")
-                self.intention = intention
+                continuing_actor = self
+                if self.turns <= 1:
+                    continuing_actor = self.back_out(scene)
+                else:
+                    self._log_debug(f"deferred intention {intention} (usually for movement intentions)")
+                    self.turns -= 1
+                    coords = scene.cm.get_one(Coordinates, entity=self.entity)
+                    scene.cm.add(*confused_animation(coords.x, coords.y)[1])
+                    continuing_actor = self
+                continuing_actor.intention = random.choice(STEPS)
 
-    def _handle_confused(self, scene):
-        player_coords = scene.cm.get_one(Coordinates, entity=self.entity)
-        confused_anim = confused_animation(player_coords.x, player_coords.y)
-        scene.cm.add(*confused_anim[1])
 
+STEPS = [
+    Intention.STEP_NORTH,
+    Intention.STEP_SOUTH,
+    Intention.STEP_EAST,
+    Intention.STEP_WEST
+]
 
 KEY_ACTION_MAP = {
     tcod.event.K_e: Intention.NEXT_ABILITY,

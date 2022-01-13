@@ -5,15 +5,15 @@ from typing import List, Tuple
 import tcod
 
 from components import Coordinates
+from components.brains.brain import Brain
 from engine.components.energy_actor import EnergyActor
-from components.brains.temporary_brain import TemporaryBrain
 from components.enums import Intention
 from engine import constants, core
 from engine.components.component import Component
 
 
 @dataclass
-class PlaceThingActor(TemporaryBrain, ABC):
+class PlaceThingActor(Brain, ABC):
     energy_cost: int = EnergyActor.INSTANT
     gold_cost: int = constants.INVALID
 

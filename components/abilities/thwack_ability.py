@@ -3,9 +3,10 @@ from math import sqrt
 
 from components import Coordinates
 from components.abilities.ability import Ability
+from components.brains.brain import Brain
+from components.brains.dizzy_brain import DizzyBrain
 from engine.components.energy_actor import EnergyActor
 from components.actions.attack_action import AttackAction
-from components.states.dizzy_state import DizzyState
 from content.attacks import thwack_animation, thwack_dizzy_animation
 from systems.utilities import get_enemies_in_range
 
@@ -50,9 +51,11 @@ class ThwackAbility(Ability, EnergyActor):
             self.apply_dizzy(scene)
 
     def apply_dizzy(self, scene):
-        scene.cm.add(DizzyState(entity=self.entity, duration=3))
+        brain = scene.cm.get_one(Brain, entity=self.entity)
+        brain.swap(scene, DizzyBrain(entity=self.entity))
 
     def act(self, scene):
+        self._log_debug("recovering from thwack")
         self.count = min(self.max, self.count + 1)
         self.is_recharging = self.count < self.max
         self.pass_turn()

@@ -142,7 +142,9 @@ class ComponentManager(object):
             self.delete_component(component)
 
     # stashing
-    def stash_component(self, cid):
+    def stash_component(self, cid: int):
+        assert isinstance(cid, int), "cid must be an int"
+
         # todo can leak stashed components if the managing entity is destroyed before the stash is recalled
         logging.debug(f"System::ComponentManager attempting to stash component {cid}")
         component = self.get_component_by_id(cid)
@@ -150,14 +152,18 @@ class ComponentManager(object):
         self.stashed_components[cid] = component
         self.delete_component(component)
 
-    def unstash_component(self, cid):
+    def unstash_component(self, cid: int):
+        assert isinstance(cid, int), "cid must be an int"
+
         logging.debug(f"System::ComponentManager attempting to unstash component {cid}")
         component = self.stashed_components[cid]
         self.add(component)
         del self.stashed_components[cid]
         return component
 
-    def stash_entity(self, eid):
+    def stash_entity(self, eid: int):
+        assert isinstance(eid, int), "eid must be an int"
+
         """Move an entire entity to the stash."""
         logging.debug(f"System::ComponentManager attempting to stash entity {eid}")
         components = self.get_entity(eid)

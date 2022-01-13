@@ -5,14 +5,14 @@ import tcod
 
 import settings
 from components import Coordinates
+from components.brains.brain import Brain
 from engine.components.energy_actor import EnergyActor
-from components.brains.temporary_brain import TemporaryBrain
 from components.enums import Intention
 from engine import constants, core
 
 
 @dataclass
-class PainterBrain(TemporaryBrain, ABC):
+class PainterBrain(Brain, ABC):
     """Provide a base class for debug object placing controllers."""
     energy_cost: int = EnergyActor.INSTANT
     cursor: int = constants.INVALID

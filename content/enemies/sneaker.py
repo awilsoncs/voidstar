@@ -8,10 +8,10 @@ from components.death_listeners.drop_gold import DropGold
 from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction
 from components.material import Material
-from components.move import Move
+from components.movement.move import Move
 from components.pathfinding.stealthy_cost_map import StealthyCostMapper
 from components.pathfinding.target_evaluation.hordeling_target_evaluator import HordelingTargetEvaluator
-from components.step_listeners.drain_on_water_step import DrainOnStepOnWater
+from components.movement.drain_on_water_step import DrainOnStepOnWater
 from components.stomach import Stomach
 from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
