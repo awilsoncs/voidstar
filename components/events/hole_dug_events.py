@@ -11,7 +11,7 @@ class HoleDug(Event):
         return HoleDugListener
 
     def notify(self, scene, listener):
-        listener.on_hole_dug(scene, self.entity)
+        listener.on_hole_dug(scene)
 
 
 class HoleDugListener(Component, ABC):

@@ -3,8 +3,10 @@ from math import sqrt
 
 from components import Coordinates
 from components.abilities.ability import Ability
+from components.animation_effects.blinker import AnimationBlinker
 from components.brains.brain import Brain
 from components.brains.dizzy_brain import DizzyBrain
+from engine import palettes
 from engine.components.energy_actor import EnergyActor
 from components.actions.attack_action import AttackAction
 from content.attacks import thwack_animation, thwack_dizzy_animation
@@ -53,6 +55,13 @@ class ThwackAbility(Ability, EnergyActor):
     def apply_dizzy(self, scene):
         brain = scene.cm.get_one(Brain, entity=self.entity)
         brain.swap(scene, DizzyBrain(entity=self.entity))
+        scene.cm.add(
+            AnimationBlinker(
+                entity=self.entity,
+                new_symbol='?',
+                new_color=palettes.LIGHT_WATER
+            )
+        )
 
     def act(self, scene):
         self._log_debug("recovering from thwack")
