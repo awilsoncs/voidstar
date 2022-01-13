@@ -5,6 +5,7 @@ import tcod
 from components.ability_tracker import AbilityTracker
 from components.enums import Intention
 from components.brains.brain import Brain
+from components.events.quit_game_events import QuitGame
 from components.events.show_help_dialogue import ShowHelpDialogue
 from engine import core
 
@@ -30,6 +31,8 @@ class PlayerBrain(Brain):
                 ability.apply(scene, self.id)
             elif intention == Intention.SHOW_HELP:
                 scene.cm.add(ShowHelpDialogue(entity=self.entity))
+            elif intention == Intention.BACK:
+                scene.cm.add(QuitGame(entity=self.entity))
             elif intention is None:
                 self._log_debug(f"found no useable intention")
                 return

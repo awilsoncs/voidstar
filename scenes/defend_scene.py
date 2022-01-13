@@ -92,7 +92,6 @@ class DefendScene(GameScene):
         move.run(self)
         peasant_dead_check.run(self)
         control_turns.run(self)
-        quit.run(self)
 
     def message(self, text: str, color: Tuple[int, int, int] = palettes.MEAT):
         if len(self.messages) > 20:
