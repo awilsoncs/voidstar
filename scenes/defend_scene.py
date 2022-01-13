@@ -3,6 +3,7 @@ from typing import Tuple
 import numpy as np
 
 import settings
+from components.population import Population
 from engine.components import clear_components
 from components.events.chargeabilityevent import ChargeAbilityEvent
 from components.events.start_game_events import StartGame
@@ -84,13 +85,13 @@ class DefendScene(GameScene):
             self.cm.add(StartMusic(entity=self.player))
             self.cm.add(BattleMusic(entity=self.player))
             self.cm.add(WorldBeauty(entity=core.get_id("world")))
+            self.cm.add(Population(entity=core.get_id("world")))
         self.cm.add(StartGame(entity=self.player))
 
     @timed(100, __name__)
     def update(self):
         act.run(self)
         move.run(self)
-        peasant_dead_check.run(self)
         control_turns.run(self)
 
     def message(self, text: str, color: Tuple[int, int, int] = palettes.MEAT):

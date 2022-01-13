@@ -156,7 +156,7 @@ class DefaultActiveActor(Brain):
 
     def sleep(self, scene, sleep_for):
         self._log_debug("falling asleep")
-        new_controller = SleepingBrain(entity=self.entity, old_actor=self.id, turns=sleep_for)
+        new_controller = SleepingBrain(entity=self.entity, old_brain=self.id, turns=sleep_for)
         blinker = AnimationBlinker(
             entity=self.entity,
             new_symbol='z',

@@ -3,9 +3,10 @@ from dataclasses import dataclass
 from components import Attributes
 from components.abilities.thwack_ability import ThwackAbility
 from components.brains.dizzy_brain import DizzyBrain
+from components.population import Population
 from components.tags.hordeling_tag import HordelingTag
 from components.tags.peasant_tag import PeasantTag
-from engine import palettes, PLAYER_ID
+from engine import palettes, PLAYER_ID, core
 from gui.gui_element import GuiElement
 
 
@@ -56,9 +57,9 @@ class PeasantBar(Bar):
     mg_color: tuple = palettes.GABRIEL_2_1
 
     def update(self, scene):
-        peasants = len(scene.cm.get(PeasantTag))
-        self.value = peasants
-        self.max_value = peasants
+        population = scene.cm.get_one(Population, entity=core.get_id("world"))
+        self.value = population.population
+        self.max_value = population.population
 
 
 @dataclass

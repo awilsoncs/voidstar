@@ -13,7 +13,7 @@ class ControlModeAbility(Ability, ABC):
     def use(self, scene, dispatcher):
         sym, color = self.get_anim()
         mode = self.get_mode()
-        new_controller = mode(entity=self.entity, old_actor=dispatcher)
+        new_controller = mode(entity=self.entity, old_brain=dispatcher)
         blinker = AnimationBlinker(
             entity=self.entity,
             new_symbol=sym,
