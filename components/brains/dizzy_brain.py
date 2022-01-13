@@ -39,15 +39,12 @@ class DizzyBrain(Brain):
                 self._log_debug(f"found no useable intention")
                 return
             else:
-                continuing_actor = self
-                if self.turns <= 1:
-                    continuing_actor = self.back_out(scene)
-                else:
-                    self._log_debug(f"deferred intention {intention} (usually for movement intentions)")
-                    self.turns -= 1
-                    coords = scene.cm.get_one(Coordinates, entity=self.entity)
-                    scene.cm.add(*confused_animation(coords.x, coords.y)[1])
-                    continuing_actor = self
+                coords = scene.cm.get_one(Coordinates, entity=self.entity)
+                scene.cm.add(*confused_animation(coords.x, coords.y)[1])
+                self._log_debug(f"deferred intention {intention} (usually for movement intentions)")
+                self._log_debug("taking a dizzy step")
+                continuing_actor = self.back_out(scene) if self.turns <= 1 else self
+                self.turns -= 1
                 continuing_actor.intention = random.choice(STEPS)
 
 
