@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 
-from components import Entity, Coordinates
+from components import Coordinates
 from components.events.die_events import DeathListener
 from content import corpses
 from engine import palettes
+from engine.components.entity import Entity
 
 
 @dataclass

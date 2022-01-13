@@ -1,4 +1,4 @@
-from components.actors.actor import Actor
+from engine.components.actor import Actor
 
 
 def run(scene) -> None:

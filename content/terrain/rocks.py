@@ -1,14 +1,15 @@
 import random
 from typing import List, Tuple
 
-from components import Entity, Appearance, Coordinates
+from components import Appearance, Coordinates
 from components.death_listeners.drop_gold import DropGold
 from components.diggable import Diggable
 from components.material import Material
 from components.states.move_cost_affectors import DifficultTerrain
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
-from engine.component import Component
+from engine.components.component import Component
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_LOWEST
 
 

@@ -1,4 +1,3 @@
-from components import Entity
 from components.events.build_world_events import BuildWorld
 from components.world_building.add_player_step import AddPlayerStep
 from components.world_building.delete_world_builder import DeleteWorldBuilder
@@ -12,6 +11,7 @@ from components.world_building.place_rocks import PlaceRocks
 from components.world_building.set_world_name import SetWorldName
 from components.world_building.set_worldbuilder_params import SetWorldParameters
 from engine import core
+from engine.components.entity import Entity
 
 
 def make_world_build():

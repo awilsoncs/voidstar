@@ -1,11 +1,10 @@
-import logging
-
 import numpy as np
 
 import settings
-from components import Coordinates, Attributes, Entity
+from components import Coordinates, Attributes
 from components.material import Material
 from components.pathfinding.cost_mapper import CostMapper
+from engine.components.entity import Entity
 
 
 class StraightLineCostMapper(CostMapper):

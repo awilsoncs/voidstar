@@ -1,7 +1,7 @@
 from dataclasses import dataclass
-from enum import Enum, auto
+from enum import Enum
 
-from engine.component import Component
+from engine.components.component import Component
 from engine import palettes
 
 

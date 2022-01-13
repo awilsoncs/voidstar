@@ -1,6 +1,6 @@
 from typing import List
 
-from components import Entity, Coordinates, Appearance, target_value, Attributes
+from components import Coordinates, Appearance, target_value, Attributes
 from components.death_listeners.npc_corpse import Corpse
 from components.edible import Edible
 from components.faction import Faction
@@ -9,7 +9,8 @@ from components.tags.crop_info import CropInfo
 from components.target_value import TargetValue
 from components.tax_value import TaxValue
 from engine import core, palettes
-from engine.component import Component
+from engine.components.component import Component
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_LOW
 
 crops_description = "A valuable crop. They're easy pickens for the hordelings, " \

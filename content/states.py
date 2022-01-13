@@ -1,6 +1,7 @@
-from components import Entity, Coordinates, Appearance
+from components import Coordinates, Appearance
 from components.animation_effects.float import AnimationFloat
 from engine import core, palettes
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_HIGH
 
 

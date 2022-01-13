@@ -1,6 +1,6 @@
 import random
 
-from components import Entity, Coordinates, Appearance, Attributes
+from components import Coordinates, Appearance, Attributes
 from components.brains.default_active_actor import DefaultActiveActor
 from components.attacks.standard_attack import StandardAttack
 from components.death_listeners.drop_gold import DropGold
@@ -15,6 +15,7 @@ from components.stomach import Stomach
 from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 
 

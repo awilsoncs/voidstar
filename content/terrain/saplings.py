@@ -1,4 +1,4 @@
-from components import Entity, Coordinates, Appearance, Attributes
+from components import Coordinates, Appearance, Attributes
 from components.sellable import Sellable
 from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction
@@ -6,6 +6,7 @@ from components.material import Material
 from components.season_reset_listeners.grow_in_spring import GrowIntoTree
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 
 

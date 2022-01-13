@@ -3,9 +3,9 @@ from dataclasses import dataclass
 
 import engine
 import settings
-from components import Entity, Coordinates, Attributes, Senses
+from components import Coordinates, Attributes, Senses
 from components.abilities.build_wall_ability import BuildWallAbility
-from components.actors.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.brains.brain import Brain
 from components.brains.painters.create_gold_actor import PlaceGoldController
 from components.brains.painters.create_hordeling_actor import PlaceHordelingController
@@ -18,7 +18,9 @@ from components.wrath_effect import WrathEffect
 from content.cursor import make_cursor
 from content.farmsteads.houses import place_farmstead
 from content.terrain.roads import connect_point_to_road_network
+from engine.components.entity import Entity
 from gui.easy_menu import EasyMenu
+
 
 @dataclass
 class ShowDebug(EnergyActor):

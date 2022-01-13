@@ -1,22 +1,18 @@
 from typing import List
 
-from components import Entity, Coordinates, Appearance, target_value, Attributes
-from components.death_listeners.npc_corpse import Corpse
+from components import Coordinates, Appearance, target_value, Attributes
 from components.faction import Faction
-from components.relationships.farmed_by import FarmedBy
-from components.season_reset_listeners.die_in_winter import CropsDieInWinter
 from components.season_reset_listeners.die_on_season_reset import DieOnSeasonReset
-from components.tags.crop_info import CropInfo
 from components.target_value import TargetValue
-from components.tax_value import TaxValue
 from engine import core, palettes
-from engine.component import Component
+from engine.components.component import Component
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_LOW
 
 haunch_description = "A savory haunch. Hordelings find this highly desirable."
 
 
-def make_haunch(x, y) -> Entity:
+def make_haunch(x, y):
     entity_id = core.get_id()
     components: List[Component] = [
         Entity(

@@ -2,7 +2,8 @@ import random
 from dataclasses import dataclass
 
 import settings
-from components import TimedActor, Coordinates
+from components import Coordinates
+from engine.components.timed_actor import TimedActor
 
 
 @dataclass

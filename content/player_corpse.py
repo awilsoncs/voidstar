@@ -1,9 +1,10 @@
-from components import Entity, Coordinates, Appearance
+from components import Coordinates, Appearance
 from components.abilities.debug_ability import DebugAbility
 from components.abilities.look_ability import LookAbility
 from components.ability_tracker import AbilityTracker
 from components.brains.player_dead_actor import PlayerDeadBrain
 from engine import core, palettes
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_LOW
 
 

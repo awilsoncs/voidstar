@@ -3,7 +3,7 @@ from typing import Tuple, List
 
 from components.brains.ability_actors.place_thing_actor import PlaceThingActor
 from content.farmsteads.defensive_walls import make_fence
-from engine.component import Component
+from engine.components.component import Component
 
 
 @dataclass

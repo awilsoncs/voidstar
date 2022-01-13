@@ -1,4 +1,3 @@
-from components import Entity
 from components.weather.snow_fall import SnowFall
 from components.attack_start_listeners.move_peasants_in import MovePeasantsIn
 from components.announce_game_start import AnnounceGameStart
@@ -13,6 +12,7 @@ from components.season_reset_listeners.spawn_sapling_in_spring import SpawnSapli
 from components.season_reset_listeners.upgrade_houses import UpgradeHouse
 from components.weather.weather import Weather
 from engine import core
+from engine.components.entity import Entity
 
 
 def make_calendar():

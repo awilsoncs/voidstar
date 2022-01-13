@@ -1,9 +1,7 @@
 from abc import ABC
 from dataclasses import dataclass
 
-from components.actors.actor import Actor
-from components.enums import Intention
-from engine import constants
+from engine.components.actor import Actor
 from engine.constants import PRIORITY_MEDIUM
 
 

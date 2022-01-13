@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
-from components import Entity
 from components.brains.ability_actors.place_thing_actor import PlaceThingActor
 from content.allies.knights import make_knight
+from engine.types import Entity
 
 
 @dataclass

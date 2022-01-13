@@ -1,13 +1,13 @@
 from abc import abstractmethod
 from dataclasses import dataclass
-from typing import Type
 
-from components.actors.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from engine.core import log_debug
 
 
 @dataclass
 class Event(EnergyActor):
+    """Define an event that notifies listeners."""
     energy_cost: int = EnergyActor.INSTANT
 
     @log_debug(__name__)
@@ -15,17 +15,18 @@ class Event(EnergyActor):
         self._before_notify(scene)
         listeners = scene.cm.get(self.listener_type())
         for listener in listeners:
-            self._log_debug(f"notifying listener {listener.id}")
             self.notify(scene, listener)
         self._after_notify(scene)
         scene.cm.delete_component(self)
 
     @abstractmethod
     def listener_type(self):
+        """Return the type of listener to notify."""
         raise NotImplementedError("Must subclass Event")
 
     @abstractmethod
     def notify(self, scene, listener):
+        """Notify a listener of the event."""
         raise NotImplementedError("Must subclass Event")
 
     def _before_notify(self, scene):

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from components.actors.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.brains.painters.painter_brain import PainterBrain
 from content.getables.gold import make_gold_nugget
 from engine import constants

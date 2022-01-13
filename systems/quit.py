@@ -1,7 +1,5 @@
-import logging
-
 import settings
-from components.actors.actor import Actor
+from engine.components.actor import Actor
 from components.enums import Intention
 from components.serialization.save_game import SaveGame
 from scenes.start_menu import get_start_menu

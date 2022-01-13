@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from components.events.events import Event
+from engine.components.events import Event
 from components.step_listeners.dally_listener import DallyListener
 
 

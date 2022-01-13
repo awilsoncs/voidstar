@@ -1,4 +1,4 @@
-from components import Entity, Appearance, Coordinates, Attributes
+from components import Appearance, Coordinates, Attributes
 from components.sellable import Sellable
 from components.death_listeners.npc_corpse import Corpse
 from components.death_listeners.terrain_changes_on_death import TerrainChangedOnDeath
@@ -8,6 +8,7 @@ from components.tags.tree_tag import TreeTag
 from components.pathfinder_cost import PathfinderCost
 from components.tree_cut_listeners.tree_cut_on_die import TreeCutOnDeath
 from engine import core, palettes
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 
 

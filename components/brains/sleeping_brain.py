@@ -1,8 +1,7 @@
-import logging
 from dataclasses import dataclass
 
 from components import Coordinates
-from components.actors.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.brains.temporary_brain import TemporaryBrain
 from components.stomach import Stomach

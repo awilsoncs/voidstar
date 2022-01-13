@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import Optional
 
 from components.enums import Intention
-from engine.component import Component
+from engine.components.component import Component
 
 
 class Actor(Component, ABC):

@@ -1,10 +1,9 @@
-from collections import Generator
 from dataclasses import dataclass
 from typing import List
 
 import tcod
 
-from engine.component import Component
+from engine.components.component import Component
 
 
 @dataclass

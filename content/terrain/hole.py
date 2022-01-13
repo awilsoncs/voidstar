@@ -1,4 +1,4 @@
-from components import Entity, Appearance, Coordinates
+from components import Appearance, Coordinates
 from components.diggable import Diggable
 from components.events.hole_dug_events import HoleDug
 from components.floodable import Floodable
@@ -6,6 +6,7 @@ from components.material import Material
 from components.states.move_cost_affectors import DifficultTerrain
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_LOWEST
 
 

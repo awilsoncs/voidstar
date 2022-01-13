@@ -1,7 +1,8 @@
-from components import Entity, Coordinates, Appearance
+from components import Coordinates, Appearance
 from components.relationships.farmed_by import FarmedBy
 from components.attack_start_listeners.grow_crops import GrowCrops
 from engine import core, palettes
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_LOW
 
 description = "A field, turned for planting. By the end of Spring and Summer, the peasant will grow crops here."

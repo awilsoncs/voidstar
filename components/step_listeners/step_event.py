@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Tuple
 
-from components.events.events import Event
+from engine.components.events import Event
 from components.step_listeners.on_step_listener import StepListener
 
 

@@ -1,7 +1,8 @@
 import random
 from dataclasses import dataclass
-from components import TimedActor, Appearance
+from components import Appearance
 from engine import palettes
+from engine.components.timed_actor import TimedActor
 
 
 @dataclass

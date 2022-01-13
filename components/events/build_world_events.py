@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from components.events.events import Event
-from engine.component import Component
+from engine.components.events import Event
+from engine.components.component import Component
 
 
 @dataclass

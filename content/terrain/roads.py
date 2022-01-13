@@ -2,16 +2,15 @@ from typing import Tuple, List, Iterator
 
 import tcod.path
 
-from components import Entity, Appearance, Coordinates
-from components.sellable import Sellable
+from components import Appearance, Coordinates
 from components.pathfinding.road_cost_mapper import RoadCostMapper
-from components.pathfinding.simplex_cost_mapper import SimplexCostMapper
 from components.pathfinding.target_selection import get_new_target
 from components.states.move_cost_affectors import EasyTerrain
 from components.tags.road_marker import RoadMarker
 from components.tags.water_tag import WaterTag
 from engine import core, palettes
-from engine.component import Component
+from engine.components.component import Component
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_LOWEST
 
 

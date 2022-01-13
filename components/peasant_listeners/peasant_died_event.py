@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from components.events.events import Event
+from engine.components.events import Event
 from components.peasant_listeners.peasant_died_listener import PeasantDiedListener
 
 

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from engine.component import Component
+from engine.components.component import Component
 
 
 @dataclass

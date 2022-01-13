@@ -1,6 +1,6 @@
 import random
-from components import Entity, Appearance, Attributes, Coordinates
-from components.actors.energy_actor import EnergyActor
+from components import Appearance, Attributes, Coordinates
+from engine.components.energy_actor import EnergyActor
 from components.brains.default_active_actor import DefaultActiveActor
 from components.attacks.attack_effects.knockback_attack import KnockbackAttack
 from components.attacks.siege_attack import SiegeAttack
@@ -16,6 +16,7 @@ from components.stomach import Stomach
 from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 
 

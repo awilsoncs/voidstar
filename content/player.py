@@ -1,5 +1,5 @@
 import settings
-from components import Entity, Appearance, Senses, Attributes, Coordinates
+from components import Appearance, Senses, Attributes, Coordinates
 from components.abilities.build_fence_ability import BuildFenceAbility
 from components.abilities.build_wall_ability import BuildWallAbility
 from components.abilities.debug_ability import DebugAbility
@@ -29,6 +29,7 @@ from components.step_listeners.heal_on_dally import HealOnDally
 from components.step_listeners.pickup_gold import PickupGoldOnStep
 from components.target_value import PLAYER, TargetValue
 from engine import PLAYER_ID, palettes
+from engine.components.entity import Entity
 
 
 def make_player(x, y):

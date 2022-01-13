@@ -5,10 +5,9 @@ import tcod
 
 import settings
 from components import Coordinates
-from components.actors.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.brains.temporary_brain import TemporaryBrain
 from components.enums import Intention
-from content.enemies.juvenile import make_juvenile
 from engine import constants, core
 
 

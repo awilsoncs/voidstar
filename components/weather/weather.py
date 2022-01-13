@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import random
 
-from components.actors.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.events.new_day_event import DayBeganListener
 from components.events.start_game_events import GameStartListener
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener

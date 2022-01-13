@@ -1,18 +1,15 @@
-import random
-
-from components import Entity, Coordinates, Appearance, Attributes
+from components import Coordinates, Appearance, Attributes
 from components.sellable import Sellable
-from components.brains.default_active_actor import DefaultActiveActor
 from components.attacks.standard_attack import StandardAttack
 from components.brains.stationary_attack_actor import StationaryAttackActor
 from components.death_listeners.npc_corpse import Corpse
 from components.faction import Faction
 from components.material import Material
-from components.move import Move
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
 from components.pathfinder_cost import PathfinderCost
 from components.pathfinding.target_evaluation.ally_target_evaluator import AllyTargetEvaluator
 from engine import core, palettes
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 
 

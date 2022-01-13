@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from components import Coordinates
-from components.actors.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.floodable import Floodable
 from components.flooder import Flooder
 from components.events.hole_dug_events import HoleDugListener

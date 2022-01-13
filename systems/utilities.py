@@ -1,6 +1,5 @@
 from components import Coordinates
-from components.actors.actor import Actor
-from components.enums import Intention
+from engine.components.actor import Actor
 from components.events.turn_event import TurnEvent
 from components.faction import Faction
 from components.material import Material

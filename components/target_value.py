@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from engine.component import Component
+from engine.components.component import Component
 
 PEASANT = 100
 COW = 100

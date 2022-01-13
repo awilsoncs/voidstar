@@ -1,8 +1,9 @@
-from components import Entity, Coordinates, Appearance
+from components import Coordinates, Appearance
 from components.animation_effects.reset_owner_animation import ResetOwnerAnimation
 from components.events.delete_event import Delete
 from components.relationships.owner import Owner
 from engine import palettes, core
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_HIGH
 
 

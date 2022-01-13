@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from engine.component import Component
+from engine.components.component import Component
 
 
 class CostMapper(Component, ABC):

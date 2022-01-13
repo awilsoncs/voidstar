@@ -1,4 +1,3 @@
-import logging
 import random
 from dataclasses import dataclass
 from enum import Enum
@@ -6,7 +5,7 @@ from typing import List, Tuple
 
 from components import Coordinates
 from components.actors import STEPS
-from components.actors.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.brains.brain import Brain
 from components.relationships.farmed_by import FarmedBy
 from content.farmsteads.farm_animation import farm_animation

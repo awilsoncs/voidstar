@@ -4,8 +4,8 @@ from typing import List
 import tcod
 
 import settings
-from components import Coordinates, Entity
-from components.actors.energy_actor import EnergyActor
+from components import Coordinates
+from engine.components.energy_actor import EnergyActor
 from components.brains.temporary_brain import TemporaryBrain
 from components.events.die_events import Die
 from components.enums import Intention
@@ -13,6 +13,7 @@ from components.diggable import Diggable
 from content.terrain.dirt import make_dirt
 from content.terrain.hole import make_hole
 from engine import core, palettes
+from engine.components.entity import Entity
 
 
 @dataclass

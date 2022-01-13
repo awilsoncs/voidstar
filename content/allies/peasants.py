@@ -1,6 +1,6 @@
 from typing import List
 
-from components import Entity, Appearance, Attributes, Coordinates
+from components import Appearance, Attributes, Coordinates
 from components.brains.peasant_actor import PeasantActor
 from components.death_listeners.npc_corpse import Corpse
 from components.cry_for_help import CryForHelp
@@ -12,7 +12,8 @@ from components.relationships.residence import Residence
 from components.tags.peasant_tag import PeasantTag
 from components.target_value import PEASANT, TargetValue
 from engine import core, palettes
-from engine.component import Component
+from engine.components.component import Component
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 from engine.types import EntityId
 

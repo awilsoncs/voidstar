@@ -1,7 +1,6 @@
-import logging
 from dataclasses import dataclass
 
-from components.actors.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from engine import palettes, core
 from engine.serialization import serialization
 

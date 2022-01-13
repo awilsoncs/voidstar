@@ -3,14 +3,15 @@ from typing import List
 
 import tcod
 
-from components import Coordinates, Entity
-from components.actors.energy_actor import EnergyActor
+from components import Coordinates
+from engine.components.energy_actor import EnergyActor
 from components.brains.temporary_brain import TemporaryBrain
 from components.events.die_events import Die
 from components.enums import Intention
 from components.sellable import Sellable
 from content.terrain.dirt import make_dirt
 from engine import core, palettes
+from engine.components.entity import Entity
 from engine.types import EntityId
 
 

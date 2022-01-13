@@ -1,9 +1,8 @@
-import logging
 from dataclasses import dataclass, field
 from typing import List, Tuple
 
 from content.breadcrumb import make_breadcrumb
-from engine.component import Component
+from engine.components.component import Component
 
 
 @dataclass

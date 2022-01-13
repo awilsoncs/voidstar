@@ -1,9 +1,8 @@
-import logging
 from dataclasses import dataclass
 from typing import Tuple
 
 from components import Coordinates
-from components.actors.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from content.terrain.hole import make_hole
 from engine import constants
 

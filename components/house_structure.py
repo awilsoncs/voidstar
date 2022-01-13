@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import List
 
-from engine.component import Component
+from engine.components.component import Component
 from engine.types import EntityId
 
 

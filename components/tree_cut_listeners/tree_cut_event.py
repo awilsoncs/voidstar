@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from components.events.events import Event
+from engine.components.events import Event
 from components.tree_cut_listeners.tree_cut_listener import TreeCutListener
 
 

@@ -1,12 +1,13 @@
 import random
 from typing import List, Tuple
 
-from components import Entity, Appearance, Coordinates
+from components import Appearance, Coordinates
 from components.diggable import Diggable
 from components.material import Material
 from components.season_reset_listeners.grow_grass import GrowGrass
 from engine import core, palettes
-from engine.component import Component
+from engine.components.component import Component
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_LOWEST
 
 

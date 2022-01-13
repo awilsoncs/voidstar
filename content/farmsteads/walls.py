@@ -1,4 +1,4 @@
-from components import Entity, Appearance, Coordinates, Attributes
+from components import Appearance, Coordinates, Attributes
 from components.death_listeners.npc_corpse import Corpse
 from components.death_listeners.schedule_rebuild import ScheduleRebuild
 from components.faction import Faction
@@ -6,15 +6,16 @@ from components.material import Material
 from components.relationships.owner import Owner
 from components.structure import Structure
 from components.pathfinder_cost import PathfinderCost
-from engine import core, palettes
+from engine import core, palettes, types
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
-
+from engine.types import EntityId
 
 description = "A wall, made of a light, grassy material. Be wary, it's highly flammable."
 
 
-def make_wall(root_id, x, y, piece='um') -> Entity:
-    entity_id = core.get_id()
+def make_wall(root_id, x, y, piece='um') -> types.Entity:
+    entity_id: EntityId = core.get_id()
     glyph = piece_map[piece]
 
     return (

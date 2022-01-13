@@ -1,6 +1,6 @@
 import random
 
-from components import Entity, Appearance, Coordinates
+from components import Appearance, Coordinates
 from components.animation_effects.randomized_blinker import RandomizedBlinker
 from components.diggable import Diggable
 from components.flooder import Flooder
@@ -10,6 +10,7 @@ from components.pathfinder_cost import PathfinderCost
 from components.tags.ice_tag import IceTag
 from components.tags.water_tag import WaterTag
 from engine import core, palettes
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_LOWEST
 
 
