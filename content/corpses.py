@@ -18,7 +18,7 @@ def make_corpse(name, x, y, symbol='%', color=palettes.BLOOD, bg_color=palettes.
             Appearance(entity=entity_id, symbol=symbol, color=color, bg_color=bg_color),
             CorpseTag(entity=entity_id),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOW, buildable=True),
-            Delete(entity=entity_id, next_update=core.time_ms() + random.randint(1000, 15000))
+            Delete(entity=entity_id, energy=-1*random.randint(12, 120))
         ]
     )
 
@@ -32,7 +32,7 @@ def make_blood_pool(x, y, color):
             Appearance(entity=entity_id, symbol='.', color=color, bg_color=palettes.BACKGROUND),
             CorpseTag(entity=entity_id),
             Coordinates(entity=entity_id, x=x, y=y, priority=PRIORITY_LOW, buildable=True),
-            Delete(entity=entity_id, next_update=core.time_ms() + random.randint(1000, 15000))
+            Delete(entity=entity_id, energy=-1*random.randint(12, 120))
         ]
     )
 
