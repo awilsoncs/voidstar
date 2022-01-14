@@ -1,9 +1,11 @@
 import logging
+import sys
 from typing import List
 
 import tcod
 
 import settings
+from components.serialization.save_game import SaveGame
 from engine import GameScene
 from engine.component_manager import ComponentManager
 from engine.core import timed, log_debug
@@ -44,8 +46,16 @@ class GameSceneController:
     def start(self):
         """Invoke the FSM execution and transition."""
         while self._scene_stack:
-            current_scene = self._scene_stack[-1]
-            current_scene.before_update()
-            current_scene.update()
-            current_scene.render()
-            tcod.console_flush()
+            try:
+                current_scene = self._scene_stack[-1]
+                current_scene.before_update()
+                current_scene.update()
+                current_scene.render()
+                tcod.console_flush()
+            except Exception as e:
+                extra = {
+                    "exception": repr(e),
+                    "is_crash": True
+                }
+                SaveGame(extra=extra).act(self._scene_stack[-1])
+                sys.exit(-1)

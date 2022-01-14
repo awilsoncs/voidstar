@@ -20,11 +20,13 @@ class EnhancedJSONEncoder(json.JSONEncoder):
         return super().default(o)
 
 
-def save(components, file):
-    # we don't want this object to get caught in the save game
+def save(components, file, extra=None):
+    if extra is None:
+        extra = {}
     save_info = {
         "info": {
-            "object_count": len(components["active_components"])
+            "object_count": len(components["active_components"]),
+            "extra": extra
         },
         "named_ids": core.get_named_ids(),
         "objects": components

@@ -34,30 +34,7 @@ class PeasantActor(Brain):
             self.pass_turn()
 
     def farm(self, scene):
-        if not self.can_animate:
-            return
-
-        self._log_debug("farming")
-        self.can_animate = False
-
-        farm_tiles: List[Coordinates] = scene.cm.get(
-            FarmedBy,
-            query=lambda fb: fb.farmer == self.entity,
-            project=lambda fb: scene.cm.get_one(Coordinates, entity=fb.entity)
-        )
-
-        my_coords: Coordinates = scene.cm.get_one(Coordinates, entity=self.entity)
-        farmable_tiles: List[Tuple[int, int]] = [
-            (ft.x, ft.y)
-            for ft in farm_tiles
-            if ft.x != my_coords.x or ft.y != my_coords.y
-        ]
-        target_tile = random.choice(farmable_tiles)
-
-        farm = farm_animation(self.entity, target_tile[0], target_tile[1])
-        scene.cm.add(*farm[1])
-        delay = random.randint(EnergyActor.HOURLY, EnergyActor.HOURLY*6)
-        self.pass_turn(delay)
+        self.pass_turn()
 
     def wander(self, scene):
         self.intention = random.choice(STEPS)
