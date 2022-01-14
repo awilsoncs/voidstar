@@ -35,7 +35,6 @@ def get_hostile(scene, entity, step_direction):
 
 def run(scene):
     for actor in get_actors_with_step_intention(scene):
-        raise ValueError("shoot!")
         logging.debug(f"Move System: moving {actor}")
         entity = actor.entity
         actor = scene.cm.get_one(Brain, entity=entity)
