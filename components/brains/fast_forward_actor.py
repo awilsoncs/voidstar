@@ -5,11 +5,15 @@ import tcod
 
 from components.brains.brain import Brain
 from components.enums import Intention
+from components.events.attack_started_events import AttackStartListener
 from engine import core
 
 
 @dataclass
-class FastForwardBrain(Brain):
+class FastForwardBrain(Brain, AttackStartListener):
+    def on_attack_start(self, scene):
+        self.back_out(scene)
+
     def act(self, scene):
         self.handle_key_event(scene, KEY_ACTION_MAP)
 
