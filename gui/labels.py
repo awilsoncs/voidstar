@@ -99,8 +99,10 @@ class AbilityLabel(GuiElement):
         ability_tracker = scene.cm.get(AbilityTracker)
         if ability_tracker:
             ability_tracker = ability_tracker[0]
-        ability = ability_tracker.get_current_ability(scene)
-        self.value = f'{ability.ability_title} - {ability.use_cost}c'
+            ability = ability_tracker.get_current_ability(scene)
+            self.value = f'{ability.ability_title} - {ability.use_cost}c'
+        else:
+            self.value = "LOADING"
 
 
 class VillageNameLabel(GuiElement):
@@ -115,4 +117,6 @@ class VillageNameLabel(GuiElement):
         params = scene.cm.get(WorldParameters)
         if params:
             params = params[0]
-        self.value = f"{params.world_name}"
+            self.value = f"{params.world_name}"
+        else:
+            self.value = "LOADING"

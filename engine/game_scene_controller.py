@@ -46,16 +46,8 @@ class GameSceneController:
     def start(self):
         """Invoke the FSM execution and transition."""
         while self._scene_stack:
-            try:
-                current_scene = self._scene_stack[-1]
-                current_scene.before_update()
-                current_scene.update()
-                current_scene.render()
-                tcod.console_flush()
-            except Exception as e:
-                extra = {
-                    "exception": repr(e),
-                    "is_crash": True
-                }
-                SaveGame(extra=extra).act(self._scene_stack[-1])
-                sys.exit(-1)
+            current_scene = self._scene_stack[-1]
+            current_scene.before_update()
+            current_scene.update()
+            current_scene.render()
+            tcod.console_flush()

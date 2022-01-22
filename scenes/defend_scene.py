@@ -4,8 +4,7 @@ import numpy as np
 
 import settings
 from components.population import Population
-from engine.components import clear_components
-from components.events.chargeabilityevent import ChargeAbilityEvent
+from components.world_building.set_worldbuilder_params import SelectBiome
 from components.events.start_game_events import StartGame
 from components.serialization.load_game import LoadGame
 from components.sound.battle_music import BattleMusic
@@ -13,7 +12,6 @@ from components.sound.start_music import StartMusic
 from components.world_beauty import WorldBeauty
 from content.physics_controller import make_physics_controller
 from content.utilities import make_calendar
-from content.world_builder import make_world_build
 from engine import GameScene, palettes, core
 from engine.component_manager import ComponentManager
 from engine.constants import PLAYER_ID
@@ -25,8 +23,7 @@ from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SpeedL
 from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
 from gui.vertical_anchor import VerticalAnchor
-from systems import act, \
-    move, control_turns, quit, peasant_dead_check
+from systems import act, move, control_turns
 
 
 class DefendScene(GameScene):
@@ -78,15 +75,15 @@ class DefendScene(GameScene):
         self.play_window.cm = self.cm
         if self.from_file:
             self.cm.add(LoadGame(entity=self.player, file_name=self.from_file))
+            self.cm.add(StartGame(entity=self.player))
         else:
-            self.cm.add(*make_world_build()[1])
+            self.cm.add(SelectBiome(entity=core.get_id("world")))
             self.cm.add(*make_calendar()[1])
             self.cm.add(*make_physics_controller()[1])
             self.cm.add(StartMusic(entity=self.player))
             self.cm.add(BattleMusic(entity=self.player))
             self.cm.add(WorldBeauty(entity=core.get_id("world")))
             self.cm.add(Population(entity=core.get_id("world")))
-        self.cm.add(StartGame(entity=self.player))
 
     @timed(100, __name__)
     def update(self):

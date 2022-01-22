@@ -1,4 +1,6 @@
+import logging
 import textwrap
+from typing import Callable, Optional
 
 import tcod
 import tcod.event
@@ -14,7 +16,7 @@ from gui.gui_element import GuiElement
 class EasyMenu(GuiElement):
     """Defines a multiple choice menu within the game."""
 
-    def __init__(self, header, options, width, hide_background=True, return_only=False):
+    def __init__(self, header, options, width, hide_background=True, return_only=False, on_escape=None):
         super().__init__(0, 0, single_shot=True)
         self.header = header
         self.option_map = options
@@ -25,6 +27,7 @@ class EasyMenu(GuiElement):
         self.return_only = return_only
         if len(self.pages) == 0:
             self.pages.append([])
+        self.on_escape: Optional[Callable] = on_escape
 
     def render(self, panel):
         """Draw a menu to the screen and return the user's option."""
@@ -40,6 +43,9 @@ class EasyMenu(GuiElement):
             elif (key_sym == tcod.event.K_LEFT or key_sym == tcod.event.K_p) and has_previous:
                 page -= 1
             elif key_sym == tcod.event.K_RETURN:
+                return
+            elif self.on_escape and key_sym == tcod.event.K_ESCAPE:
+                self.on_escape()
                 return
             else:
                 index = key_sym - ord('a')
