@@ -1,3 +1,4 @@
+import sys
 from collections import OrderedDict
 
 import settings
@@ -34,7 +35,8 @@ class NavigationMenuScene(GameScene):
                 '',
                 {link[0]: self.get_push_scene(link[1]) for link in self.options.items()},
                 24,
-                hide_background=False
+                hide_background=False,
+                on_escape=lambda: sys.exit(0)
             )
         )
 
