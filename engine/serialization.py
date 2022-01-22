@@ -7,7 +7,7 @@ from pathlib import Path
 from pkgutil import walk_packages
 
 from engine import core
-from engine.components.component import Component
+from engine.base_components.component import Component
 
 
 class EnhancedJSONEncoder(json.JSONEncoder):
@@ -77,7 +77,7 @@ def _load_from_data(data, loadable_classes):
 
 
 def _gather_loadable_classes():
-    """Read the components directory to discover loadable components."""
+    """Read the base_components directory to discover loadable base_components."""
     loadable_classes = {}
 
     # ignore this mess

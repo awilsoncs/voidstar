@@ -29,7 +29,7 @@ from components.movement.heal_on_dally import HealOnDally
 from components.movement.pickup_gold import PickupGoldOnStep
 from components.target_value import PLAYER, TargetValue
 from engine import PLAYER_ID, palettes
-from engine.components.entity import Entity
+from engine.base_components.entity import Entity
 
 
 def make_player(x, y):

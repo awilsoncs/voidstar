@@ -1,7 +1,7 @@
 import unittest
 from dataclasses import dataclass
 
-from engine.components.component import Component
+from engine.base_components.component import Component
 from engine.component_manager import ComponentManager
 
 
@@ -77,10 +77,10 @@ class TestComponentManager(unittest.TestCase):
         cm.delete(2)
 
         fs_a = cm.get_one(A, entity=2)
-        self.assertIsNone(fs_a, "component manager contains components that should be orphaned")
+        self.assertIsNone(fs_a, "component manager contains base_components that should be orphaned")
 
         fs_b = cm.get_one(B, entity=2)
-        self.assertIsNone(fs_b, "component manager contains components that should be orphaned")
+        self.assertIsNone(fs_b, "component manager contains base_components that should be orphaned")
 
 
 if __name__ == '__main__':

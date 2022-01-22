@@ -4,7 +4,7 @@ from components import Coordinates
 from components.events.die_events import DeathListener
 from content import corpses
 from engine import palettes
-from engine.components.entity import Entity
+from engine.base_components.entity import Entity
 
 
 @dataclass

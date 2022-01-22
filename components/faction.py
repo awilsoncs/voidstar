@@ -1,7 +1,7 @@
 import enum
 from dataclasses import dataclass
 
-from engine.components.component import Component
+from engine.base_components.component import Component
 
 
 @dataclass

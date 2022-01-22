@@ -4,7 +4,7 @@ import tcod
 
 from components.actions.attack_action import AttackAction
 from components.brains.brain import Brain
-from engine.components.energy_actor import EnergyActor
+from engine.base_components.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.enums import Intention
 from components.tags.hordeling_tag import HordelingTag

@@ -5,7 +5,7 @@ from typing import List, Tuple
 
 from components import Coordinates
 from components.actors import STEPS
-from engine.components.energy_actor import EnergyActor
+from engine.base_components.energy_actor import EnergyActor
 from components.brains.brain import Brain
 from components.relationships.farmed_by import FarmedBy
 from content.farmsteads.farm_animation import farm_animation

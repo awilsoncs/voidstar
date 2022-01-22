@@ -1,4 +1,4 @@
-from engine.components.energy_actor import EnergyActor
+from engine.base_components.energy_actor import EnergyActor
 from components.brains.brain import Brain
 
 

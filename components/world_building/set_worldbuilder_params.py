@@ -6,7 +6,7 @@ from components.world_building.world_parameters import get_plains_params, get_fo
     get_swamp_params, get_tundra_params
 from content.world_builder import make_world_build
 from engine import core
-from engine.components.energy_actor import EnergyActor
+from engine.base_components.energy_actor import EnergyActor
 from gui.easy_menu import EasyMenu
 
 

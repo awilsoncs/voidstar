@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 from components.animation_effects.blinker import AnimationBlinker
 from engine import GameScene, constants
-from engine.components.energy_actor import EnergyActor
+from engine.base_components.energy_actor import EnergyActor
 
 
 @dataclass

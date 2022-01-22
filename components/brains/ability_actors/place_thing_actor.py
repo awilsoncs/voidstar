@@ -6,10 +6,10 @@ import tcod
 
 from components import Coordinates
 from components.brains.brain import Brain
-from engine.components.energy_actor import EnergyActor
+from engine.base_components.energy_actor import EnergyActor
 from components.enums import Intention
 from engine import constants, core
-from engine.components.component import Component
+from engine.base_components.component import Component
 
 
 @dataclass

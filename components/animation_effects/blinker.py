@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from components import Appearance
 from engine import palettes
-from engine.components.timed_actor import TimedActor
+from engine.base_components.timed_actor import TimedActor
 
 
 @dataclass

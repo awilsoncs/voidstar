@@ -5,13 +5,13 @@ import tcod
 
 from components import Coordinates
 from components.brains.brain import Brain
-from engine.components.energy_actor import EnergyActor
+from engine.base_components.energy_actor import EnergyActor
 from components.events.die_events import Die
 from components.enums import Intention
 from components.sellable import Sellable
 from content.terrain.dirt import make_dirt
 from engine import core, palettes
-from engine.components.entity import Entity
+from engine.base_components.entity import Entity
 from engine.types import EntityId
 
 

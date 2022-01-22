@@ -12,7 +12,7 @@ from components.season_reset_listeners.spawn_sapling_in_spring import SpawnSapli
 from components.season_reset_listeners.upgrade_houses import UpgradeHouse
 from components.weather.weather import Weather
 from engine import core
-from engine.components.entity import Entity
+from engine.base_components.entity import Entity
 
 
 def make_calendar():

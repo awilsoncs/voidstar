@@ -5,7 +5,7 @@ from components import Coordinates
 from components.enums import Intention
 from content.states import no_money_animation
 from engine import constants
-from engine.components.component import Component
+from engine.base_components.component import Component
 
 
 @dataclass

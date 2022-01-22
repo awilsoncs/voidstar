@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from components import Coordinates
 from components.path_node import PathNode
-from engine.components.timed_actor import TimedActor
+from engine.base_components.timed_actor import TimedActor
 
 
 @dataclass

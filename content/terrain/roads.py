@@ -9,8 +9,8 @@ from components.states.move_cost_affectors import EasyTerrain
 from components.tags.road_marker import RoadMarker
 from components.tags.water_tag import WaterTag
 from engine import core, palettes
-from engine.components.component import Component
-from engine.components.entity import Entity
+from engine.base_components.component import Component
+from engine.base_components.entity import Entity
 from engine.constants import PRIORITY_LOWEST
 
 

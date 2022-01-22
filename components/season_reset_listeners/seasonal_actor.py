@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from engine.components.component import Component
+from engine.base_components.component import Component
 
 
 class SeasonResetListener(Component, ABC):

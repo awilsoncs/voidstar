@@ -3,7 +3,7 @@ from collections import defaultdict
 from typing import Set, Dict, List, Iterable, Generic, Type, Callable
 
 from engine import constants
-from engine.components.component import Component
+from engine.base_components.component import Component
 from engine.core import log_debug
 from engine.types import EntityDictIndex, EntityDict, T, ComponentType, ComponentList, U
 
@@ -17,7 +17,7 @@ class ComponentManager(object):
         self.component_types: List[ComponentType] = []
         self.stashed_components: Dict[int, Component] = {}
 
-        # A mapping from the entity id to the related stashed components
+        # A mapping from the entity id to the related stashed base_components
         self.stashed_entities: Dict[int, Set[int]] = {}
 
     # properties
@@ -43,7 +43,7 @@ class ComponentManager(object):
 
     # data manipulation methods
     def add(self, component: Component, *components: Component) -> None:
-        """Add one or more components to the ComponentManager."""
+        """Add one or more base_components to the ComponentManager."""
         self._add(component)
         for component in components:
             self._add(component)
@@ -54,10 +54,10 @@ class ComponentManager(object):
             query: Callable[[T], bool] = lambda x: True,
             project: Callable[[T], U] = lambda x: x
     ) -> List[U]:
-        """Get all components of a given type.
+        """Get all base_components of a given type.
         @type component_type: the component type to select
-        @param query: a boolean function to choose returned components
-        @type project: a transformation applied to a selected components
+        @param query: a boolean function to choose returned base_components
+        @type project: a transformation applied to a selected base_components
         """
         return [
             project(x)
@@ -69,7 +69,7 @@ class ComponentManager(object):
         return self.components_by_entity[entity]
 
     def get_all(self, component_type: Type[T], entity: int) -> List[T]:
-        """Get all components of a given type for a given entity."""
+        """Get all base_components of a given type for a given entity."""
         return self.components_by_entity[entity][component_type]
 
     # TODO consider whether we really want to support this.
@@ -86,9 +86,9 @@ class ComponentManager(object):
 
     def delete(self, entity: int) -> None:
         """
-        Delete an entity and its components.
+        Delete an entity and its base_components.
 
-        Does not delete any references to the entity or its components.
+        Does not delete any references to the entity or its base_components.
         """
         if not isinstance(entity, int):
             raise ValueError(f"Cannot delete entity {entity}. Did you mean delete_component?")
@@ -145,7 +145,7 @@ class ComponentManager(object):
     def stash_component(self, cid: int):
         assert isinstance(cid, int), "cid must be an int"
 
-        # todo can leak stashed components if the managing entity is destroyed before the stash is recalled
+        # todo can leak stashed base_components if the managing entity is destroyed before the stash is recalled
         logging.debug(f"System::ComponentManager attempting to stash component {cid}")
         component = self.get_component_by_id(cid)
         logging.debug(f"System::ComponentManager stashing component {component}")

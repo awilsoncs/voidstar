@@ -1,7 +1,7 @@
 from abc import ABC
 from dataclasses import dataclass
 
-from engine.components.actor import Actor
+from engine.base_components.actor import Actor
 from engine.constants import PRIORITY_MEDIUM
 
 

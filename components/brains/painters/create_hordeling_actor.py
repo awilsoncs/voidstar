@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from engine.components.energy_actor import EnergyActor
+from engine.base_components.energy_actor import EnergyActor
 from components.brains.painters.painter_brain import PainterBrain
 from content.enemies.juvenile import make_juvenile
 from engine import constants

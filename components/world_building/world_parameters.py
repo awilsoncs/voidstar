@@ -2,7 +2,7 @@ import time
 from dataclasses import dataclass, field
 
 import settings
-from engine.components.component import Component
+from engine.base_components.component import Component
 
 DEFAULT_LAKES: int = 1
 DEFAULT_LAKE_PROLIFERATION: float = 0.2

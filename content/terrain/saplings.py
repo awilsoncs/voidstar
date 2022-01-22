@@ -6,7 +6,7 @@ from components.material import Material
 from components.season_reset_listeners.grow_in_spring import GrowIntoTree
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
-from engine.components.entity import Entity
+from engine.base_components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 
 

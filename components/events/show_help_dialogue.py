@@ -1,4 +1,4 @@
-from engine.components.energy_actor import EnergyActor
+from engine.base_components.energy_actor import EnergyActor
 
 intro = "You have been tasked with protecting this village from the hordelings. " \
         "As you move around, the calendar will progress through the month. " \

@@ -16,7 +16,7 @@ from components.stomach import Stomach
 from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
-from engine.components.entity import Entity
+from engine.base_components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 
 description = "This shadowy creature lurks just out of sight."

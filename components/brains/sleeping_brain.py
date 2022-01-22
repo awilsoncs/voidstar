@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from components import Coordinates
 from components.brains.brain import Brain
-from engine.components.energy_actor import EnergyActor
+from engine.base_components.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.stomach import Stomach
 from content.states import sleep_animation
