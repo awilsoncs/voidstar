@@ -8,3 +8,4 @@ from components.tags.tag import Tag
 class IceTag(Tag):
     value: str = 'ice'
     frozen_components: List[int] = field(default_factory=list)
+    is_dirty: bool = False

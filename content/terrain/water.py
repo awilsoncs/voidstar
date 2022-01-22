@@ -36,7 +36,7 @@ def make_water(x, y, rapidness=5000):
                 timer_delay=rapidness,
                 next_update=core.time_ms()+random.randint(0, rapidness)
             ),
-            WaterTag(entity=entity_id)
+            WaterTag(entity=entity_id, is_dirty=False)
         ]
     )
 
@@ -63,25 +63,26 @@ def make_swampy_water(x, y, rapidness):
                 timer_delay=rapidness*4,
                 next_update=core.time_ms()+random.randint(0, rapidness*4)
             ),
-            WaterTag(entity=entity_id)
+            WaterTag(entity=entity_id, is_dirty=True)
         ]
     )
 
 
 def freeze(scene, eid):
     entity = scene.cm.get_one(Entity, entity=eid)
-    if 'swampy' in entity.name:
+    water_tag = scene.cm.get_one(WaterTag, entity=eid)
+    if water_tag.is_dirty:
         entity.name = 'gross ice'
+        ice_tag = IceTag(entity=eid, is_dirty=True)
     else:
         entity.name = 'ice'
+        ice_tag = IceTag(entity=eid, is_dirty=False)
 
     appearance = scene.cm.get_one(Appearance, entity=eid)
     appearance.symbol = '░'
 
     material = scene.cm.get_one(Material, entity=eid)
     material.blocks = False
-
-    ice_tag = IceTag(entity=eid)
 
     for component_type in [WaterTag, Flooder, DifficultTerrain, PathfinderCost, RandomizedBlinker]:
         component = scene.cm.get_one(component_type, entity=eid)
@@ -93,7 +94,8 @@ def freeze(scene, eid):
 
 def thaw(scene, eid):
     entity = scene.cm.get_one(Entity, entity=eid)
-    if 'gross' in entity.name:
+    ice_tag = scene.cm.get_one(IceTag, entity=eid)
+    if ice_tag.is_dirty:
         entity.name = 'swampy water'
     else:
         entity.name = 'water'
