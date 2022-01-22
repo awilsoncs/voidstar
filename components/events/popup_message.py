@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from components import TimedActor
+from components.base_components.timed_actor import TimedActor
 
 
 @dataclass

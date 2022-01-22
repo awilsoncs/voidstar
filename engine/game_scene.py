@@ -1,5 +1,6 @@
 from typing import final
 
+from engine import serialization
 from engine.component_manager import ComponentManager
 from engine.sound.sound_controller import SoundController
 from gui.gui import Gui
@@ -69,3 +70,9 @@ class GameScene:
 
     def pop(self):
         self.controller.pop_scene()
+
+    def save_game(self, objects, file_name, extras):
+        serialization.save(objects, file_name, extras)
+
+    def load_game(self, file_name):
+        return serialization.load(file_name)

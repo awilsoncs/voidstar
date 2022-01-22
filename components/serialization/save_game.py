@@ -3,7 +3,7 @@ from typing import Dict
 
 from components.base_components.energy_actor import EnergyActor
 from components.world_building.world_parameters import WorldParameters
-from engine import palettes, core, serialization
+from engine import palettes, core
 
 
 @dataclass
@@ -17,7 +17,6 @@ class SaveGame(EnergyActor):
 
         self._log_info(f"attempting to save game")
         params = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
-        serialization.save(scene.cm.get_serial_form(), f"./{params.get_file_name()}.world", self.extra)
+        scene.save_game(scene.cm.get_serial_form(), f"./{params.get_file_name()}.world", self.extra)
         self._log_info(f"save complete")
         scene.message("Game saved.", color=palettes.LIGHT_WATER)
-

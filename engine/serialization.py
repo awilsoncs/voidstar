@@ -81,7 +81,7 @@ def _gather_loadable_classes():
     loadable_classes = {}
 
     # ignore this mess
-    package_dir = Path(__file__).resolve().parent.parent.parent
+    package_dir = Path(__file__).resolve().parent.parent
     for (_, module_name, _) in walk_packages([package_dir]):
 
         # import the module and iterate through its attributes

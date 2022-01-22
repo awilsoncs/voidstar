@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from components.base_components.energy_actor import EnergyActor
-from engine import palettes, core, serialization
+from engine import palettes, core
 
 
 @dataclass
@@ -17,7 +17,7 @@ class LoadGame(EnergyActor):
     def load_world(self, scene):
         start = core.time_ms()
         self._log_info(f"attempting to read game")
-        data = serialization.load(self.file_name)
+        data = scene.load_game(self.file_name)
         scene.cm.from_data(data)
         end = core.time_ms()
         self._log_info(f"loaded {len(data)} objects in {end - start}ms")

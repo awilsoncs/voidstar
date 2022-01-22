@@ -24,8 +24,9 @@ class QuitGame(Event):
 
     def notify(self, scene: GameScene, listener) -> None:
         listener.on_quit_game(scene)
+        scene.cm.delete_component(self)
 
-    def _after_notify(self, scene: GameScene) -> None:
+    def _after_remove(self, scene: GameScene) -> None:
         if settings.AUTOSAVE:
             SaveGame().act(scene)
         scene.pop()

@@ -19,6 +19,7 @@ class Event(EnergyActor):
             self.notify(scene, listener)
         self._after_notify(scene)
         scene.cm.delete_component(self)
+        self._after_remove(scene)
 
     @abstractmethod
     def listener_type(self):
@@ -36,4 +37,7 @@ class Event(EnergyActor):
 
     def _after_notify(self, scene: GameScene) -> None:
         """Define actions to take after listeners have been notified but before deleting the event."""
+        pass
+
+    def _after_remove(self, scene: GameScene) -> None:
         pass
