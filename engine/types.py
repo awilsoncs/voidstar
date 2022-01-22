@@ -1,6 +1,6 @@
 from typing import NewType, Dict, Type, List, TypeVar, Tuple
 
-from engine.base_components.component import Component
+from components.base_components.component import Component
 
 T = TypeVar('T')
 U = TypeVar('U')

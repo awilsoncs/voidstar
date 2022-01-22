@@ -9,7 +9,7 @@ from components.pathfinding.normal_cost_mapper import NormalCostMapper
 from components.pathfinder_cost import PathfinderCost
 from components.pathfinding.target_evaluation.ally_target_evaluator import AllyTargetEvaluator
 from engine import core, palettes
-from engine.base_components.entity import Entity
+from components.base_components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 
 

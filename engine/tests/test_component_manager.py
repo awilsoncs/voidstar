@@ -1,7 +1,7 @@
 import unittest
 from dataclasses import dataclass
 
-from engine.base_components.component import Component
+from components.base_components.component import Component
 from engine.component_manager import ComponentManager
 
 

@@ -2,7 +2,7 @@ import math
 from dataclasses import dataclass
 from typing import Tuple
 
-from engine.base_components.component import Component
+from components.base_components.component import Component
 from engine.constants import PRIORITY_MEDIUM
 
 

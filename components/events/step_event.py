@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Tuple
 
-from engine.base_components.component import Component
-from engine.base_components.events import Event
+from components.base_components.component import Component
+from components.base_components.events import Event
 
 
 @dataclass

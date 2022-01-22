@@ -2,8 +2,8 @@ from abc import ABC
 from dataclasses import dataclass
 
 from components.animation_effects.blinker import AnimationBlinker
+from components.base_components.energy_actor import EnergyActor
 from engine import GameScene, constants
-from engine.base_components.energy_actor import EnergyActor
 
 
 @dataclass

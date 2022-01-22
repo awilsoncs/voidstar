@@ -1,6 +1,6 @@
 from components.actors.hordeling_spawner import HordelingSpawner
 from engine import core
-from engine.base_components.entity import Entity
+from components.base_components.entity import Entity
 
 description = "How did you even see this?"
 

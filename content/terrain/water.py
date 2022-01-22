@@ -10,7 +10,7 @@ from components.pathfinder_cost import PathfinderCost
 from components.tags.ice_tag import IceTag
 from components.tags.water_tag import WaterTag
 from engine import core, palettes
-from engine.base_components.entity import Entity
+from components.base_components.entity import Entity
 from engine.constants import PRIORITY_LOWEST
 
 

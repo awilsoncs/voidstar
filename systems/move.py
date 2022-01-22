@@ -3,7 +3,7 @@ from typing import Tuple
 
 import settings
 from components import Senses
-from engine.base_components.actor import Actor
+from components.base_components.actor import Actor
 from components.attacks.attack import Attack
 from components.brains.brain import Brain
 from components.coordinates import Coordinates

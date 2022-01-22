@@ -3,7 +3,7 @@ from collections import defaultdict
 from typing import Set, Dict, List, Iterable, Generic, Type, Callable
 
 from engine import constants
-from engine.base_components.component import Component
+from components.base_components.component import Component
 from engine.core import log_debug
 from engine.types import EntityDictIndex, EntityDict, T, ComponentType, ComponentList, U
 

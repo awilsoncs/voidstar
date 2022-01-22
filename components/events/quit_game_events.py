@@ -4,8 +4,8 @@ from dataclasses import dataclass
 import settings
 from components.serialization.save_game import SaveGame
 from engine import GameScene
-from engine.base_components.component import Component
-from engine.base_components.events import Event
+from components.base_components.component import Component
+from components.base_components.events import Event
 from scenes.start_menu import get_start_menu
 
 

@@ -1,6 +1,6 @@
 from components import Appearance, Coordinates
 from engine import core, palettes
-from engine.base_components.entity import Entity
+from components.base_components.entity import Entity
 from engine.constants import PRIORITY_HIGH
 
 

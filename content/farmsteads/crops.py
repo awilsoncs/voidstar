@@ -9,8 +9,8 @@ from components.tags.crop_info import CropInfo
 from components.target_value import TargetValue
 from components.tax_value import TaxValue
 from engine import core, palettes
-from engine.base_components.component import Component
-from engine.base_components.entity import Entity
+from components.base_components.component import Component
+from components.base_components.entity import Entity
 from engine.constants import PRIORITY_LOW
 
 crops_description = "A valuable crop. They're easy pickens for the hordelings, " \

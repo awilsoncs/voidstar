@@ -2,7 +2,7 @@ import random
 from dataclasses import dataclass
 from components import Appearance
 from engine import palettes
-from engine.base_components.timed_actor import TimedActor
+from components.base_components.timed_actor import TimedActor
 
 
 @dataclass

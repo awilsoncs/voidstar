@@ -7,7 +7,7 @@ from components.relationships.owner import Owner
 from components.structure import Structure
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes, types
-from engine.base_components.entity import Entity
+from components.base_components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 from engine.types import EntityId
 

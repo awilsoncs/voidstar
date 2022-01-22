@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 import settings
 from components import Coordinates
-from engine.base_components.timed_actor import TimedActor
+from components.base_components.timed_actor import TimedActor
 
 
 @dataclass

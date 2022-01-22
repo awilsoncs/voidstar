@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from engine.base_components.events import Event
+from components.base_components.events import Event
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 
 

@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
 from components import Coordinates
+from components.base_components.energy_actor import EnergyActor
 from components.brains.brain import Brain
-from engine.base_components.energy_actor import EnergyActor
 from components.animation_effects.blinker import AnimationBlinker
 from components.stomach import Stomach
 from content.states import sleep_animation

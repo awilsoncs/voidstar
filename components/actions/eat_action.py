@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 
-from engine.base_components.energy_actor import EnergyActor
+from components.base_components.energy_actor import EnergyActor
 from components.events.die_events import Die
 from components.stomach import Stomach
 from components.tags.peasant_tag import PeasantTag
 from engine import constants
-from engine.base_components.entity import Entity
+from components.base_components.entity import Entity
 
 
 @dataclass

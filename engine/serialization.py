@@ -7,7 +7,7 @@ from pathlib import Path
 from pkgutil import walk_packages
 
 from engine import core
-from engine.base_components.component import Component
+from components.base_components.component import Component
 
 
 class EnhancedJSONEncoder(json.JSONEncoder):

@@ -3,7 +3,7 @@ from components.animation_effects.reset_owner_animation import ResetOwnerAnimati
 from components.events.delete_event import Delete
 from components.relationships.owner import Owner
 from engine import palettes, core
-from engine.base_components.entity import Entity
+from components.base_components.entity import Entity
 from engine.constants import PRIORITY_HIGH
 
 

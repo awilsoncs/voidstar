@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from engine.base_components.component import Component
+from components.base_components.component import Component
 from engine import palettes
 
 

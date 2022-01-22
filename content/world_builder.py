@@ -11,7 +11,7 @@ from components.world_building.place_roads import PlaceRoads
 from components.world_building.place_rocks import PlaceRocks
 from components.world_building.set_world_name import SetWorldName
 from engine import core
-from engine.base_components.entity import Entity
+from components.base_components.entity import Entity
 
 
 def make_world_build():

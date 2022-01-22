@@ -5,11 +5,11 @@ from typing import List, Tuple
 import tcod
 
 from components import Coordinates
+from components.base_components.energy_actor import EnergyActor
 from components.brains.brain import Brain
-from engine.base_components.energy_actor import EnergyActor
 from components.enums import Intention
 from engine import constants, core
-from engine.base_components.component import Component
+from components.base_components.component import Component
 
 
 @dataclass

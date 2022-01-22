@@ -2,7 +2,7 @@ import random
 from dataclasses import dataclass
 
 import settings
-from engine.base_components.energy_actor import EnergyActor
+from components.base_components.energy_actor import EnergyActor
 from content.enemies.juggernaut import make_juggernaut
 from content.enemies.juvenile import make_juvenile
 from content.enemies.pirhana import make_pirhana

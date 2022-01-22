@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Tuple
 
 from components import Coordinates
-from engine.base_components.energy_actor import EnergyActor
+from components.base_components.energy_actor import EnergyActor
 from content.terrain.hole import make_hole
 from engine import constants
 

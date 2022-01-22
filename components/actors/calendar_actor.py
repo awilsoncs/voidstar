@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from engine.base_components.energy_actor import EnergyActor
+from components.base_components.energy_actor import EnergyActor
 from components.actors.hordeling_spawner import HordelingSpawner
 from components.events.attack_started_events import AttackStarted
 from components.events.new_day_event import DayBegan
