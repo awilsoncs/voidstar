@@ -1,4 +1,5 @@
 import logging
+import os
 from dataclasses import dataclass
 
 import engine
@@ -42,8 +43,7 @@ class ShowDebug(EnergyActor):
                     "toggle ability": get_toggle_masonry(scene),
                     "toggle pathing": get_pathfinding_for(scene),
                     "spawn a home": get_spawn_home(scene),
-                    "dump game state": get_dump_game(scene),
-                    "read game state": get_read_game(scene)
+                    "quicksave": quick_save(scene)
                 },
                 settings.INVENTORY_WIDTH,
             )
@@ -241,13 +241,7 @@ def get_spawn_home(scene):
     return out_fn
 
 
-def get_dump_game(scene):
+def quick_save(scene):
     def out_fn():
         scene.cm.add(SaveGame(entity=scene.player))
-    return out_fn
-
-
-def get_read_game(scene):
-    def out_fn():
-        scene.cm.add(LoadGame(entity=scene.player))
     return out_fn
