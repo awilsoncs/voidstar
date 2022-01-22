@@ -39,6 +39,7 @@ class LoadMenuScene(GameScene):
                     world: self.get_world_loader(world) for world in files
                 },
                 settings.INVENTORY_WIDTH,
+                on_escape=self.pop()
             )
         )
 
