@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     if not args.terminal_log:
         logging.basicConfig(
-            filename=os.path.join(os.path.dirname(__file__), 'log'),
+            filename='./.log',
             filemode='a',
             format='%(levelname)s\t%(message)s'
         )

@@ -13,6 +13,7 @@ class Event(EnergyActor):
 
     @log_debug(__name__)
     def act(self, scene: GameScene) -> None:
+        self._log_info("event")
         self._before_notify(scene)
         listeners = scene.cm.get(self.listener_type())
         for listener in listeners:
