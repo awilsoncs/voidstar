@@ -3,6 +3,7 @@ from typing import Tuple
 import numpy as np
 
 import settings
+from components.base_components.class_register import LoadClasses
 from components.population import Population
 from components.world_building.set_worldbuilder_params import SelectBiome
 from components.events.start_game_events import StartGame
@@ -73,6 +74,8 @@ class DefendScene(GameScene):
     def on_load(self):
         self.cm = ComponentManager()
         self.play_window.cm = self.cm
+        self.cm.add(LoadClasses(entity=self.player))
+
         if self.from_file:
             self.cm.add(LoadGame(entity=self.player, file_name=self.from_file))
             self.cm.add(StartGame(entity=self.player))

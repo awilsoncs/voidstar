@@ -78,18 +78,5 @@ def _load_from_data(data, loadable_classes):
 
 def _gather_loadable_classes():
     """Read the base_components directory to discover loadable base_components."""
-    loadable_classes = {}
-
     # ignore this mess
-    package_dir = Path(__file__).resolve().parent.parent
-    for (_, module_name, _) in walk_packages([package_dir]):
-
-        # import the module and iterate through its attributes
-        module = import_module(f"{module_name}")
-        for attribute_name in dir(module):
-            attribute = getattr(module, attribute_name)
-
-            if isclass(attribute) and issubclass(attribute, Component):
-                # Add the class to this package's variables
-                loadable_classes[attribute_name] = attribute
-    return loadable_classes
+    return Component.subclasses

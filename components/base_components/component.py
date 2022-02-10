@@ -10,6 +10,8 @@ class Component(object):
     id: int = field(default_factory=get_id)
     entity: int = constants.INVALID
 
+    subclasses = {}
+
     def on_component_delete(self, cm):
         """Called by the CM when the component is deleted."""
         pass
@@ -28,4 +30,7 @@ class Component(object):
 
     def __msg_format(self, message):
         return f"EID#{self.entity}::{self.__class__.__name__}#{self.id} - {message}"
+
+    def __init_subclass__(cls, **kwargs):
+        Component.subclasses[cls.__name__] = cls
 
