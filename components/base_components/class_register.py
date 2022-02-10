@@ -16,6 +16,8 @@ class LoadClasses(Event):
 
     def _after_notify(self, scene: GameScene) -> None:
         self._log_info(f"{len(Component.subclasses)} classes loaded")
+        for clz in Component.subclasses:
+            self._log_debug(f"loaded {clz}")
 
 
 @dataclass
