@@ -12,6 +12,7 @@ from components.sound.battle_music import BattleMusic
 from components.sound.start_music import StartMusic
 from components.world_beauty import WorldBeauty
 from content.physics_controller import make_physics_controller
+from content.tax_handler import make_tax_handler
 from content.utilities import make_calendar
 from engine import GameScene, palettes, core
 from engine.component_manager import ComponentManager
@@ -82,6 +83,7 @@ class DefendScene(GameScene):
             self.cm.add(StartGame(entity=self.player))
         else:
             self.cm.add(SelectBiome(entity=core.get_id("world")))
+            self.cm.add(*make_tax_handler()[1])
             self.cm.add(*make_calendar()[1])
             self.cm.add(*make_physics_controller()[1])
             self.cm.add(StartMusic(entity=self.player))

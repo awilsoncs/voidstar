@@ -8,6 +8,7 @@ from components.material import Material
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
 from components.pathfinder_cost import PathfinderCost
 from components.pathfinding.target_evaluation.ally_target_evaluator import AllyTargetEvaluator
+from components.tax_value import TaxValue
 from engine import core, palettes
 from components.base_components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
@@ -29,7 +30,8 @@ def make_knight(x, y):
         Material(entity=entity_id, blocks=False, blocks_sight=False),
         PathfinderCost(entity=entity_id, cost=40),
         Sellable(entity=entity_id, value=0),
-        AllyTargetEvaluator(entity=entity_id)
+        AllyTargetEvaluator(entity=entity_id),
+        TaxValue(entity=entity_id, value=TaxValue.KNIGHT)
     ]
 
     return entity_id, components

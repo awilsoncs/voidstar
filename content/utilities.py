@@ -1,10 +1,8 @@
-from components.season_reset_listeners.collect_taxes_for_king import CollectTaxesForKing
 from components.weather.snow_fall import SnowFall
 from components.attack_start_listeners.move_peasants_in import MovePeasantsIn
 from components.announce_game_start import AnnounceGameStart
 from components.season_reset_listeners.add_farmstead import AddFarmstead
 from components.actors.calendar_actor import Calendar
-from components.season_reset_listeners.collect_taxes import CollectTaxes
 from components.season_reset_listeners.die_in_winter import CropsDieInWinter
 from components.weather.freeze_water import FreezeWater
 from components.season_reset_listeners.move_peasants_out import MovePeasantsOut
@@ -25,7 +23,6 @@ def make_calendar():
             AnnounceGameStart(entity=entity_id),
             Calendar(entity=entity_id),
             ResetHealth(entity=entity_id),
-            CollectTaxes(entity=entity_id),
             UpgradeHouse(entity=entity_id),
             AddFarmstead(entity=entity_id),
             MovePeasantsOut(entity=entity_id),
@@ -34,7 +31,6 @@ def make_calendar():
             CropsDieInWinter(entity=entity_id),
             FreezeWater(entity=entity_id),
             Weather(entity=entity_id),
-            SpawnSaplingInSpring(entity=entity_id),
-            CollectTaxesForKing(entity=entity_id)
+            SpawnSaplingInSpring(entity=entity_id)
         ]
     ]

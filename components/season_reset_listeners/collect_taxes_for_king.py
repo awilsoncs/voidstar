@@ -7,6 +7,7 @@ class CollectTaxesForKing(SeasonResetListener):
 
     def on_season_reset(self, scene, season):
         if season != "Spring":
+            scene.warn(f'The king will collect {self.value}c from you at the end of the year.')
             return
 
         if scene.gold < self.value:
@@ -24,5 +25,4 @@ class CollectTaxesForKing(SeasonResetListener):
             f"The king collected {old_value}c from you at the end of the year. "
             f"Next year, the amount will be {self.value}c."
         )
-        scene.message(message)
         scene.popup_message(message)
