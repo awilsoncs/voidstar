@@ -2,7 +2,6 @@ import random
 from typing import List
 
 from components.events.delete_event import Delete
-from components.events.die_events import Die
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tax_value import TaxValue
 from engine import palettes
