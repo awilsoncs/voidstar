@@ -1,6 +1,7 @@
 import settings
 from components import Appearance, Senses, Attributes, Coordinates
 from components.abilities.build_fence_ability import BuildFenceAbility
+from components.abilities.build_spikes_ability import BuildSpikesAbility
 from components.abilities.build_wall_ability import BuildWallAbility
 from components.abilities.debug_ability import DebugAbility
 from components.abilities.dig_hole_ability import DigHoleAbility
@@ -24,7 +25,7 @@ from components.material import Material
 from components.movement.move import Move
 from components.season_reset_listeners.move_player_to_town_center import MovePlayerToTownCenter
 from components.season_reset_listeners.save_on_season import SaveOnSeasonReset
-from components.movement.drain_on_water_step import DrainOnStepOnWater
+from components.movement.drain_on_enter import DrainOnEnter
 from components.movement.heal_on_dally import HealOnDally
 from components.movement.pickup_gold import PickupGoldOnStep
 from components.target_value import PLAYER, TargetValue
@@ -68,9 +69,9 @@ def make_player(x, y):
             PlaceCowAbility(entity=entity_id),
             HireKnightAbility(entity=entity_id),
             PlaceHaunchAbility(entity=entity_id),
+            BuildSpikesAbility(entity=entity_id),
             SaveOnSeasonReset(entity=entity_id),
             PickupGoldOnStep(entity=entity_id),
-            DrainOnStepOnWater(entity=entity_id),
             HealOnDally(entity=entity_id)
         ]
     )

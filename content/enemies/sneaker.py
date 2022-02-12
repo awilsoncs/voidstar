@@ -11,7 +11,7 @@ from components.material import Material
 from components.movement.move import Move
 from components.pathfinding.stealthy_cost_map import StealthyCostMapper
 from components.pathfinding.target_evaluation.hordeling_target_evaluator import HordelingTargetEvaluator
-from components.movement.drain_on_water_step import DrainOnStepOnWater
+from components.movement.drain_on_enter import DrainOnEnter
 from components.stomach import Stomach
 from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
@@ -46,8 +46,7 @@ def make_sneaker(x, y):
         PathfinderCost(entity=entity_id, cost=5),
         StealthyCostMapper(entity=entity_id),
         Stomach(entity=entity_id),
-        HordelingTargetEvaluator(entity=entity_id),
-        DrainOnStepOnWater(entity=entity_id)
+        HordelingTargetEvaluator(entity=entity_id)
     ]
 
     if random.randint(1, 10) == 10:

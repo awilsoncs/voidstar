@@ -5,6 +5,7 @@ from components.animation_effects.randomized_blinker import RandomizedBlinker
 from components.diggable import Diggable
 from components.flooder import Flooder
 from components.material import Material
+from components.movement.drain_on_enter import DrainOnEnter
 from components.states.move_cost_affectors import DifficultTerrain
 from components.pathfinder_cost import PathfinderCost
 from components.tags.ice_tag import IceTag
@@ -36,7 +37,8 @@ def make_water(x, y, rapidness=5000):
                 timer_delay=rapidness,
                 next_update=core.time_ms()+random.randint(0, rapidness)
             ),
-            WaterTag(entity=entity_id, is_dirty=False)
+            WaterTag(entity=entity_id, is_dirty=False),
+            DrainOnEnter(entity=entity_id, damage=1)
         ]
     )
 
@@ -63,7 +65,8 @@ def make_swampy_water(x, y, rapidness):
                 timer_delay=rapidness*4,
                 next_update=core.time_ms()+random.randint(0, rapidness*4)
             ),
-            WaterTag(entity=entity_id, is_dirty=True)
+            WaterTag(entity=entity_id, is_dirty=True),
+            DrainOnEnter(entity=entity_id, damage=1)
         ]
     )
 

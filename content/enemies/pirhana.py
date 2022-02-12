@@ -11,7 +11,7 @@ from components.material import Material
 from components.movement.move import Move
 from components.pathfinding.normal_cost_mapper import NormalCostMapper
 from components.pathfinding.target_evaluation.high_crop_target_evaluator import HighCropTargetEvaluator
-from components.movement.drain_on_water_step import DrainOnStepOnWater
+from components.movement.drain_on_enter import DrainOnEnter
 from components.stomach import Stomach
 from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
@@ -38,8 +38,7 @@ def make_pirhana(x, y):
         Move(entity=entity_id, energy_cost=EnergyActor.FAST),
         PathfinderCost(entity=entity_id, cost=5),
         Stomach(entity=entity_id),
-        HighCropTargetEvaluator(entity=entity_id),
-        DrainOnStepOnWater(entity=entity_id)
+        HighCropTargetEvaluator(entity=entity_id)
     ]
 
     if random.randint(1, 10) == 10:

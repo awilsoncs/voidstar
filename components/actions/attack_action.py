@@ -5,6 +5,7 @@ from components import Coordinates, Attributes
 from components.attacks.attack_effects.attack_effect import AttackEffect
 from components.base_components.energy_actor import EnergyActor
 from components.cry_for_help import CryForHelp
+from components.events.attack_events import AttackFinished
 from components.events.die_events import Die
 from components.house_structure import HouseStructure
 from components.relationships.owner import Owner
@@ -48,6 +49,7 @@ class AttackAction(EnergyActor):
             scene.cm.add(*help_anim[1])
 
         scene.cm.delete_components(AttackAction)
+        scene.cm.add(AttackFinished(entity=self.entity))
 
     def _handle_house_damage(self, scene, house_structure, damage):
         for entity in house_structure.get_all():
