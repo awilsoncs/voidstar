@@ -23,6 +23,7 @@ from gui.help_tab import HelpTab
 from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SpeedLabel, AbilityLabel, VillageNameLabel
 from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
+from gui.popup_message import PopupMessage
 from gui.vertical_anchor import VerticalAnchor
 from systems import act, move, control_turns
 
@@ -87,6 +88,10 @@ class DefendScene(GameScene):
             self.cm.add(BattleMusic(entity=self.player))
             self.cm.add(WorldBeauty(entity=core.get_id("world")))
             self.cm.add(Population(entity=core.get_id("world")))
+
+    def popup_message(self, message: str):
+        self.message(message)
+        self.add_gui_element(PopupMessage(message))
 
     @timed(100, __name__)
     def update(self):

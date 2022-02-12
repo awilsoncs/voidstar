@@ -1,3 +1,4 @@
+from components.season_reset_listeners.collect_taxes_for_king import CollectTaxesForKing
 from components.weather.snow_fall import SnowFall
 from components.attack_start_listeners.move_peasants_in import MovePeasantsIn
 from components.announce_game_start import AnnounceGameStart
@@ -33,6 +34,7 @@ def make_calendar():
             CropsDieInWinter(entity=entity_id),
             FreezeWater(entity=entity_id),
             Weather(entity=entity_id),
-            SpawnSaplingInSpring(entity=entity_id)
+            SpawnSaplingInSpring(entity=entity_id),
+            CollectTaxesForKing(entity=entity_id)
         ]
     ]
