@@ -87,7 +87,7 @@ def freeze(scene, eid):
     material = scene.cm.get_one(Material, entity=eid)
     material.blocks = False
 
-    for component_type in [WaterTag, Flooder, DifficultTerrain, PathfinderCost, RandomizedBlinker]:
+    for component_type in [WaterTag, Flooder, DifficultTerrain, PathfinderCost, RandomizedBlinker, DrainOnEnter]:
         component = scene.cm.get_one(component_type, entity=eid)
         ice_tag.frozen_components.append(component.id)
         scene.cm.stash_component(component.id)
