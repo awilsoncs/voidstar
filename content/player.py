@@ -8,6 +8,7 @@ from components.abilities.dig_hole_ability import DigHoleAbility
 from components.abilities.fast_forward_ability import FastForwardAbility
 from components.abilities.hire_knight_ability import HireKnightAbility
 from components.abilities.look_ability import LookAbility
+from components.abilities.place_bomb_ability import PlaceBombAbility
 from components.abilities.place_cow_ability import PlaceCowAbility
 from components.abilities.place_haunch_ability import PlaceHaunchAbility
 from components.abilities.plant_sapling_ability import PlantSaplingAbility
@@ -70,6 +71,8 @@ def make_player(x, y):
             HireKnightAbility(entity=entity_id),
             PlaceHaunchAbility(entity=entity_id),
             BuildSpikesAbility(entity=entity_id),
+            PlaceBombAbility(entity=entity_id),
+            # Other
             SaveOnSeasonReset(entity=entity_id),
             PickupGoldOnStep(entity=entity_id),
             HealOnDally(entity=entity_id)

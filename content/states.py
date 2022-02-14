@@ -42,3 +42,7 @@ def knockback_animation(x, y):
 
 def sleep_animation(x, y):
     return floaty_animation(x, y, 'z', palettes.LIGHT_WATER, 'sleep_animation')
+
+
+def character_animation(x, y, char):
+    return floaty_animation(x, y, char, palettes.LIGHT_WATER, 'character_animation')
