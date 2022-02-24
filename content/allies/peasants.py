@@ -10,6 +10,7 @@ from components.events.peasant_events import PeasantAdded
 from components.faction import Faction
 from components.material import Material
 from components.movement.move import Move
+from components.pathfinding.peasant_cost_mapper import PeasantCostMapper
 from components.relationships.residence import Residence
 from components.tags.peasant_tag import PeasantTag
 from components.target_value import PEASANT, TargetValue
@@ -21,6 +22,7 @@ from engine.types import EntityId
 
 peasant_description = "A peasant, tasked with working the fields. " \
                       "Unaware of your incompetency, their face belies a cheerful contentment."
+
 
 
 def make_peasant(house_id, x, y) -> Entity:
@@ -46,6 +48,7 @@ def make_peasant(house_id, x, y) -> Entity:
         Edible(entity=entity_id, sleep_for=20),
         PeasantActor(entity=entity_id),
         PeasantAdded(entity=entity_id),
-        OnDieEmitPeasantDied(entity=entity_id)
+        OnDieEmitPeasantDied(entity=entity_id),
+        PeasantCostMapper(entity=entity_id)
     ]
     return entity_id, components
