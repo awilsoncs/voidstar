@@ -18,6 +18,7 @@ class Brain(EnergyActor, ABC):
         scene.cm.add(new_brain)
 
     def back_out(self, scene):
+        self._on_back_out(scene)
         old_actor = scene.cm.unstash_component(self.old_brain)
         # todo not sure if this is a great place for this
         blinker = scene.cm.get_one(AnimationBlinker, entity=self.entity)
@@ -27,3 +28,5 @@ class Brain(EnergyActor, ABC):
         scene.cm.delete_component(self)
         return old_actor
 
+    def _on_back_out(self, scene):
+        pass

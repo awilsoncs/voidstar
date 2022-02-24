@@ -4,8 +4,10 @@ from components import Coordinates
 from components.base_components.energy_actor import EnergyActor
 from components.brains.brain import Brain
 from components.animation_effects.blinker import AnimationBlinker
+from components.events.peasant_events import PeasantDied
 from components.stomach import Stomach
 from content.states import sleep_animation
+from engine import core, constants
 from engine.core import log_debug
 
 
@@ -21,15 +23,15 @@ class SleepingBrain(Brain):
         scene.cm.add(*sleep_animation(coords.x, coords.y)[1])
         self.pass_turn()
         if self.turns <= 0:
-            blinker = scene.cm.get_one(AnimationBlinker, entity=self.entity)
-            if blinker:
-                blinker.stop(scene)
-                scene.cm.delete_component(blinker)
-            stomach = scene.cm.get_one(Stomach, entity=self.entity)
-            if stomach:
-                stomach.clear(scene)
-
             self.back_out(scene)
-
         else:
             self.turns -= 1
+
+    def _on_back_out(self, scene):
+        stomach = scene.cm.get_one(Stomach, entity=self.entity)
+        if stomach:
+            if stomach.contents != constants.INVALID:
+                self._log_debug(f"digested the peasant")
+                scene.warn("A peasant has been lost!")
+                scene.cm.add(PeasantDied(entity=core.get_id("world")))
+            stomach.clear(scene)

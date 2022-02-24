@@ -82,6 +82,7 @@ class DefaultActiveActor(Brain):
         else:
             next_step = (next_step_node[0] - coords.x, next_step_node[1] - coords.y)
             self.intention = VECTOR_STEP_MAP[next_step]
+            self._log_debug(f"set intention {self.intention}")
 
     def should_eat(self, scene):
         self._log_debug(f"checking for edibility of {self.target}")

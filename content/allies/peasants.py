@@ -4,6 +4,7 @@ from components import Appearance, Attributes, Coordinates
 from components.brains.peasant_actor import PeasantActor
 from components.death_listeners.npc_corpse import Corpse
 from components.cry_for_help import CryForHelp
+from components.death_listeners.on_die_emit_peasant_died import OnDieEmitPeasantDied
 from components.edible import Edible
 from components.events.peasant_events import PeasantAdded
 from components.faction import Faction
@@ -44,6 +45,7 @@ def make_peasant(house_id, x, y) -> Entity:
         Move(entity=entity_id),
         Edible(entity=entity_id, sleep_for=20),
         PeasantActor(entity=entity_id),
-        PeasantAdded(entity=entity_id)
+        PeasantAdded(entity=entity_id),
+        OnDieEmitPeasantDied(entity=entity_id)
     ]
     return entity_id, components
