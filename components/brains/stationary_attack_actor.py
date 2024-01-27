@@ -5,7 +5,6 @@ from components.actions.attack_action import AttackAction
 from components.attacks.attack import Attack
 from components.brains.brain import Brain
 from components.events.attack_started_events import AttackStartListener
-from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.hordeling_tag import HordelingTag
 from content.attacks import stab
 from engine import constants
@@ -13,15 +12,12 @@ from engine.core import log_debug
 
 
 @dataclass
-class StationaryAttackActor(Brain, SeasonResetListener, AttackStartListener):
+class StationaryAttackActor(Brain, AttackStartListener):
     """Stand in place and attack any enemy in range."""
     target: int = constants.INVALID
     cost_map = None
     root_x: int = constants.INVALID
     root_y: int = constants.INVALID
-
-    def on_season_reset(self, scene, season):
-        self.teleport_to_root(scene)
 
     def on_attack_start(self, scene):
         self.teleport_to_root(scene)

@@ -15,7 +15,6 @@ from components.pathfinding.breadcrumb_tracker import BreadcrumbTracker
 from components.serialization.save_game import SaveGame
 from components.wrath_effect import WrathEffect
 from content.cursor import make_cursor
-from content.farmsteads.houses import place_farmstead
 from content.terrain.roads import connect_point_to_road_network
 from engine.components.entity import Entity
 from gui.easy_menu import EasyMenu
@@ -40,7 +39,6 @@ class ShowDebug(EnergyActor):
                     "teleport to": get_teleport_to(scene),
                     "toggle ability": get_toggle_masonry(scene),
                     "toggle pathing": get_pathfinding_for(scene),
-                    "spawn a home": get_spawn_home(scene),
                     "quicksave": quick_save(scene)
                 },
                 settings.INVENTORY_WIDTH,
@@ -228,14 +226,6 @@ def get_show_pathing(scene, entity):
         else:
             scene.cm.add(BreadcrumbTracker(entity=entity))
 
-    return out_fn
-
-
-def get_spawn_home(scene):
-    def out_fn():
-        farmstead_id = place_farmstead(scene)
-        farmstead_point = scene.cm.get_one(Coordinates, entity=farmstead_id).position
-        connect_point_to_road_network(scene, farmstead_point, trim_start=2)
     return out_fn
 
 

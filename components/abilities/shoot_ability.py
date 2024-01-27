@@ -4,22 +4,18 @@ from components import Coordinates
 from components.abilities.ability import Ability
 from components.animation_effects.blinker import AnimationBlinker
 from components.brains.ability_actors.ranged_attack_actor import RangedAttackActor
-from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.hordeling_tag import HordelingTag
 from content.states import confused_animation
 from engine.utilities import is_visible
 
 
 @dataclass
-class ShootAbility(SeasonResetListener, Ability):
+class ShootAbility(Ability):
     ability_title: str = "Shoot Bow"
     count: int = 5
     max: int = 5
     unlock_cost: int = 100
     use_cost: int = 5
-
-    def on_season_reset(self, scene, season):
-        self.count = self.max
 
     def use(self, scene, dispatcher):
         hordelings = [e for e in scene.cm.get(HordelingTag) if is_visible(scene, e.entity)]

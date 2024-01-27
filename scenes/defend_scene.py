@@ -10,10 +10,7 @@ from components.events.start_game_events import StartGame
 from components.serialization.load_game import LoadGame
 from components.sound.battle_music import BattleMusic
 from components.sound.start_music import StartMusic
-from components.world_beauty import WorldBeauty
 from content.physics_controller import make_physics_controller
-from content.tax_handler import make_tax_handler
-from content.utilities import make_calendar
 from engine import GameScene, palettes, core
 from engine.component_manager import ComponentManager
 from engine.constants import PLAYER_ID
@@ -21,7 +18,7 @@ from engine.core import timed
 from engine.message import Message
 from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
 from gui.help_tab import HelpTab
-from gui.labels import Label, GoldLabel, CalendarLabel, HordeStatusLabel, SpeedLabel, AbilityLabel, VillageNameLabel
+from gui.labels import Label, GoldLabel, SpeedLabel, AbilityLabel, VillageNameLabel
 from gui.message_box import MessageBox
 from gui.play_window import PlayWindow
 from gui.popup_message import PopupMessage
@@ -51,7 +48,6 @@ class DefendScene(GameScene):
         anchor.add_element(HealthBar(1, 0))
         anchor.add_element(Thwackometer(1, 0))
         anchor.add_element(SpeedLabel(1, 0))
-        anchor.add_element(CalendarLabel(1, 0))
         anchor.add_element(GoldLabel(1, 0))
         anchor.add_element(AbilityLabel(1, 0))
         anchor.add_space(1)
@@ -59,7 +55,6 @@ class DefendScene(GameScene):
         anchor.add_element(VillageNameLabel(1, 6))
         anchor.add_element(Label(1, 7, "Peasants"))
         anchor.add_element(PeasantBar(1, 8))
-        anchor.add_element(HordeStatusLabel(1, 9))
         anchor.add_element(HordelingBar(1, 10))
         anchor.add_element(MessageBox(1, 11, 23, 16, self.messages))
         anchor.add_space(16)
@@ -83,12 +78,9 @@ class DefendScene(GameScene):
             self.cm.add(StartGame(entity=self.player))
         else:
             self.cm.add(SelectBiome(entity=core.get_id("world")))
-            self.cm.add(*make_tax_handler()[1])
-            self.cm.add(*make_calendar()[1])
             self.cm.add(*make_physics_controller()[1])
             self.cm.add(StartMusic(entity=self.player))
             self.cm.add(BattleMusic(entity=self.player))
-            self.cm.add(WorldBeauty(entity=core.get_id("world")))
             self.cm.add(Population(entity=core.get_id("world")))
 
     def popup_message(self, message: str):

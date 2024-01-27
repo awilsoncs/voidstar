@@ -24,8 +24,6 @@ from components.brains.player_brain import PlayerBrain
 from components.faction import Faction
 from components.material import Material
 from components.movement.move import Move
-from components.season_reset_listeners.move_player_to_town_center import MovePlayerToTownCenter
-from components.season_reset_listeners.save_on_season import SaveOnSeasonReset
 from components.movement.heal_on_dally import HealOnDally
 from components.movement.pickup_gold import PickupGoldOnStep
 from components.target_value import PLAYER, TargetValue
@@ -52,7 +50,6 @@ def make_player(x, y):
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             Move(entity=entity_id),
             Options(entity=entity_id),
-            MovePlayerToTownCenter(entity=entity_id),
             UpdateSenses(entity=entity_id),
             # Abilities
             AbilityTracker(entity=entity_id),
@@ -72,7 +69,6 @@ def make_player(x, y):
             BuildSpikesAbility(entity=entity_id),
             PlaceBombAbility(entity=entity_id),
             # Other
-            SaveOnSeasonReset(entity=entity_id),
             PickupGoldOnStep(entity=entity_id),
             HealOnDally(entity=entity_id)
         ]

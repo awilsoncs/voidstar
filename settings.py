@@ -23,11 +23,11 @@ def get_relative_path(relative_path):
 
 def create_options_file():
     option_data_base = {
-        'autosave-enabled': True,
+        'autosave-enabled': False,
         'character-name': 'Sir Cameron',
         'grass-density': 0.1,
         'torch-radius': -1,
-        'music-enabled': True,
+        'music-enabled': False,
         'world_seed': 'RANDOM',
         'color_background': '000000',
         'color_grass': '1f240a',
@@ -94,12 +94,12 @@ LIGHT_WATER = from_hex(option_data['color_light_water'])
 HORDELING = from_hex(option_data['color_hordeling'])
 BLOOD = from_hex(option_data['color_blood'])
 
-# Nonconfigurable options
+# Non-configurable options
 FONT = resource_path('resources/tiles.png')
 
 # actual size of the window
-SCREEN_WIDTH = 60
-SCREEN_HEIGHT = 40
+SCREEN_WIDTH = 80
+SCREEN_HEIGHT = 50
 
 # size of the map
 MAP_WIDTH = SCREEN_WIDTH - 25

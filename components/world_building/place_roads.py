@@ -11,13 +11,7 @@ from engine.utilities import get_3_by_3_square, get_3_by_3_box
 
 
 def get_town_center(house_coords, scene):
-    avg_x = int(sum(c.x for c in house_coords) / len(house_coords))
-    avg_y = int(sum(c.y for c in house_coords) / len(house_coords))
-    all_coords = set(scene.cm.get(Coordinates, project=lambda c: (c.x, c.y)))
-    while not get_3_by_3_square(avg_x, avg_y).isdisjoint(all_coords):
-        avg_x += random.randint(-2, 2)
-        avg_y += random.randint(-2, 2)
-    return avg_x, avg_y
+    return settings.MAP_WIDTH // 2, settings.MAP_HEIGHT // 2
 
 
 def connect_houses_to_road(house_coords, scene):
