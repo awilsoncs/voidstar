@@ -4,7 +4,6 @@ import numpy as np
 
 import settings
 from engine.components.class_register import LoadClasses
-from components.population import Population
 from components.world_building.set_worldbuilder_params import SelectBiome
 from components.events.start_game_events import StartGame
 from components.serialization.load_game import LoadGame
@@ -16,7 +15,7 @@ from engine.component_manager import ComponentManager
 from engine.constants import PLAYER_ID
 from engine.core import timed
 from engine.message import Message
-from gui.bars import HealthBar, PeasantBar, HordelingBar, Thwackometer
+from gui.bars import HealthBar, HordelingBar, Thwackometer
 from gui.help_tab import HelpTab
 from gui.labels import Label, GoldLabel, SpeedLabel, AbilityLabel, VillageNameLabel
 from gui.message_box import MessageBox
@@ -53,13 +52,8 @@ class DefendScene(GameScene):
         anchor.add_space(1)
 
         anchor.add_element(VillageNameLabel(1, 6))
-        anchor.add_element(Label(1, 7, "Peasants"))
-        anchor.add_element(PeasantBar(1, 8))
-        anchor.add_element(HordelingBar(1, 10))
         anchor.add_element(MessageBox(1, 11, 23, 16, self.messages))
         anchor.add_space(16)
-
-        anchor.add_element(HelpTab(1, 27))
 
         self.add_gui_element(anchor)
         self.add_gui_element(self.play_window)
@@ -81,7 +75,6 @@ class DefendScene(GameScene):
             self.cm.add(*make_physics_controller()[1])
             self.cm.add(StartMusic(entity=self.player))
             self.cm.add(BattleMusic(entity=self.player))
-            self.cm.add(Population(entity=core.get_id("world")))
 
     def popup_message(self, message: str):
         self.message(message)

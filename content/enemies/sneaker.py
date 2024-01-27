@@ -11,7 +11,6 @@ from components.material import Material
 from components.movement.move import Move
 from components.pathfinding.stealthy_cost_map import StealthyCostMapper
 from components.pathfinding.target_evaluation.hordeling_target_evaluator import HordelingTargetEvaluator
-from components.stomach import Stomach
 from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
@@ -44,7 +43,6 @@ def make_sneaker(x, y):
         Move(entity=entity_id),
         PathfinderCost(entity=entity_id, cost=5),
         StealthyCostMapper(entity=entity_id),
-        Stomach(entity=entity_id),
         HordelingTargetEvaluator(entity=entity_id)
     ]
 

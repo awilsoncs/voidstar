@@ -26,7 +26,6 @@ from components.material import Material
 from components.movement.move import Move
 from components.movement.heal_on_dally import HealOnDally
 from components.movement.pickup_gold import PickupGoldOnStep
-from components.target_value import PLAYER, TargetValue
 from engine import PLAYER_ID, palettes
 from engine.components.entity import Entity
 
@@ -45,7 +44,6 @@ def make_player(x, y):
             PlayerBrain(entity=entity_id),
             Attributes(entity=entity_id, hp=5, max_hp=5),
             StandardAttack(entity=entity_id, damage=1),
-            TargetValue(entity=entity_id, value=PLAYER),
             Faction(entity=entity_id, faction=Faction.Options.PEASANT),
             Material(entity=entity_id, blocks=True, blocks_sight=False),
             Move(entity=entity_id),

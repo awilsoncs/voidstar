@@ -3,10 +3,7 @@ from dataclasses import dataclass
 from components import Coordinates
 from engine.components.energy_actor import EnergyActor
 from components.brains.brain import Brain
-from components.events.peasant_events import PeasantDied
-from components.stomach import Stomach
 from content.states import sleep_animation
-from engine import core, constants
 from engine.core import log_debug
 
 
@@ -25,12 +22,3 @@ class SleepingBrain(Brain):
             self.back_out(scene)
         else:
             self.turns -= 1
-
-    def _on_back_out(self, scene):
-        stomach = scene.cm.get_one(Stomach, entity=self.entity)
-        if stomach:
-            if stomach.contents != constants.INVALID:
-                self._log_debug(f"digested the peasant")
-                scene.warn("A peasant has been lost!")
-                scene.cm.add(PeasantDied(entity=core.get_id("world")))
-            stomach.clear(scene)

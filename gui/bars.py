@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from components import Attributes
 from components.abilities.thwack_ability import ThwackAbility
 from components.brains.dizzy_brain import DizzyBrain
-from components.population import Population
 from components.tags.hordeling_tag import HordelingTag
 from components.tags.peasant_tag import PeasantTag
 from engine import palettes, PLAYER_ID, core
@@ -48,18 +47,6 @@ class HealthBar(Bar):
             self.max_value = player_health.max_hp
         else:
             self.value = 0
-
-
-@dataclass
-class PeasantBar(Bar):
-    symbol: str = 'p'
-    fg_color: tuple = palettes.WHITE
-    mg_color: tuple = palettes.GABRIEL_2_1
-
-    def update(self, scene):
-        population = scene.cm.get_one(Population, entity=core.get_id("world"))
-        self.value = population.population
-        self.max_value = population.population
 
 
 @dataclass

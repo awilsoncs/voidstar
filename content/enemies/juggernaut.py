@@ -11,7 +11,6 @@ from components.material import Material
 from components.movement.move import Move
 from components.pathfinding.juggernaut_cost_mapper import StraightLineCostMapper
 from components.pathfinding.target_evaluation.hordeling_target_evaluator import HordelingTargetEvaluator
-from components.stomach import Stomach
 from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
@@ -37,8 +36,7 @@ def make_juggernaut(x, y):
         Move(entity=entity_id, energy_cost=EnergyActor.VERY_SLOW),
         KnockbackAttack(entity=entity_id),
         PathfinderCost(entity=entity_id, cost=5),
-        HordelingTargetEvaluator(entity=entity_id),
-        Stomach(entity=entity_id)
+        HordelingTargetEvaluator(entity=entity_id)
     ]
 
     if random.randint(1, 10) == 10:
