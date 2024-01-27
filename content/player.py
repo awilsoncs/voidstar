@@ -26,12 +26,11 @@ from components.material import Material
 from components.movement.move import Move
 from components.season_reset_listeners.move_player_to_town_center import MovePlayerToTownCenter
 from components.season_reset_listeners.save_on_season import SaveOnSeasonReset
-from components.movement.drain_on_enter import DrainOnEnter
 from components.movement.heal_on_dally import HealOnDally
 from components.movement.pickup_gold import PickupGoldOnStep
 from components.target_value import PLAYER, TargetValue
 from engine import PLAYER_ID, palettes
-from components.base_components.entity import Entity
+from engine.components.entity import Entity
 
 
 def make_player(x, y):

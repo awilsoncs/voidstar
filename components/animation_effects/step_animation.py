@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import List
 
 from components import Appearance
-from components.base_components.timed_actor import TimedActor
+from engine.components.timed_actor import TimedActor
 from components.events.delete_event import Delete
 
 

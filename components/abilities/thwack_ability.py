@@ -7,7 +7,7 @@ from components.animation_effects.blinker import AnimationBlinker
 from components.brains.brain import Brain
 from components.brains.dizzy_brain import DizzyBrain
 from engine import palettes
-from components.base_components.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.actions.attack_action import AttackAction
 from content.attacks import thwack_animation, thwack_dizzy_animation
 from systems.utilities import get_enemies_in_range

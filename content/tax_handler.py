@@ -2,7 +2,7 @@ from components.season_reset_listeners.collect_taxes_for_king import CollectTaxe
 from components.season_reset_listeners.collect_taxes import CollectTaxes
 from components.season_reset_listeners.extract_contract_fees import ExtractContractFees
 from engine import core
-from components.base_components.entity import Entity
+from engine.components.entity import Entity
 
 
 def make_tax_handler():

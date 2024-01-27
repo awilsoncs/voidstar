@@ -5,10 +5,10 @@ import tcod
 import settings
 from components import Coordinates
 from components.brains.brain import Brain
-from components.base_components.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.enums import Intention
 from engine import constants, core
-from components.base_components.entity import Entity
+from engine.components.entity import Entity
 
 
 @dataclass

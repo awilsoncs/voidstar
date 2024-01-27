@@ -2,7 +2,7 @@ from abc import abstractmethod
 from dataclasses import dataclass
 
 from engine import GameScene
-from components.base_components.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from engine.core import log_debug
 
 

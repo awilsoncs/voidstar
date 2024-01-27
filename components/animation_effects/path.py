@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 from components import Coordinates
-from components.base_components.timed_actor import TimedActor
+from engine.components.timed_actor import TimedActor
 from components.path_node import PathNode
 
 

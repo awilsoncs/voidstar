@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import List, Tuple
 
 from content.breadcrumb import make_breadcrumb
-from components.base_components.component import Component
+from engine.components.component import Component
 
 
 @dataclass

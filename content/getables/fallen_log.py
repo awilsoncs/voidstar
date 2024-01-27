@@ -1,5 +1,5 @@
 from components import Appearance, Coordinates
-from components.base_components.entity import Entity
+from engine.components.entity import Entity
 from components.material import Material
 from components.pickup_gold import GoldPickup
 from engine import core, palettes

@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Dict
 
-from components.base_components.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.world_building.world_parameters import WorldParameters
 from engine import palettes, core
 

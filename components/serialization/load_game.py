@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from components.base_components.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from engine import palettes, core
 
 

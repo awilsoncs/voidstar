@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from components.base_components.events import Event
-from components.base_components.component import Component
+from engine.components.events import Event
+from engine.components.component import Component
 
 
 class AttackStartListener(Component, ABC):

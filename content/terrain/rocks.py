@@ -8,8 +8,8 @@ from components.material import Material
 from components.states.move_cost_affectors import DifficultTerrain
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
-from components.base_components.component import Component
-from components.base_components.entity import Entity
+from engine.components.component import Component
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_LOWEST
 
 

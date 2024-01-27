@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from typing import Tuple
 
 from components import Coordinates
-from components.base_components.component import Component
-from components.base_components.events import Event
+from engine.components.component import Component
+from engine.components.events import Event
 from engine import GameScene, constants
 
 

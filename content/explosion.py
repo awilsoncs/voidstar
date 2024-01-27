@@ -2,8 +2,8 @@ from typing import List
 
 from components import Coordinates, Appearance
 from components.animation_effects.step_animation import StepAnimation
-from components.base_components.component import Component
-from components.base_components.entity import Entity
+from engine.components.component import Component
+from engine.components.entity import Entity
 from engine import core, palettes
 from engine.constants import PRIORITY_LOW
 

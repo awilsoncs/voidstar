@@ -11,12 +11,11 @@ from components.material import Material
 from components.movement.move import Move
 from components.pathfinding.stealthy_cost_map import StealthyCostMapper
 from components.pathfinding.target_evaluation.hordeling_target_evaluator import HordelingTargetEvaluator
-from components.movement.drain_on_enter import DrainOnEnter
 from components.stomach import Stomach
 from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
-from components.base_components.entity import Entity
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 
 description = "This shadowy creature lurks just out of sight."

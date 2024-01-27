@@ -4,8 +4,8 @@ from enum import Enum
 
 import settings
 from components import Coordinates
-from components.actors import STEPS, VECTOR_STEP_MAP, STEP_VECTOR_MAP
-from components.base_components.energy_actor import EnergyActor
+from components.actors import STEPS, STEP_VECTOR_MAP
+from engine.components.energy_actor import EnergyActor
 from components.brains.brain import Brain
 from components.enums import Intention
 from components.pathfinding.cost_mapper import CostMapper

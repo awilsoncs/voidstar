@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 import settings
-from components.base_components.component import Component
+from engine.components.component import Component
 
 
 @dataclass

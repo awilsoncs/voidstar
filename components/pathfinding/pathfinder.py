@@ -3,7 +3,7 @@ from typing import List
 
 import tcod
 
-from components.base_components.component import Component
+from engine.components.component import Component
 
 
 @dataclass

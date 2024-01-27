@@ -15,8 +15,8 @@ from components.relationships.residence import Residence
 from components.tags.peasant_tag import PeasantTag
 from components.target_value import PEASANT, TargetValue
 from engine import core, palettes
-from components.base_components.component import Component
-from components.base_components.entity import Entity
+from engine.components.component import Component
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 from engine.types import EntityId
 

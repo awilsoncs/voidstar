@@ -5,7 +5,7 @@ import tcod
 
 import settings
 from components import Coordinates
-from components.base_components.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.brains.brain import Brain
 from components.enums import Intention
 from engine import constants, core

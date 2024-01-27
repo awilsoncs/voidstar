@@ -3,7 +3,7 @@ from typing import Tuple
 import numpy as np
 
 import settings
-from components.base_components.class_register import LoadClasses
+from engine.components.class_register import LoadClasses
 from components.population import Population
 from components.world_building.set_worldbuilder_params import SelectBiome
 from components.events.start_game_events import StartGame

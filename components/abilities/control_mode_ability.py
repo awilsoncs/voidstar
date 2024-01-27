@@ -1,5 +1,4 @@
 from abc import abstractmethod, ABC
-from collections import Callable
 from dataclasses import dataclass
 
 from components.abilities.ability import Ability
@@ -23,7 +22,7 @@ class ControlModeAbility(Ability, ABC):
         scene.cm.add(new_controller, blinker)
 
     @abstractmethod
-    def get_mode(self) -> Callable:
+    def get_mode(self):
         pass
 
     @abstractmethod

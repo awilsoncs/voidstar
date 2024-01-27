@@ -10,7 +10,7 @@ from components.pathfinder_cost import PathfinderCost
 from components.pathfinding.target_evaluation.ally_target_evaluator import AllyTargetEvaluator
 from components.tax_value import TaxValue
 from engine import core, palettes
-from components.base_components.entity import Entity
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 
 

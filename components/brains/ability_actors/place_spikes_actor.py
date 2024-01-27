@@ -2,8 +2,7 @@ from dataclasses import dataclass
 from typing import Tuple, List
 
 from components.brains.ability_actors.place_thing_actor import PlaceThingActor
-from content.farmsteads.defensive_walls import make_fence
-from components.base_components.component import Component
+from engine.components.component import Component
 from content.spike_trap import make_spike_trap
 
 

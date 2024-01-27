@@ -6,14 +6,14 @@ import tcod
 import settings
 from components import Coordinates
 from components.brains.brain import Brain
-from components.base_components.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.events.die_events import Die
 from components.enums import Intention
 from components.diggable import Diggable
 from content.terrain.dirt import make_dirt
 from content.terrain.hole import make_hole
 from engine import core, palettes
-from components.base_components.entity import Entity
+from engine.components.entity import Entity
 
 
 @dataclass

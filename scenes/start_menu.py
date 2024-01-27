@@ -12,6 +12,6 @@ def get_start_menu():
     option_map['Load Game'] = LoadMenuScene()
     option_map['Quit'] = QuitScene()
     return NavigationMenuScene(
-        title="Oh No! It's THE HORDE!",
+        title="Voidstar",
         option_scene_map=option_map,
     )

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from components.base_components.component import Component
+from engine.components.component import Component
 from engine import palettes
 
 
@@ -9,8 +9,11 @@ from engine import palettes
 class Appearance(Component):
     """Define an entity's base appearance."""
     class RenderMode(str, Enum):
+        # entity appears dimmed in hidden areas
         NORMAL = 'NORMAL'
+        # entity appears as normal even in hidden areas, e.g. cursors
         HIGH_VEE = 'HIGH_VEE'
+        # entity does not appear at all in hidden areas
         STEALTHY = 'STEALTHY'
 
     symbol: str = ' '

@@ -3,7 +3,7 @@ import json
 import logging
 
 from engine import core
-from components.base_components.component import Component
+from engine.components.component import Component
 
 
 class EnhancedJSONEncoder(json.JSONEncoder):
@@ -73,6 +73,6 @@ def _load_from_data(data, loadable_classes):
 
 
 def _gather_loadable_classes():
-    """Read the base_components directory to discover loadable base_components."""
+    """Read the components directory to discover loadable components."""
     # ignore this mess
     return Component.subclasses

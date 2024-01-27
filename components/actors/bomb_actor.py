@@ -3,7 +3,7 @@ from typing import List
 
 from components import Coordinates, Attributes
 from components.actions.attack_action import AttackAction
-from components.base_components.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.events.die_events import Die
 from content.explosion import make_explosion
 from content.states import character_animation

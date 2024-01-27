@@ -2,7 +2,7 @@ from components import Appearance, Coordinates
 from components.material import Material
 from components.movement.die_on_enter import DieOnEnter
 from engine import palettes, core
-from components.base_components.entity import Entity
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_LOWEST
 
 

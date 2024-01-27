@@ -2,7 +2,7 @@ import random
 from dataclasses import dataclass
 
 from components.events.hole_dug_events import HoleDug
-from components.base_components.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.events.attack_started_events import AttackStartListener
 from components.season_reset_listeners.seasonal_actor import SeasonResetListener
 from components.tags.ice_tag import IceTag

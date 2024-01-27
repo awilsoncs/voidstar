@@ -109,3 +109,7 @@ venv.bak/
 savegame.bak
 savegame.dat
 savegame.dir
+
+**/*.world
+options.yaml
+/.log

@@ -4,7 +4,7 @@ import settings
 from components import Coordinates, Attributes
 from components.material import Material
 from components.pathfinding.cost_mapper import CostMapper
-from components.base_components.entity import Entity
+from engine.components.entity import Entity
 
 
 class StraightLineCostMapper(CostMapper):

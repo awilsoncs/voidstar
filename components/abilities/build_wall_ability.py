@@ -1,4 +1,4 @@
-from collections import Callable
+from typing import Callable
 from dataclasses import dataclass
 
 from components.abilities.control_mode_ability import ControlModeAbility

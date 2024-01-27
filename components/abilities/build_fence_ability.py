@@ -1,4 +1,3 @@
-from collections import Callable
 from dataclasses import dataclass
 
 from components.abilities.control_mode_ability import ControlModeAbility
@@ -12,7 +11,7 @@ class BuildFenceAbility(ControlModeAbility):
     unlock_cost: int = 100
     use_cost: int = 5
 
-    def get_mode(self) -> Callable:
+    def get_mode(self):
         return PlaceFenceActor
 
     def get_anim(self):

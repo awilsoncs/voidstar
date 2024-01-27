@@ -1,5 +1,5 @@
 from components import Coordinates
-from components.base_components.actor import Actor
+from engine.components.actor import Actor
 from components.events.turn_event import TurnEvent
 from components.faction import Faction
 from components.material import Material

@@ -1,6 +1,6 @@
 import random
 from components import Appearance, Attributes, Coordinates
-from components.base_components.energy_actor import EnergyActor
+from engine.components.energy_actor import EnergyActor
 from components.brains.default_active_actor import DefaultActiveActor
 from components.attacks.attack_effects.knockback_attack import KnockbackAttack
 from components.attacks.siege_attack import SiegeAttack
@@ -11,12 +11,11 @@ from components.material import Material
 from components.movement.move import Move
 from components.pathfinding.juggernaut_cost_mapper import StraightLineCostMapper
 from components.pathfinding.target_evaluation.hordeling_target_evaluator import HordelingTargetEvaluator
-from components.movement.drain_on_enter import DrainOnEnter
 from components.stomach import Stomach
 from components.tags.hordeling_tag import HordelingTag
 from components.pathfinder_cost import PathfinderCost
 from engine import core, palettes
-from components.base_components.entity import Entity
+from engine.components.entity import Entity
 from engine.constants import PRIORITY_MEDIUM
 
 
