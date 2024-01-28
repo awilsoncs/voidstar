@@ -23,8 +23,8 @@ class PlaceRocks(BuildWorldListener):
         self._log_info(f"placing rock fields in town...")
         world_settings = scene.cm.get_one(WorldParameters, entity=core.get_id("world"))
         for _ in range(world_settings.rock_fields):
-            x = random.randint(0, settings.MAP_WIDTH - 1)
-            y = random.randint(0, settings.MAP_HEIGHT - 1)
+            x = random.randint(0, settings.MAP_FRAME_WIDTH - 1)
+            y = random.randint(0, settings.MAP_FRAME_HEIGHT - 1)
             coords = {(coord.x, coord.y) for coord in scene.cm.get(Coordinates)}
             if (x, y) not in coords:
                 self.add_rock_field(scene, x, y)
@@ -42,7 +42,7 @@ class PlaceRocks(BuildWorldListener):
                 for _x, _y in get_3_by_3_box(working_x, working_y)
                 if (
                         random.random() <= world_settings.rocks_proliferation
-                        and 0 < _x < settings.MAP_WIDTH - 1
-                        and 0 < _y < settings.MAP_HEIGHT - 1
+                        and 0 < _x < settings.MAP_FRAME_WIDTH - 1
+                        and 0 < _y < settings.MAP_FRAME_HEIGHT - 1
                 )
             ]

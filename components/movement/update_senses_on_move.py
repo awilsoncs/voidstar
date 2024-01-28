@@ -25,7 +25,7 @@ class UpdateSenses(StepListener, GameStartListener, TerrainChangedListener, Atta
 
     def refresh_fov(self, scene):
         mob = scene.cm.get_one(Coordinates, entity=self.entity)
-        transparency = np.ones((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
+        transparency = np.ones((settings.MAP_FRAME_WIDTH, settings.MAP_FRAME_HEIGHT), order='F', dtype=bool)
         materials = scene.cm.get(Material, query=lambda m: m.blocks_sight)
         for material in materials:
             coords = scene.cm.get_one(Coordinates, entity=material.entity)

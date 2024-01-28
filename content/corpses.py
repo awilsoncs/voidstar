@@ -43,7 +43,7 @@ def make_blood_splatter(count, x, y, color):
         x2 = x + int(random.triangular(-count, 0, count))
         y2 = y + int(random.triangular(-count, 0, count))
 
-        if 0 < x2 < settings.MAP_WIDTH and 0 < y2 < settings.MAP_HEIGHT:
+        if 0 < x2 < settings.MAP_FRAME_WIDTH and 0 < y2 < settings.MAP_FRAME_HEIGHT:
             pools += make_blood_pool(x2, y2, color)[1]
     return pools
 

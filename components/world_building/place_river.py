@@ -13,8 +13,8 @@ class PlaceRiver(BuildWorldListener):
     def on_build_world(self, scene):
         self._log_info(f"placing river")
         cost = SimplexCostMapper().get_cost_map(scene)
-        start = (random.randint(2, settings.MAP_WIDTH-3), 0)
-        end = (random.randint(2, settings.MAP_WIDTH-3), settings.MAP_HEIGHT-1)
+        start = (random.randint(2, settings.MAP_FRAME_WIDTH - 3), 0)
+        end = (random.randint(2, settings.MAP_FRAME_WIDTH - 3), settings.MAP_FRAME_HEIGHT - 1)
         river = Pathfinder().get_path(cost, start, end, diagonal=0)
         if not river:
             self._log_warning(f"could not find a path for river")

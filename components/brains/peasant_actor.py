@@ -67,8 +67,8 @@ class PeasantActor(Brain):
                     STEP_VECTOR_MAP[step][1] + coords.position[1]
                 )
                 if (
-                        0 <= new_position[0] < settings.MAP_WIDTH
-                        and 0 <= new_position[1] < settings.MAP_HEIGHT
+                        0 <= new_position[0] < settings.MAP_FRAME_WIDTH
+                        and 0 <= new_position[1] < settings.MAP_FRAME_HEIGHT
                 ):
                     step_cost = (step, cost_map[new_position[0], new_position[1]])
                     step_costs.append(step_cost)

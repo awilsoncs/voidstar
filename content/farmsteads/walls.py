@@ -14,7 +14,7 @@ from engine.types import EntityId
 description = "A wall, made of a light, grassy material. Be wary, it's highly flammable."
 
 
-def make_wall(root_id, x, y, piece='um') -> types.Entity:
+def make_wall(root_id, x, y, piece='um'):
     entity_id: EntityId = core.get_id()
     glyph = piece_map[piece]
 

@@ -79,8 +79,8 @@ class DigHoleActor(Brain):
 
 
 def _in_bounds(x, y):
-    in_x_bounds = 0 <= x <= settings.MAP_WIDTH - 1
-    in_y_bounds = 0 <= y <= settings.MAP_HEIGHT - 1
+    in_x_bounds = 0 <= x <= settings.MAP_FRAME_WIDTH - 1
+    in_y_bounds = 0 <= y <= settings.MAP_FRAME_HEIGHT - 1
     return in_y_bounds and in_x_bounds
 
 

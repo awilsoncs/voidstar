@@ -41,15 +41,15 @@ def get_wall_coords():
         [
             (get_random_width_location(), 0),
             (0, get_random_height_location()),
-            (settings.MAP_WIDTH - 1, get_random_height_location()),
-            (get_random_width_location(), settings.MAP_HEIGHT - 1)
+            (settings.MAP_FRAME_WIDTH - 1, get_random_height_location()),
+            (get_random_width_location(), settings.MAP_FRAME_HEIGHT - 1)
         ]
     )
 
 
 def get_random_width_location():
-    return random.randrange(1, settings.MAP_WIDTH - 1)
+    return random.randrange(1, settings.MAP_FRAME_WIDTH - 1)
 
 
 def get_random_height_location():
-    return random.randrange(1, settings.MAP_HEIGHT - 1)
+    return random.randrange(1, settings.MAP_FRAME_HEIGHT - 1)

@@ -22,7 +22,7 @@ def make_world_build():
             BuildWorld(entity=entity_id),
             AddPlayerStep(entity=entity_id),
             PlaceLakes(entity=entity_id),
-            PlaceRiver(entity=entity_id),
+            # PlaceRiver(entity=entity_id),
             # PlaceRoads(entity=entity_id),
             PlaceTrees(entity=entity_id),
             PlaceRocks(entity=entity_id),

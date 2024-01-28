@@ -9,5 +9,5 @@ from content.player import make_player
 class AddPlayerStep(BuildWorldListener):
     def on_build_world(self, scene):
         self._log_info(f"adding player to map")
-        player = make_player(settings.MAP_HEIGHT // 2, settings.MAP_WIDTH // 2)
+        player = make_player(settings.MAP_FRAME_HEIGHT // 2, settings.MAP_FRAME_WIDTH // 2)
         scene.cm.add(*player[1])

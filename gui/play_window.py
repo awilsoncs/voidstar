@@ -11,7 +11,7 @@ from engine import palettes
 from engine.component_manager import ComponentManager
 from engine.core import timed
 from gui.gui_element import GuiElement
-from settings import MAP_HEIGHT, MAP_WIDTH
+from settings import MAP_FRAME_HEIGHT, MAP_FRAME_WIDTH
 
 
 class PlayWindow(GuiElement):
@@ -101,8 +101,8 @@ class PlayWindow(GuiElement):
 
     def regenerate_grass(self):
         memory_color = palettes.SHADOW
-        for y in range(MAP_HEIGHT):
-            for x in range(MAP_WIDTH):
+        for y in range(MAP_FRAME_HEIGHT):
+            for x in range(MAP_FRAME_WIDTH):
                 grass_color = palettes.GRASS
 
                 if random.random() < settings.GRASS_DENSITY:
@@ -122,7 +122,7 @@ class PlayWindow(GuiElement):
                 )
 
     def add_snow(self):
-        all_tiles = set(product(range(1, settings.MAP_WIDTH-1), range(1, settings.MAP_HEIGHT-1)))
+        all_tiles = set(product(range(1, settings.MAP_FRAME_WIDTH - 1), range(1, settings.MAP_FRAME_HEIGHT - 1)))
         unsnowed = all_tiles - self.snowy
         if not unsnowed:
             return

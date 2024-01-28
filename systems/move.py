@@ -128,8 +128,8 @@ def can_step(scene, entity, step_action) -> bool:
 
 def in_bounds(point):
     return (
-        point[0] in range(settings.MAP_WIDTH)
-        and point[1] in range(settings.MAP_HEIGHT)
+        point[0] in range(settings.MAP_FRAME_WIDTH)
+        and point[1] in range(settings.MAP_FRAME_HEIGHT)
     )
 
 

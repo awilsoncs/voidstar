@@ -31,13 +31,13 @@ class DefendScene(GameScene):
         self.player = PLAYER_ID
 
         # track tiles the player has seen
-        self.memory_map = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
-        self.visibility_map = np.zeros((settings.MAP_WIDTH, settings.MAP_HEIGHT), order='F', dtype=bool)
+        self.memory_map = np.zeros((settings.MAP_FRAME_WIDTH, settings.MAP_FRAME_HEIGHT), order='F', dtype=bool)
+        self.visibility_map = np.zeros((settings.MAP_FRAME_WIDTH, settings.MAP_FRAME_HEIGHT), order='F', dtype=bool)
         self.messages = []
 
         # build out the gui
         self.play_window = PlayWindow(
-            25, 0, settings.MAP_WIDTH, settings.MAP_HEIGHT,
+            25, 0, settings.MAP_FRAME_WIDTH, settings.MAP_FRAME_HEIGHT,
             self.cm, self.visibility_map
             , self.memory_map
         )

@@ -9,7 +9,7 @@ from engine.components.entity import Entity
 
 class StraightLineCostMapper(CostMapper):
     def get_cost_map(self, scene):
-        size = (settings.MAP_WIDTH, settings.MAP_HEIGHT)
+        size = (settings.MAP_FRAME_WIDTH, settings.MAP_FRAME_HEIGHT)
         cost = np.ones(size, dtype=np.int8, order='F')
 
         points = scene.cm.get(Coordinates)

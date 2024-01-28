@@ -10,7 +10,7 @@ from engine.utilities import get_3_by_3_box
 
 
 def get_town_center(house_coords, scene):
-    return settings.MAP_WIDTH // 2, settings.MAP_HEIGHT // 2
+    return settings.MAP_FRAME_WIDTH // 2, settings.MAP_FRAME_HEIGHT // 2
 
 
 def add_town_center(house_coords, scene):
@@ -33,7 +33,7 @@ class PlaceRoads(BuildWorldListener):
 
     def draw_road_across_map(self, scene):
         self._log_info(f"placing highway")
-        start = (0, random.randint(2, settings.MAP_WIDTH-3))
+        start = (0, random.randint(2, settings.MAP_FRAME_WIDTH - 3))
         connect_point_to_road_network(scene, start)
-        end = (settings.MAP_WIDTH-1, random.randint(2, settings.MAP_HEIGHT-3))
+        end = (settings.MAP_FRAME_WIDTH - 1, random.randint(2, settings.MAP_FRAME_HEIGHT - 3))
         connect_point_to_road_network(scene, end)

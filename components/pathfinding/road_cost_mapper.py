@@ -8,7 +8,7 @@ from components.tags.water_tag import WaterTag
 
 class RoadCostMapper(CostMapper):
     def get_cost_map(self, scene):
-        size = (settings.MAP_WIDTH, settings.MAP_HEIGHT)
+        size = (settings.MAP_FRAME_WIDTH, settings.MAP_FRAME_HEIGHT)
         cost = np.ones(size, dtype=np.uint16, order='F')
         for coord in scene.cm.get(Coordinates):
             if scene.cm.get_one(Attributes, entity=coord.entity):
